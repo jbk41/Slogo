@@ -1,3 +1,10 @@
+## Net-IDS
+* aam79
+* jbk41
+* bh179
+* sk531
+
+## Api Critique
 writeGameConfig, writeCellConfig, and writeParameters should remain public because 
 that is how the backend (a separate package) creates the XML files. The only 
 way that could happen is by keeping these methods public. 
@@ -19,7 +26,7 @@ inputs through writeGameConfig, writeCellConfig, and write Parameters. These sho
 private because we need to encapsulate the inner workings of the code from other packages
 so other methods do not mess up with the logic of the XML class. 
 
-SLogo Architecture Design 
+## SLogo Architecture Design 
 1. Parsing needs happen when the front end recieves a string which 
     user input. The front end takes this user input and passes it 
     to the backend. The backend should have a method that parses through
@@ -31,4 +38,10 @@ SLogo Architecture Design
 3. The errors are detected through the parsing methods provided by the 
     backend. We would do a try catch method when passing in the strings
     and we could catch a wrongly formatted input strings. 
-4. User types in a command and 
+4. User types in a command and the parser reads it and sends it to back     
+   end where the turtle is updated, sent back to frond end where screen is 
+    then updated.
+5.  The GUI is updated by accessing history and then updating the turtle. 
+
+
+
