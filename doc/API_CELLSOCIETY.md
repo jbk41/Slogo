@@ -19,3 +19,16 @@ inputs through writeGameConfig, writeCellConfig, and write Parameters. These sho
 private because we need to encapsulate the inner workings of the code from other packages
 so other methods do not mess up with the logic of the XML class. 
 
+SLogo Architecture Design 
+1. Parsing needs happen when the front end recieves a string which 
+    user input. The front end takes this user input and passes it 
+    to the backend. The backend should have a method that parses through
+    this input string and spits out an instruction for the turtle to
+    do. The front end takes the instruction and moves the turtle 
+    on the front end. 
+2. The result of the parsing should be an instruction that updates 
+    visualization. 
+3. The errors are detected through the parsing methods provided by the 
+    backend. We would do a try catch method when passing in the strings
+    and we could catch a wrongly formatted input strings. 
+4. User types in a command and 
