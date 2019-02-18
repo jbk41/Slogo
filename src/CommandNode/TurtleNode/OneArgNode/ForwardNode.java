@@ -1,4 +1,4 @@
 package CommandNode.TurtleNode.OneArgNode;
 
-public class X {
+public class ForwardNode {
 }
