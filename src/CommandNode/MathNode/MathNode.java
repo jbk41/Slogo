@@ -1,4 +1,6 @@
 package CommandNode.MathNode;
 
-public class MathNode {
+import CommandNode.Node;
+
+public class MathNode extends Node {
 }

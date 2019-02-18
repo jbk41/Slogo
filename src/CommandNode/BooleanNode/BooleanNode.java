@@ -1,4 +1,6 @@
 package CommandNode.BooleanNode;
 
-public class BooleanNode {
+import CommandNode.Node;
+
+public class BooleanNode extends Node {
 }
