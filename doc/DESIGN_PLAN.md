@@ -1,24 +1,35 @@
-Introduction
-The problem 
-
-Design Overview
+**Introduction**
+We are trying to create an IDE so that users can write SLogo programs and run lines of code to manipulate the movement of an object, in this case, a turtle, on the screen. This program will also be able to process and output results from various mathematical commands, in different languages as well. We want to make sure that from the backend, it is most flexible where we add and interpret the commands. If new commands were to be added, we can easily add those features on top of our existing classes. Additionally, the frontend should be able to easily customize the IDE, For example, the shape and size of the turtle or the background color should be very flexible. This can be done by separating out these design elements into separate classes. Frontend and backend should generally be closed off from each other. The frontend and backend deal with different concepts of the program, thus they should do their logic within their own classes. The frontend receives text from user and methods from backend to move the turtle. The backend analyzes the text. 
+**Design Overview**
+We will be organizing our APIs, on a high level, as so: one for the front end, one for the back end, one for communication from the front end to the back end, and another to communicate from the back end to the front end.  As constant communication is needed between the front end and back end, we found that such a design would best best from an organization and encapsulation standpoint. The internal front end API will process inputs from the user and then use methods from the external API to communicate with the back end.  This information is then processed by the back end with this internal API, and the information is then sent back to the front end the other external API.  There will be various “send” methods in the external APIs to maintain communication between the internal classes.
 This section serves as a map of your design for other programmers to gain a general understanding of how and why the program was divided up, and how the individual parts work together to provide the desired functionality. Describe the four APIs you intend to create (their purpose with regards to the program's functionality, and how they collaborate with each other) focusing specifically on the behavior, not the internal state. Include a picture of how the components are related (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a UML design program). Discuss specific classes, methods, and data structures, but not individual lines of code.
-
-User Interface
-This section describes how the user will interact with your program (keep it simple to start). Describe the overall appearance of program's user interface components and how users interact with these components (especially those specific to your program, i.e., means of input other than menus or toolbars). Include one or more pictures of the user interface (these pictures can be hand drawn and scanned in, created with a standard drawing program, or screen shots from a dummy program that serves as a exemplar). Describe any erroneous situations that are reported to the user (i.e., bad input data, empty data, etc.).
-
-API Details 
-This section describes each API introduced in the Overview in detail. Describe how each API supports specific features given in the assignment specification, what resources it might use, how it is intended to be used, and how it could be extended to include additional requirements (from the assignment specification or discussed by your team). Finally, justify the decision to create each class introduced with respect to the design's key goals, principles, and abstractions. Your APIs should be written as Java interfaces, types that cannot contain instance variables or private methods, in appropriate packages. These should be Java code files that compile and contain extensive comments to explain the purpose of each interface and each method within the interface (note this code can be generated directly from a UML diagram). Include any Exceptions you plan to throw because of errors that might occur within your methods. Note, this does not require that all of these types will remain as interfaces in the final implementation, just that the goal is for you to focus on each type's behavior and purpose.
-
-API Example Code
-It is especially important in helping others understand how to use your APIs to provide example code. It should be clear from this code which objects are responsible for completing each part of the task, but you do not have to implement the called functions.
-Show an actual "sequence of code" that implements the following use case using only methods described in your APIs: 
-The user types 'fd 50' in the command window, and sees the turtle move in the display window leaving a trail, and the command is added to the environment's history.
-Note, clearly show the flow of calls to public methods needed to complete this example, indicating which class contains each method called. It is not necessary to understand exactly how parsing works in order to complete this example, just what the result of parsing the command will be.
-Additionally, each member of the team should create two use cases of their own (and example code) for the part of the project for which they intend to take responsibility. These can still be done as a group, but should represent a variety of areas of the overall project.
-
+**User Interface**
+For the user interface, we want to keep the design very simple because we know that this program was originally designed to help students who are not familiar with coding to get first hand experience with an IDE. 
+We will split the entire screen into two halves. The screen would be more rectangular with a long horizontal length. The right half would contain the area where the turtle will move. By default, we will have a small turtle set to the middle of that portion of the screen. 
+The left side of the screen is where the user will input and run code. The top 3/4ths of the screen here will be a text input box, where the user will input code. The bottom fourth of the window will be a console where users are able to print statements. On the top right corner of the left window, there will be a small play button that will allow users to run the code and then move the turtles. 
+When a user runs the code that has wrong syntax, there will be a popup, small window that displays the error message in red. For example, bad syntax will be reported as well as bad numbers that do not make sense. 
+**API Details **
+External 1: Between the front-end and back-end regarding the user input.
+The text that the user writes in the front end is passed to the backend
+Internal 1: Back end by itself.
+The text that the backend is received. It is then parsed and converted into a list of command objects.
+External 2: Between the back-end and front-end communication after internal 1.
+The list of command objects generated by internal 1 is passed to the front end.
+Internal 2: Front end by itself.
+The front end will read the list of commands and interpret them to display the turtle on the screen. This is shown directly to the user.
+**API Example Code**
+Work Flow
+text = “fd 50”  - User input forward 50 pixels. (External 1)
+command = textToCommand(text) - This method will create a command out of the text (internal 1)
+listOfCommands.add(command) - Add command to the list of commands (internal 1)
+commands = backend.getListOfCommands() - get list of command objects from backend (external 2).
+frontEnd.interpret(commands) - Front end reads the list of commands entry by entry and interprets them accordingly (internal 2)
+screen.update() -  to display them on the screen (internal 2)   
 Design Considerations 
-This section describes any issues which need to be addressed or resolved before attempting to devise a complete design solution. Include any design decisions that the group discussed at length (include pros and cons from all sides of the discussion) as well as any ambiguities, assumptions, or dependencies regarding the program that impact the overall design.
-
-Team Responsibilities
-This section describes the program components each team member plans to take primary and secondary responsibility for and a high-level plan of how the team will complete the program.
+Whether the backend or frontend should deal with updating the turtle. We thought that the backend could deal with everything and the frontend would only need to update screen, but then realized that that would be interfering with the role of each of the API’s. Therefore, we decided that the backend would only send a list of parsed commands to the front end. The front end would then use this list to update the turtle. 
+Pros: the back end doesn’t need to worry about the screen updating, or visualization. The front end also has more to work with, and not only the GUI visualization and user input. Back end and front end are more clearly separated. 
+Cons: Front end has to deal with actually moving the turtle and updating the screen. Backend and frontend development have to work together to understand how to interpret commands. If the backend controlled turtle movement, then all front end would have to do is ask backend to display() or update().
+Another thing we discussed but didn’t really argue about was having the back end present the commands list to the front end in a consistent and systematic format, such that the front end wouldn’t have to deal with changes in the future given more complex user inputs. In other words, we agreed that the backend would present the information as clear as possible such that the front end doesn’t need any modifications in the case of a more complicated set of user commands.
+**Team Responsibilities**
+1. Justin & Ale - Responsible for the backend, parsing the file and converting it into a list of commands that will be passed to the front end and can be easily interpreted.
+2. Mark & Bryant - Responsible for the front end, receiving user input, and passing it to the back end as a list of user commands. After the back end is done with parsing and organizing the commands in a readable and consistent fashion, they are in charge of using these commands to update the screen and the turtle.
