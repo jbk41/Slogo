@@ -1,4 +1,4 @@
 package CommandNode.TurtleNode.TOneArgNode;
 
-public class ForwardNode  {
+public class ForwardNode extends TOneArgNode {
 }

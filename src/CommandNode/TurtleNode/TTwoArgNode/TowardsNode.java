@@ -1,4 +1,4 @@
 package CommandNode.TurtleNode.TTwoArgNode;
 
-public class TowardsNode {
+public class TowardsNode extends TTwoArgNode {
 }

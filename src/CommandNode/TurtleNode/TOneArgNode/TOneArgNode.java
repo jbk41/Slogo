@@ -2,5 +2,5 @@ package CommandNode.TurtleNode.TOneArgNode;
 
 import CommandNode.TurtleNode.TurtleNode;
 
-public class OneArgNode extends TurtleNode {
+public class TOneArgNode extends TurtleNode {
 }

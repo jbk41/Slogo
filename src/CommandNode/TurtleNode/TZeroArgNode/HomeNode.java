@@ -1,4 +1,4 @@
 package CommandNode.TurtleNode.TZeroArgNode;
 
-public class HomeNode {
+public class HomeNode extends TZeroArgNode {
 }
