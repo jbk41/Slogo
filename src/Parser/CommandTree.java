@@ -25,9 +25,14 @@ public class CommandTree {
         insertHead();
         Node ptr = head;
         while (myTextIndex < myText.length){
-            if 
+            if
         }
 
+    }
+
+    public static void main(String[] args){
+        // Ale,
+        // do testing here. When you want to run, go to src and then right click on this file and hit run CommandTree.main()
     }
 
 }
