@@ -1,5 +1,6 @@
 package CommandNode;
 
+import CommandNode.MathNode.MTwoArgNode.SumNode;
 import CommandNode.TurtleNode.TOneArgNode.ForwardNode;
 
 import java.util.ArrayList;
@@ -42,16 +43,48 @@ public class NodeMaker {
         myMap.put("CS", new ClearNode());
         myMap.put("CLEARSCREEN", new ClearNode());
 
-        myMap.put("", new ());
-        myMap.put("", new ());
-        myMap.put("", new ());
-        myMap.put("", new ());
-        myMap.put("", new ());
+        //MATH COMMANDS
+        myMap.put("SUM", new SumNode());
+        myMap.put("+", new SumNode());
+        myMap.put("DIFFERENCE", new SubtractNode());
+        myMap.put("-", new SubtractNode());
+        myMap.put("PRODUCT", new ProductNode());
+        myMap.put("*", new ProductNode());
+        myMap.put("QUOTIENT", new QuotientNode());
+        myMap.put("/", new QuotientNode());
+        myMap.put("REMAINDER", new RemainderNode());
+        myMap.put("%", new RemainderNode());
+        myMap.put("MINUS", new NegativeNode());
+        myMap.put(`~`, new NegativeNdoe());
+        myMap.put("RANDOM", new RandomNode());
+        myMap.put("SIN", new TrigNode());
+        myMap.put("COS", new TrigNode());
+        myMap.put("TAN", new TrigNode());
+        myMap.put("ATAN", new TrigNode());
+        myMap.put("LOG", new LogNode());
+        myMap.put("POW", new PowerNode());
+        myMap.put("Pi", new PiNode());
 
+        //BOOLEAN COMMANDS
+        myMap.put("LESS?", new LessThanNode());
+        myMap.put("LESSP", new LessThanNode());
+        myMap.put("GREATER?", new GreaterThanNode());
+        myMap.put("GREATERP", new GreaterThanNode());
+        myMap.put("EQUAL?", new EqualToNode());
+        myMap.put("EQUALP", new EqualToNode());
+        myMap.put("NOTEQUAL?", new NotEqualToNode());
+        myMap.put("NOTEQUALP", new NotEqualToNode());
+        myMap.put("AND", new AndNode());
+        myMap.put("OR", new OrNode());
+        myMap.put("NOT", new NotNode());
 
-
-
-
-
+        //TURTLE QUERIES COMMANDS
+        myMap.put("XCOR", new XCorNode());
+        myMap.put("YCOR", new YCorNode());
+        myMap.put("HEADING", new HeadingNode());
+        myMap.put("PENDOWN?", new PenNode());
+        myMap.put("PENDOWNP", new PenNode());
+        myMap.put("SHOWING?", new ShowNode());
+        myMap.put("SHOWINGP", new ShowNode());
     }
 }
