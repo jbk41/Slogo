@@ -1,23 +1,25 @@
 package CommandNode;
 
-import CommandNode.MathNode.MTwoArgNode.SumNode;
+import CommandNode.MathNode.MathTwoArgNode.SumNode;
 import CommandNode.TurtleNode.TOneArgNode.ForwardNode;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 
 public class NodeMaker {
     private Map<String, Node> myMap;
 
-    public Node NodeMaker(String s) {
+    public NodeMaker() {
+        myMap = new Map<String, Node>;
         createMap();
+    }
+
+
+    public Node getNodeType(String s) {
         return myMap.get(s);
     }
 
     private void createMap() {
-        myMap = new Map<String, Node>;
-
         //TURTLE COMMANDS
         myMap.put("FD", new ForwardNode());
         myMap.put("FORWARD", new ForwardNode());
