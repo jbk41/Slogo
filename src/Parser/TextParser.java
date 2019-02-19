@@ -13,7 +13,7 @@ public class TextParser {
     }
 
 
-    private void interpret(){
+    protected void interpret(){
 
     }
 
