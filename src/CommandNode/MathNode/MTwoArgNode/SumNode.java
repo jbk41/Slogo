@@ -1,4 +1,12 @@
 package CommandNode.MathNode.MTwoArgNode;
 
-public class SumNode {
+import CommandNode.MathNode.MathTwoArgNode;
+import CommandNode.Node;
+
+public class SumNode extends MathTwoArgNode {
+
+    public void update(Node curr){
+
+    }
+
 }
