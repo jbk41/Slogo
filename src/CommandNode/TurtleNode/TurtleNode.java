@@ -1,4 +1,6 @@
 package CommandNode.TurtleNode;
 
-public class TurtleNode {
+import CommandNode.Node;
+
+public class TurtleNode extends Node {
 }
