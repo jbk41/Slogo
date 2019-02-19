@@ -1,34 +1,59 @@
 package Parser;
 
-import CommandNode.*;
-
-import CommandNode.Node;
+import CommandNode.NodeInterface;
 import CommandNode.NodeMaker;
 
-import java.util.ArrayList;
-
 public class CommandTree {
+    private String[] myText;
+    private int myTextIndex;
+    private NodeInterface head;
+    private NodeMaker myNM;
 
-//    private String[] myText;
-//    private int myTextIndex;
-//    private Node head;
-//    private NodeMaker myNM;
-//
-//    public CommandTree(String text){
-//        myText = text.split("\\s+");
-//        myNM = new NodeMaker();
-//        myTextIndex = 0;
-//    }
-//
-//    private void insertHead(){
-//        head = myNM.makeNode(myText[myTextIndex]);
-//        myTextIndex++;
-    private ArrayList<String> myText;
-    private ArrayList<String> myCharList;
-    private NodeMaker myMaker;
-    private Node head;
-    private Node root;
+    public CommandTree(String text){
+        myText = text.split("\\s+");
+        myNM = new NodeMaker();
+        myTextIndex = 0;
+    }
+    private void insertHead() {
+        head = myNM.makeNode(myText[myTextIndex]);
+        myTextIndex++;
+    }
 
+    protected void parse(){
+
+    }
+
+    private NodeInterface insert(NodeInterface root){
+        if (root == null){
+            return getNode();
+        }
+        int maxChildren = root.getMaxChildren();
+
+
+        int numChildren = root.getNumChildren();
+
+        if ((maxChildren == 2 || maxChildren == 1) && numChildren == 0){
+            root.left = insert(root.left);
+        }
+
+
+    }
+
+    private NodeInterface getNode(){
+        int temp = myTextIndex;
+        myTextIndex++;
+        return myNM.makeNode(myText[temp]);
+    }
+
+//
+
+    //private ArrayList<String> myText;
+    //private ArrayList<String> myCharList;
+    //private NodeMaker myMaker;
+    //private Node head;
+    //private Node root;
+
+    /*
     public CommandTree(String text){
         myText = makeList(text.split("\\s+"));
         myMaker = new NodeMaker();
@@ -37,25 +62,21 @@ public class CommandTree {
         myCharList = characterList();
         head = new Node(myText.get(0));
     }
+    */
 
-//    protected void parse(){
-//        insertHead();
-//        Node ptr = head;
-//        while (myTextIndex < myText.length){
-//            if
-//        }
-//    }
 
-    protected void parse(){}
+
 
 
     public static void main(String[] args){
         // Ale,
         // do testing here. When you want to run, go to src and then right click on this file and hit run CommandTree.main()
-        myText.remove(0);
-        makeTree(myText);
+        //myText.remove(0);
 
     }
+
+
+    /*
 
     protected Node addNode(Node curr, String val){
         if (curr == null) {
@@ -97,4 +118,5 @@ public class CommandTree {
         list.add("~");
         return list;
     }
+    */
 }
