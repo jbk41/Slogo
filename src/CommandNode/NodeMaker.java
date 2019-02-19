@@ -1,28 +1,18 @@
 package CommandNode;
 
-import CommandNode.MathNode.MathTwoArgNode.SumNode;
-import CommandNode.TurtleNode.TOneArgNode.ForwardNode;
+import CommandNode.OneArgNode.*;
+import CommandNode.TwoArgNode.*;
+
 
 import java.util.Map;
+import java.util.HashMap;
 
 
 public class NodeMaker {
-    private Map<String, Node> myMap;
-
-    public NodeMaker() {
-        myMap = new Map<String, Node>;
-        createMap();
-    }
-
-
-    public Node getNodeType(String s) {
-        return myMap.get(s);
-    }
-
-    private void createMap() {
-        //TURTLE COMMANDS
-        myMap.put("FD", new ForwardNode());
-        myMap.put("FORWARD", new ForwardNode());
+    static Map<String, NodeInterface> myMap = new HashMap<String, NodeInterface> (){{
+        myMap.put("FD", new ForwardNode("forward"));
+        myMap.put("FORWARD", new ForwardNode("forward"));
+        /*
         myMap.put("BK", new BackNode());
         myMap.put("BACK", new BackNode());
         myMap.put("LT", new TurnLeftNode());
@@ -44,10 +34,13 @@ public class NodeMaker {
         myMap.put("HOME", new HomeNode());
         myMap.put("CS", new ClearNode());
         myMap.put("CLEARSCREEN", new ClearNode());
+        */
 
+        myMap.put("SUM", new SumNode("sum"));
+        myMap.put("+", new SumNode("sum"));
         //MATH COMMANDS
-        myMap.put("SUM", new SumNode());
-        myMap.put("+", new SumNode());
+        /*
+
         myMap.put("DIFFERENCE", new SubtractNode());
         myMap.put("-", new SubtractNode());
         myMap.put("PRODUCT", new ProductNode());
@@ -66,6 +59,8 @@ public class NodeMaker {
         myMap.put("LOG", new LogNode());
         myMap.put("POW", new PowerNode());
         myMap.put("Pi", new PiNode());
+        */
+        /*
 
         //BOOLEAN COMMANDS
         myMap.put("LESS?", new LessThanNode());
@@ -88,5 +83,14 @@ public class NodeMaker {
         myMap.put("PENDOWNP", new PenNode());
         myMap.put("SHOWING?", new ShowNode());
         myMap.put("SHOWINGP", new ShowNode());
+        */
+    }};
+
+    public NodeMaker() {
     }
+
+    public NodeInterface makeNode(String s) {
+        return myMap.get(s);
+    }
+
 }
