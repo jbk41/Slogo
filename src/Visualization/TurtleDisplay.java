@@ -4,6 +4,8 @@ import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,10 +17,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
+import javafx.scene.shape.*;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class TurtleDisplay extends Pane{
         this.width = width;
         this.height = height;
         this.padding = padding;
-        canvas = new Canvas(getFixedWidth(width, padding), getFixedHeight(height, padding));
+        canvas = new Canvas(width, height);
         getChildren().add(canvas);
         setSizeOfRoot();
         setBackground(new Background(new BackgroundFill(BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -86,10 +85,9 @@ public class TurtleDisplay extends Pane{
         turtleImageView.setX(getPrefWidth() / 2);
         turtleImageView.setY(getPrefHeight() / 2);
     }
-
-    // need to work on calculating distance with degrees
     public void moveTurtle(int [][] movement){
         ArrayList<PathTransition> totalMovements = new ArrayList<>();
+        SequentialTransition sequentialTransition = new SequentialTransition();
         for(int[] tup : movement){
             int degrees = tup[0];
             int displacement = tup[1];
@@ -100,24 +98,19 @@ public class TurtleDisplay extends Pane{
             path.getElements().add(new LineTo(turtleXPosition() + newWidth, turtleYPosition() + newHeight));
             turtleImageView.setX(turtleImageView.getX() + newWidth);
             turtleImageView.setY(turtleImageView.getY() + newHeight);
-            path.setStroke(Color.RED);
-            path.setStrokeWidth(20);
             PathTransition pathTransition = createTransition(path);
             totalMovements.add(pathTransition);
         }
-        SequentialTransition sequentialTransition = new SequentialTransition();
         for(PathTransition movements: totalMovements){
             sequentialTransition.getChildren().add(movements);
         }
         sequentialTransition.play();
     }
     private double getXDisplacement(int degrees, int displacement){
-        double newY = Math.cos(degrees) * displacement;
-        return newY;
+        return Math.cos(degrees) * displacement;
     }
     private double getYDisplacement(int degrees, int displacement){
-        double newX = Math.sin(degrees) * displacement;
-        return newX;
+        return Math.sin(degrees) * displacement;
     }
 
     private PathTransition createTransition(Path path){
@@ -126,7 +119,25 @@ public class TurtleDisplay extends Pane{
         pathTransition.setPath(path);
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            double oldX;
+            double oldY;
+            @Override
+            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
+                double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+                double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
+                if(oldX == 0){
+                    oldX = x;
+                    oldY = y;
+                }
+                gc.setStroke(PEN_COLOR);
+                gc.setLineWidth(4);
+                gc.strokeLine(oldX, oldY, x, y);
+                oldX = x;
+                oldY = y;
+            }
+        });
         return pathTransition;
-
     }
 }
