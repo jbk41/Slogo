@@ -1,7 +1,7 @@
 package CommandNode.ZerArgNode;
-import CommandNode.NodeInterface;
+import CommandNode.Node;
 
-public class ZerNode extends NodeInterface {
+public class ZerNode extends Node {
 
     public ZerNode(String s){
         super(s);

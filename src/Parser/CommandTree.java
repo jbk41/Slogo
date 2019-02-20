@@ -20,23 +20,39 @@ public class CommandTree {
     }
 
     protected void parse(){
-
+        insertHead();
+        insert(head);
     }
+
 
     private NodeInterface insert(NodeInterface root){
         if (root == null){
             return getNode();
         }
+
         int maxChildren = root.getMaxChildren();
-
-
         int numChildren = root.getNumChildren();
 
         if ((maxChildren == 2 || maxChildren == 1) && numChildren == 0){
-            root.left = insert(root.left);
+            root.addChild();
+            root.setLeft(insert(root.getLeft()));
         }
 
+        if (maxChildren == 2 && numChildren == 0){
+            root.addChild();
+            root.setRight(insert(root.getRight()));
+        }
+        return null;
+    }
 
+
+    private void printPostorder(NodeInterface node)
+    {
+        if (node == null)
+            return;
+        printPostorder(node.getLeft());
+        printPostorder(node.getRight());
+        System.out.print(node.getName() + " ");
     }
 
     private NodeInterface getNode(){
@@ -69,10 +85,9 @@ public class CommandTree {
 
 
     public static void main(String[] args){
-        // Ale,
-        // do testing here. When you want to run, go to src and then right click on this file and hit run CommandTree.main()
-        //myText.remove(0);
-
+        CommandTree t = new CommandTree("+ + 1 2 3");
+        t.parse();
+        t.printPostorder(t.head);
     }
 
 

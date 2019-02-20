@@ -1,6 +1,6 @@
 package CommandNode.OneArgNode;
 
-public class ForwardNode implements OneNode {
+public class ForwardNode extends OneNode {
     private int myVal;
 
     public ForwardNode(String s){

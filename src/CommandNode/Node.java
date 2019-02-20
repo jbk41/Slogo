@@ -5,9 +5,10 @@ public class Node implements NodeInterface {
     public String myName;
     protected boolean hasLeft;
     protected boolean hasRight;
-    protected Node left;
-    protected Node right;
+    protected NodeInterface left;
+    protected NodeInterface right;
     protected int myNumChildren;
+    protected int myMaxChildren;
 
     protected Node(String s){
         myName = s;
@@ -23,11 +24,24 @@ public class Node implements NodeInterface {
         return myNumChildren;
     }
 
+    public String getName(){
+        return myName;
+    }
+
+    public NodeInterface getLeft(){
+        return left;
+    }
+    public NodeInterface getRight(){
+        return right;
+    }
+    public void setLeft(NodeInterface n){
+        left = n;
+    }
+    public void setRight(NodeInterface n){
+        right = n;
+    }
     public void addChild(){
         myNumChildren ++;
     }
 
-    public String getName(){
-        return myName;
-    }
 }

@@ -1,5 +1,6 @@
 package CommandNode;
 
+import CommandNode.ZerArgNode.*;
 import CommandNode.OneArgNode.*;
 import CommandNode.TwoArgNode.*;
 
@@ -9,9 +10,9 @@ import java.util.HashMap;
 
 
 public class NodeMaker {
-    static Map<String, NodeInterface> myMap = new HashMap<String, NodeInterface> (){{
-        myMap.put("FD", new ForwardNode("forward"));
-        myMap.put("FORWARD", new ForwardNode("forward"));
+    final Map<String, NodeInterface> myMap = new HashMap<> (){{
+        put("FD", new ForwardNode("forward"));
+        put("FORWARD", new ForwardNode("forward"));
         /*
         myMap.put("BK", new BackNode());
         myMap.put("BACK", new BackNode());
@@ -36,8 +37,8 @@ public class NodeMaker {
         myMap.put("CLEARSCREEN", new ClearNode());
         */
 
-        myMap.put("SUM", new SumNode("sum"));
-        myMap.put("+", new SumNode("sum"));
+        put("SUM", new SumNode("sum"));
+        put("+", new SumNode("sum"));
         //MATH COMMANDS
         /*
 

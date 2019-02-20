@@ -1,7 +1,8 @@
 package CommandNode.TwoArgNode;
 import CommandNode.NodeInterface;
+import CommandNode.Node;
 
-public class TwoNode extends NodeInterface {
+public class TwoNode extends Node {
 
     protected NodeInterface left;
     protected NodeInterface right;
