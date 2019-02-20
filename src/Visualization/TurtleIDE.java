@@ -1,5 +1,7 @@
 package Visualization;
 
+import TurtleData.TextReader;
+import TurtleData.TextWriter;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,7 +13,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import java.io.File;
+import java.io.IOException;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
@@ -21,9 +28,10 @@ public class TurtleIDE extends Application {
     private static final int padding = 15;
     private Console console;
     private TextEditor textEditor;
+    private Stage primaryStage;
     @Override
     public void start(Stage stage){
-        Stage primaryStage = stage;
+        primaryStage = stage;
         Group root = new Group();
         var startScene = new Scene(root, width, height, backgroundColor);
         HBox IDE = new HBox(createUserBox(), createTurtleDisplay());
@@ -46,9 +54,34 @@ public class TurtleIDE extends Application {
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
-        PlayTurtle play = new PlayTurtle(turtleDisplay, "Trial");
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtleDisplay);
-        Button pause = new Button("Pause");
+        PlayTurtle play = new PlayTurtle(turtleDisplay, "Play");
+        Button reset = createResetButton(turtleDisplay);
+        Button save = createSaveButton();
+        Button load = createLoadButton();
+        HBox controls = new HBox(5, play, reset, save, load, settingsBox, penColorDropDown);
+        VBox turtle = new VBox(15, turtleDisplay, controls);
+        turtle.setPadding(new Insets(padding,padding,padding,padding));
+        return turtle;
+    }
+    private Button createSaveButton(){
+        Button save = new Button("Save");
+        save.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FileChooser fileChooser = new FileChooser();
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = fileChooser.showSaveDialog(primaryStage);
+                if (file != null) {
+                    TextWriter textWriter = new TextWriter(file);
+                    textWriter.writeTextFile(textEditor.getText());
+                }
+            }
+        });
+        return save;
+    }
+    private Button createResetButton(TurtleDisplay turtleDisplay){
         Button reset = new Button("Reset");
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -56,10 +89,21 @@ public class TurtleIDE extends Application {
                 turtleDisplay.setDefaultTurtleLocation();
             }
         });
-        HBox controls = new HBox(5, play, pause, reset, settingsBox, penColorDropDown);
-        VBox turtle = new VBox(15, turtleDisplay, controls);
-        turtle.setPadding(new Insets(padding,padding,padding,padding));
-        return turtle;
+        return reset;
+    }
+    private Button createLoadButton(){
+        Button load = new Button("Load");
+        load.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Load Previous Code");
+                File file = fileChooser.showOpenDialog(primaryStage);
+                TextReader textReader = new TextReader(file);
+                textEditor.setText(textReader.getText());
+            }
+        });
+        return load;
     }
 
     /**

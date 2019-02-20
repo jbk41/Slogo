@@ -6,8 +6,9 @@ import javafx.scene.control.Button;
 
 public class PlayTurtle extends Button {
     private int[][] trialTurtleMovement = new int [8][2];
-    public PlayTurtle(TurtleDisplay turtleDisplay, String text){
-        super("Play");
+    public PlayTurtle(TurtleDisplay turtleDisplay, String label){
+        super(label);
+        // trial data
         trialTurtleMovement[0] = new int[] {30, 10};
         trialTurtleMovement[1] = new int[] {10, 20};
         trialTurtleMovement[2] = new int[] {-20, 10};
