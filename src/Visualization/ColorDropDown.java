@@ -28,6 +28,7 @@ public class ColorDropDown extends HBox{
 
     private void createDropDownMenu(){
         ComboBox<String> backgroundColorComboBox = new ComboBox<String>();
+        backgroundColorComboBox.setPromptText("Background Color");
         backgroundColorComboBox.getItems().addAll(
                 "LIGHTBLUE",
                 "WHITE",

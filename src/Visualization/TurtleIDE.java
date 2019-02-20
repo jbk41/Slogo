@@ -46,17 +46,17 @@ public class TurtleIDE extends Application {
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
-        Button play = new Button("Play");
-        play.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String text = textEditor.getText();
-                console.setText(text);
-            }
-        });
+        PlayTurtle play = new PlayTurtle(turtleDisplay, "Trial");
+        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtleDisplay);
         Button pause = new Button("Pause");
         Button reset = new Button("Reset");
-        HBox controls = new HBox(5, play, pause, reset, settingsBox);
+        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                turtleDisplay.setDefaultTurtleLocation();
+            }
+        });
+        HBox controls = new HBox(5, play, pause, reset, settingsBox, penColorDropDown);
         VBox turtle = new VBox(15, turtleDisplay, controls);
         turtle.setPadding(new Insets(padding,padding,padding,padding));
         return turtle;
