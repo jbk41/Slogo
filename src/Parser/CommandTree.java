@@ -1,12 +1,12 @@
 package Parser;
 
-import CommandNode.NodeInterface;
+import CommandNode.Node;
 import CommandNode.NodeMaker;
 
 public class CommandTree {
     private String[] myText;
     private int myTextIndex;
-    private NodeInterface head;
+    private Node head;
     private NodeMaker myNM;
 
     public CommandTree(String text){
@@ -20,12 +20,12 @@ public class CommandTree {
     }
 
     protected void parse(){
-        insertHead();
+        //insertHead();
         insert(head);
     }
 
 
-    private NodeInterface insert(NodeInterface root){
+    private Node insert(Node root){
         if (root == null){
             return getNode();
         }
@@ -38,7 +38,7 @@ public class CommandTree {
             root.setLeft(insert(root.getLeft()));
         }
 
-        if (maxChildren == 2 && numChildren == 0){
+        if (maxChildren == 2 && numChildren == 1){
             root.addChild();
             root.setRight(insert(root.getRight()));
         }
@@ -46,7 +46,7 @@ public class CommandTree {
     }
 
 
-    private void printPostorder(NodeInterface node)
+    private void printPostorder(Node node)
     {
         if (node == null)
             return;
@@ -55,7 +55,7 @@ public class CommandTree {
         System.out.print(node.getName() + " ");
     }
 
-    private NodeInterface getNode(){
+    private Node getNode(){
         int temp = myTextIndex;
         myTextIndex++;
         return myNM.makeNode(myText[temp]);
@@ -85,7 +85,7 @@ public class CommandTree {
 
 
     public static void main(String[] args){
-        CommandTree t = new CommandTree("+ + 1 2 3");
+        CommandTree t = new CommandTree("fd");
         t.parse();
         t.printPostorder(t.head);
     }
