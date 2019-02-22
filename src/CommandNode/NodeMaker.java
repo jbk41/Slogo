@@ -7,10 +7,14 @@ import java.util.HashMap;
 
 
 public class NodeMaker {
-    final Map<String, Node> myMap = new HashMap<> (){{
+    final Map<String, Node> myMap = new HashMap<>();
+}
+
+        /*
+    }}
         put("FD", new ForwardNode());
         put("FORWARD", new ForwardNode());
-        /*
+
         myMap.put("BK", new BackNode());
         myMap.put("BACK", new BackNode());
         myMap.put("LT", new TurnLeftNode());
@@ -32,7 +36,7 @@ public class NodeMaker {
         myMap.put("HOME", new HomeNode());
         myMap.put("CS", new ClearNode());
         myMap.put("CLEARSCREEN", new ClearNode());
-        */
+
 
         put("SUM", new SumNode("sum"));
         put("+", new SumNode("sum"));
@@ -81,7 +85,7 @@ public class NodeMaker {
         myMap.put("PENDOWNP", new PenNode());
         myMap.put("SHOWING?", new ShowNode());
         myMap.put("SHOWINGP", new ShowNode());
-        */
+
     }};
 
     public NodeMaker() {
@@ -92,3 +96,4 @@ public class NodeMaker {
     }
 
 }
+*/

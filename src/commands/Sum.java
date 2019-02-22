@@ -1,9 +1,9 @@
-package Commands;
+package commands;
 
 public class Sum extends Command{
     public int ARG1, ARG2;
 
-    Sum(int arg1, int arg2){
+    public Sum(int arg1, int arg2){
         super(arg1, arg2);
     }
 

@@ -1,4 +1,4 @@
-package Parser;
+package parser;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;

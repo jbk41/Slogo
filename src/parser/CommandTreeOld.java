@@ -1,19 +1,22 @@
-package Parser;
+
+package parser;
 
 import CommandNode.Node;
 import CommandNode.NodeMaker;
 
-public class CommandTree {
+public class CommandTreeOld {
     private String[] myText;
     private int myTextIndex;
     private Node head;
     private NodeMaker myNM;
 
-    public CommandTree(String text){
+    public CommandTreeOld(String text) {
         myText = text.split("\\s+");
         myNM = new NodeMaker();
         myTextIndex = 0;
     }
+}
+    /*
     private void insertHead() {
         head = myNM.makeNode(myText[myTextIndex]);
         myTextIndex++;
@@ -33,15 +36,7 @@ public class CommandTree {
         int maxChildren = root.getMaxChildren();
         int numChildren = root.getNumChildren();
 
-        if ((maxChildren == 2 || maxChildren == 1) && numChildren == 0){
-            root.addChild();
-            root.setLeft(insert(root.getLeft()));
-        }
 
-        if (maxChildren == 2 && numChildren == 1){
-            root.addChild();
-            root.setRight(insert(root.getRight()));
-        }
         return null;
     }
 
@@ -69,7 +64,7 @@ public class CommandTree {
     //private Node head;
     //private Node root;
 
-    /*
+
     public CommandTree(String text){
         myText = makeList(text.split("\\s+"));
         myMaker = new NodeMaker();
@@ -78,7 +73,7 @@ public class CommandTree {
         myCharList = characterList();
         head = new Node(myText.get(0));
     }
-    */
+
 
 
 
@@ -91,7 +86,7 @@ public class CommandTree {
     }
 
 
-    /*
+
 
     protected Node addNode(Node curr, String val){
         if (curr == null) {
@@ -133,5 +128,6 @@ public class CommandTree {
         list.add("~");
         return list;
     }
-    */
+
 }
+*/

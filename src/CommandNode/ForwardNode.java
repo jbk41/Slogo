@@ -7,6 +7,7 @@ public class ForwardNode extends GeneralNode {
         super();
         isComplete = false;
         myType = "forward";
+        myMaxChildren = 1;
     }
 
     @Override

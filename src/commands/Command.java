@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 abstract public class Command {
     public Class myType;

@@ -1,4 +1,4 @@
-package Parser;
+package parser;
 
 public class TextParser {
     private String[] myText; // all of the code line by line
