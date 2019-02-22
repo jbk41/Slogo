@@ -24,13 +24,14 @@ public abstract class GeneralCommand {
         return myMaxChildren;
     }
 
+    public GeneralCommand getParent(){
+        return myParent;
+    }
+
     public String getType(){
         return myType;
     }
 
-    public boolean isFull(){
-        return (myChildren.size() == myMaxChildren);
-    }
 
     public GeneralCommand addChild(GeneralCommand c){
         myChildren.add(c);

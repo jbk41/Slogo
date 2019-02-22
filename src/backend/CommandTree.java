@@ -38,8 +38,8 @@ public class CommandTree {
         if (start == end){
             return command;
         }
-        System.out.println(command.getType() + ":" +command.getMaxChildren());
-        System.out.println(start);
+        //System.out.println(command.getType() + ":" +command.getMaxChildren());
+        //System.out.println(start);
         for (int i = 0; i < command.getMaxChildren(); i ++){
             //System.out.println(i);
             start += 1;
