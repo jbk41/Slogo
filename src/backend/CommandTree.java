@@ -1,22 +1,23 @@
 package backend;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Arrays;
 
 import commands.*;
+import parser.CommandFactory;
+import parser.ParseCleaner;
 
 public class CommandTree {
     private List<String> myArguments;
     private GeneralCommand head;
     private int start;
-    //private ArrayList<Integer> nums =
+    private ParseCleaner lang;
 
-    public CommandTree(String s){
-        String[] temp = s.split("\\s+");
-        myArguments = new ArrayList<>(Arrays.asList(temp));
-        //makeTree();
+    public CommandTree(ArrayList<String> text){
+        myArguments = text;
         head = generateTree(myArguments.size()-1);
     }
 
@@ -29,7 +30,8 @@ public class CommandTree {
 
 
     private GeneralCommand generateTree(int end){
-        GeneralCommand command = getCommand(myArguments.get(start));
+        var factory = new CommandFactory();
+        GeneralCommand command = factory.getCommand(myArguments.get(start));
         if (start == end){
             return command;
         }
@@ -53,28 +55,17 @@ public class CommandTree {
     }
 
 
-    // this is for testing only just to get a command
-    private GeneralCommand getCommand(String s){
-//        )
-//        try {
-//
-//            Class c = Class.forName(s);
-//            Object command = c.getConstructor().newInstance();
-//            return (GeneralCommand) command;
+//    // this is for testing only just to get a command
+//    private GeneralCommand getCommand(String s){
+//        if (s.equals("Forward")){
+//            return new ForwardCommand();
 //        }
-//        catch (Throwable e){
-//            System.err.println(e);
+//        else if (s.equals("Sum")){
+//            return new SumCommand();
 //        }
-
-        if (s.equals("fd")){
-            return new ForwardCommand();
-        }
-        else if (s.equals("+")){
-            return new SumCommand();
-        }
-        else { // constant command
-            return new ConstantCommand(Double.parseDouble(s));
-        }
-//        return new ForwardCommand();
-    }
+//        else { // constant command
+//            return new ConstantCommand(Double.parseDouble(s));
+//        }
+////        return new ForwardCommand();
+//    }
 }

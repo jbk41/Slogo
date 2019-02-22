@@ -1,30 +1,21 @@
 package backend;
 
 import parser.ParseCleaner;
+import parser.Parser;
+
+import java.util.ArrayList;
 
 public class TestClass {
 
     public ParseCleaner cleaner;
+    static String[] Languages = {"English", "Syntax"};
 
     public static void main (String[] args){
-        var parser = new ParseCleaner();
-        parser.addPatterns("resources/languages/English");
-        parser.addPatterns("resources/languages/English");
-        String text = "fd + + 1 + 2 3 4";
-//        String new_Text = parseText(parser, text);
-
-        CommandTree t = new CommandTree(text);
-
-        //System.out.println("hi");
+        String text = "fd";
+        Parser Parse = new Parser(text, Languages);
+        var cleanText = Parse.getCleanText();
+        CommandTree t = new CommandTree(cleanText);
         t.printTree();
     }
 
-//    public static String parseText (ParseCleaner lang, String text) {
-//        String[] new_text = text.split(" ");
-//        String finale = new String();
-//        for (var s : new_text) {
-//                finale = s+" ";
-//        }
-//        return finale;
-//    }
 }
