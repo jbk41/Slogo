@@ -1,6 +1,6 @@
 package commands;
 import java.util.List;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public abstract class GeneralCommand {
 
@@ -8,19 +8,12 @@ public abstract class GeneralCommand {
      * @author Justin Kim
      */
     protected List<GeneralCommand> myChildren;
+    protected GeneralCommand myParent;
     protected String myType;
     protected int myMaxChildren;
 
     protected GeneralCommand(){
-        myChildren = new LinkedList<>();
-    }
-
-    public int getNumChildren(){
-        return myChildren.size();
-    }
-
-    public boolean isEmpty(){
-        return (myChildren.size() == 0);
+        myChildren = new ArrayList<>();
     }
 
     public List<GeneralCommand> getChildren(){

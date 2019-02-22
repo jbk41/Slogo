@@ -10,7 +10,7 @@ public class CommandFactory {
 
     public GeneralCommand getCommand(String s) {
         try {
-            Object command = Class.forName(s+"Command").getConstructor().newInstance();
+            Object command = Class.forName("commands." + s + "Command").getConstructor().newInstance();
             return (GeneralCommand) command;
 
         }

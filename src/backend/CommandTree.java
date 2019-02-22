@@ -16,7 +16,7 @@ public class CommandTree {
     private int start;
     private ParseCleaner lang;
 
-    public CommandTree(ArrayList<String> text){
+    public CommandTree(List<String> text){
         myArguments = text;
         head = generateTree(myArguments.size()-1);
     }
