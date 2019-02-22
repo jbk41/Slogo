@@ -16,8 +16,9 @@ public class CommandTree {
     private int start;
     private ParseCleaner lang;
 
-    public CommandTree(List<String> text){
-        myArguments = text;
+
+    public CommandTree(String text){
+        myArguments = new ArrayList<String>(Arrays.asList(text.split("\\s+")));
         head = generateTree(myArguments.size()-1);
     }
 
@@ -30,8 +31,10 @@ public class CommandTree {
 
 
     private GeneralCommand generateTree(int end){
-        var factory = new CommandFactory();
-        GeneralCommand command = factory.getCommand(myArguments.get(start));
+//        var factory = new CommandFactory();
+        GeneralCommand command = getCommand(myArguments.get(start));
+        //GeneralCommand command = factory.getCommand(myArguments.get(start));
+
         if (start == end){
             return command;
         }
@@ -55,17 +58,17 @@ public class CommandTree {
     }
 
 
-//    // this is for testing only just to get a command
-//    private GeneralCommand getCommand(String s){
-//        if (s.equals("Forward")){
-//            return new ForwardCommand();
-//        }
-//        else if (s.equals("Sum")){
-//            return new SumCommand();
-//        }
-//        else { // constant command
-//            return new ConstantCommand(Double.parseDouble(s));
-//        }
-////        return new ForwardCommand();
-//    }
+    // this is for testing only just to get a command
+    private GeneralCommand getCommand(String s){
+        if (s.equals("fd")){
+            return new ForwardCommand();
+        }
+        else if (s.equals("+")){
+            return new SumCommand();
+        }
+        else { // constant command
+            return new ConstantCommand(Double.parseDouble(s));
+        }
+//        return new ForwardCommand();
+    }
 }
