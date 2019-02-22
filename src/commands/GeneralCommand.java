@@ -38,9 +38,9 @@ public abstract class GeneralCommand {
     public boolean isFull(){
         return (myChildren.size() == myMaxChildren);
     }
+
     public GeneralCommand addChild(GeneralCommand c){
         myChildren.add(c);
-
         return c;
     }
 

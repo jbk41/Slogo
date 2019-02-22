@@ -1,6 +1,7 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Arrays;
 
@@ -10,6 +11,7 @@ public class CommandTree {
     private List<String> myArguments;
     private GeneralCommand head;
     private int start;
+    //private ArrayList<Integer> nums =
 
     public CommandTree(String s){
         String[] temp = s.split("\\s+");
@@ -25,6 +27,7 @@ public class CommandTree {
         printPostOrder(head);
     }
 
+
     private GeneralCommand generateTree(int end){
         GeneralCommand command = getCommand(myArguments.get(start));
         if (start == end){
@@ -32,7 +35,7 @@ public class CommandTree {
         }
         System.out.println(command.getType() + ":" +command.getMaxChildren());
         System.out.println(start);
-        for (int i = 0; i < command.getMaxChildren();i ++){
+        for (int i = 0; i < command.getMaxChildren(); i ++){
             //System.out.println(i);
             start += 1;
             command.addChild(generateTree(end));
@@ -50,10 +53,19 @@ public class CommandTree {
     }
 
 
-
-
     // this is for testing only just to get a command
     private GeneralCommand getCommand(String s){
+//        )
+//        try {
+//
+//            Class c = Class.forName(s);
+//            Object command = c.getConstructor().newInstance();
+//            return (GeneralCommand) command;
+//        }
+//        catch (Throwable e){
+//            System.err.println(e);
+//        }
+
         if (s.equals("fd")){
             return new ForwardCommand();
         }
@@ -63,5 +75,6 @@ public class CommandTree {
         else { // constant command
             return new ConstantCommand(Double.parseDouble(s));
         }
+//        return new ForwardCommand();
     }
 }

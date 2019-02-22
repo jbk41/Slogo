@@ -3,7 +3,7 @@ package parser;
 public class Parser {
 
     private String myText;
-    private ParseCleaner LIST_OF_COMMANDS;  // FIXME: Modules cleanup
+    private ParseCleaner LIST_OF_COMMANDS;
     private String LANGUAGES[] = {"English"};
 
 

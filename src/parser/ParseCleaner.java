@@ -40,7 +40,6 @@ public class ParseCleaner {
     }
 
 
-
     /**
      * Returns language's type associated with the given text if one exists
      */
@@ -54,7 +53,6 @@ public class ParseCleaner {
         // FIXME: perhaps throw an exception instead
         return ERROR;
     }
-
 
 
     /**
