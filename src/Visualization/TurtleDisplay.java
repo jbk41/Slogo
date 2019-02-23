@@ -88,6 +88,8 @@ public class TurtleDisplay extends Pane{
     public void moveTurtle(int [][] movement){
         ArrayList<PathTransition> totalMovements = new ArrayList<>();
         SequentialTransition sequentialTransition = new SequentialTransition();
+        System.out.println(this.width);
+        System.out.println(this.height);
         for(int[] tup : movement){
             int degrees = tup[0];
             int displacement = tup[1];
