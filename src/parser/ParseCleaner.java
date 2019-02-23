@@ -15,30 +15,35 @@ public class ParseCleaner {
     // "types" and the regular expression patterns that recognize those types
     // note, it is a list because order matters (some patterns may be more generic)
     private List<Entry<String, Pattern>> mySymbols;
+    private String[] myLanguages;
     /**
      * Create an empty parser.
      */
-    public ParseCleaner() {
+    public ParseCleaner(String[] languages) {
         mySymbols = new ArrayList<>();
+        myLanguages = languages;
+        this.addPatterns(myLanguages);
+
     }
 
 
     /**
      * Adds the given resource files to this language's recognized types
      */
-    public void addPatterns (String syntax) {
-        //for (String lang : syntax) {
-        try {
-            var resources = ResourceBundle.getBundle(syntax);
-            for (var key : Collections.list(resources.getKeys())) {
-                var regex = resources.getString(key);
-                mySymbols.add(new SimpleEntry<>(key,
-                        // THIS IS THE IMPORTANT LINE
-                        Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+    public void addPatterns (String[] syntax) {
+        for (String lang : syntax) {
+            lang = "resources/languages/"+lang;
+            try {
+                var resources = ResourceBundle.getBundle(lang);
+                for (var key : Collections.list(resources.getKeys())) {
+                    var regex = resources.getString(key);
+                    mySymbols.add(new SimpleEntry<>(key,
+                            // THIS IS THE IMPORTANT LINE
+                            Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+                }
+            } catch (MissingResourceException e) {
+                System.err.println(e);
             }
-        }
-        catch (MissingResourceException e) {
-            System.err.println(e);
         }
     }
 
