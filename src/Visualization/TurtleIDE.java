@@ -23,7 +23,7 @@ import java.io.IOException;
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
     private static final Paint backgroundColor = Color.AQUA;
-    private static final int width = 1000;
+    private static final int width = 1050;
     private static final int height = 680;
     private static final int padding = 15;
     private Console console;
@@ -39,7 +39,6 @@ public class TurtleIDE extends Application {
         primaryStage.setScene(startScene);
         primaryStage.setTitle(title);
         primaryStage.show();
-
     }
 
     private VBox createUserBox(){
@@ -54,11 +53,12 @@ public class TurtleIDE extends Application {
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtleDisplay);
+        LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
         PlayTurtle play = new PlayTurtle(turtleDisplay, "Play");
         Button reset = createResetButton(turtleDisplay);
         Button save = createSaveButton();
         Button load = createLoadButton();
-        HBox controls = new HBox(5, play, reset, save, load, settingsBox, penColorDropDown);
+        HBox controls = new HBox(6, play, reset, save, load, settingsBox, penColorDropDown, languagesDropDown);
         VBox turtle = new VBox(15, turtleDisplay, controls);
         turtle.setMaxWidth(width/2);
         turtle.setPadding(new Insets(padding,padding,padding,padding));

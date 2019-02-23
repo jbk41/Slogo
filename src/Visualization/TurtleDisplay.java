@@ -89,8 +89,6 @@ public class TurtleDisplay extends Pane{
      * sets the turtle location to the center of the screen
      */
     public void setDefaultTurtleLocation(){
-        getChildren().remove(turtleImageView);
-        getChildren().add(turtleImageView);
         turtleImageView.setX(getPrefWidth() / 2);
         turtleImageView.setY(getPrefHeight() / 2);
     }
