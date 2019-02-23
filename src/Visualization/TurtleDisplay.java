@@ -92,6 +92,7 @@ public class TurtleDisplay extends Pane{
         turtleImageView.setY(getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
     public void moveTurtle(int [][] movement){
+        //TODO: NEED TO ADD IN BOUNDARY CHECKING
         ArrayList<PathTransition> totalMovements = new ArrayList<>();
         sequentialTransition = new SequentialTransition();
         for(int[] tup : movement){
@@ -106,6 +107,8 @@ public class TurtleDisplay extends Pane{
             totalMovements.add(pathTransition);
             turtleImageView.setX(turtleImageView.getX() + newWidth);
             turtleImageView.setY(turtleImageView.getY() + newHeight);
+            System.out.println(turtleXPosition());
+            System.out.println(turtleYPosition());
         }
         for(PathTransition movements: totalMovements){
             sequentialTransition.getChildren().add(movements);
