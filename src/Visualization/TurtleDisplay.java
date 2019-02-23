@@ -53,8 +53,7 @@ public class TurtleDisplay extends Pane {
     private void setSizeOfRoot(){
         double fixedWidth = getFixedWidth(width, padding);
         double fixedHeight = getFixedHeight(height, padding);
-        setPrefWidth(fixedWidth);
-        setPrefHeight(fixedHeight);
+        setPrefSize(fixedWidth,fixedHeight);
     }
     private double getFixedWidth(double width, int padding){
         double doubleWidth = width / 2;
@@ -87,10 +86,11 @@ public class TurtleDisplay extends Pane {
      * sets the turtle location to the center of the screen
      */
     public void setDefaultTurtleLocation(){
-        turtleImageView.setX(getPrefWidth() / 2);
-        turtleImageView.setY(getPrefHeight() / 2);
+        turtleImageView.setX(getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
+        turtleImageView.setY(getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
     public void moveTurtle(int [][] movement){
+        //TODO: NEED TO ADD IN BOUNDARY CHECKING
         ArrayList<PathTransition> totalMovements = new ArrayList<>();
         sequentialTransition = new SequentialTransition();
         for(int[] tup : movement){
@@ -105,6 +105,8 @@ public class TurtleDisplay extends Pane {
             totalMovements.add(pathTransition);
             turtleImageView.setX(turtleImageView.getX() + newWidth);
             turtleImageView.setY(turtleImageView.getY() + newHeight);
+            System.out.println(turtleXPosition());
+            System.out.println(turtleYPosition());
         }
         for(PathTransition movements: totalMovements){
             sequentialTransition.getChildren().add(movements);

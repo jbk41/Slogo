@@ -19,7 +19,7 @@ public class LanguagesDropDown extends HBox{
                 "Chinese",
                 "English",
                 "French",
-                "German", "Italian", "Portuguese", "Russian", "Spanish", "Syntax", "Urdu"
+                "German", "Italian", "Portuguese", "Russian", "Spanish", "Urdu"
         );
         languageBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
