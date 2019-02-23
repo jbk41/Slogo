@@ -76,8 +76,6 @@ public class Turtle {
             totalMovements.add(pathTransition);
             turtleImageView.setX(turtleImageView.getX() + newWidth);
             turtleImageView.setY(turtleImageView.getY() + newHeight);
-            System.out.println(turtleXPosition());
-            System.out.println(turtleYPosition());
         }
         for(PathTransition movements: totalMovements){
             sequentialTransition.getChildren().add(movements);
@@ -88,10 +86,10 @@ public class Turtle {
         sequentialTransition.stop();
     }
     private double getXDisplacement(int degrees, int displacement){
-        return Math.cos(degrees) * displacement;
+        return Math.cos(Math.toRadians(degrees)) * displacement;
     }
     private double getYDisplacement(int degrees, int displacement){
-        return Math.sin(degrees) * displacement;
+        return Math.sin(Math.toRadians(degrees)) * displacement;
     }
 
     private PathTransition createTransition(Path path){
@@ -117,8 +115,19 @@ public class Turtle {
                 gc.strokeLine(oldX, oldY, x, y);
                 oldX = x;
                 oldY = y;
+                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y)){
+                    turtleImageView.setVisible(false);
+                }else{
+                    turtleImageView.setVisible(true);
+                }
             }
         });
         return pathTransition;
+    }
+    private Boolean checkWidthOutOfBounds(double x){
+        return x < 0 || x > pane.getPrefWidth();
+    }
+    private Boolean checkHeightOutOfBounds(double y){
+        return y < 0 || y > pane.getPrefHeight();
     }
 }

@@ -21,15 +21,11 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 public class TurtleDisplay extends Pane {
-    private static final String TURTLE_IMAGE = "turtle.gif";
     private double width;
     private double height;
     private int padding;
-    private ImageView turtleImageView;
     private Paint BACKGROUND = Color.WHITE;
-    private Paint PEN_COLOR;
     private Canvas canvas;
-    private SequentialTransition sequentialTransition;
 
     public TurtleDisplay(double width, double height, int padding){
         this.width = width;
@@ -39,6 +35,8 @@ public class TurtleDisplay extends Pane {
         canvas = new Canvas(getFixedWidth(width,padding), getFixedHeight(height,padding));
         getChildren().add(canvas);
         setBackground(new Background(new BackgroundFill(BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
+        setMaxWidth(getFixedWidth(width, padding));
+        setPrefHeight(getFixedHeight(height, padding));
     }
     public Canvas createNewCanvas(){
         getChildren().remove(canvas);
