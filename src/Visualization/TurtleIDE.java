@@ -3,6 +3,7 @@ package Visualization;
 import TurtleData.TextReader;
 import TurtleData.TextWriter;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,9 +11,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -109,9 +109,23 @@ public class TurtleIDE extends Application {
         help.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                //TODO: Probably just display text from a file
                 Popup popup = new Popup();
-                //TODO: create an instruction class and fill List with Instruction Objects
-                TableView<String> table = new TableView<String>();
+                final ObservableList<Instruction> data = FXCollections.observableArrayList(new Instruction("Forward pixels","moves turtle forward in its current heading by pixels distance returns the value of pixels"));
+                TableView<Instruction> table = new TableView<>();
+                Label label = new Label("Command Instructions");
+
+                TableColumn commandCol = new TableColumn("Command");
+                commandCol.setMinWidth(100);
+                commandCol.setCellValueFactory(
+                        new PropertyValueFactory<>("command"));
+
+                TableColumn functionCol = new TableColumn("Function");
+                functionCol.setMinWidth(100);
+                functionCol.setCellValueFactory(
+                        new PropertyValueFactory<>("function"));
+                table.getColumns().addAll(commandCol, functionCol);
+                table.setItems(data);
                 popup.getContent().addAll(table);
                 popup.show(primaryStage);
             }
