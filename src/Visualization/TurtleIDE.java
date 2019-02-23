@@ -39,7 +39,6 @@ public class TurtleIDE extends Application {
         primaryStage.setScene(startScene);
         primaryStage.setTitle(title);
         primaryStage.show();
-
     }
 
     private VBox createUserBox(){
