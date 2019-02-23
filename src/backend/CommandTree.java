@@ -15,11 +15,13 @@ public class CommandTree {
     private GeneralCommand head;
     private int start;
     private ParseCleaner cleaner;
+    private CommandFactory myCommandFactory;
 
 
     public CommandTree(String text, ParseCleaner clean){
         cleaner = clean;
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
+        myCommandFactory = new CommandFactory(cleaner);
         head = generateTree(myArguments.size()-1);
         linkParents(head);
         executeTree(head);
@@ -37,9 +39,8 @@ public class CommandTree {
     }
 
     private GeneralCommand generateTree(int end){
-        CommandFactory factory = new CommandFactory(myArguments.get(start), cleaner);
-        GeneralCommand command = factory.getCommand();
-        //GeneralCommand command = factory.getCommand(myArguments.get(start));
+
+        GeneralCommand command = myCommandFactory.getCommand(myArguments.get(start));
 
         if (start == end){
             return command;
