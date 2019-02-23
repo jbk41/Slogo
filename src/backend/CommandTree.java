@@ -12,14 +12,12 @@ public class CommandTree {
     private List<String> myArguments;
     private GeneralCommand head;
     private int start;
-    private ParseCleaner myCleaner;
     private CommandFactory myCommandFactory;
 
 
     public CommandTree(String text, ParseCleaner clean){
-        myCleaner = clean;
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
-        myCommandFactory = new CommandFactory(myCleaner);
+        myCommandFactory = new CommandFactory(clean);
         head = generateTree(myArguments.size()-1);
         linkParents(head);
         executeTree(head);

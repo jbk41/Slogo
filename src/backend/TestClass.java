@@ -10,10 +10,12 @@ public class TestClass {
 
     public static void main (String[] args){
         ParseCleaner myCleaner = new ParseCleaner(myLanguage);
-        String text = "fd sum 1 10";
+        String text = "lt sum 1 10";
         CommandTree t = new CommandTree(text, myCleaner);
-        t.printTree();
-        System.out.println(t.getHead().getType());
-        System.out.println(t.getHead().getVar());
+//        GeneralCommand<?> command = t.getHead();
+//
+        TurtleCommand turtle = new TurtleCommand(t.getHead());
+        System.out.println(turtle.getDisplacement());
+        System.out.println(turtle.getDegrees());
     }
 }
