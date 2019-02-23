@@ -8,6 +8,7 @@ public class PlayTurtle extends Button {
     private int[][] trialTurtleMovement = new int [8][2];
     public PlayTurtle(Turtle turtle, String label){
         super(label);
+
         // trial data
         trialTurtleMovement[0] = new int[] {0, -10};
         trialTurtleMovement[1] = new int[] {0, -20};

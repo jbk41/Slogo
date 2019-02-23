@@ -49,7 +49,6 @@ public class TurtleIDE extends Application {
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
     }
-
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
         Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
@@ -58,12 +57,31 @@ public class TurtleIDE extends Application {
         LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
         PlayTurtle play = new PlayTurtle(turtle, "Play");
         Button reset = createResetButton(turtle, turtleDisplay);
+        Button help = createHelpButton();
+//        Button play  = createPlayButton();
 //        Button save = createSaveButton();
 //        Button load = createLoadButton();
-        HBox controls = new HBox(4, play, reset, settingsBox, penColorDropDown, languagesDropDown);
+        HBox controls = new HBox(6, play, reset, help, settingsBox, penColorDropDown, languagesDropDown);
         VBox display = new VBox(15, turtleDisplay, controls);
         display.setPadding(new Insets(padding,padding,padding,padding));
         return display;
+    }
+
+    /**
+     * NOT IMPLEMENTED IN CREATETURTLEDISPLAY YET
+     * @return
+     */
+    private Button createPlayButton(){
+        Button play = new Button("play");
+        play.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String text = textEditor.getText();
+                //TODO: creating object of back end and send text as paramter
+
+            }
+        });
+        return play;
     }
 //    private Button createSaveButton(){
 //        Button save = new Button("Save");
@@ -94,6 +112,16 @@ public class TurtleIDE extends Application {
             }
         });
         return reset;
+    }
+    private Button createHelpButton(){
+        Button help = new Button("Help");
+        help.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+
+            }
+        });
+        return help;
     }
 //    private Button createLoadButton(){
 //        Button load = new Button("Load");
