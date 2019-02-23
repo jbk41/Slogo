@@ -8,7 +8,7 @@ public class VariableCommand extends GeneralCommand{
         super();
         //isFull = true;
         myType = "Variable";
-        myMaxChildren = 0;
+        myMaxChildren = 1;
         myName = name;
     }
 

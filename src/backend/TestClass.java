@@ -10,7 +10,7 @@ public class TestClass {
 
     public static void main (String[] args){
         ParseCleaner myCleaner = new ParseCleaner(myLanguages);
-        String text = "fd * + - 1 2 3 4";
+        String text = "fd / 6 3";
         CommandTree t = new CommandTree(text, myCleaner);
         t.printTree();
         ForwardCommand f = (ForwardCommand) t.getHead();
