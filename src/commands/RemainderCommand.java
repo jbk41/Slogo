@@ -21,7 +21,7 @@ public class RemainderCommand extends GeneralCommand {
                     rem = rem % c.getVal();
             }
             else {
-                throw new IllegalArgumentException("Illegal Argument Type (Quotient accepts Constant nodes)");
+                throw new IllegalArgumentException("Illegal Argument Type (Remainder accepts Constant nodes)");
             }
         }
         int index = getIndexOfCurrentInParent();
