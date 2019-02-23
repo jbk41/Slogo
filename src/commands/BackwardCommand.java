@@ -1,11 +1,11 @@
 package commands;
 
-public class ForwardCommand extends GeneralCommand {
+public class BackwardCommand extends GeneralCommand {
 
-    public ForwardCommand (){
+    public BackwardCommand() {
         super();
-        myType = "Forward";
         myMaxChildren = 1;
+        myType = "Backward";
     }
 
     public void execute() throws IllegalArgumentException{
@@ -18,13 +18,8 @@ public class ForwardCommand extends GeneralCommand {
             myChildren.clear();
         }
         else {
-            throw new IllegalArgumentException("Illegal Argument Type (Forward accepts Constants)");
+            throw new IllegalArgumentException("Illegal Argument Type (Backward accepts Constants)");
         }
         makeDone();
-    }
-
-    public ForwardCommand getCommand(GeneralCommand command){
-        ForwardCommand new_Command = (ForwardCommand) command;
-        return new_Command;
     }
 }

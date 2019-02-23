@@ -1,27 +1,27 @@
 package commands;
 
-public class SineCommand extends GeneralCommand{
+public class CosineCommand extends GeneralCommand{
 
-    public SineCommand(){
+    public CosineCommand(){
         super();
         myMaxChildren = 1;
-        myType = "Sine";
+        myType = "Cosine";
     }
 
     public void execute(){
         checkParameterCount();
         GeneralCommand child = myChildren.get(0);
-        double sine;
+        double cos;
         if (child instanceof ConstantCommand){
             ConstantCommand c = (ConstantCommand) child;
             double deg = c.getVal()*Math.PI/180;
-            sine = Math.sin(deg);
+            cos = Math.cos(deg);
         }
         else {
-            throw new IllegalArgumentException("Illegal Argument Type (Sine accepts Constant nodes)");
+            throw new IllegalArgumentException("Illegal Argument Type (Cosine accepts Constant nodes)");
         }
         int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(sine));
+        myParent.getChildren().set(index, new ConstantCommand(cos));
         makeDone();
     }
 

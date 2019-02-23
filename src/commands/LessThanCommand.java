@@ -1,6 +1,6 @@
 package commands;
 
-public class LessThanCommand extends GeneralCommand {
+public class LessThanCommand extends BooleanCommand {
 
     public LessThanCommand(){
         super();

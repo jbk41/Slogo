@@ -1,27 +1,27 @@
 package commands;
 
-public class SineCommand extends GeneralCommand{
+public class NaturalLogCommand extends GeneralCommand{
 
-    public SineCommand(){
+    public NaturalLogCommand(){
         super();
         myMaxChildren = 1;
-        myType = "Sine";
+        myType = "NaturalLog";
     }
 
     public void execute(){
         checkParameterCount();
         GeneralCommand child = myChildren.get(0);
-        double sine;
+        double log;
         if (child instanceof ConstantCommand){
             ConstantCommand c = (ConstantCommand) child;
-            double deg = c.getVal()*Math.PI/180;
-            sine = Math.sin(deg);
+            double val = c.getVal();
+            log = Math.log(val);
         }
         else {
-            throw new IllegalArgumentException("Illegal Argument Type (Sine accepts Constant nodes)");
+            throw new IllegalArgumentException("Illegal Argument Type (NaturalLog accepts Constant nodes)");
         }
         int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(sine));
+        myParent.getChildren().set(index, new ConstantCommand(log));
         makeDone();
     }
 

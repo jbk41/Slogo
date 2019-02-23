@@ -1,27 +1,27 @@
 package commands;
 
-public class SineCommand extends GeneralCommand{
+public class ArcTangentCommand extends GeneralCommand{
 
-    public SineCommand(){
+    public ArcTangentCommand(){
         super();
         myMaxChildren = 1;
-        myType = "Sine";
+        myType = "ArcTangent";
     }
 
     public void execute(){
         checkParameterCount();
         GeneralCommand child = myChildren.get(0);
-        double sine;
+        double atan;
         if (child instanceof ConstantCommand){
             ConstantCommand c = (ConstantCommand) child;
             double deg = c.getVal()*Math.PI/180;
-            sine = Math.sin(deg);
+            atan = Math.atan(deg);
         }
         else {
-            throw new IllegalArgumentException("Illegal Argument Type (Sine accepts Constant nodes)");
+            throw new IllegalArgumentException("Illegal Argument Type (ArcTangent accepts Constant nodes)");
         }
         int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(sine));
+        myParent.getChildren().set(index, new ConstantCommand(atan));
         makeDone();
     }
 
