@@ -67,22 +67,6 @@ public class TurtleIDE extends Application {
         return display;
     }
 
-    /**
-     * NOT IMPLEMENTED IN CREATETURTLEDISPLAY YET
-     * @return
-     */
-    private Button createPlayButton(){
-        Button play = new Button("play");
-        play.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                String text = textEditor.getText();
-                //TODO: creating object of back end and send text as paramter
-
-            }
-        });
-        return play;
-    }
 //    private Button createSaveButton(){
 //        Button save = new Button("Save");
 //        save.setOnAction(new EventHandler<ActionEvent>() {
@@ -105,10 +89,12 @@ public class TurtleIDE extends Application {
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                System.out.println(turtle.turtleYPosition());
                 turtle.stopTurtle();
                 Canvas canvas = turtleDisplay.createNewCanvas();
                 turtle.changeCanvas(canvas);
                 turtle.setDefaultTurtleLocation();
+                System.out.println(turtle.turtleYPosition());
             }
         });
         return reset;

@@ -49,7 +49,7 @@ public class Turtle {
     }
 
     //returns the Y position of the turtle at the center of the ImageView
-    private double turtleYPosition(){
+    public double turtleYPosition(){
         return turtleImageView.getY() + turtleImageView.getBoundsInLocal().getHeight()/2;
     }
 
@@ -59,9 +59,9 @@ public class Turtle {
     public void setDefaultTurtleLocation(){
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
+        System.out.println("new pos : " + turtleImageView.getY());
     }
     public void moveTurtle(int [][] movement){
-        //TODO: NEED TO ADD IN BOUNDARY CHECKING
         ArrayList<PathTransition> totalMovements = new ArrayList<>();
         sequentialTransition = new SequentialTransition();
         for(int[] tup : movement){
