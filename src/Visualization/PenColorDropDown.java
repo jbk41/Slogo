@@ -7,10 +7,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 
 public class PenColorDropDown extends HBox {
-    private TurtleDisplay display;
-    public PenColorDropDown(int padding, TurtleDisplay display){
+    private Turtle turtle;
+    public PenColorDropDown(int padding, Turtle turtle){
         super(padding);
-        this.display = display;
+        this.turtle = turtle;
         createDropDownMenu();
     }
 
@@ -24,7 +24,7 @@ public class PenColorDropDown extends HBox {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 Paint color = Paint.valueOf(t1);
-                display.setPEN_COLOR(color);
+                turtle.setPEN_COLOR(color);
             }
         });
         getChildren().add(penColorComboBox);

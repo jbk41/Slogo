@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -51,17 +52,19 @@ public class TurtleIDE extends Application {
 
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
+        Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
-        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtleDisplay);
+        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
-        PlayTurtle play = new PlayTurtle(turtleDisplay, "Play");
-        Button reset = createResetButton(turtleDisplay);
+
+        PlayTurtle play = new PlayTurtle(turtle, "Play");
+        Button reset = createResetButton(turtle, turtleDisplay);
         Button save = createSaveButton();
         Button load = createLoadButton();
         HBox controls = new HBox(6, play, reset, save, load, settingsBox, penColorDropDown, languagesDropDown);
-        VBox turtle = new VBox(15, turtleDisplay, controls);
-        turtle.setPadding(new Insets(padding,padding,padding,padding));
-        return turtle;
+        VBox display = new VBox(15, turtleDisplay, controls);
+        display.setPadding(new Insets(padding,padding,padding,padding));
+        return display;
     }
     private Button createSaveButton(){
         Button save = new Button("Save");
@@ -80,14 +83,15 @@ public class TurtleIDE extends Application {
         });
         return save;
     }
-    private Button createResetButton(TurtleDisplay turtleDisplay){
+    private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
         Button reset = new Button("Reset");
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                turtleDisplay.stopTurtle();
-                turtleDisplay.clearCanvas();
-                turtleDisplay.setDefaultTurtleLocation();
+                turtle.stopTurtle();
+                Canvas canvas = turtleDisplay.createNewCanvas();
+                turtle.changeCanvas(canvas);
+                turtle.setDefaultTurtleLocation();
             }
         });
         return reset;
