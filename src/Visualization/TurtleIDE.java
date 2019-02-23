@@ -47,7 +47,6 @@ public class TurtleIDE extends Application {
         console = new Console(width, height, padding);
         VBox user = new VBox(15, textEditor, console);
         user.setPadding(new Insets(padding, padding,padding,padding));
-
         return user;
     }
 
@@ -61,6 +60,7 @@ public class TurtleIDE extends Application {
         Button load = createLoadButton();
         HBox controls = new HBox(5, play, reset, save, load, settingsBox, penColorDropDown);
         VBox turtle = new VBox(15, turtleDisplay, controls);
+        turtle.setMaxWidth(width/2);
         turtle.setPadding(new Insets(padding,padding,padding,padding));
         return turtle;
     }
@@ -86,6 +86,8 @@ public class TurtleIDE extends Application {
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                turtleDisplay.stopTurtle();
+                turtleDisplay.clearCanvas();
                 turtleDisplay.setDefaultTurtleLocation();
             }
         });

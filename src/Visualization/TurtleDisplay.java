@@ -24,23 +24,30 @@ import java.util.ArrayList;
 
 public class TurtleDisplay extends Pane{
     private static final String TURTLE_IMAGE = "turtle.gif";
-    private int width;
-    private int height;
+    private double width;
+    private double height;
     private int padding;
     private ImageView turtleImageView;
     private Paint BACKGROUND = Color.WHITE;
     private Paint PEN_COLOR;
     private Canvas canvas;
+    private SequentialTransition sequentialTransition;
 
-    public TurtleDisplay(int width, int height, int padding){
+    public TurtleDisplay(double width, double height, int padding){
         this.width = width;
         this.height = height;
         this.padding = padding;
-        canvas = new Canvas(width, height);
+        canvas = new Canvas(getFixedWidth(width,padding), getFixedHeight(height,padding));
         getChildren().add(canvas);
         setSizeOfRoot();
         setBackground(new Background(new BackgroundFill(BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
         addTurtleToRoot();
+    }
+    public void clearCanvas(){
+        getChildren().remove(canvas);
+        canvas = new Canvas(getFixedWidth(width,padding), getFixedHeight(height,padding));
+        getChildren().add(canvas);
+
     }
     public void setPEN_COLOR(Paint color){
         PEN_COLOR = color;
@@ -51,13 +58,13 @@ public class TurtleDisplay extends Pane{
         setPrefWidth(fixedWidth);
         setPrefHeight(fixedHeight);
     }
-    private double getFixedWidth(int width, int padding){
-        double doubleWidth = (double)width / 2;
+    private double getFixedWidth(double width, int padding){
+        double doubleWidth = width / 2;
         int totalPadding = padding * 2;
         return doubleWidth - totalPadding;
     }
-    private double getFixedHeight(int height, int padding){
-        double doubleHeight= (double)height  * 0.90;
+    private double getFixedHeight(double height, int padding){
+        double doubleHeight= height  * 0.90;
         int totalPadding = padding * 2;
         return doubleHeight- totalPadding;
     }
@@ -82,12 +89,14 @@ public class TurtleDisplay extends Pane{
      * sets the turtle location to the center of the screen
      */
     public void setDefaultTurtleLocation(){
+        getChildren().remove(turtleImageView);
+        getChildren().add(turtleImageView);
         turtleImageView.setX(getPrefWidth() / 2);
         turtleImageView.setY(getPrefHeight() / 2);
     }
     public void moveTurtle(int [][] movement){
         ArrayList<PathTransition> totalMovements = new ArrayList<>();
-        SequentialTransition sequentialTransition = new SequentialTransition();
+        sequentialTransition = new SequentialTransition();
         for(int[] tup : movement){
             int degrees = tup[0];
             int displacement = tup[1];
@@ -96,15 +105,18 @@ public class TurtleDisplay extends Pane{
             Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(turtleXPosition() + newWidth, turtleYPosition() + newHeight));
-            turtleImageView.setX(turtleImageView.getX() + newWidth);
-            turtleImageView.setY(turtleImageView.getY() + newHeight);
             PathTransition pathTransition = createTransition(path);
             totalMovements.add(pathTransition);
+            turtleImageView.setX(turtleImageView.getX() + newWidth);
+            turtleImageView.setY(turtleImageView.getY() + newHeight);
         }
         for(PathTransition movements: totalMovements){
             sequentialTransition.getChildren().add(movements);
         }
         sequentialTransition.play();
+    }
+    public void stopTurtle(){
+        sequentialTransition.stop();
     }
     private double getXDisplacement(int degrees, int displacement){
         return Math.cos(degrees) * displacement;
