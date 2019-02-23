@@ -11,7 +11,7 @@ public class ProductCommand extends GeneralCommand {
 
     public void execute(){
         checkParameterCount();
-        int prod = 1;
+        double prod = 1;
         for (GeneralCommand child: myChildren){
             if (child instanceof ConstantCommand){
                 ConstantCommand c = (ConstantCommand) child;

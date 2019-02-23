@@ -34,13 +34,8 @@ public class CommandFactory {
         try {
             Class clazz = Class.forName("commands." + list.get(0) + "Command");
             try {
-                if (list.size() == 1) {
-                    Object command = clazz.getConstructor().newInstance();
-                    return (GeneralCommand) command;
-                } else {
-                    Object command = clazz.getConstructor(double.class).newInstance(Double.parseDouble(list.get(1)));
-                    return (GeneralCommand) command;
-                }
+                if (list.size() == 1) return (GeneralCommand) clazz.getConstructor().newInstance();
+                else return (GeneralCommand) clazz.getConstructor(double.class).newInstance(Double.parseDouble(list.get(1)));
             } catch (InstantiationException e) {
                 System.err.println("Error: Could not instantiate Constant Object with the given value");
             } catch (NoSuchMethodException e) {
