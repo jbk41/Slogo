@@ -16,6 +16,7 @@ public class ConstantCommand extends GeneralCommand{
     public String getType(){
         return myVal + "";
     }
+
     public double getVal(){
         return myVal;
     }

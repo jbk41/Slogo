@@ -14,11 +14,12 @@ public class CommandTree {
     private List<String> myArguments;
     private GeneralCommand head;
     private int start;
-    private ParseCleaner lang;
+    private ParseCleaner cleaner;
 
 
-    public CommandTree(String text){
-        myArguments = new ArrayList<String>(Arrays.asList(text.split("\\s+")));
+    public CommandTree(String text, ParseCleaner clean){
+        cleaner = clean;
+        myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
         head = generateTree(myArguments.size()-1);
         linkParents(head);
         executeTree(head);
@@ -36,8 +37,8 @@ public class CommandTree {
     }
 
     private GeneralCommand generateTree(int end){
-//        var factory = new CommandFactory();
-        GeneralCommand command = getCommand(myArguments.get(start));
+        CommandFactory factory = new CommandFactory(myArguments.get(start), cleaner);
+        GeneralCommand command = factory.getCommand();
         //GeneralCommand command = factory.getCommand(myArguments.get(start));
 
         if (start == end){

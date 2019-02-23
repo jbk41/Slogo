@@ -16,34 +16,15 @@ public class Parser {
         myText = text;
         LANGUAGES = languages;
         Cleaner = new ParseCleaner();
-        addLanguages(LANGUAGES, Cleaner);
-        myCleanText = parseText(text, Cleaner);
+        //addLanguages(LANGUAGES, Cleaner);
+        //myCleanText = parseText(text, Cleaner);
     }
 
 
     public ArrayList<String> getCleanText() { return myCleanText; }
 
 
-    private ArrayList<String> parseText(String text, ParseCleaner lang) {
-        var array = text.split(" ");
-        var cleanText = new ArrayList<String>();
-        for (String command : array) {
-            if (numList().contains(command)){
-                cleanText.add(command);
-            }
-            else{
-                cleanText.add(lang.getSymbol(command));
-            }
-         }
-        return cleanText;
-    }
 
-
-    private void addLanguages(String[] languages, ParseCleaner cleaner){
-        for (String lang : languages) {
-            cleaner.addPatterns("resources/languages/"+lang);
-        }
-    }
 
     private ArrayList<String> numList(){
         var nums = new ArrayList<String>();

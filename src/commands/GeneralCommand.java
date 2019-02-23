@@ -55,7 +55,7 @@ public class GeneralCommand {
 
     protected void checkParameterCount() throws IllegalAccessError{
         if (myChildren.size() != myMaxChildren) {
-            throw new IllegalArgumentException("Sum takes in " + myMaxChildren + " two parameters");
+            throw new IllegalArgumentException(this.getType() + " takes in " + myMaxChildren + " parameters");
         }
     }
 

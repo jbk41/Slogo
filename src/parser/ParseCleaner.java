@@ -1,11 +1,8 @@
 package parser;
 
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 /**
@@ -27,15 +24,21 @@ public class ParseCleaner {
 
 
     /**
-     * Adds the given resource file to this language's recognized types
+     * Adds the given resource files to this language's recognized types
      */
     public void addPatterns (String syntax) {
-        var resources = ResourceBundle.getBundle(syntax);
-        for (var key : Collections.list(resources.getKeys())) {
-            var regex = resources.getString(key);
-            mySymbols.add(new SimpleEntry<>(key,
-                    // THIS IS THE IMPORTANT LINE
-                    Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+        //for (String lang : syntax) {
+        try {
+            var resources = ResourceBundle.getBundle(syntax);
+            for (var key : Collections.list(resources.getKeys())) {
+                var regex = resources.getString(key);
+                mySymbols.add(new SimpleEntry<>(key,
+                        // THIS IS THE IMPORTANT LINE
+                        Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+            }
+        }
+        catch (MissingResourceException e) {
+            System.err.println(e);
         }
     }
 

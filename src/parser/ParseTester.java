@@ -62,8 +62,8 @@ public class ParseTester {
         // set up the parser
         var lang = new ParseCleaner();
         // these are more specific, so add them first to ensure they are checked first
-        lang.addPatterns("resources/languages/English");
-        lang.addPatterns("resources/languages/Syntax");
+//        lang.addPatterns("resources/languages/English");
+//        lang.addPatterns("resources/languages/Syntax");
         System.out.println(lang.getSymbol("fd"));
 
         // try against different inputs
