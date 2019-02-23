@@ -12,6 +12,7 @@ public abstract class GeneralCommand {
     protected String myType;
     protected int myMaxChildren;
     protected boolean hasExecuted;
+    protected double myVar;
 
     protected GeneralCommand(){
         myChildren = new ArrayList<>();
@@ -66,4 +67,6 @@ public abstract class GeneralCommand {
     protected int getIndexOfCurrentInParent(){
         return (myParent.getChildren().indexOf(this));
     }
+
+    public double getVar() { return myVar; }
 }

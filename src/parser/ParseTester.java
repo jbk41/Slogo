@@ -59,12 +59,12 @@ public class ParseTester {
     public static void main (String[] args) {
         var m = new ParseTester();
 
-        String[] langs = {"English", "Syntax"};
-        var lang = new ParseCleaner(langs);
-        System.out.println(lang.getSymbol("fd"));
+        String lang = "English";
+        var language = new ParseCleaner(lang);
+        System.out.println(language.getSymbol("fd"));
 
-        m.parseText(lang, m.examples);
+        m.parseText(language, m.examples);
         String userInput = "fd 50 rt 90 BACK :distance Left :angle";
-        m.parseText(lang, userInput.split(WHITESPACE));
+        m.parseText(language, userInput.split(WHITESPACE));
     }
 }

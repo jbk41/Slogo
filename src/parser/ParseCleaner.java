@@ -15,24 +15,21 @@ import java.util.regex.Pattern;
 public class ParseCleaner {
 
     private List<Entry<String, Pattern>> mySymbols;
-    private String[] myLanguages;
+    private String myLanguage;
 
 
-    public ParseCleaner(String[] languages) {
+    public ParseCleaner(String language) {
         mySymbols = new ArrayList<>();
-        myLanguages = new String[languages.length +1];
-        myLanguages = languages;
-        this.addPatterns(myLanguages);
+        myLanguage = language;
+        this.addPatterns(myLanguage);
     }
 
 
     /**
      * Adds the given resource file to this language's recognized types
      */
-    public void addPatterns (String[] syntax) {
-        for (String language : syntax) {
-            addLang(language);
-        }
+    public void addPatterns (String language) {
+        addLang(language);
         addLang("Syntax");
     }
 

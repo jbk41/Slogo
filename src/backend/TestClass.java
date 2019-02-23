@@ -6,14 +6,14 @@ import commands.*;
 
 public class TestClass {
 
-    static String[] myLanguages = {"English"};
+    static String myLanguage = "English";
 
     public static void main (String[] args){
-        ParseCleaner myCleaner = new ParseCleaner(myLanguages);
-        String text = "fd Sin 90";
+        ParseCleaner myCleaner = new ParseCleaner(myLanguage);
+        String text = "fd sum 1 10";
         CommandTree t = new CommandTree(text, myCleaner);
         t.printTree();
-        ForwardCommand f = (ForwardCommand) t.getHead();
-        System.out.println(f.getVar());
+        System.out.println(t.getHead().getType());
+        System.out.println(t.getHead().getVar());
     }
 }
