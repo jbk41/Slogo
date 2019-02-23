@@ -56,33 +56,32 @@ public class TurtleIDE extends Application {
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
-
         PlayTurtle play = new PlayTurtle(turtle, "Play");
         Button reset = createResetButton(turtle, turtleDisplay);
-        Button save = createSaveButton();
-        Button load = createLoadButton();
-        HBox controls = new HBox(6, play, reset, save, load, settingsBox, penColorDropDown, languagesDropDown);
+//        Button save = createSaveButton();
+//        Button load = createLoadButton();
+        HBox controls = new HBox(4, play, reset, settingsBox, penColorDropDown, languagesDropDown);
         VBox display = new VBox(15, turtleDisplay, controls);
         display.setPadding(new Insets(padding,padding,padding,padding));
         return display;
     }
-    private Button createSaveButton(){
-        Button save = new Button("Save");
-        save.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                FileChooser fileChooser = new FileChooser();
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-                fileChooser.getExtensionFilters().add(extFilter);
-                File file = fileChooser.showSaveDialog(primaryStage);
-                if (file != null) {
-                    TextWriter textWriter = new TextWriter(file);
-                    textWriter.writeTextFile(textEditor.getText());
-                }
-            }
-        });
-        return save;
-    }
+//    private Button createSaveButton(){
+//        Button save = new Button("Save");
+//        save.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                FileChooser fileChooser = new FileChooser();
+//                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+//                fileChooser.getExtensionFilters().add(extFilter);
+//                File file = fileChooser.showSaveDialog(primaryStage);
+//                if (file != null) {
+//                    TextWriter textWriter = new TextWriter(file);
+//                    textWriter.writeTextFile(textEditor.getText());
+//                }
+//            }
+//        });
+//        return save;
+//    }
     private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
         Button reset = new Button("Reset");
         reset.setOnAction(new EventHandler<ActionEvent>() {
@@ -96,20 +95,20 @@ public class TurtleIDE extends Application {
         });
         return reset;
     }
-    private Button createLoadButton(){
-        Button load = new Button("Load");
-        load.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Load Previous Code");
-                File file = fileChooser.showOpenDialog(primaryStage);
-                TextReader textReader = new TextReader(file);
-                textEditor.setText(textReader.getText());
-            }
-        });
-        return load;
-    }
+//    private Button createLoadButton(){
+//        Button load = new Button("Load");
+//        load.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                FileChooser fileChooser = new FileChooser();
+//                fileChooser.setTitle("Load Previous Code");
+//                File file = fileChooser.showOpenDialog(primaryStage);
+//                TextReader textReader = new TextReader(file);
+//                textEditor.setText(textReader.getText());
+//            }
+//        });
+//        return load;
+//    }
 
     /**
      * Start the program.
