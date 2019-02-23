@@ -10,41 +10,46 @@ import java.util.regex.Pattern;
  * kinds of language features.
  *
  * @author Robert C. Duvall
+ * @modified_by Alejandro Meza
  */
 public class ParseCleaner {
-    // "types" and the regular expression patterns that recognize those types
-    // note, it is a list because order matters (some patterns may be more generic)
+
     private List<Entry<String, Pattern>> mySymbols;
     private String[] myLanguages;
-    /**
-     * Create an empty parser.
-     */
+
+
     public ParseCleaner(String[] languages) {
         mySymbols = new ArrayList<>();
+        myLanguages = new String[languages.length +1];
         myLanguages = languages;
         this.addPatterns(myLanguages);
-
     }
 
 
     /**
-     * Adds the given resource files to this language's recognized types
+     * Adds the given resource file to this language's recognized types
      */
     public void addPatterns (String[] syntax) {
-        for (String lang : syntax) {
-            lang = "resources/languages/"+lang;
-            try {
-                var resources = ResourceBundle.getBundle(lang);
-                for (var key : Collections.list(resources.getKeys())) {
-                    var regex = resources.getString(key);
-                    mySymbols.add(new SimpleEntry<>(key,
-                            // THIS IS THE IMPORTANT LINE
-                            Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-                }
-            } catch (MissingResourceException e) {
-                System.err.println(e);
-            }
+        for (String language : syntax) {
+            addLang(language);
         }
+        addLang("Syntax");
+    }
+
+
+    private void addLang(String lang) {
+        try {
+            String language = "resources/languages/" + lang;
+            var resources = ResourceBundle.getBundle(language);
+            for (var key : Collections.list(resources.getKeys())) {
+                var regex = resources.getString(key);
+                mySymbols.add(new SimpleEntry<>(key,
+                        // THIS IS THE IMPORTANT LINE
+                        Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+            }
+        } catch (MissingResourceException e) {
+            System.err.println(e);
+            }
     }
 
 
@@ -66,7 +71,7 @@ public class ParseCleaner {
     /**
      * Returns true if the given text matches the given regular expression pattern
      */
-    private boolean match (String text, Pattern regex) {
+    private boolean match(String text, Pattern regex) {
         // THIS IS THE IMPORTANT LINE
         return regex.matcher(text).matches();
     }

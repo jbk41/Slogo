@@ -6,8 +6,7 @@ import commands.*;
 
 public class TestClass {
 
-    public ParseCleaner myCleaner;
-    static String[] myLanguages = {"English", "Syntax"};
+    static String[] myLanguages = {"English"};
 
     public static void main (String[] args){
         ParseCleaner myCleaner = new ParseCleaner(myLanguages);

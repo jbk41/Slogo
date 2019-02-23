@@ -9,15 +9,12 @@ import java.util.ArrayList;
 
 public class CommandFactory {
 
-    private ParseCleaner myCleaner;
+    private ParseCleaner myLanguages;
     //private ArrayList<String> myCleanText;
     //public GeneralCommand myCommand;
 
     public CommandFactory(ParseCleaner p) {
-        myCleaner = p;
-        //myCleanText = parseText(s, myCleaner);
-        //myCommand = makeCommand(myCleanText);
-
+        myLanguages = p;
     }
 
 
@@ -62,7 +59,7 @@ public class CommandFactory {
 
     private ArrayList<String> parseText(String s) {
         ArrayList<String> cleanText = new ArrayList<>();
-        String temp = myCleaner.getSymbol(s);
+        String temp = myLanguages.getSymbol(s);
         cleanText.add(temp);
         if (temp.equals("Constant") || temp.equals("Variable")) {
             cleanText.add(s);
@@ -70,8 +67,3 @@ public class CommandFactory {
         return cleanText;
     }
 }
-
-
-//    private GeneralCommand makeVarCommand(ArrayList<String> list) {
-//
-//}
