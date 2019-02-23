@@ -77,24 +77,4 @@ public class CommandTree {
         }
         c.execute();
     }
-
-    // this is for testing only just to get a command
-    private GeneralCommand getCommand(String s){
-        if (s.equals("fd")){
-            return new ForwardCommand();
-        }
-        else if (s.equals("+")){
-            return new SumCommand();
-        }
-        else if (s.equals("*")){
-            return new ProductCommand();
-        }
-        else if (s.equals("-")){
-            return new DifferenceCommand();
-        }
-        else { // constant command
-            return new ConstantCommand(Double.parseDouble(s));
-        }
-//        return new ForwardCommand();
-    }
 }
