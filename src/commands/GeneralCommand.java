@@ -11,9 +11,11 @@ public class GeneralCommand {
     protected GeneralCommand myParent;
     protected String myType;
     protected int myMaxChildren;
+    protected boolean hasExecuted;
 
     protected GeneralCommand(){
         myChildren = new ArrayList<>();
+        hasExecuted = false;
     }
 
     public List<GeneralCommand> getChildren(){
@@ -47,8 +49,17 @@ public class GeneralCommand {
         return c;
     }
 
+    public void execute() throws IllegalArgumentException{
 
-    public void execute(){
-        
+    }
+
+    protected void checkParameterCount() throws IllegalAccessError{
+        if (myChildren.size() != myMaxChildren) {
+            throw new IllegalArgumentException("Sum takes in " + myMaxChildren + " two parameters");
+        }
+    }
+
+    protected void makeDone(){
+        hasExecuted = true;
     }
 }

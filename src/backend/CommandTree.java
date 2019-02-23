@@ -20,6 +20,8 @@ public class CommandTree {
     public CommandTree(String text){
         myArguments = new ArrayList<String>(Arrays.asList(text.split("\\s+")));
         head = generateTree(myArguments.size()-1);
+        linkParents(head);
+        executeTree(head);
     }
 
     /**
@@ -29,6 +31,9 @@ public class CommandTree {
         printPostOrder(head);
     }
 
+    public GeneralCommand getHead(){
+        return head;
+    }
 
     private GeneralCommand generateTree(int end){
 //        var factory = new CommandFactory();
@@ -54,9 +59,22 @@ public class CommandTree {
             printPostOrder(command);
         }
         // now deal with the node
-        System.out.print(c.getType() + " ");
+        System.out.println(c.getType() + " with parent: " + c.printParent());
     }
 
+    private void linkParents(GeneralCommand c){
+        for (GeneralCommand command: c.getChildren()){
+            command.setParent(c);
+            linkParents(command);
+        }
+    }
+
+    private void executeTree(GeneralCommand c){
+        for (GeneralCommand command: c.getChildren()){
+            executeTree(command);
+        }
+        c.execute();
+    }
 
     // this is for testing only just to get a command
     private GeneralCommand getCommand(String s){
@@ -65,6 +83,12 @@ public class CommandTree {
         }
         else if (s.equals("+")){
             return new SumCommand();
+        }
+        else if (s.equals("*")){
+            return new ProductCommand();
+        }
+        else if (s.equals("-")){
+            return new DifferenceCommand();
         }
         else { // constant command
             return new ConstantCommand(Double.parseDouble(s));

@@ -21,6 +21,6 @@ public class ConstantCommand extends GeneralCommand{
     }
 
     public void execute(){
-        return;
+        makeDone();
     }
 }
