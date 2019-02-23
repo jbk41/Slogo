@@ -10,7 +10,7 @@ public class QuotientCommand extends GeneralCommand {
 
     public void execute(){
         checkParameterCount();
-        int quot = 1;
+        double quot = 1;
         for (int i = 0; i < myChildren.size(); i ++){
             GeneralCommand child = myChildren.get(i);
             if (child instanceof ConstantCommand){

@@ -11,7 +11,7 @@ public class SumCommand extends GeneralCommand {
     @Override
     public void execute() throws IllegalArgumentException{
         checkParameterCount();
-        int sum = 0;
+        double sum = 0;
         for (GeneralCommand child: myChildren){
             //System.out.println(child.getType());
             if (child instanceof ConstantCommand){
