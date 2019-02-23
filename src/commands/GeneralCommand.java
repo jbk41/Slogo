@@ -2,7 +2,7 @@ package commands;
 import java.util.List;
 import java.util.ArrayList;
 
-public abstract class GeneralCommand {
+public class GeneralCommand {
 
     /**
      * @author Justin Kim
@@ -24,8 +24,17 @@ public abstract class GeneralCommand {
         return myMaxChildren;
     }
 
-    public GeneralCommand getParent(){
-        return myParent;
+    public String printParent(){
+        if (myParent != null){
+            return myParent.getType();
+        }
+        else {
+            return "null";
+        }
+    }
+
+    public void setParent(GeneralCommand command){
+        myParent = command;
     }
 
     public String getType(){
@@ -39,5 +48,7 @@ public abstract class GeneralCommand {
     }
 
 
-    public abstract void execute();
+    public void execute(){
+        
+    }
 }
