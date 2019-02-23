@@ -60,7 +60,6 @@ public class TurtleIDE extends Application {
         Button load = createLoadButton();
         HBox controls = new HBox(6, play, reset, save, load, settingsBox, penColorDropDown, languagesDropDown);
         VBox turtle = new VBox(15, turtleDisplay, controls);
-        turtle.setMaxWidth(width/2);
         turtle.setPadding(new Insets(padding,padding,padding,padding));
         return turtle;
     }

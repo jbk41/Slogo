@@ -7,14 +7,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
@@ -22,7 +20,7 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-public class TurtleDisplay extends Pane{
+public class TurtleDisplay extends Pane {
     private static final String TURTLE_IMAGE = "turtle.gif";
     private double width;
     private double height;
@@ -37,11 +35,11 @@ public class TurtleDisplay extends Pane{
         this.width = width;
         this.height = height;
         this.padding = padding;
+        setSizeOfRoot();
+        addTurtleToRoot();
         canvas = new Canvas(getFixedWidth(width,padding), getFixedHeight(height,padding));
         getChildren().add(canvas);
-        setSizeOfRoot();
         setBackground(new Background(new BackgroundFill(BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
-        addTurtleToRoot();
     }
     public void clearCanvas(){
         getChildren().remove(canvas);
