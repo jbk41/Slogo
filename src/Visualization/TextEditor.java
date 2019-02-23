@@ -1,6 +1,7 @@
 package Visualization;
 
 import javafx.scene.control.TextArea;
+import java.util.Scanner;
 
 public class TextEditor extends TextArea{
     public TextEditor(double width, double height){
