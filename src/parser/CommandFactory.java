@@ -1,7 +1,7 @@
 package parser;
 
-import commands.ForwardCommand;
-import commands.GeneralCommand;
+import commands.*;
+import java.util.List;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -9,14 +9,14 @@ import java.util.ArrayList;
 
 public class CommandFactory {
 
-    private ParseCleaner Cleaner;
-    private ArrayList<String> myCleanText;
-    public GeneralCommand myCommand;
+    private ParseCleaner myCleaner;
+    //private ArrayList<String> myCleanText;
+    //public GeneralCommand myCommand;
 
-    public CommandFactory(String s, ParseCleaner p) {
-        Cleaner = p;
-        myCleanText = parseText(s, Cleaner);
-        myCommand = makeCommand(myCleanText);
+    public CommandFactory(ParseCleaner p) {
+        myCleaner = p;
+        //myCleanText = parseText(s, myCleaner);
+        //myCommand = makeCommand(myCleanText);
 
     }
 
@@ -27,12 +27,13 @@ public class CommandFactory {
      *
      * @return Command object for input String
      */
-    public GeneralCommand getCommand() {
-        return myCommand;
+    public GeneralCommand getCommand(String s) {
+        List<String> cleanedText = parseText(s);
+        return makeCommand(cleanedText);
     }
 
 
-    private GeneralCommand makeCommand(ArrayList<String> list) {
+    private GeneralCommand makeCommand(List<String> list) {
         try {
             Class clazz = Class.forName("commands." + list.get(0) + "Command");
             try {
@@ -59,9 +60,9 @@ public class CommandFactory {
     }
 
 
-    private ArrayList<String> parseText(String s, ParseCleaner lang) {
+    private ArrayList<String> parseText(String s) {
         ArrayList<String> cleanText = new ArrayList<>();
-        String temp = lang.getSymbol(s);
+        String temp = myCleaner.getSymbol(s);
         cleanText.add(temp);
         if (temp.equals("Constant") || temp.equals("Variable")) {
             cleanText.add(s);
