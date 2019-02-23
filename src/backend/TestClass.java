@@ -12,7 +12,7 @@ public class TestClass {
     static String[] Languages = {"English", "Syntax"};
 
     public static void main (String[] args){
-        String text = "fd + + + 1 2 3 4";
+        String text = "fd * + - 1 2 3 4";
         CommandTree t = new CommandTree(text);
         t.printTree();
         ForwardCommand f = (ForwardCommand) t.getHead();

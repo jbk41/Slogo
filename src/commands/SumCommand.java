@@ -19,7 +19,7 @@ public class SumCommand extends GeneralCommand {
                 sum += c.getVal();
             }
             else {
-                throw new IllegalArgumentException("Illegal Argument Type (Sum accepts constant nodes)");
+                throw new IllegalArgumentException("Illegal Argument Type (Sum accepts constant arguments)");
             }
         }
         int index = getIndexOfCurrentInParent();
@@ -27,8 +27,6 @@ public class SumCommand extends GeneralCommand {
         makeDone();
     }
 
-    private int getIndexOfCurrentInParent(){
-        return (myParent.getChildren().indexOf(this));
-    }
+
 
 }

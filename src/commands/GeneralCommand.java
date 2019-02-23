@@ -62,4 +62,8 @@ public class GeneralCommand {
     protected void makeDone(){
         hasExecuted = true;
     }
+
+    protected int getIndexOfCurrentInParent(){
+        return (myParent.getChildren().indexOf(this));
+    }
 }
