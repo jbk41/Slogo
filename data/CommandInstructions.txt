@@ -59,8 +59,4 @@ DOTIMES [ variable limit ] [ command(s) ]:	runs command(s) for each value specif
 FOR [ variable start end increment ][ command(s) ]:	runs command(s) for each value specified in the range, i.e., from (start - end), going by increment, and returns the value of the final command executed (or 0 if no commands are executed). Note, variable is assigned to each succeeding value so that it can be accessed by the command(s)
 IF expr [ command(s) ]:	if expr is not 0, runs the command(s) given in the list and returns the value of the final command executed (or 0 if no commands are executed)
 IFELSE expr [ trueCommand(s) ][ falseCommand(s) ]:	if expr is not 0, runs the trueCommands given in the first list, otherwise runs the falseCommands given in the second list and returns the value of the final command executed (or 0 if no commands are executed)
-TO commandName
-[ variable(s) ]
-[ command(s) ]	assigns command(s) given in the second list to commandName using parameters given in first list as variables
-when commandName is used later in a program, any given values are assigned to variables that can be accessed when the command list is run and the value of the final command executed is returned (or 0 if no commands are executed)
-returns 1 if command is successfully defined, otherwise 0
+TO commandName [ variable(s) ] [ command(s) ]:	assigns command(s) given in the second list to commandName using parameters given in first list as variables and when commandName is used later in a program, any given values are assigned to variables that can be accessed when the command list is run and the value of the final command executed is returned (or 0 if no commands are executed) and returns 1 if command is successfully defined, otherwise 0

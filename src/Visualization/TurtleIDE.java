@@ -131,6 +131,7 @@ public class TurtleIDE extends Application {
         try {
             String text = new String(Files.readAllBytes(Paths.get("data/CommandInstructions.txt")));
             Text txt = new Text(text);
+            txt.setWrappingWidth(700);
             root.setContent(new Label("Turtle Instructions"));
             root.setContent(txt);
         } catch (IOException e){
