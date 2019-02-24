@@ -1,24 +1,11 @@
 package Visualization;
 
-import javafx.animation.PathTransition;
-import javafx.animation.SequentialTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.*;
-import javafx.util.Duration;
 
-import java.util.ArrayList;
 
 public class TurtleDisplay extends Pane {
     private double width;
