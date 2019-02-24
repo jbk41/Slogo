@@ -24,6 +24,8 @@ import javafx.stage.Window;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class TurtleIDE extends Application {
@@ -35,10 +37,12 @@ public class TurtleIDE extends Application {
     private Console console;
     private TextEditor textEditor;
     private Stage primaryStage;
+    Group root;
+
     @Override
     public void start(Stage stage){
         primaryStage = stage;
-        Group root = new Group();
+        root = new Group();
         var startScene = new Scene(root, width, height, backgroundColor);
         HBox IDE = new HBox(createUserBox(), createTurtleDisplay());
         root.getChildren().add(IDE);
@@ -109,29 +113,32 @@ public class TurtleIDE extends Application {
         help.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //TODO: Probably just display text from a file
-                Popup popup = new Popup();
-                final ObservableList<Instruction> data = FXCollections.observableArrayList(new Instruction("Forward pixels","moves turtle forward in its current heading by pixels distance returns the value of pixels"));
-                TableView<Instruction> table = new TableView<>();
-                Label label = new Label("Command Instructions");
-
-                TableColumn commandCol = new TableColumn("Command");
-                commandCol.setMinWidth(100);
-                commandCol.setCellValueFactory(
-                        new PropertyValueFactory<>("command"));
-
-                TableColumn functionCol = new TableColumn("Function");
-                functionCol.setMinWidth(100);
-                functionCol.setCellValueFactory(
-                        new PropertyValueFactory<>("function"));
-                table.getColumns().addAll(commandCol, functionCol);
-                table.setItems(data);
-                popup.getContent().addAll(table);
-                popup.show(primaryStage);
+                try {
+                    displayHelpScreen();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
             }
         });
         return help;
     }
+
+    private void displayHelpScreen() throws IOException {
+        Stage stage = new Stage();
+        stage.setTitle("Help");
+        ScrollPane root = new ScrollPane();
+        stage.setScene(new Scene(root,750,500));
+        try {
+            String text = new String(Files.readAllBytes(Paths.get("data/CommandInstructions.txt")));
+            Text txt = new Text(text);
+            root.setContent(new Label("Turtle Instructions"));
+            root.setContent(txt);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        stage.show();
+    }
+
 //    private Button createLoadButton(){
 //        Button load = new Button("Load");
 //        load.setOnAction(new EventHandler<ActionEvent>() {
