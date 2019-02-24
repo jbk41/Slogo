@@ -53,8 +53,8 @@ NOT test:	returns 1 if test is 0 and 0 if test is non-zero
 
 VARIABLES, CONSTRUCTORS, AND USER-DEFINED COMMANDS
 
-MAKE variable expr, SET variable expr: assigns the value of expr to variable, creating the variable if necessary and returns expr
-REPEAT expr [ command(s) ]:	runs command(s) given in the list the value of expr number of times and returns the value of the final command executed (or 0 if no commands are executed). Note, the value of the current iteration, starting at 1, is automatically assigned to the variable :repcount so that it can be accessed by the command(s)
+MAKE variable expr, SET variable expr:  assigns the value of expr to variable, creating the variable if necessary and returns expr
+REPEAT expr [ command(s) ]: runs command(s) given in the list the value of expr number of times and returns the value of the final command executed (or 0 if no commands are executed). Note, the value of the current iteration, starting at 1, is automatically assigned to the variable :repcount so that it can be accessed by the command(s)
 DOTIMES [ variable limit ] [ command(s) ]:	runs command(s) for each value specified in the range, i.e., from (1 - limit) inclusive and returns the value of the final command executed (or 0 if no commands are executed). Note, variable is assigned to each succeeding value so that it can be accessed by the command(s)
 FOR [ variable start end increment ][ command(s) ]:	runs command(s) for each value specified in the range, i.e., from (start - end), going by increment, and returns the value of the final command executed (or 0 if no commands are executed). Note, variable is assigned to each succeeding value so that it can be accessed by the command(s)
 IF expr [ command(s) ]:	if expr is not 0, runs the command(s) given in the list and returns the value of the final command executed (or 0 if no commands are executed)

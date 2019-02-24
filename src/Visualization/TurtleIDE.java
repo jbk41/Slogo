@@ -114,30 +114,13 @@ public class TurtleIDE extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    displayHelpScreen();
+                    HelpScreen.displayHelpScreen();
                 } catch (IOException e){
                     e.printStackTrace();
                 }
             }
         });
         return help;
-    }
-
-    private void displayHelpScreen() throws IOException {
-        Stage stage = new Stage();
-        stage.setTitle("Help");
-        ScrollPane root = new ScrollPane();
-        stage.setScene(new Scene(root,750,500));
-        try {
-            String text = new String(Files.readAllBytes(Paths.get("data/CommandInstructions.txt")));
-            Text txt = new Text(text);
-            txt.setWrappingWidth(700);
-            root.setContent(new Label("Turtle Instructions"));
-            root.setContent(txt);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        stage.show();
     }
 
 //    private Button createLoadButton(){
