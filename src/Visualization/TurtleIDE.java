@@ -119,7 +119,7 @@ public class TurtleIDE extends Application {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Error");
                     alert.setHeaderText(e.getMessage());
-                    alert.setContentText("Check ");
+                    alert.setContentText("Invalid File. Check to see if the file exists");
                     alert.showAndWait();
                 }
             }
