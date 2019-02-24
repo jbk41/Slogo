@@ -11,11 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class HelpScreen {
-    private HelpScreen(){
+    private HelpScreen(){}
 
-    }
-
-    static void displayHelpScreen() throws IOException {
+    static void displayHelpScreen(){
         Stage stage = new Stage();
         stage.setTitle("Help");
         ScrollPane root = new ScrollPane();

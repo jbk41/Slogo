@@ -115,8 +115,12 @@ public class TurtleIDE extends Application {
             public void handle(ActionEvent actionEvent) {
                 try {
                     HelpScreen.displayHelpScreen();
-                } catch (IOException e){
-                    e.printStackTrace();
+                } catch (Exception e){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(e.getMessage());
+                    alert.setContentText("Check ");
+                    alert.showAndWait();
                 }
             }
         });
