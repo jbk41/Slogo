@@ -98,12 +98,10 @@ public class TurtleIDE extends Application {
         reset.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println(turtle.turtleYPosition());
                 turtle.stopTurtle();
                 Canvas canvas = turtleDisplay.createNewCanvas();
                 turtle.changeCanvas(canvas);
                 turtle.setDefaultTurtleLocation();
-                System.out.println(turtle.turtleYPosition());
             }
         });
         return reset;

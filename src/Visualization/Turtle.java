@@ -59,7 +59,6 @@ public class Turtle {
     public void setDefaultTurtleLocation(){
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
-        System.out.println("new pos : " + turtleImageView.getY());
     }
     public void moveTurtle(int [][] movement){
         ArrayList<PathTransition> totalMovements = new ArrayList<>();
