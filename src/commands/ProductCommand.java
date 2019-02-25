@@ -23,6 +23,6 @@ public class ProductCommand extends GeneralCommand {
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(prod));
-        makeDone();
+        makeReady();
     }
 }

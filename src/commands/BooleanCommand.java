@@ -8,20 +8,22 @@ public abstract class BooleanCommand extends GeneralCommand {
     }
 
     @Override
-    public void execute() throws IllegalArgumentException{
+    public void execute(){
         checkParameterCount();
         double[] d = new double[2];
         GeneralCommand child;
         for (int i = 0; i < myChildren.size(); i++){
             //System.out.println(child.getType());
             child = myChildren.get(i);
-            if (child instanceof ConstantCommand){
-                ConstantCommand c = (ConstantCommand) child;
-                d[i] = c.getVal();
+
+            try {
+                d[i] = getValFromChild(child);
             }
-            else {
-                throw new IllegalArgumentException("Illegal Argument Type (Boolean commands accept constant arguments)");
+            catch (IllegalArgumentException e){
+                System.out.println(e);
+                return;
             }
+
         }
 
         int index = getIndexOfCurrentInParent();
@@ -30,7 +32,7 @@ public abstract class BooleanCommand extends GeneralCommand {
             returnVal = 1;
         }
         myParent.getChildren().set(index, new ConstantCommand(returnVal));
-        makeDone();
+        makeReady();
     }
 
     protected abstract boolean evaluate(double a, double b);

@@ -22,7 +22,7 @@ public class TangentCommand extends GeneralCommand{
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(tan));
-        makeDone();
+        makeReady();
     }
 
 }

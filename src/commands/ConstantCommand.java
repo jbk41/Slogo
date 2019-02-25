@@ -9,11 +9,12 @@ public class ConstantCommand extends GeneralCommand{
         myType = "Constant";
         myMaxChildren = 0;
         myVal = d;
+        makeReady(); // is immediately executable upon initialization
     }
 
     @Override
-    public String getType(){
-        return myVal + "";
+    public String toString(){
+        return Double.toString(myVal);
     }
 
     public double getVal(){
@@ -21,6 +22,6 @@ public class ConstantCommand extends GeneralCommand{
     }
 
     public void execute(){
-        makeDone();
+        return;
     }
 }

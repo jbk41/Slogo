@@ -22,7 +22,7 @@ public class CosineCommand extends GeneralCommand{
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(cos));
-        makeDone();
+        makeReady();
     }
 
 }

@@ -11,18 +11,24 @@ public class ArcTangentCommand extends GeneralCommand{
     public void execute(){
         checkParameterCount();
         GeneralCommand child = myChildren.get(0);
+        double val;
         double atan;
-        if (child instanceof ConstantCommand){
-            ConstantCommand c = (ConstantCommand) child;
-            double deg = c.getVal()*Math.PI/180;
-            atan = Math.atan(deg);
+        try {
+            val = getValFromChild(child);
         }
-        else {
-            throw new IllegalArgumentException("Illegal Argument Type (ArcTangent accepts Constant nodes)");
+
+        catch (IllegalArgumentException e){
+            System.out.println(e);
+            return;
         }
+        double deg = val*Math.PI/180;
+        atan = Math.atan(deg);
+
+
+
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(atan));
-        makeDone();
+        makeReady();
     }
 
 }

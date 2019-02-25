@@ -13,18 +13,17 @@ public class SumCommand extends GeneralCommand {
         checkParameterCount();
         double sum = 0;
         for (GeneralCommand child: myChildren){
-            //System.out.println(child.getType());
-            if (child instanceof ConstantCommand){
-                ConstantCommand c = (ConstantCommand) child;
-                sum += c.getVal();
+            try {
+                sum += getValFromChild(child);
             }
-            else {
-                throw new IllegalArgumentException("Illegal Argument Type (Sum accepts constant arguments)");
+            catch (IllegalArgumentException e){
+                System.out.println(e);
+                return;
             }
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(sum));
-        makeDone();
+        makeReady();
     }
 
 

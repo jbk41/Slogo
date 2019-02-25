@@ -14,13 +14,13 @@ public class RightCommand extends GeneralCommand {
         GeneralCommand child = myChildren.get(0);
         if (child instanceof ConstantCommand){
             ConstantCommand c = (ConstantCommand) child;
-            this.myVar = c.getVal();
+            this.myVal = c.getVal();
             myChildren.clear();
         }
         else {
             throw new IllegalArgumentException("Illegal Argument Type (Right accepts Constants)");
         }
-        makeDone();
+        makeReady();
     }
 
 }

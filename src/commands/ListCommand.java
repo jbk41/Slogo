@@ -4,6 +4,7 @@ public class ListCommand extends GeneralCommand {
 
     public ListCommand(){
         super();
+        myType = "List";
     }
 
     @Override

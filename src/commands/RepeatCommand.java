@@ -1,4 +1,4 @@
 package commands;
 
-public class RepeatCommand {
+public class RepeatCommand extends GeneralCommand {
 }
