@@ -10,11 +10,11 @@ public class TurtleCommand { //FIXME: ASK ABOUT CONVENTION !!!!!!!!!!!!!!!!!!!!!
     private Boolean visible = true;
 
     public TurtleCommand(GeneralCommand command){
-        displacement = compare(command.getType(),"Forward") * command.getVar() + compare(command.getType(), "Backward") * -1.0 * command.getVar();
-        degrees = compare(command.getType(),"Right") * command.getVar() + compare(command.getType(), "Left") * -1.0 * command.getVar();
+        displacement = compare(command.toString(),"Forward") * command.getVal() + compare(command.toString(), "Backward") * -1.0 * command.getVal();
+        degrees = compare(command.toString(),"Right") * command.getVal() + compare(command.toString(), "Left") * -1.0 * command.getVal();
         jump = false;
-        setVisible(command.getType());
-        setPen(command.getType());
+        setVisible(command.toString());
+        setPen(command.toString());
     }
 
     private void setVisible(String type) {

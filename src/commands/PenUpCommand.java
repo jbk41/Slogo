@@ -3,7 +3,7 @@ package commands;
 public class PenUpCommand extends GeneralCommand {
 
     public PenUpCommand() {
-        hasExecuted = true;
+        makeReady();
         myMaxChildren = 0;
         myType = "PenUp";
     }
