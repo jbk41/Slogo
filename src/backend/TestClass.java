@@ -18,11 +18,23 @@ public class TestClass {
 
 
     public static void main (String[] args){
+        /*
         ParseCleaner myCleaner = new ParseCleaner(myLanguage);
         CommandTree t = new CommandTree(INPUT_TEXT, myCleaner);
-
+        t.printTree();
         TurtleCommand turtle = new TurtleCommand(t.getHead());
-        System.out.println(turtle.getDisplacement());
-        System.out.println(turtle.getDegrees());
+        //System.out.println(turtle.getDisplacement());
+        //System.out.println(turtle.getDegrees());
+        */
+
+        BackendModel backend = new BackendModel();
+        backend.setLanguage("English");
+        backend.interpret("fd + + 1 2 3");
+        backend.printTree();
+        System.out.println();
+
+        backend.setLanguage("Chinese");
+        backend.interpret("qianjin * -  4 5 6");
+        backend.printTree();
     }
 }

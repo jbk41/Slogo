@@ -13,14 +13,17 @@ public class CommandTree {
     private GeneralCommand head;
     private int start;
     private CommandFactory myCommandFactory;
+    private VariableManager myVM;
 
 
-    public CommandTree(String text, ParseCleaner clean){
+    public CommandTree(String text, ParseCleaner clean, VariableManager vm){
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
         myCommandFactory = new CommandFactory(clean);
         head = generateTree(myArguments.size()-1);
-        linkParents(head);
-        executeTree(head);
+        myVM = vm;
+
+        linkParentsAndInitializeVariables(head);
+        //executeTree(head);
     }
 
     /**
@@ -35,16 +38,17 @@ public class CommandTree {
     }
 
     private GeneralCommand generateTree(int end){
-
+        // handle if myArguments.get(start) is [ or ]
+//        if (myArguments.get(start).equals("]")){
+//            return ;
+//        }
         GeneralCommand command = myCommandFactory.getCommand(myArguments.get(start));
 
         if (start == end){
             return command;
         }
-        //System.out.println(command.getType() + ":" +command.getMaxChildren());
-        //System.out.println(start);
+
         for (int i = 0; i < command.getMaxChildren(); i ++){
-            //System.out.println(i);
             start += 1;
             command.addChild(generateTree(end));
         }
@@ -52,18 +56,24 @@ public class CommandTree {
     }
 
 
-    private void printPostOrder(GeneralCommand c){
+
+
+    public void printPostOrder(GeneralCommand c){
         for (GeneralCommand command: c.getChildren()){
             printPostOrder(command);
         }
         // now deal with the node
-        System.out.println(c.getType() + " with parent: " + c.printParent());
+        System.out.println(c.toString() + " with parent: " + c.printParent());
     }
 
-    private void linkParents(GeneralCommand c){
+    private void linkParentsAndInitializeVariables(GeneralCommand c){
         for (GeneralCommand command: c.getChildren()){
             command.setParent(c);
-            linkParents(command);
+            if (c instanceof VariableCommand){
+                VariableCommand temp = (VariableCommand) c;
+                temp.setVariableManager(myVM);
+            }
+            linkParentsAndInitializeVariables(command);
         }
     }
 
