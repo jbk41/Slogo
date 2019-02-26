@@ -24,6 +24,10 @@ public class Turtle {
     private Pane pane;
     private Canvas canvas;
     private Paint PEN_COLOR;
+    private double xPos;
+    private double yPos;
+    private double direction;
+
     public Turtle(Pane pane, Canvas canvas){
         this.pane = pane;
         this.canvas = canvas;
@@ -71,6 +75,7 @@ public class Turtle {
             Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(turtleXPosition() + newWidth, turtleYPosition() + newHeight));
+            //TODO: if
             PathTransition pathTransition = createTransition(path);
             totalMovements.add(pathTransition);
             turtleImageView.setX(turtleImageView.getX() + newWidth);

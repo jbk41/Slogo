@@ -21,7 +21,9 @@ public class PlayTurtle extends Button {
         setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                //
                 turtle.moveTurtle(trialTurtleMovement);
+                //TODO: we now take in Turtle States
             }
         });
     }
