@@ -10,7 +10,7 @@ public class SumCommand extends GeneralCommand {
 
     @Override
     public void execute() throws IllegalArgumentException{
-        checkParameterCount();
+        //checkParameterCount();
         for (int i = 0; i < myMaxChildren; i++){
             myChildren.get(i).execute();
         }
