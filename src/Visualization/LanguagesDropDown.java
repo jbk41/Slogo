@@ -5,11 +5,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
 
-public class LanguagesDropDown extends HBox{
-    private Pane display;
-    public LanguagesDropDown(int padding, Pane display){
+class LanguagesDropDown extends HBox{
+
+    LanguagesDropDown(int padding, Pane display){
         super(padding);
-        this.display = display;
+        Pane myDisplay = display;
         createDropDownMenu();
     }
     private void createDropDownMenu(){
