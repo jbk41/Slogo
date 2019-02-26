@@ -20,7 +20,7 @@ public class ForCommand extends GeneralCommand {
         for (int i = (int) start; i < (int) end; i += (int) step){
             var.setValue((double) i);
             executeCommand.execute();
+            myVal = start;
         }
-        myVal = end;g
     }
 }
