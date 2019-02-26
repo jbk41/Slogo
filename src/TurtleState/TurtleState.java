@@ -50,6 +50,14 @@ public class TurtleState {
         return myId;
     }
 
+    public boolean getPenState(){
+        return isPenDown;
+    }
+
+    public boolean getVisibility(){
+        return isVisible;
+    }
+
     public void setPenState(boolean state){
         isPenDown = state;
     }
