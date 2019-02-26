@@ -12,6 +12,7 @@ public class CommandTree {
     private List<String> myArguments;
     private GeneralCommand head;
     private int start;
+    private int end;
     private CommandFactory myCommandFactory;
     private VariableManager myVM;
 
@@ -19,7 +20,9 @@ public class CommandTree {
     public CommandTree(String text, ParseCleaner clean, VariableManager vm){
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
         myCommandFactory = new CommandFactory(clean);
-        head = generateTree(myArguments.size()-1);
+        head = new RootCommand();
+        end = myArguments.size() ;
+        generateTree();
         myVM = vm;
 
         linkParentsAndInitializeVariables(head);
@@ -33,31 +36,51 @@ public class CommandTree {
         printPostOrder(head);
     }
 
+    /**
+     * returns head of the tree (should be a RootCommand object)
+     * @return
+     */
     public GeneralCommand getHead(){
         return head;
     }
 
-    private GeneralCommand generateTree(int end){
-        // handle if myArguments.get(start) is [ or ]
-//        if (myArguments.get(start).equals("]")){
-//            return ;
-//        }
+    private void generateTree(){
+        while (start != end){
+            head.addChild(generateOneSet());
+            start += 1;
+        }
+    }
+
+    // reads in string by word and generates syntax tree for a single "line" of commands
+    private GeneralCommand generateOneSet(){
         GeneralCommand command = myCommandFactory.getCommand(myArguments.get(start));
+        System.out.println(start);
 
         if (start == end){
             return command;
         }
-
-        for (int i = 0; i < command.getMaxChildren(); i ++){
-            start += 1;
-            command.addChild(generateTree(end));
+        // handle lists
+        if (command instanceof ListStartCommand){
+            ListStartCommand lsc = (ListStartCommand) command;
+            while (!lsc.doesContainEnd()){
+                start += 1;
+                lsc.addChild(generateOneSet());
+            }
+        }
+        else { // handle every other command
+            for (int i = 0; i < command.getMaxChildren(); i++) {
+                start += 1;
+                command.addChild(generateOneSet());
+            }
         }
         return command;
     }
 
 
-
-
+    /**
+     * prints the tree with a post order traversal
+     * @param c
+     */
     public void printPostOrder(GeneralCommand c){
         for (GeneralCommand command: c.getChildren()){
             printPostOrder(command);
@@ -66,6 +89,7 @@ public class CommandTree {
         System.out.println(c.toString() + " with parent: " + c.printParent());
     }
 
+    // after the tree has been generated, use this to command to create a link from the child to the parent
     private void linkParentsAndInitializeVariables(GeneralCommand c){
         for (GeneralCommand command: c.getChildren()){
             command.setParent(c);
@@ -77,6 +101,7 @@ public class CommandTree {
         }
     }
 
+    // actually execute the command;
     private void executeTree(GeneralCommand c){
         for (GeneralCommand command: c.getChildren()){
             executeTree(command);
