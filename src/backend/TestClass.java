@@ -29,7 +29,7 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
-        backend.interpret("if 0 [ fd 1 ]");
+        backend.interpret("repeat 3 [ fd 10 repeat 5 [ fd 20 ] fd 30 ]");
         //backend.printTree();
         System.out.println();
 
