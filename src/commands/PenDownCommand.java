@@ -4,7 +4,7 @@ public class PenDownCommand extends GeneralCommand{
 
     public PenDownCommand() {
         myMaxChildren = 0;
-        hasExecuted = true;
+        makeReady();
         myType = "PenDown";
     }
 }
