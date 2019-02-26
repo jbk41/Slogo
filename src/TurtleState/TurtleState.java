@@ -34,6 +34,27 @@ public class TurtleState {
         myId = id;
     }
 
+    public double getXPos(){
+        return myXPos;
+    }
 
+    public double getYPos(){
+        return myYPos;
+    }
+
+    public double getMyDegrees(){
+        return myDegrees;
+    }
+
+    public double getId(){
+        return myId;
+    }
+
+    public void setPenState(boolean state){
+        isPenDown = state;
+    }
+    public void setVisibility(boolean state){
+        isVisible = state;
+    }
 
 }
