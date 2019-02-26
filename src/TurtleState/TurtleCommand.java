@@ -2,7 +2,7 @@ package TurtleState;
 
 import commands.*;
 
-public class TurtleCommand { //FIXME: ASK ABOUT CONVENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+public class TurtleCommand {
     private Boolean penDown = false;
     private Boolean jump;
     private Double degrees;

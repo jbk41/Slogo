@@ -10,20 +10,11 @@ public class DifferenceCommand extends GeneralCommand {
 
     public void execute(){
         checkParameterCount();
+        executeChildren();
         double diff = 0;
-        for (int i = 0; i < myChildren.size(); i ++){
-            GeneralCommand child = myChildren.get(i);
-            if (child instanceof ConstantCommand){
-                ConstantCommand c = (ConstantCommand) child;
-                if (i == 0) diff += c.getVal();
-                else diff -= c.getVal();
-            }
-            else {
-                throw new IllegalArgumentException("Illegal Argument Type (Difference accepts constant nodes)");
-            }
-        }
-        int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(diff));
-        makeReady();
+        var childVals = getChildrenValues();
+        diff += childVals.get(0);
+        diff -= childVals.get(1);
+        myVal = diff;
     }
 }
