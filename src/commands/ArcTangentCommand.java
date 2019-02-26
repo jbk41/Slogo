@@ -8,27 +8,14 @@ public class ArcTangentCommand extends GeneralCommand{
         myType = "ArcTangent";
     }
 
-    public void execute(){
+    @Override
+    public void execute() throws IllegalArgumentException {
         checkParameterCount();
-        GeneralCommand child = myChildren.get(0);
-        double val;
-        double atan;
-        try {
-            val = getValFromChild(child);
-        }
-
-        catch (IllegalArgumentException e){
-            System.out.println(e);
-            return;
-        }
+        executeChildren();
+        var myVals = getChildrenValues();
+        double val = myVals.get(0);
         double deg = val*Math.PI/180;
-        atan = Math.atan(deg);
-
-
-
-        int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(atan));
-        makeReady();
+        double atan = Math.atan(deg);
+        myVal = atan;
     }
-
 }

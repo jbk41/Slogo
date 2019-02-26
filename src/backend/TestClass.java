@@ -29,9 +29,14 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
-        backend.interpret("repeat 3 [ fd 10 fd 20 repeat 4 [ fd 1 fd 2 ]  fd 100 ]");
+        var myCT = backend.interpret("fd sin 90");
+        var children = myCT.getHead().getChildren();
+        System.out.println(children);
+//        System.out.println();
+
         //backend.printTree();
-        System.out.println();
+//        System.out.println(ct.getHead());
+//        System.out.println(ct.getHead().getVal());
 
 
     }

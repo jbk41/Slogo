@@ -10,19 +10,10 @@ public class CosineCommand extends GeneralCommand{
 
     public void execute(){
         checkParameterCount();
-        GeneralCommand child = myChildren.get(0);
-        double cos;
-        if (child instanceof ConstantCommand){
-            ConstantCommand c = (ConstantCommand) child;
-            double deg = c.getVal()*Math.PI/180;
-            cos = Math.cos(deg);
-        }
-        else {
-            throw new IllegalArgumentException("Illegal Argument Type (Cosine accepts Constant nodes)");
-        }
-        int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(cos));
-        makeReady();
+        executeChildren();
+        var childVals = getChildrenValues();
+        double deg = childVals.get(0)*Math.PI/180;
+        double cos = Math.cos(deg);
+        myVal = cos;
     }
-
 }

@@ -26,6 +26,10 @@ public class VariableCommand extends GeneralCommand{
         }
     }
 
+    public void setValue(double val){
+        myVM.setValue(myName, val);
+    }
+
     public void setVariableManager(VariableManager vm){
         myVM = vm;
     }

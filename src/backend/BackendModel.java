@@ -17,8 +17,9 @@ public class BackendModel implements BackendAPI {
         myPC = new ParseCleaner(language);
     }
 
-    public void interpret(String text){
+    public CommandTree interpret(String text){
         myCT = new CommandTree(text, myPC, myVM);
+        return myCT;
     }
 
     public void printTree(){

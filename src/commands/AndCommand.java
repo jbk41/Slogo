@@ -9,8 +9,7 @@ public class AndCommand extends BooleanCommand {
     }
 
 
-    protected boolean evaluate(double a, double b){
-        return (a >= 0 && b >= 0);
+    protected boolean evaluate(double a, double b){ return (a >= 0 && b >= 0);
     }
 
 }

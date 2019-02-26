@@ -37,6 +37,7 @@ public class CommandTree {
         printPostOrder(head);
     }
 
+
     /**
      * returns head of the tree (should be a RootCommand object)
      * @return
@@ -44,6 +45,7 @@ public class CommandTree {
     public GeneralCommand getHead(){
         return head;
     }
+
 
     private void generateTree(){
         while (start != end){
@@ -55,7 +57,7 @@ public class CommandTree {
     // reads in string by word and generates syntax tree for a single "line" of commands
     private GeneralCommand generateOneSet(){
         GeneralCommand command = myCommandFactory.getCommand(myArguments.get(start));
-        System.out.println(start);
+        //System.out.println(start);
 
         if (start == end){
             return command;
@@ -109,4 +111,5 @@ public class CommandTree {
 //        }
 //        c.execute();
     }
+
 }

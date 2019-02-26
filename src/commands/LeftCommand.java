@@ -1,26 +1,10 @@
 package commands;
 
-public class LeftCommand extends GeneralCommand {
+public class LeftCommand extends MainTurtleCommand {
 
     public LeftCommand (){
         super();
         myType = "Left";
         myMaxChildren = 1;
     }
-
-    public void execute() throws IllegalArgumentException{
-        checkParameterCount();
-
-        GeneralCommand child = myChildren.get(0);
-        if (child instanceof ConstantCommand){
-            ConstantCommand c = (ConstantCommand) child;
-            this.myVal = c.getVal();
-            myChildren.clear();
-        }
-        else {
-            throw new IllegalArgumentException("Illegal Argument Type (Left accepts Constants)");
-        }
-        makeReady();
-    }
-
 }
