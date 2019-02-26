@@ -29,7 +29,7 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
-        backend.interpret("fd + + 1 2 3");
+        backend.interpret("[ fd 1  fd 2 ] [ fd + 4 5 fd 6 ]");
         backend.printTree();
         System.out.println();
 
