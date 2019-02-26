@@ -11,6 +11,9 @@ public class SumCommand extends GeneralCommand {
     @Override
     public void execute() throws IllegalArgumentException{
         checkParameterCount();
+        for (int i = 0; i < myMaxChildren; i++){
+            myChildren.get(i).execute();
+        }
         double sum = 0;
         for (GeneralCommand child: myChildren){
             try {
@@ -21,10 +24,18 @@ public class SumCommand extends GeneralCommand {
                 return;
             }
         }
-        int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(sum));
+        myVal = sum;
         makeReady();
     }
+
+//    public void prepare(){
+//        try {
+//            myVal = getValFromChild(myChildren.get(0)) + getValFromChild(myChildren.get(1));
+//        }
+//        catch (IllegalArgumentException e){
+//            return;
+//        }
+//    }
 
 
 

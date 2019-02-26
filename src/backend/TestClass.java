@@ -29,13 +29,10 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
-        backend.interpret("[ fd 1  fd 2 ] [ fd + 4 5 fd 6 ]");
-        backend.printTree();
+        backend.interpret("repeat 3 [ fd 10 fd 20 repeat 4 [ fd 1 fd 2 ]  fd 100 ]");
+        //backend.printTree();
         System.out.println();
 
-        backend.setLanguage("Chinese");
-        backend.interpret("qianjin * -  4 5 6");
-        backend.printTree();
-        //System.out.println(turtle.getDegrees());
+
     }
 }

@@ -57,10 +57,28 @@ public abstract class GeneralCommand {
         return c;
     }
 
+    /**
+     * executes commands (ie forward command will be added to list of executable commands)
+     * @throws IllegalArgumentException
+     */
     public void execute() throws IllegalArgumentException{
         return; // do nothing
     }
 
+    /**
+     * Prepares all of the commands in the list (ie forward gets the value of its child)
+     */
+    public void prepare(){
+        return; //do nothing
+    }
+
+    /**
+     * returns true if the node has been prepared properly
+     * @return
+     */
+    public boolean isReady(){
+        return this.isReady;
+    }
 
     protected void checkParameterCount() throws IllegalAccessError{
         if (myChildren.size() != myMaxChildren) {
@@ -84,6 +102,9 @@ public abstract class GeneralCommand {
         }
         if (!(command instanceof VariableCommand || command instanceof ConstantCommand)){
             throw new IllegalArgumentException("Only accepts variable and constant types");
+        }
+        if (!command.isReady()){
+            throw new IllegalArgumentException("Arguments not properly prepared");
         }
         if (command instanceof VariableCommand){
             VariableCommand vc = (VariableCommand) command;

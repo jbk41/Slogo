@@ -1,6 +1,8 @@
 package commands;
 import backend.VariableManager;
 
+import java.security.InvalidKeyException;
+
 public class VariableCommand extends GeneralCommand{
 
     private String myName;
@@ -12,7 +14,16 @@ public class VariableCommand extends GeneralCommand{
         myType = "Variable";
         myMaxChildren = 0;
         myName = name;
-        makeReady(); // variables should be ready upon initialization
+        //makeReady(); // variables should be ready upon initialization
+    }
+
+    public void execute(){
+        try {
+            myVal = myVM.getValue(myName);
+        }
+        catch (InvalidKeyException e){
+            return;
+        }
     }
 
     public void setVariableManager(VariableManager vm){
@@ -23,7 +34,4 @@ public class VariableCommand extends GeneralCommand{
         return myName;
     }
 
-    public void execute(){
-        return;
-    }
 }

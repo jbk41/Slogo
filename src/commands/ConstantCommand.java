@@ -9,19 +9,16 @@ public class ConstantCommand extends GeneralCommand{
         myType = "Constant";
         myMaxChildren = 0;
         myVal = d;
-        makeReady(); // is immediately executable upon initialization
+        isReady = true;
     }
 
     @Override
     public String toString(){
-        return Double.toString(myVal);
+        return "Constant: " + myVal;
     }
 
     public double getVal(){
         return myVal;
     }
 
-    public void execute(){
-        return;
-    }
 }

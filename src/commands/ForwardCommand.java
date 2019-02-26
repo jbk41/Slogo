@@ -8,11 +8,12 @@ public class ForwardCommand extends GeneralCommand {
         super();
         myType = "Forward";
         myMaxChildren = 1;
-
     }
 
+    @Override
     public void execute(){
         checkParameterCount();
+        myChildren.get(0).execute();
 
         GeneralCommand child = myChildren.get(0);
         try {
@@ -22,7 +23,17 @@ public class ForwardCommand extends GeneralCommand {
             System.out.println(e);
             return;
         }
-        makeReady();
+        System.out.println("Forward " + myVal);
+        //makeReady();
+    }
+
+    public void prepare(){
+        try {
+            myVal = getValFromChild(myChildren.get(0));
+        }
+        catch (IllegalAccessError e){
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -12,7 +12,7 @@ public class VariableManager {
         variableMap = new HashMap<String, Double>();
     }
 
-    public Double getValue(String varName) throws InvalidKeyException {
+    public double getValue(String varName) throws InvalidKeyException {
         if (!variableMap.containsKey(varName)){
             throw new InvalidKeyException(varName + " + has not been initialized");
         }

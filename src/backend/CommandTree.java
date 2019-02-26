@@ -15,6 +15,7 @@ public class CommandTree {
     private int end;
     private CommandFactory myCommandFactory;
     private VariableManager myVM;
+    private boolean isReady;
 
 
     public CommandTree(String text, ParseCleaner clean, VariableManager vm){
@@ -26,7 +27,7 @@ public class CommandTree {
         myVM = vm;
 
         linkParentsAndInitializeVariables(head);
-        //executeTree(head);
+        head.execute();
     }
 
     /**
@@ -103,9 +104,9 @@ public class CommandTree {
 
     // actually execute the command;
     private void executeTree(GeneralCommand c){
-        for (GeneralCommand command: c.getChildren()){
-            executeTree(command);
-        }
-        c.execute();
+//        for (GeneralCommand command: c.getChildren()){
+//            executeTree(command);
+//        }
+//        c.execute();
     }
 }
