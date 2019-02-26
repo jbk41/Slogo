@@ -21,6 +21,6 @@ public class ForCommand extends GeneralCommand {
             var.setValue((double) i);
             executeCommand.execute();
         }
-
+        myVal = end;g
     }
 }
