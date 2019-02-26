@@ -1,4 +1,4 @@
-package commands;
+package Commands;
 
 public class ProductCommand extends GeneralCommand {
 

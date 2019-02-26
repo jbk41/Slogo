@@ -1,7 +1,5 @@
 package TurtleState;
 
-import commands.*;
-
 public class TurtleCommand {
     private Boolean penUp = false;
     private Boolean jump;
@@ -9,7 +7,7 @@ public class TurtleCommand {
     private Double displacement;
     private Boolean invisible;
 
-    public TurtleCommand(GeneralCommand command){
+    public TurtleCommand(commands.GeneralCommand command){
         displacement = compare(command.getType(),"Forward") * command.getVar() + compare(command.getType(), "Backward") * -1.0 * command.getVar();
         degrees = compare(command.getType(),"Right") * command.getVar() + compare(command.getType(), "Left") * -1.0 * command.getVar();
         jump = false;
