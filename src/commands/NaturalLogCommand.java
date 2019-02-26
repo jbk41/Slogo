@@ -22,7 +22,7 @@ public class NaturalLogCommand extends GeneralCommand{
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(log));
-        makeDone();
+        makeReady();
     }
 
 }

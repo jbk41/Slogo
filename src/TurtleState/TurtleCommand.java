@@ -1,18 +1,25 @@
 package TurtleState;
 
-public class TurtleCommand {
-    private Boolean penUp = false;
+import commands.*;
+
+public class TurtleCommand { //FIXME: ASK ABOUT CONVENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private Boolean penDown = false;
     private Boolean jump;
     private Double degrees;
     private Double displacement;
-    private Boolean invisible;
+    private Boolean visible = true;
 
-    public TurtleCommand(commands.GeneralCommand command){
-        displacement = compare(command.getType(),"Forward") * command.getVar() + compare(command.getType(), "Backward") * -1.0 * command.getVar();
-        degrees = compare(command.getType(),"Right") * command.getVar() + compare(command.getType(), "Left") * -1.0 * command.getVar();
+    public TurtleCommand(GeneralCommand command){
+        displacement = compare(command.toString(),"Forward") * command.getVal() + compare(command.toString(), "Backward") * -1.0 * command.getVal();
+        degrees = compare(command.toString(),"Right") * command.getVal() + compare(command.toString(), "Left") * -1.0 * command.getVal();
         jump = false;
-        invisible = false;
-        penUp = false;
+        setVisible(command.toString());
+        setPen(command.toString());
+    }
+
+    private void setVisible(String type) {
+        if (type.equals("ShowTurtle")) visible = true;
+        else if (type.equals("HideTurtle")) visible = false;
     }
 
 
@@ -21,17 +28,10 @@ public class TurtleCommand {
         else return 0.0;
     }
 
-    public void setDisplacement(Double displacement){this.displacement = displacement;}
-
-    public void setDegrees(Double degrees){this.degrees = degrees;}
-
-    public void setPenUp(Boolean penUp){this.penUp = penUp;}
-
-    public void setJump(Boolean jump){this.jump = jump;}
-
-    public void setInvisible(Boolean invisible){this.invisible = invisible;}
-
-
+    private void setPen(String type) {
+        if (type.equals("PenDown")) penDown = true;
+        else if (type.equals("PenUp")) penDown = false;
+    }
 
     public Double getDisplacement() {
         return displacement;
@@ -42,7 +42,7 @@ public class TurtleCommand {
     }
 
     public Boolean getPenUp() {
-        return penUp;
+        return penDown;
     }
 
     public Boolean getJump() {
@@ -50,8 +50,8 @@ public class TurtleCommand {
     }
 
 
-    public Boolean getInvisible() {
-        return invisible;
+    public Boolean getVisible() {
+        return visible;
     }
 }
 

@@ -37,7 +37,7 @@ public class TurtleIDE extends Application {
     private Console console;
     private TextEditor textEditor;
     private Stage primaryStage;
-    Group root;
+    private Group root;
 
     @Override
     public void start(Stage stage){

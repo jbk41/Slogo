@@ -26,6 +26,6 @@ public class QuotientCommand extends GeneralCommand {
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(quot));
-        makeDone();
+        makeReady();
     }
 }

@@ -22,7 +22,7 @@ public class SineCommand extends GeneralCommand{
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(sine));
-        makeDone();
+        makeReady();
     }
 
 }

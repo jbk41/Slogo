@@ -20,6 +20,6 @@ public class MinusCommand extends GeneralCommand{
             }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(minus));
-        makeDone();
+        makeReady();
     }
 }

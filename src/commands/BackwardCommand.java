@@ -8,18 +8,21 @@ public class BackwardCommand extends GeneralCommand {
         myType = "Backward";
     }
 
-    public void execute() throws IllegalArgumentException{
+    public void execute(){
         checkParameterCount();
 
         GeneralCommand child = myChildren.get(0);
-        if (child instanceof ConstantCommand){
-            ConstantCommand c = (ConstantCommand) child;
-            this.myVar = c.getVal();
+
+        try {
+            this.myVal = getValFromChild(child);
             myChildren.clear();
         }
-        else {
-            throw new IllegalArgumentException("Illegal Argument Type (Backward accepts Constants)");
+
+        catch (IllegalArgumentException e){
+            System.out.println(e);
+            return;
         }
-        makeDone();
+
+        makeReady();
     }
 }

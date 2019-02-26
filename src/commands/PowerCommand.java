@@ -24,7 +24,7 @@ public class PowerCommand extends GeneralCommand {
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(val));
-        makeDone();
+        makeReady();
     }
 
 

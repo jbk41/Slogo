@@ -24,6 +24,6 @@ public class DifferenceCommand extends GeneralCommand {
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(diff));
-        makeDone();
+        makeReady();
     }
 }
