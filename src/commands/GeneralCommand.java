@@ -11,12 +11,12 @@ public abstract class GeneralCommand {
     protected GeneralCommand myParent;
     protected String myType;
     protected int myMaxChildren;
-    protected boolean hasExecuted;
-    protected double myVar;
+    protected boolean isReady;
+    protected double myVal;
 
     protected GeneralCommand(){
         myChildren = new ArrayList<>();
-        hasExecuted = false;
+        isReady = false;
     }
 
     public List<GeneralCommand> getChildren(){
@@ -29,44 +29,88 @@ public abstract class GeneralCommand {
 
     public String printParent(){
         if (myParent != null){
-            return myParent.getType();
+            return this.myParent.toString();
         }
         else {
             return "null";
         }
     }
 
+
     public void setParent(GeneralCommand command){
         myParent = command;
     }
 
-    public String getType(){
+    @Override
+    public String toString(){
         return myType;
     }
-
-
+    /**
+     * adds a child to its list of children
+     * @param c
+     * @return
+     */
     public GeneralCommand addChild(GeneralCommand c){
         myChildren.add(c);
         return c;
     }
 
+    /**
+     * executes commands (ie forward command will be added to list of executable commands)
+     * @throws IllegalArgumentException
+     */
     public void execute() throws IllegalArgumentException{
+        return; // do nothing
+    }
 
+    /**
+     * Prepares all of the commands in the list (ie forward gets the value of its child)
+     */
+    public void prepare(){
+        return; //do nothing
+    }
+
+    /**
+     * returns true if the node has been prepared properly
+     * @return
+     */
+    public boolean isReady(){
+        return this.isReady;
     }
 
     protected void checkParameterCount() throws IllegalAccessError{
         if (myChildren.size() != myMaxChildren) {
-            throw new IllegalArgumentException(this.getType() + " takes in " + myMaxChildren + " parameters");
+            throw new IllegalArgumentException(myType + " takes in " + myMaxChildren + " parameters");
         }
     }
 
-    protected void makeDone(){
-        hasExecuted = true;
+    protected void makeReady(){
+        isReady = true;
     }
 
     protected int getIndexOfCurrentInParent(){
         return (myParent.getChildren().indexOf(this));
     }
 
-    public double getVar() { return myVar; }
+    public double getVal() { return myVal; }
+
+    protected double getValFromChild(GeneralCommand command) throws IllegalArgumentException {
+        if (!myChildren.contains(command)){
+            throw new IllegalArgumentException("Command is not in list of children");
+        }
+        if (!(command instanceof VariableCommand || command instanceof ConstantCommand)){
+            throw new IllegalArgumentException("Only accepts variable and constant types");
+        }
+        if (!command.isReady()){
+            throw new IllegalArgumentException("Arguments not properly prepared");
+        }
+        if (command instanceof VariableCommand){
+            VariableCommand vc = (VariableCommand) command;
+            return vc.getVal();
+        }
+        else { // is constant command
+            ConstantCommand cc = (ConstantCommand) command;
+            return cc.getVal();
+        }
+    }
 }

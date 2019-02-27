@@ -25,7 +25,7 @@ public class RandomCommand extends GeneralCommand {
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(n));
-        makeDone();
+        makeReady();
     }
 }
 

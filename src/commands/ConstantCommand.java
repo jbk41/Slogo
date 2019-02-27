@@ -9,18 +9,16 @@ public class ConstantCommand extends GeneralCommand{
         myType = "Constant";
         myMaxChildren = 0;
         myVal = d;
+        isReady = true;
     }
 
     @Override
-    public String getType(){
-        return myVal + "";
+    public String toString(){
+        return "Constant: " + myVal;
     }
 
     public double getVal(){
         return myVal;
     }
 
-    public void execute(){
-        makeDone();
-    }
 }

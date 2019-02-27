@@ -1,0 +1,3 @@
+turtle forward 
+tofward 50
+jump 30

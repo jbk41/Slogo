@@ -26,6 +26,6 @@ public class RemainderCommand extends GeneralCommand {
         }
         int index = getIndexOfCurrentInParent();
         myParent.getChildren().set(index, new ConstantCommand(rem));
-        makeDone();
+        makeReady();
     }
 }

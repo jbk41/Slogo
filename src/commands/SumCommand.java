@@ -11,21 +11,31 @@ public class SumCommand extends GeneralCommand {
     @Override
     public void execute() throws IllegalArgumentException{
         checkParameterCount();
+        for (int i = 0; i < myMaxChildren; i++){
+            myChildren.get(i).execute();
+        }
         double sum = 0;
         for (GeneralCommand child: myChildren){
-            //System.out.println(child.getType());
-            if (child instanceof ConstantCommand){
-                ConstantCommand c = (ConstantCommand) child;
-                sum += c.getVal();
+            try {
+                sum += getValFromChild(child);
             }
-            else {
-                throw new IllegalArgumentException("Illegal Argument Type (Sum accepts constant arguments)");
+            catch (IllegalArgumentException e){
+                System.out.println(e);
+                return;
             }
         }
-        int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(sum));
-        makeDone();
+        myVal = sum;
+        makeReady();
     }
+
+//    public void prepare(){
+//        try {
+//            myVal = getValFromChild(myChildren.get(0)) + getValFromChild(myChildren.get(1));
+//        }
+//        catch (IllegalArgumentException e){
+//            return;
+//        }
+//    }
 
 
 
