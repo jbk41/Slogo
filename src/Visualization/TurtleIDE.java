@@ -1,8 +1,9 @@
 package Visualization;
 
 
+import backend.BackendModel;
 import javafx.application.Application;
-
+import TurtleState.TurtleState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +15,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
@@ -53,10 +56,22 @@ public class TurtleIDE extends Application {
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
-        PlayTurtle play = new PlayTurtle(turtle, "Play", textEditor);
+//        PlayTurtle play = new PlayTurtle(turtle, "Play", textEditor);
+        Button playButton = new Button("Play");
+        playButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String commands = textEditor.getText();
+                BackendModel backend = new BackendModel();
+                backend.setLanguage("English");
+                backend.interpret(commands);
+                List<TurtleState> trialTurtleMovement = backend.getCommands();
+                turtle.moveTurtle(trialTurtleMovement);
+            }
+        });
         Button reset = createResetButton(turtle, turtleDisplay);
         Button help = createHelpButton();
-        HBox controls = new HBox(6, play, reset, help, settingsBox, penColorDropDown, languagesDropDown);
+        HBox controls = new HBox(6, playButton, reset, help, settingsBox, penColorDropDown, languagesDropDown);
         return controls;
     }
 

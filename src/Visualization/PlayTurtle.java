@@ -44,11 +44,13 @@ public class PlayTurtle extends Button {
 //        trialTurtleMovement.add(turtle10);
 //        trialTurtleMovement.add(turtle11);
         String commands = textEditor.getText();
+        System.out.println(commands);
         BackendModel backend = new BackendModel();
         setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 //
+                System.out.println(commands);
                 backend.setLanguage("English");
                 backend.interpret(commands);
                 trialTurtleMovement = backend.getCommands();
