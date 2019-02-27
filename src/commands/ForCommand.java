@@ -17,7 +17,7 @@ public class ForCommand extends GeneralCommand {
         VariableCommand var = (VariableCommand) conditionCommand.getChildren().get(0);
         double start = conditionCommand.getChildren().get(1).getVal();
         double end = conditionCommand.getChildren().get(2).getVal();
-        double step = conditionCommand.getChildren().get(1).getVal();
+        double step = conditionCommand.getChildren().get(3).getVal();
 
         for (int i = (int) start; i < (int) end; i += (int) step){
             var.setValue((double) i);

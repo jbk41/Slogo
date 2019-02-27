@@ -1,11 +1,11 @@
 package commands;
 
 public class TurtleCommand {
-    private Boolean penUp;
-    private Boolean jump;
-    private Double degrees;
-    private Double displacement;
-    private Boolean invisible;
+    private boolean penUp;
+    private boolean jump;
+    private double degrees;
+    private double displacement;
+    private boolean invisible;
 
     public TurtleCommand(){
         penUp = false;
@@ -14,11 +14,11 @@ public class TurtleCommand {
         displacement = 0.0;
         invisible = false;
     }
-    public void setPenUp(Boolean penUp){this.penUp = penUp;}
-    public void setJump(Boolean jump){this.jump = jump;}
-    public void setDegrees(Double degrees){this.degrees = degrees;}
-    public void setDisplacement(Double displacement){this.displacement = displacement;}
-    public void setInvisible(Boolean invisible){this.invisible = invisible;}
+    public void setPenUp(boolean penUp){this.penUp = penUp;}
+    public void setJump(boolean jump){this.jump = jump;}
+    public void setDegrees(double degrees){this.degrees = degrees;}
+    public void setDisplacement(double displacement){this.displacement = displacement;}
+    public void setInvisible(boolean invisible){this.invisible = invisible;}
 
     public Boolean getPenUp() {
         return penUp;
