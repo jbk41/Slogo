@@ -29,9 +29,8 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
+        backend.interpret("pd pu fd 10 bk * 3 4 pd fd sum 2 sum 3 sum 4 4");
 
-        backend.interpret("pd pu fd 10 bk * 3 4 fd sum 2 sum 3 sum 4 4");
-        backend.getBackendManager().getCommandManager().printCommands();
 
 ////        backend.addCommandList(myCT);
 ////        System.out.println(myCT.getHead().getChildren());

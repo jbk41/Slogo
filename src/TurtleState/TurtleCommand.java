@@ -1,14 +1,14 @@
 package TurtleState;
 
-import commands.*;
+import commands.GeneralCommand;
 
 public class TurtleCommand {
     private Boolean penDown = false;
-    private Boolean jump;
+    private Boolean jump = false;
     private Double degrees;
     private Double displacement;
     private Boolean visible = true;
-    private GeneralCommand Command;
+    private commands.GeneralCommand Command;
 
     public TurtleCommand(GeneralCommand command){
         Command = command;
@@ -54,6 +54,8 @@ public class TurtleCommand {
     public Boolean getVisible() {
         return visible;
     }
+
+    public String getType(){ return Command.toString(); }
 
     @Override
     public String toString(){

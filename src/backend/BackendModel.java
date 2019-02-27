@@ -1,6 +1,7 @@
 package backend;
 import TurtleState.TurtleCommand;
 import TurtleState.TurtleManager;
+import Visualization.Turtle;
 import parser.ParseCleaner;
 import commands.GeneralCommand;
 
@@ -19,17 +20,16 @@ public class BackendModel implements BackendAPI {
     public BackendModel(){
         myCM = new CommandManager();
         myVM = new VariableManager();
-        myTM = new TurtleManager(myCM);
-        myBM = new BackendManager(myCM, myVM, myTM);
     }
 
     public void setLanguage(String language){
         myPC = new ParseCleaner(language);
     }
 
-    public CommandTree interpret(String text){
+    public void interpret(String text){
+        myBM = new BackendManager(myCM, myVM);
         myCT = new CommandTree(text, myPC, myBM);
-        return myCT;
+        myTM = new TurtleManager(myBM.getCommandManager());
     }
 
     public BackendManager getBackendManager(){
@@ -38,9 +38,13 @@ public class BackendModel implements BackendAPI {
 
     public TurtleManager getTurtleManager() { return myTM; }
 
-    public void printTree(){
-        myCT.printTree();
+    public void printCommands(){
+        for (TurtleCommand command : myCM.getCommandList());
     }
+
+//    public void printTree(){
+//        myCT.printTree();
+//    }
 
 
 

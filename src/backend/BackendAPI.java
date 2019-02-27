@@ -9,7 +9,7 @@ public interface BackendAPI {
      *
      * @param code
      */
-    public CommandTree interpret(String code);
+    public void interpret(String code);
 
     public void setLanguage(String language);
 

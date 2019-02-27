@@ -9,15 +9,13 @@ public class BackendManager {
     public VariableManager myVM;
     public TurtleManager myTM;
 
-    public BackendManager(CommandManager cm, VariableManager vm, TurtleManager tm){
+    public BackendManager(CommandManager cm, VariableManager vm){
         myCM = cm;
         myVM = vm;
-        myTM = tm;
     }
 
     public CommandManager getCommandManager() { return myCM; }
 
     public VariableManager getVariableManager() { return myVM; }
 
-    public TurtleManager getTurtleManager() { return myTM; }
 }
