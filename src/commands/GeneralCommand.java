@@ -61,6 +61,7 @@ public abstract class GeneralCommand {
     public String toString(){
         return myType;
     }
+
     /**
      * adds a child to its list of children
      * @param c
