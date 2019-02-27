@@ -27,14 +27,9 @@ public class MovementCommand extends GeneralCommand {
         var command = new TurtleCommand(this);
         BM.getCommandManager().addToList(command);
     }
+
+    @Override
+    public String toString() {
+        return myType;
+    }
 }
-
-
-//    public void prepare(){
-//        try {
-//            myVal = getValFromChild(myChildren.get(0));
-//        }
-//        catch (IllegalAccessError e){
-//            e.printStackTrace();
-//        }
-//    }

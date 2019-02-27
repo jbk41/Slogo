@@ -12,11 +12,6 @@ public class ConstantCommand extends GeneralCommand{
         isReady = true;
     }
 
-    @Override
-    public String toString(){
-        return "Constant: " + myVal;
-    }
-
     public double getVal(){
         return myVal;
     }
