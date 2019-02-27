@@ -1,20 +1,25 @@
 package parser;
 
+import backend.BackendManager;
+import backend.CommandManager;
+import backend.VariableManager;
 import commands.*;
-import java.util.List;
 
-import java.lang.reflect.Array;
+
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandFactory {
 
     private ParseCleaner myLanguages;
-    //private ArrayList<String> myCleanText;
-    //public GeneralCommand myCommand;
+    public BackendManager BM;
 
-    public CommandFactory(ParseCleaner p) {
+    public CommandFactory(ParseCleaner p, BackendManager bm) {
         myLanguages = p;
+        BM = bm;
+
     }
 
 
@@ -34,12 +39,12 @@ public class CommandFactory {
         try {
             Class clazz = Class.forName("commands." + list.get(0) + "Command");
             try {
-                if (list.size() == 1) return (GeneralCommand) clazz.getConstructor().newInstance();
+                if (list.size() == 1) return (GeneralCommand) clazz.getConstructor(BackendManager.class).newInstance(BM);
                 else return (GeneralCommand) clazz.getConstructor(double.class).newInstance(Double.parseDouble(list.get(1)));
             } catch (InstantiationException e) {
                 System.err.println("Error: Could not instantiate Constant Object with the given value");
             } catch (NoSuchMethodException e) {
-                System.out.println("Could not instantiate Command Object " + list.get(0));
+                System.out.println("Could not instantiate Command " + list.get(0));
             } catch (IllegalAccessException e) {
                 System.err.println("Error: " + e);
             } catch (InvocationTargetException e) {

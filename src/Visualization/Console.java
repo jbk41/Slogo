@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 public class Console extends Label{
     private int textPadding = 5;
-    public Console(int width, int height, int padding){
+    public Console(double width, double height, int padding){
         setPadding(new Insets(textPadding,textPadding,textPadding,textPadding));
         setMaxWidth(width/2 - padding * 2);
         setPrefHeight(height * 0.25 - padding * 3);

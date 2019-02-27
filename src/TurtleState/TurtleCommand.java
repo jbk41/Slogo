@@ -1,15 +1,17 @@
 package TurtleState;
 
-import commands.*;
+import commands.GeneralCommand;
 
-public class TurtleCommand { //FIXME: ASK ABOUT CONVENTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+public class TurtleCommand {
     private Boolean penDown = false;
-    private Boolean jump;
+    private Boolean jump = false;
     private Double degrees;
     private Double displacement;
     private Boolean visible = true;
+    private commands.GeneralCommand Command;
 
     public TurtleCommand(GeneralCommand command){
+        Command = command;
         displacement = compare(command.toString(),"Forward") * command.getVal() + compare(command.toString(), "Backward") * -1.0 * command.getVal();
         degrees = compare(command.toString(),"Right") * command.getVal() + compare(command.toString(), "Left") * -1.0 * command.getVal();
         jump = false;
@@ -41,7 +43,7 @@ public class TurtleCommand { //FIXME: ASK ABOUT CONVENTION !!!!!!!!!!!!!!!!!!!!!
         return degrees;
     }
 
-    public Boolean getPenUp() {
+    public Boolean getPenDown() {
         return penDown;
     }
 
@@ -49,9 +51,14 @@ public class TurtleCommand { //FIXME: ASK ABOUT CONVENTION !!!!!!!!!!!!!!!!!!!!!
         return jump;
     }
 
-
     public Boolean getVisible() {
         return visible;
     }
+
+    public String getType(){ return Command.toString(); }
+
+    @Override
+    public String toString(){
+        return Command.toString(); }
 }
 

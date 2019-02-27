@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class ForCommand extends GeneralCommand {
 
-    public ForCommand(){
+    public ForCommand(BackendManager bm){
         super();
         myType = "For";
         myMaxChildren = 2;

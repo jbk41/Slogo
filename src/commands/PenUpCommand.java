@@ -1,10 +1,14 @@
 package commands;
 
-public class PenUpCommand extends GeneralCommand {
+import backend.BackendManager;
 
-    public PenUpCommand() {
+public class PenUpCommand extends StatementCommand {
+
+    public PenUpCommand(BackendManager bm) {
+        super(bm);
         makeReady();
         myMaxChildren = 0;
         myType = "PenUp";
+        myVal = 0;
     }
 }

@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class MakeVariableCommand extends GeneralCommand {
 
-    public MakeVariableCommand(){
+    public MakeVariableCommand(BackendManager bm){
         super();
         myType = "MakeVariable";
         myMaxChildren = 2;

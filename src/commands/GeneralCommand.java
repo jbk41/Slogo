@@ -1,4 +1,6 @@
 package commands;
+import backend.BackendManager;
+import backend.CommandManager;
 import backend.VariableManager;
 
 import java.util.List;
@@ -23,6 +25,18 @@ public abstract class GeneralCommand {
 
     public List<GeneralCommand> getChildren(){
         return myChildren;
+    }
+
+    /**
+     *
+     * @return values of each child of Command
+     */
+    public ArrayList<Double> getChildrenValues() {
+        var childValues = new ArrayList<Double>();
+        for (GeneralCommand child : this.myChildren){
+            childValues.add(getValFromChild(child));
+        }
+        return childValues;
     }
 
     public int getMaxChildren(){
@@ -86,6 +100,12 @@ public abstract class GeneralCommand {
         }
     }
 
+    public void executeChildren() {
+        for (GeneralCommand child : this.myChildren){
+            child.execute();
+        }
+    }
+
     protected void makeReady(){
         isReady = true;
     }
@@ -103,9 +123,6 @@ public abstract class GeneralCommand {
 //        if (!(command instanceof VariableCommand || command instanceof ConstantCommand)){
 //            throw new IllegalArgumentException("Only accepts variable and constant types");
 //        }
-        if (!command.isReady()){
-            throw new IllegalArgumentException("Arguments not properly prepared");
-        }
 //        if (command instanceof VariableCommand){
 //            VariableCommand vc = (VariableCommand) command;
 //            return vc.getVal();
@@ -116,4 +133,5 @@ public abstract class GeneralCommand {
 //        }
         return command.getVal();
     }
+
 }

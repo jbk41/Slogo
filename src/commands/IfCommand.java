@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class IfCommand extends GeneralCommand {
 
-    public IfCommand(){
+    public IfCommand(BackendManager bm){
         super();
         myMaxChildren = 2;
         myType = "If";

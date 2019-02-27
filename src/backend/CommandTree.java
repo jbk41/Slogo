@@ -14,18 +14,16 @@ public class CommandTree {
     private int start;
     private int end;
     private CommandFactory myCommandFactory;
-    private VariableManager myVM;
-    private boolean isReady;
+    public BackendManager myBM;
 
 
-    public CommandTree(String text, ParseCleaner clean, VariableManager vm){
+    public CommandTree(String text, ParseCleaner clean,  BackendManager bm){
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
-        myCommandFactory = new CommandFactory(clean);
+        myBM = bm;
+        myCommandFactory = new CommandFactory(clean, myBM);
         head = new RootCommand();
         end = myArguments.size() ;
         generateTree();
-        myVM = vm;
-
         linkParentsAndInitializeVariables(head);
         head.execute();
     }
@@ -37,6 +35,7 @@ public class CommandTree {
         printPostOrder(head);
     }
 
+
     /**
      * returns head of the tree (should be a RootCommand object)
      * @return
@@ -44,6 +43,7 @@ public class CommandTree {
     public GeneralCommand getHead(){
         return head;
     }
+
 
     private void generateTree(){
         while (start != end){
@@ -55,7 +55,7 @@ public class CommandTree {
     // reads in string by word and generates syntax tree for a single "line" of commands
     private GeneralCommand generateOneSet(){
         GeneralCommand command = myCommandFactory.getCommand(myArguments.get(start));
-        System.out.println(start);
+        //System.out.println(start);
 
         if (start == end){
             return command;
@@ -96,7 +96,7 @@ public class CommandTree {
             command.setParent(c);
             if (c instanceof VariableCommand){
                 VariableCommand temp = (VariableCommand) c;
-                temp.setVariableManager(myVM);
+                temp.setVariableManager(myBM.getVariableManager());
             }
             linkParentsAndInitializeVariables(command);
         }
@@ -109,4 +109,5 @@ public class CommandTree {
 //        }
 //        c.execute();
     }
+
 }

@@ -1,38 +1,23 @@
 package commands;
 
+import backend.BackendManager;
+
 public abstract class BooleanCommand extends GeneralCommand {
 
-    public BooleanCommand(){
-        super();
+    public BooleanCommand(BackendManager bm){
         myMaxChildren = 2;
     }
 
     @Override
     public void execute(){
         checkParameterCount();
-        double[] d = new double[2];
-        GeneralCommand child;
-        for (int i = 0; i < myChildren.size(); i++){
-            //System.out.println(child.getType());
-            child = myChildren.get(i);
-
-            try {
-                d[i] = getValFromChild(child);
-            }
-            catch (IllegalArgumentException e){
-                System.out.println(e);
-                return;
-            }
-
-        }
-
-        int index = getIndexOfCurrentInParent();
+        executeChildren();
+        var childVals = getChildrenValues();
         double returnVal = 0;
-        if (evaluate(d[0], d[1])){
+        if (evaluate(childVals.get(0), childVals.get(1))){
             returnVal = 1;
         }
-        myParent.getChildren().set(index, new ConstantCommand(returnVal));
-        makeReady();
+        myVal = returnVal;
     }
 
     protected abstract boolean evaluate(double a, double b);

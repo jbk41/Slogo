@@ -1,9 +1,11 @@
 package commands;
 
+import backend.BackendManager;
+
 public class OrCommand extends BooleanCommand {
 
-    public OrCommand(){
-        super();
+    public OrCommand(BackendManager bm){
+        super(bm);
         myType = "Or";
         myMaxChildren = 2;
     }
