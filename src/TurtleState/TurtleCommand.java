@@ -43,7 +43,7 @@ public class TurtleCommand {
         return degrees;
     }
 
-    public Boolean getPenUp() {
+    public Boolean getPenDown() {
         return penDown;
     }
 
@@ -56,6 +56,7 @@ public class TurtleCommand {
     }
 
     @Override
-    public String toString(){ return Command.toString(); }
+    public String toString(){
+        return Command.toString(); }
 }
 

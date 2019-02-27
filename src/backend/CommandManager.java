@@ -22,5 +22,7 @@ public class CommandManager {
         }
     }
 
+    public ArrayList<TurtleCommand> getCommandList() { return myCommandList; }
+
 }
 

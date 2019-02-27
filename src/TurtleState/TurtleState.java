@@ -25,12 +25,12 @@ public class TurtleState {
      * @param
      */
 
-    public TurtleState(double xPos, double yPos, double degrees, double id){
+    public TurtleState(double xPos, double yPos, double degrees, boolean pen, boolean visible, double id){
         myXPos = xPos;
         myYPos = yPos;
         myDegrees = degrees;
-        isPenDown = false;
-        isVisible = true;
+        isPenDown = pen;
+        isVisible = visible;
         myId = id;
     }
 
@@ -61,6 +61,7 @@ public class TurtleState {
     public void setPenState(boolean state){
         isPenDown = state;
     }
+
     public void setVisibility(boolean state){
         isVisible = state;
     }
