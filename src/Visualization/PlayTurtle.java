@@ -1,18 +1,19 @@
-//package Visualization;
-//
-//import javafx.event.ActionEvent;
-//import javafx.event.EventHandler;
-//import javafx.scene.control.Button;
-//import TurtleState.TurtleState;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class PlayTurtle extends Button {
-//    private List<TurtleState> trialTurtleMovement = new ArrayList<>();
-//    public PlayTurtle(Turtle turtle, String label){
-//        super(label);
-//        // trial data
+package Visualization;
+
+import backend.BackendModel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
+import TurtleState.TurtleState;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PlayTurtle extends Button {
+    private List<TurtleState> trialTurtleMovement;
+    public PlayTurtle(Turtle turtle, String label, TextEditor textEditor){
+        super(label);
+        // trial data
 //        TurtleState turtle1 = new TurtleState(10, 10, 80, 0);
 //        turtle1.setVisibility(true);
 //        TurtleState turtle2 = new TurtleState(20, 20, 80, 0);
@@ -42,17 +43,21 @@
 //        trialTurtleMovement.add(turtle9);
 //        trialTurtleMovement.add(turtle10);
 //        trialTurtleMovement.add(turtle11);
-//
-//        setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                //
-//                turtle.moveTurtle(trialTurtleMovement);
-//                //TODO: we now take in Turtle States
-//            }
-//        });
-//    }
-//    public String getConsoleText(){
-//        return "";
-//    }
-//}
+        String commands = textEditor.getText();
+        BackendModel backend = new BackendModel();
+        setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //
+                backend.setLanguage("English");
+                backend.interpret(commands);
+                trialTurtleMovement = backend.getCommands();
+                turtle.moveTurtle(trialTurtleMovement);
+                //TODO: we now take in Turtle States
+            }
+        });
+    }
+    public String getConsoleText(){
+        return "";
+    }
+}

@@ -1,6 +1,7 @@
 package backend;
 
 import TurtleState.TurtleCommand;
+import Visualization.TextEditor;
 import parser.ParseCleaner;
 
 
@@ -26,6 +27,7 @@ public class TestClass {
         //System.out.println(turtle.getDisplacement());
         //System.out.println(turtle.getDegrees());
         */
+
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
