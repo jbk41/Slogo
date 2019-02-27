@@ -30,7 +30,7 @@ public class TestClass {
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
 
-        backend.interpret("fd * 1 2 fd 45 bk 3 ");
+        backend.interpret("fd sum 1 2");
         backend.getBackendManager().getCommandManager().printCommands();
 
 ////        backend.addCommandList(myCT);

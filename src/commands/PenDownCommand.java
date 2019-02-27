@@ -2,11 +2,13 @@ package commands;
 
 import backend.BackendManager;
 
-public class PenDownCommand extends GeneralCommand{
+public class PenDownCommand extends StatementCommand{
 
     public PenDownCommand(BackendManager bm) {
+        super(bm);
         myMaxChildren = 0;
         makeReady();
         myType = "PenDown";
+        myVal = 1.0;
     }
 }
