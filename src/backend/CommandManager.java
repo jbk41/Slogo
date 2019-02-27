@@ -18,7 +18,7 @@ public class CommandManager {
 
     public void printCommands() {
         for (TurtleCommand tc : myCommandList){
-            System.out.println(tc.toString());
+            //System.out.println(tc.toString());
         }
     }
 

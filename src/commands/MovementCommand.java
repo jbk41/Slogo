@@ -2,8 +2,6 @@ package commands;
 
 import TurtleState.TurtleCommand;
 import backend.BackendManager;
-import backend.CommandManager;
-import backend.VariableManager;
 
 public class MovementCommand extends GeneralCommand {
     public BackendManager BM;
@@ -28,12 +26,6 @@ public class MovementCommand extends GeneralCommand {
         }
         var command = new TurtleCommand(this);
         BM.getCommandManager().addToList(command);
-    }
-
-
-    @Override
-    public String toString(){
-        return myType + ": " + myVal;
     }
 }
 

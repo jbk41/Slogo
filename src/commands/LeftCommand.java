@@ -3,6 +3,7 @@ package commands;
 import backend.BackendManager;
 import backend.CommandManager;
 import backend.VariableManager;
+import commands.MovementCommand;
 
 public class LeftCommand extends MovementCommand {
 

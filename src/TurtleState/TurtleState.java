@@ -48,8 +48,6 @@ public class TurtleState {
 
     public boolean getPenDown() { return isPenDown; }
 
-    public boolean getVisible() { return isVisible; }
-
     public double getId(){
         return myId;
     }
