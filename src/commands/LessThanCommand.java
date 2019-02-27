@@ -1,9 +1,11 @@
 package commands;
 
+import backend.BackendManager;
+
 public class LessThanCommand extends BooleanCommand {
 
-    public LessThanCommand(){
-        super();
+    public LessThanCommand(BackendManager bm){
+        super(bm);
         myType = "LessThan";
         myMaxChildren = 2;
     }

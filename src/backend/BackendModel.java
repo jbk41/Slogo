@@ -8,14 +8,16 @@ import java.util.ArrayList;
 public class BackendModel implements BackendAPI {
 
 
-    private VariableManager myVM;
+    private BackendManager myBM;
     private CommandManager myCM;
+    private VariableManager myVM;
     private CommandTree myCT;
     private ParseCleaner myPC;
 
     public BackendModel(){
-        myVM = new VariableManager();
         myCM = new CommandManager();
+        myVM = new VariableManager();
+        myBM = new BackendManager(myCM, myVM);
     }
 
     public void setLanguage(String language){
@@ -23,12 +25,12 @@ public class BackendModel implements BackendAPI {
     }
 
     public CommandTree interpret(String text){
-        myCT = new CommandTree(text, myPC, myCM, myVM);
+        myCT = new CommandTree(text, myPC, myBM);
         return myCT;
     }
 
-    public CommandManager getCommandManager(){
-        return myCM;
+    public BackendManager getBackendManager(){
+        return myBM;
     }
 
     public void printTree(){

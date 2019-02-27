@@ -1,9 +1,11 @@
 package commands;
 
+import backend.BackendManager;
+
 public class NotCommand extends GeneralCommand {
 
 
-    public NotCommand(){
+    public NotCommand(BackendManager bm){
         super();
         myType = "Not";
         myMaxChildren = 1;

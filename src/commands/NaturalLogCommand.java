@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class NaturalLogCommand extends GeneralCommand{
 
-    public NaturalLogCommand(){
+    public NaturalLogCommand(BackendManager bm){
         super();
         myMaxChildren = 1;
         myType = "NaturalLog";

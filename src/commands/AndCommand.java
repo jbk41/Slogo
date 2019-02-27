@@ -1,9 +1,11 @@
 package commands;
 
+import backend.BackendManager;
+
 public class AndCommand extends BooleanCommand {
 
-    public AndCommand(){
-        super();
+    public AndCommand(BackendManager bm){
+        super(bm);
         myType = "And";
         myMaxChildren = 2;
     }

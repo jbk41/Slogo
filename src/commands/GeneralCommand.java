@@ -1,4 +1,5 @@
 package commands;
+import backend.BackendManager;
 import backend.CommandManager;
 import backend.VariableManager;
 
@@ -17,7 +18,7 @@ public abstract class GeneralCommand {
     protected boolean isReady;
     protected double myVal;
 
-    protected GeneralCommand(CommandManager cm , VariableManager vm){
+    protected GeneralCommand(){
         myChildren = new ArrayList<>();
         isReady = false;
     }

@@ -1,5 +1,6 @@
 package parser;
 
+import backend.BackendManager;
 import backend.CommandManager;
 import backend.VariableManager;
 import commands.*;
@@ -12,15 +13,11 @@ import java.util.ArrayList;
 public class CommandFactory {
 
     private ParseCleaner myLanguages;
-    public CommandManager CM;
-    public VariableManager VM;
-    //public GeneralCommand myCommand;
-    private boolean isMovement = false;
+    public BackendManager BM;
 
-    public CommandFactory(ParseCleaner p, CommandManager cm, VariableManager vm) {
+    public CommandFactory(ParseCleaner p, BackendManager bm) {
         myLanguages = p;
-        CM = cm;
-        VM = vm;
+        BM = bm;
 
     }
 
@@ -33,7 +30,6 @@ public class CommandFactory {
      */
     public GeneralCommand getCommand(String s) {
         List<String> cleanedText = parseText(s);
-        checkIfMovement(cleanedText);
         return makeCommand(cleanedText);
     }
 
@@ -42,7 +38,7 @@ public class CommandFactory {
         try {
             Class clazz = Class.forName("commands." + list.get(0) + "Command");
             try {
-                if (list.size() == 1) return (GeneralCommand) clazz.getConstructor(CommandManager.class, VariableManager.class).newInstance(CM, VM);
+                if (list.size() == 1) return (GeneralCommand) clazz.getConstructor(BackendManager.class).newInstance(BM);
                 else return (GeneralCommand) clazz.getConstructor(double.class).newInstance(Double.parseDouble(list.get(1)));
             } catch (InstantiationException e) {
                 System.err.println("Error: Could not instantiate Constant Object with the given value");
@@ -59,11 +55,6 @@ public class CommandFactory {
         return null;
     }
 
-    private void checkIfMovement(List<String> list){
-        if (list.get(0).equals("Forward") || list.get(0).equals("Backward") || list.get(0).equals("Left") || list.get(0).equals("Right")) {
-            isMovement = true;
-        }
-    }
 
     private ArrayList<String> parseText(String s) {
         ArrayList<String> cleanText = new ArrayList<>();

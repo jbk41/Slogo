@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class TangentCommand extends GeneralCommand{
 
-    public TangentCommand(){
+    public TangentCommand(BackendManager bm){
         super();
         myMaxChildren = 1;
         myType = "Tangent";

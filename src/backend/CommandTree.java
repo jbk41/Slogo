@@ -14,15 +14,13 @@ public class CommandTree {
     private int start;
     private int end;
     private CommandFactory myCommandFactory;
-    public CommandManager myCM;
-    private VariableManager myVM;
+    public BackendManager myBM;
 
 
-    public CommandTree(String text, ParseCleaner clean,  CommandManager cm, VariableManager vm){
+    public CommandTree(String text, ParseCleaner clean,  BackendManager bm){
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
-        myVM = vm;
-        myCM = cm;
-        myCommandFactory = new CommandFactory(clean, myCM, myVM);
+        myBM = bm;
+        myCommandFactory = new CommandFactory(clean, myBM);
         head = new RootCommand();
         end = myArguments.size() ;
         generateTree();
@@ -98,7 +96,7 @@ public class CommandTree {
             command.setParent(c);
             if (c instanceof VariableCommand){
                 VariableCommand temp = (VariableCommand) c;
-                temp.setVariableManager(myVM);
+                temp.setVariableManager(myBM.getVariableManager());
             }
             linkParentsAndInitializeVariables(command);
         }

@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class ProductCommand extends GeneralCommand {
 
-    public ProductCommand(){
+    public ProductCommand(BackendManager bm){
         super();
         //isFull = false;
         myType = "Product";

@@ -1,9 +1,11 @@
 package commands;
 
+import backend.BackendManager;
+
 public class NotEqualCommand extends BooleanCommand{
 
-    public NotEqualCommand(){
-        super();
+    public NotEqualCommand(BackendManager bm){
+        super(bm);
         myType = "NotEqual";
         myMaxChildren = 2;
     }

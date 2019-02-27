@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class CosineCommand extends GeneralCommand{
 
-    public CosineCommand(){
+    public CosineCommand(BackendManager bm){
         super();
         myMaxChildren = 1;
         myType = "Cosine";

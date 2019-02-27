@@ -1,9 +1,11 @@
 package commands;
 
+import backend.BackendManager;
+
 public class GreaterThanCommand extends BooleanCommand {
 
-    public GreaterThanCommand(){
-        super();
+    public GreaterThanCommand(BackendManager bm){
+        super(bm);
         myType = "GreaterThan";
         myMaxChildren = 2;
     }

@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class RepeatCommand extends GeneralCommand {
 
-    public RepeatCommand(){
+    public RepeatCommand(BackendManager bm){
         super();
         myType = "Repeat";
         myMaxChildren = 2;
