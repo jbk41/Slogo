@@ -1,28 +1,14 @@
 package commands;
 
-public class BackwardCommand extends GeneralCommand {
+import backend.BackendManager;
+import backend.CommandManager;
+import backend.VariableManager;
 
-    public BackwardCommand() {
-        super();
+public class BackwardCommand extends MovementCommand {
+
+    public BackwardCommand (BackendManager bm){
+        super(bm);
         myMaxChildren = 1;
         myType = "Backward";
-    }
-
-    public void execute(){
-        checkParameterCount();
-
-        GeneralCommand child = myChildren.get(0);
-
-        try {
-            this.myVal = getValFromChild(child);
-            myChildren.clear();
-        }
-
-        catch (IllegalArgumentException e){
-            System.out.println(e);
-            return;
-        }
-
-        makeReady();
     }
 }

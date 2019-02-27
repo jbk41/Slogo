@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class NaturalLogCommand extends GeneralCommand{
 
-    public NaturalLogCommand(){
+    public NaturalLogCommand(BackendManager bm){
         super();
         myMaxChildren = 1;
         myType = "NaturalLog";
@@ -10,19 +12,8 @@ public class NaturalLogCommand extends GeneralCommand{
 
     public void execute(){
         checkParameterCount();
-        GeneralCommand child = myChildren.get(0);
-        double log;
-        if (child instanceof ConstantCommand){
-            ConstantCommand c = (ConstantCommand) child;
-            double val = c.getVal();
-            log = Math.log(val);
-        }
-        else {
-            throw new IllegalArgumentException("Illegal Argument Type (NaturalLog accepts Constant nodes)");
-        }
-        int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(log));
-        makeReady();
+        executeChildren();
+        var childVals = getChildrenValues();
+        myVal = Math.log(childVals.get(0));
     }
-
 }

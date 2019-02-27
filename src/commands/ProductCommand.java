@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class ProductCommand extends GeneralCommand {
 
-    public ProductCommand(){
+    public ProductCommand(BackendManager bm){
         super();
         //isFull = false;
         myType = "Product";
@@ -11,18 +13,8 @@ public class ProductCommand extends GeneralCommand {
 
     public void execute(){
         checkParameterCount();
-        double prod = 1;
-        for (GeneralCommand child: myChildren){
-            if (child instanceof ConstantCommand){
-                ConstantCommand c = (ConstantCommand) child;
-                prod *= c.getVal();
-            }
-            else {
-                throw new IllegalArgumentException("Illegal Argument Type (Product accepts constant arguments)");
-            }
-        }
-        int index = getIndexOfCurrentInParent();
-        myParent.getChildren().set(index, new ConstantCommand(prod));
-        makeReady();
+        executeChildren();
+        var childVals = getChildrenValues();
+        myVal = childVals.get(0) * childVals.get(1);
     }
 }

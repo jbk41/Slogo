@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class ListStartCommand extends GeneralCommand {
 
-    public ListStartCommand(){
+    public ListStartCommand(BackendManager bm){
         super();
         myType = "ListStart";
     }

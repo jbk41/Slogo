@@ -29,9 +29,16 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
-        backend.interpret("repeat 3 [ fd 10 fd 20 repeat 4 [ fd 1 fd 2 ]  fd 100 ]");
-        //backend.printTree();
-        System.out.println();
+
+        backend.interpret("pd pu fd 10 bk * 3 4 fd sum 2 sum 3 sum 4 4");
+        backend.getBackendManager().getCommandManager().printCommands();
+
+////        backend.addCommandList(myCT);
+////        System.out.println(myCT.getHead().getChildren());
+////        var chuldren = myCT.getHead().getChildren();
+////        var myCT = backend.interpret("fd sin 90");
+
+
 
 
     }

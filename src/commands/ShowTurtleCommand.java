@@ -1,12 +1,15 @@
 package commands;
 
-public class ShowTurtleCommand extends GeneralCommand {
+import backend.BackendManager;
 
-    public ShowTurtleCommand() {
+public class ShowTurtleCommand extends StatementCommand {
+
+    public ShowTurtleCommand(BackendManager bm) {
+        super(bm);
         makeReady();
         myMaxChildren = 0;
+        myVal = 1;
         myType = "ShowTurtle";
     }
-
 }
 

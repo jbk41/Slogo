@@ -1,26 +1,15 @@
 package commands;
 
-public class RightCommand extends GeneralCommand {
+import backend.BackendManager;
+import backend.CommandManager;
+import backend.VariableManager;
 
-    public RightCommand (){
-        super();
+public class RightCommand extends MovementCommand {
+
+    public RightCommand (BackendManager bm){
+        super(bm);
         myType = "Right";
         myMaxChildren = 1;
-    }
-
-    public void execute() throws IllegalArgumentException{
-        checkParameterCount();
-
-        GeneralCommand child = myChildren.get(0);
-        if (child instanceof ConstantCommand){
-            ConstantCommand c = (ConstantCommand) child;
-            this.myVal = c.getVal();
-            myChildren.clear();
-        }
-        else {
-            throw new IllegalArgumentException("Illegal Argument Type (Right accepts Constants)");
-        }
-        makeReady();
     }
 
 }
