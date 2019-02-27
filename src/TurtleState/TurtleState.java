@@ -30,7 +30,7 @@ public class TurtleState {
         myYPos = yPos;
         myDegrees = degrees;
         isPenDown = false;
-        isVisible = false;
+        isVisible = true;
         myId = id;
     }
 
