@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TurtleIDE extends Application {
@@ -56,17 +57,17 @@ public class TurtleIDE extends Application {
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
-//        PlayTurtle play = new PlayTurtle(turtle, "Play", textEditor);
         Button playButton = new Button("Play");
+
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String commands = textEditor.getText();
                 BackendModel backend = new BackendModel();
                 backend.setLanguage("English");
+                String commands = textEditor.getText();
+                System.out.println(commands);
                 backend.interpret(commands);
-                List<TurtleState> trialTurtleMovement = backend.getCommands();
-                turtle.moveTurtle(trialTurtleMovement);
+                turtle.moveTurtle(backend.getCommands());
             }
         });
         Button reset = createResetButton(turtle, turtleDisplay);
@@ -83,7 +84,7 @@ public class TurtleIDE extends Application {
                 turtle.stopTurtle();
                 Canvas canvas = turtleDisplay.createNewCanvas();
                 turtle.changeCanvas(canvas);
-                turtle.setDefaultTurtleLocation();
+                turtle.resetTurtle();
             }
         });
         return reset;
