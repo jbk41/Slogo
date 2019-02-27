@@ -1,5 +1,7 @@
 package parser;
 
+import backend.CommandManager;
+import backend.VariableManager;
 import commands.*;
 import java.util.List;
 
@@ -10,11 +12,16 @@ import java.util.ArrayList;
 public class CommandFactory {
 
     private ParseCleaner myLanguages;
-    //private ArrayList<String> myCleanText;
+    public CommandManager CM;
+    public VariableManager VM;
     //public GeneralCommand myCommand;
+    private boolean isMovement = false;
 
-    public CommandFactory(ParseCleaner p) {
+    public CommandFactory(ParseCleaner p, CommandManager cm, VariableManager vm) {
         myLanguages = p;
+        CM = cm;
+        VM = vm;
+
     }
 
 
@@ -26,6 +33,7 @@ public class CommandFactory {
      */
     public GeneralCommand getCommand(String s) {
         List<String> cleanedText = parseText(s);
+        checkIfMovement(cleanedText);
         return makeCommand(cleanedText);
     }
 
@@ -34,12 +42,12 @@ public class CommandFactory {
         try {
             Class clazz = Class.forName("commands." + list.get(0) + "Command");
             try {
-                if (list.size() == 1) return (GeneralCommand) clazz.getConstructor().newInstance();
+                if (list.size() == 1) return (GeneralCommand) clazz.getConstructor(CommandManager.class, VariableManager.class).newInstance(CM, VM);
                 else return (GeneralCommand) clazz.getConstructor(double.class).newInstance(Double.parseDouble(list.get(1)));
             } catch (InstantiationException e) {
                 System.err.println("Error: Could not instantiate Constant Object with the given value");
             } catch (NoSuchMethodException e) {
-                System.out.println("Could not instantiate Command Object " + list.get(0));
+                System.out.println("Could not instantiate Command " + list.get(0));
             } catch (IllegalAccessException e) {
                 System.err.println("Error: " + e);
             } catch (InvocationTargetException e) {
@@ -51,6 +59,11 @@ public class CommandFactory {
         return null;
     }
 
+    private void checkIfMovement(List<String> list){
+        if (list.get(0).equals("Forward") || list.get(0).equals("Backward") || list.get(0).equals("Left") || list.get(0).equals("Right")) {
+            isMovement = true;
+        }
+    }
 
     private ArrayList<String> parseText(String s) {
         ArrayList<String> cleanText = new ArrayList<>();

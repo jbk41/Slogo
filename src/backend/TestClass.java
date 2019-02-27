@@ -29,14 +29,16 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
-        var myCT = backend.interpret("fd sin 90");
-        var children = myCT.getHead().getChildren();
-        System.out.println(children);
-//        System.out.println();
 
-        //backend.printTree();
-//        System.out.println(ct.getHead());
-//        System.out.println(ct.getHead().getVal());
+        backend.interpret("fd sum 1 2 fd 45 bk 3 ");
+        backend.getCommandManager().printCommands();
+        
+////        backend.addCommandList(myCT);
+////        System.out.println(myCT.getHead().getChildren());
+////        var chuldren = myCT.getHead().getChildren();
+////        var myCT = backend.interpret("fd sin 90");
+
+
 
 
     }

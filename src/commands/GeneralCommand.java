@@ -1,4 +1,5 @@
 package commands;
+import backend.CommandManager;
 import backend.VariableManager;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public abstract class GeneralCommand {
     protected boolean isReady;
     protected double myVal;
 
-    protected GeneralCommand(){
+    protected GeneralCommand(CommandManager cm , VariableManager vm){
         myChildren = new ArrayList<>();
         isReady = false;
     }
