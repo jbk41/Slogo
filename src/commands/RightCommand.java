@@ -1,9 +1,13 @@
 package commands;
 
-public class RightCommand extends MainTurtleCommand {
+import backend.BackendManager;
+import backend.CommandManager;
+import backend.VariableManager;
 
-    public RightCommand (){
-        super();
+public class RightCommand extends MovementCommand {
+
+    public RightCommand (BackendManager bm){
+        super(bm);
         myType = "Right";
         myMaxChildren = 1;
     }

@@ -1,9 +1,11 @@
 package commands;
 
+import backend.BackendManager;
+
 public class EqualCommand extends BooleanCommand {
 
-    public EqualCommand(){
-        super();
+    public EqualCommand(BackendManager bm){
+        super(bm);
         myType = "Equal";
         myMaxChildren = 2;
     }

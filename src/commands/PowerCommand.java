@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class PowerCommand extends GeneralCommand {
 
-    public PowerCommand(){
+    public PowerCommand(BackendManager bm){
         super();
         myType = "Power";
         myMaxChildren = 2;

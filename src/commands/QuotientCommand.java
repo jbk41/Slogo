@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class QuotientCommand extends GeneralCommand {
 
-    public QuotientCommand(){
+    public QuotientCommand(BackendManager bm){
         super();
         myType = "Quotient";
         myMaxChildren = 2;

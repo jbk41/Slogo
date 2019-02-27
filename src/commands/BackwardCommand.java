@@ -1,9 +1,13 @@
 package commands;
 
-public class BackwardCommand extends MainTurtleCommand {
+import backend.BackendManager;
+import backend.CommandManager;
+import backend.VariableManager;
 
-    public BackwardCommand() {
-        super();
+public class BackwardCommand extends MovementCommand {
+
+    public BackwardCommand (BackendManager bm){
+        super(bm);
         myMaxChildren = 1;
         myType = "Backward";
     }

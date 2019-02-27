@@ -8,8 +8,10 @@ public class TurtleCommand {
     private Double degrees;
     private Double displacement;
     private Boolean visible = true;
+    private GeneralCommand Command;
 
     public TurtleCommand(GeneralCommand command){
+        Command = command;
         displacement = compare(command.toString(),"Forward") * command.getVal() + compare(command.toString(), "Backward") * -1.0 * command.getVal();
         degrees = compare(command.toString(),"Right") * command.getVal() + compare(command.toString(), "Left") * -1.0 * command.getVal();
         jump = false;
@@ -41,7 +43,7 @@ public class TurtleCommand {
         return degrees;
     }
 
-    public Boolean getPenUp() {
+    public Boolean getPenDown() {
         return penDown;
     }
 
@@ -49,9 +51,12 @@ public class TurtleCommand {
         return jump;
     }
 
-
     public Boolean getVisible() {
         return visible;
     }
+
+    @Override
+    public String toString(){
+        return Command.toString(); }
 }
 

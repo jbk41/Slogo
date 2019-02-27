@@ -1,9 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class ArcTangentCommand extends GeneralCommand{
 
-    public ArcTangentCommand(){
-        super();
+    public ArcTangentCommand(BackendManager bm){
         myMaxChildren = 1;
         myType = "ArcTangent";
     }

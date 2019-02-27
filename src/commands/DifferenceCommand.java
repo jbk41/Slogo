@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class DifferenceCommand extends GeneralCommand {
 
-    public DifferenceCommand(){
+    public DifferenceCommand(BackendManager bm){
         super();
         myType = "Difference";
         myMaxChildren = 2;

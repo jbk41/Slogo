@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class MinusCommand extends GeneralCommand{
 
-    public MinusCommand() {
+    public MinusCommand(BackendManager bm) {
         super();
         myMaxChildren = 1;
         myType = "Minus";

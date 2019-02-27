@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class RemainderCommand extends GeneralCommand {
 
-    public RemainderCommand(){
+    public RemainderCommand(BackendManager bm){
         super();
         myType = "Remainder";
         myMaxChildren = 2;

@@ -1,10 +1,12 @@
 package commands;
 
+import backend.BackendManager;
+
 import java.util.Random;
 
 public class RandomCommand extends GeneralCommand {
 
-    public RandomCommand() {
+    public RandomCommand(BackendManager bm) {
         super();
         myMaxChildren = 1;
         myType = "Random";

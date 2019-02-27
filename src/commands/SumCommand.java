@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class SumCommand extends GeneralCommand {
 
-    public SumCommand() {
+    public SumCommand(BackendManager bm) {
         super();
         myType = "Sum";
         myMaxChildren = 2;

@@ -1,9 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public abstract class BooleanCommand extends GeneralCommand {
 
-    public BooleanCommand(){
-        super();
+    public BooleanCommand(BackendManager bm){
         myMaxChildren = 2;
     }
 

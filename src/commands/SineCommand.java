@@ -1,8 +1,10 @@
 package commands;
 
+import backend.BackendManager;
+
 public class SineCommand extends GeneralCommand{
 
-    public SineCommand(){
+    public SineCommand(BackendManager bm){
         super();
         myMaxChildren = 1;
         myType = "Sine";
