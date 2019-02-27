@@ -1,5 +1,6 @@
 package backend;
 import TurtleState.TurtleCommand;
+import TurtleState.TurtleManager;
 import parser.ParseCleaner;
 import commands.GeneralCommand;
 
@@ -13,11 +14,13 @@ public class BackendModel implements BackendAPI {
     private VariableManager myVM;
     private CommandTree myCT;
     private ParseCleaner myPC;
+    private TurtleManager myTM;
 
     public BackendModel(){
         myCM = new CommandManager();
         myVM = new VariableManager();
-        myBM = new BackendManager(myCM, myVM);
+        myTM = new TurtleManager(myCM);
+        myBM = new BackendManager(myCM, myVM, myTM);
     }
 
     public void setLanguage(String language){
@@ -32,6 +35,8 @@ public class BackendModel implements BackendAPI {
     public BackendManager getBackendManager(){
         return myBM;
     }
+
+    public TurtleManager getTurtleManager() { return myTM; }
 
     public void printTree(){
         myCT.printTree();
