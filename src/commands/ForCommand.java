@@ -20,7 +20,7 @@ public class ForCommand extends GeneralCommand {
         double step = conditionCommand.getChildren().get(3).getVal();
 
         for (int i = (int) start; i < (int) end; i += (int) step){
-            var.setValue((double) i);
+            //var.setValue((double) i);
             executeCommand.execute();
             myVal = start;
         }

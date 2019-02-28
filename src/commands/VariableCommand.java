@@ -1,41 +1,36 @@
 package commands;
-import backend.VariableManager;
+
+import backend.BackendManager;
 
 import java.security.InvalidKeyException;
 
 public class VariableCommand extends GeneralCommand{
 
-    private String myName;
-    private VariableManager myVM;
+    public String myName;
+    public BackendManager myBM;
 
-    public VariableCommand(String name){
+    public VariableCommand(BackendManager manager, String name){
         super();
-        //isFull = true;
+        myBM = manager;
         myType = "Variable";
         myMaxChildren = 0;
         myName = name;
         //makeReady(); // variables should be ready upon initialization
     }
 
-    public void execute(){
+    public void execute() {
+        if (!myParent.toString().equals("MakeVariable")) {
+            myVal = myBM.getVariableManager().getVariableMap().get(myName);
+        }
+    }
+
+    public String getVar() {
         try {
-            myVal = myVM.getValue(myName);
+            return myName;
         }
-        catch (InvalidKeyException e){
-            return;
+        catch(Exception e) {
+            System.out.println("The Command you are trying to access is not a Variable");
         }
+        return "";
     }
-
-    public void setValue(double val){
-        myVM.setValue(myName, val);
-    }
-
-    public void setVariableManager(VariableManager vm){
-        myVM = vm;
-    }
-
-    public String getName(){
-        return myName;
-    }
-
 }
