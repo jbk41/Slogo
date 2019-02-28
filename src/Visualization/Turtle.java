@@ -46,6 +46,10 @@ public class Turtle {
         pane.getChildren().add(turtleImageView);
         setDefaultTurtleLocation();
     }
+    public void resetTurtle(){
+        pane.getChildren().remove(turtleImageView);
+        addTurtleToRoot();
+    }
 
     //returns the X position of the turtle at the center of the ImageView
     private double turtleXPosition(){
@@ -68,26 +72,30 @@ public class Turtle {
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
-        for(TurtleState currentTurtleState: turtleStateList){
+        for(int x = 1; x < turtleStateList.size(); x ++){
+            TurtleState currentTurtleState = turtleStateList.get(x);
             double degrees = currentTurtleState.getMyDegrees();
-            RotateTransition rt = rotationTransition(turtleImageView, degrees);
+            RotateTransition rt = rotationTransition(turtleImageView, degrees, turtleStateList.get(x-1).getMyDegrees());
             sequentialTransition.getChildren().add(rt);
             double newX = currentTurtleState.getXPos() + defaultX;
             double newY = defaultY - currentTurtleState.getYPos();
+            if(turtleXPosition() == newX && turtleYPosition() == newY){
+                continue;
+            }
             Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(newX, newY));
             turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
             turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
-            PathTransition pathTransition = createTransition(path, currentTurtleState);
+            PathTransition pathTransition = createTransition(path, turtleStateList.get(x-1));
             sequentialTransition.getChildren().add(pathTransition);
         }
 
         sequentialTransition.play();
     }
-    private RotateTransition rotationTransition(ImageView turtleImageView, double degrees){
+    private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(3000), turtleImageView);
-        rt.setByAngle(90);
+        rt.setByAngle(degrees - prevDegrees);
         rt.setCycleCount(1);
         return rt;
 
@@ -128,7 +136,7 @@ public class Turtle {
                 }
                 oldX = x;
                 oldY = y;
-                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || !turtleState.getVisibility()){
+                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y)){
                     turtleImageView.setVisible(false);
                 }else{
                     turtleImageView.setVisible(true);
