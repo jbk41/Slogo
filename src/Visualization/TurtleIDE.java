@@ -27,70 +27,70 @@ public class TurtleIDE extends Application {
         Stage primaryStage = stage;
         Group root = new Group();
         var startScene = new Scene(root, width, height, backgroundColor);
-        HBox IDE = new HBox(createUserBox(), createTurtleDisplay());
-        root.getChildren().add(IDE);
+        //HBox IDE = new HBox(createUserBox(), createTurtleDisplay());
+        //root.getChildren().add(IDE);
         primaryStage.setScene(startScene);
         primaryStage.setTitle(title);
         primaryStage.show();
     }
-
-    private VBox createUserBox(){
-        TextEditor textEditor = new TextEditor(width, height);
-        Console console = new Console(width, height, padding);
-        VBox user = new VBox(15, textEditor, console);
-        user.setPadding(new Insets(padding, padding,padding,padding));
-        return user;
-    }
-    private VBox createTurtleDisplay(){
-        TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
-        Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-        HBox controls = createSettingsButtons(turtle, turtleDisplay);
-        VBox display = new VBox(15, turtleDisplay, controls);
-        display.setPadding(new Insets(padding,padding,padding,padding));
-        return display;
-    }
-    private HBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
-        ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
-        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
-        LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
-        //PlayTurtle play = new PlayTurtle(turtle, "Play");
-        Button reset = createResetButton(turtle, turtleDisplay);
-        Button help = createHelpButton();
-        //HBox controls = new HBox(6, play, reset, help, settingsBox, penColorDropDown, languagesDropDown);
-        //return controls;
-    }
-
-    private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
-        Button reset = new Button("Reset");
-        reset.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                turtle.stopTurtle();
-                Canvas canvas = turtleDisplay.createNewCanvas();
-                turtle.changeCanvas(canvas);
-                turtle.setDefaultTurtleLocation();
-            }
-        });
-        return reset;
-    }
-    private Button createHelpButton(){
-        Button help = new Button("Help");
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    HelpScreen.displayHelpScreen();
-                } catch (Exception e){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(e.getMessage());
-                    alert.setContentText("Invalid File. Check to see if the file exists");
-                    alert.showAndWait();
-                }
-            }
-        });
-        return help;
-    }
+//
+//    private VBox createUserBox(){
+//        TextEditor textEditor = new TextEditor(width, height);
+//        Console console = new Console(width, height, padding);
+//        VBox user = new VBox(15, textEditor, console);
+//        user.setPadding(new Insets(padding, padding,padding,padding));
+//        return user;
+//    }
+//    private VBox createTurtleDisplay(){
+//        TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
+//        Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+//        HBox controls = createSettingsButtons(turtle, turtleDisplay);
+//        VBox display = new VBox(15, turtleDisplay, controls);
+//        display.setPadding(new Insets(padding,padding,padding,padding));
+//        return display;
+//    }
+//    private HBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
+//        ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
+//        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
+//        LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
+//        //PlayTurtle play = new PlayTurtle(turtle, "Play");
+//        Button reset = createResetButton(turtle, turtleDisplay);
+//        Button help = createHelpButton();
+//        //HBox controls = new HBox(6, play, reset, help, settingsBox, penColorDropDown, languagesDropDown);
+//        //return controls;
+//    }
+//
+//    private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
+//        Button reset = new Button("Reset");
+//        reset.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                turtle.stopTurtle();
+//                Canvas canvas = turtleDisplay.createNewCanvas();
+//                turtle.changeCanvas(canvas);
+//                turtle.setDefaultTurtleLocation();
+//            }
+//        });
+//        return reset;
+//    }
+//    private Button createHelpButton(){
+//        Button help = new Button("Help");
+//        help.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                try {
+//                    HelpScreen.displayHelpScreen();
+//                } catch (Exception e){
+//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Error");
+//                    alert.setHeaderText(e.getMessage());
+//                    alert.setContentText("Invalid File. Check to see if the file exists");
+//                    alert.showAndWait();
+//                }
+//            }
+//        });
+//        return help;
+//    }
 
 //    private Button createLoadButton(){
 //        Button load = new Button("Load");

@@ -20,16 +20,12 @@ public class MakeVariableCommand extends GeneralCommand {
 
     public void execute(){
         checkParameterCount();
-        executeChildren();
-        GeneralCommand child = myChildren.get(0);
         try {
             myKey = myChildren.get(0).getVarName();
             myValue = myChildren.get(1).getVal();
+            myBM.getVariableManager().getVariableMap().put(myKey, myValue);
         } catch (IllegalArgumentException e) {
             System.out.println(e);
-            return;
         }
-        myBM.getVariableManager().getVariableMap().get(myKey);
-        myBM.getVariableManager().getVariableMap().put(myKey, myValue);
     }
 }

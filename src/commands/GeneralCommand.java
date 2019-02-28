@@ -59,8 +59,7 @@ public abstract class GeneralCommand {
         myParent = command;
     }
 
-    @Override
-    public String toString(){
+    public String getType(){
         return myType;
     }
 

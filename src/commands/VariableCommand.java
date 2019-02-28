@@ -19,18 +19,13 @@ public class VariableCommand extends GeneralCommand{
     }
 
     public void execute() {
-        if (!myParent.toString().equals("MakeVariable")) {
+        if(myBM.getVariableManager().getVariableMap().containsKey(myName)) {
             myVal = myBM.getVariableManager().getVariableMap().get(myName);
+        }
+        else {
+            myVal = 0;
         }
     }
 
-    public String getVar() {
-        try {
-            return myName;
-        }
-        catch(Exception e) {
-            System.out.println("The Command you are trying to access is not a Variable");
-        }
-        return "";
-    }
+    public String getVarName() { return myName; }
 }
