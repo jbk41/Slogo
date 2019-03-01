@@ -3,7 +3,6 @@ package Visualization;
 
 import backend.BackendModel;
 import javafx.application.Application;
-import TurtleState.TurtleState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,9 +14,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
