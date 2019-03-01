@@ -1,6 +1,7 @@
 package backend;
 import TurtleState.TurtleCommand;
 import TurtleState.TurtleManager;
+import TurtleState.TurtleState;
 import Visualization.Turtle;
 import parser.ParseCleaner;
 import commands.GeneralCommand;
@@ -31,7 +32,7 @@ public class BackendModel implements BackendAPI {
         myCT = new CommandTree(text, myPC, myBM);
         myTM = new TurtleManager(myBM.getCommandManager());
     }
-
+    public ArrayList<TurtleState> getCommands(){return myTM.getCommands();}
     public BackendManager getBackendManager(){
         return myBM;
     }

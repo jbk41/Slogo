@@ -1,12 +1,23 @@
 package backend;
 
 import TurtleState.TurtleCommand;
+import Visualization.TextEditor;
 import parser.ParseCleaner;
 
 
 public class TestClass {
 
     public static void main (String[] args){
+        /*
+        ParseCleaner myCleaner = new ParseCleaner(myLanguage);
+        CommandTree t = new CommandTree(INPUT_TEXT, myCleaner);
+        t.printTree();
+        TurtleCommand turtle = new TurtleCommand(t.getHead());
+        //System.out.println(turtle.getDisplacement());
+        //System.out.println(turtle.getDegrees());
+        */
+
+
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
         backend.interpret("fd 100 rt 30 fd 200 bk 20 SetH 25");
