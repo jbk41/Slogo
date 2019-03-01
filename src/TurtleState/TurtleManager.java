@@ -1,6 +1,5 @@
 package TurtleState;
 
-import backend.BackendManager;
 import backend.CommandManager;
 
 import java.lang.reflect.Array;
@@ -8,15 +7,14 @@ import java.util.ArrayList;
 
 public class TurtleManager {
 
-    private TurtleState myTS;
     private CommandManager myCM;
-    private String myType;
     private double myX ;
     private double myY ;
     private double myDeg ;
     private boolean penDown ;
     private boolean showTurtle ;
     private double myID;
+    private boolean clear;
     public ArrayList<TurtleState> myCommands = new ArrayList<TurtleState>();
 
     public TurtleManager(CommandManager manager){
@@ -50,14 +48,31 @@ public class TurtleManager {
         }
     }
 
-    private TurtleState createTurtleState(TurtleCommand command) { //FIXME: Check trig!
-        //myType = command.getType();
-        myDeg += command.getDegrees();
-        myX += command.getDisplacement()*Math.sin(myDeg* Math.PI/180);
-        myY += command.getDisplacement()*Math.cos(myDeg* Math.PI/180);
+    private TurtleState createTurtleState(TurtleCommand command) {
+        clear = false;
+        myDeg = setDegrees(command);
+        myX += command.getDisplacement() * Math.sin(myDeg * Math.PI / 180);
+        myY += command.getDisplacement() * Math.cos(myDeg * Math.PI / 180);
         penDown = command.getPenDown();
         showTurtle = command.getVisible();
+        if (command.getType().equals("ClearScreen") || command.getType().equals("Home")) resetTurtle(command);
         return new TurtleState(myX, myY, myDeg, penDown, showTurtle, myID);
+    }
+
+    private double setDegrees(TurtleCommand command) {
+        if (command.getType().equals("SetHeading")) myDeg = command.getDegrees();
+        else myDeg += command.getDegrees();
+        return myDeg;
+    }
+
+    private void resetTurtle(TurtleCommand command) {
+        myDeg = 0.0;
+        myX = 0.0;
+        myY = 0.0;
+        penDown = false;
+        showTurtle = true;
+        clear = false;
+        if (command.getType().equals("ClearScreen")) clear = true;
     }
 
 

@@ -24,7 +24,7 @@ public class CommandTree {
         head = new RootCommand();
         end = myArguments.size() ;
         generateTree();
-        linkParentsAndInitializeVariables(head);
+        //linkParentsAndInitializeVariables(head);
         head.execute();
     }
 
@@ -90,17 +90,17 @@ public class CommandTree {
         System.out.println(c.toString() + " with parent: " + c.printParent());
     }
 
-    // after the tree has been generated, use this to command to create a link from the child to the parent
-    private void linkParentsAndInitializeVariables(GeneralCommand c){
-        for (GeneralCommand command: c.getChildren()){
-            command.setParent(c);
-            if (c instanceof VariableCommand){
-                VariableCommand temp = (VariableCommand) c;
-                temp.setVariableManager(myBM.getVariableManager());
-            }
-            linkParentsAndInitializeVariables(command);
-        }
-    }
+//    // after the tree has been generated, use this to command to create a link from the child to the parent
+//    private void linkParentsAndInitializeVariables(GeneralCommand c){
+//        for (GeneralCommand command: c.getChildren()){
+//            command.setParent(c);
+//            if (c instanceof VariableCommand){
+//                VariableCommand temp = (VariableCommand) c;
+//                temp.setVariableManager(myBM.getVariableManager());
+//            }
+//            linkParentsAndInitializeVariables(command);
+//        }
+//    }
 
     // actually execute the command;
     private void executeTree(GeneralCommand c){

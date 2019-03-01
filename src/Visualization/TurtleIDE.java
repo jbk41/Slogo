@@ -3,7 +3,6 @@ package Visualization;
 
 import backend.BackendModel;
 import javafx.application.Application;
-import TurtleState.TurtleState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -15,8 +14,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
@@ -56,17 +53,17 @@ public class TurtleIDE extends Application {
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
-//        PlayTurtle play = new PlayTurtle(turtle, "Play", textEditor);
         Button playButton = new Button("Play");
+
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String commands = textEditor.getText();
                 BackendModel backend = new BackendModel();
                 backend.setLanguage("English");
+                String commands = textEditor.getText();
+                System.out.println(commands);
                 backend.interpret(commands);
-                List<TurtleState> trialTurtleMovement = backend.getCommands();
-                turtle.moveTurtle(trialTurtleMovement);
+                turtle.moveTurtle(backend.getCommands());
             }
         });
         Button reset = createResetButton(turtle, turtleDisplay);
@@ -77,16 +74,14 @@ public class TurtleIDE extends Application {
 
     private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
         Button reset = new Button("Reset");
-        reset.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                turtle.stopTurtle();
-                Canvas canvas = turtleDisplay.createNewCanvas();
-                turtle.changeCanvas(canvas);
-                turtle.setDefaultTurtleLocation();
-            }
-        });
+        reset.setOnAction(e -> event(turtle, turtleDisplay));
         return reset;
+    }
+    private void event(Turtle turtle, TurtleDisplay turtleDisplay){
+        turtle.stopTurtle();
+        Canvas canvas = turtleDisplay.createNewCanvas();
+        turtle.changeCanvas(canvas);
+        turtle.resetTurtle();
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
