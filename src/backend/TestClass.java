@@ -9,7 +9,7 @@ public class TestClass {
     public static void main (String[] args){
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
-        backend.interpret("make :hello 50 set :hello 80  set :hi 30 fd :hi");
+        backend.interpret("fd 100 rt 30 fd 200 bk 20 SetH 25");
         var map = backend.getBackendManager().getVariableManager().getVariableMap();
         for (String key : map.keySet()){
             System.out.println(key);

@@ -50,7 +50,7 @@ public class CommandFactory {
     }
 
 
-        private ArrayList<String> parseText(String s) {
+    private ArrayList<String> parseText(String s) {
         ArrayList<String> cleanText = new ArrayList<>();
         String temp = myLanguages.getSymbol(s);
         cleanText.add(temp);
@@ -59,4 +59,6 @@ public class CommandFactory {
         }
         return cleanText;
     }
+
+
 }
