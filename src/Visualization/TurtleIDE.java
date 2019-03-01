@@ -61,27 +61,14 @@ public class TurtleIDE extends Application {
                 BackendModel backend = new BackendModel();
                 backend.setLanguage("English");
                 String commands = textEditor.getText();
-                System.out.println(commands);
+
                 backend.interpret(commands);
                 turtle.moveTurtle(backend.getCommands());
             }
         });
-        Button reset = createResetButton(turtle, turtleDisplay);
         Button help = createHelpButton();
-        HBox controls = new HBox(6, playButton, reset, help, settingsBox, penColorDropDown, languagesDropDown);
+        HBox controls = new HBox(6, playButton, help, settingsBox, penColorDropDown, languagesDropDown);
         return controls;
-    }
-
-    private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
-        Button reset = new Button("Reset");
-        reset.setOnAction(e -> event(turtle, turtleDisplay));
-        return reset;
-    }
-    private void event(Turtle turtle, TurtleDisplay turtleDisplay){
-        turtle.stopTurtle();
-        Canvas canvas = turtleDisplay.createNewCanvas();
-        turtle.changeCanvas(canvas);
-        turtle.resetTurtle();
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
