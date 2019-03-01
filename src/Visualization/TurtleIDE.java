@@ -78,16 +78,14 @@ public class TurtleIDE extends Application {
 
     private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
         Button reset = new Button("Reset");
-        reset.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                turtle.stopTurtle();
-                Canvas canvas = turtleDisplay.createNewCanvas();
-                turtle.changeCanvas(canvas);
-                turtle.resetTurtle();
-            }
-        });
+        reset.setOnAction(e -> event(turtle, turtleDisplay));
         return reset;
+    }
+    private void event(Turtle turtle, TurtleDisplay turtleDisplay){
+        turtle.stopTurtle();
+        Canvas canvas = turtleDisplay.createNewCanvas();
+        turtle.changeCanvas(canvas);
+        turtle.resetTurtle();
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
