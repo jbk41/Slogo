@@ -27,6 +27,8 @@ public abstract class GeneralCommand {
         return myChildren;
     }
 
+    public String getVarName() {return ""; }
+
     /**
      *
      * @return values of each child of Command
@@ -57,8 +59,7 @@ public abstract class GeneralCommand {
         myParent = command;
     }
 
-    @Override
-    public String toString(){
+    public String getType(){
         return myType;
     }
 
@@ -81,13 +82,6 @@ public abstract class GeneralCommand {
     }
 
     /**
-     * Prepares all of the commands in the list (ie forward gets the value of its child)
-     */
-    public void prepare(){
-        return; //do nothing
-    }
-
-    /**
      * returns true if the node has been prepared properly
      * @return
      */
@@ -105,6 +99,10 @@ public abstract class GeneralCommand {
         for (GeneralCommand child : this.myChildren){
             child.execute();
         }
+    }
+
+    public void executeVariable(){
+
     }
 
     protected void makeReady(){

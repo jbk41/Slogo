@@ -13,7 +13,7 @@ public class TurtleCommand {
     public TurtleCommand(GeneralCommand command){
         Command = command;
         displacement = compare(command.toString(),"Forward") * command.getVal() + compare(command.toString(), "Backward") * -1.0 * command.getVal();
-        degrees = compare(command.toString(),"Right") * command.getVal() + compare(command.toString(), "Left") * -1.0 * command.getVal();
+        degrees = compare(command.toString(),"Right") * command.getVal() + compare(command.toString(), "Left") * -1.0 * command.getVal() + compare(command.toString(), "SetHeading") * command.getVal();;
         jump = false;
         setVisible(command.toString());
         setPen(command.toString());

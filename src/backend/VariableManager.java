@@ -12,16 +12,5 @@ public class VariableManager {
         variableMap = new HashMap<String, Double>();
     }
 
-    public double getValue(String varName) throws InvalidKeyException {
-        if (!variableMap.containsKey(varName)){
-            throw new InvalidKeyException(varName + " + has not been initialized");
-        }
-
-        return variableMap.get(varName);
-    }
-
-    public void setValue(String varName, Double value){
-        variableMap.put(varName, value);
-    }
-
+    public Map<String, Double> getVariableMap() { return variableMap; }
 }
