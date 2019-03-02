@@ -24,5 +24,9 @@ public class CommandManager {
 
     public ArrayList<TurtleCommand> getCommandList() { return myCommandList; }
 
+    public void clearCommandList(){
+        myCommandList.clear();
+    }
+
 }
 

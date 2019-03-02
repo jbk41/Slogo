@@ -3,10 +3,10 @@ package Visualization;
 
 import backend.BackendModel;
 import javafx.application.Application;
-import TurtleState.TurtleState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,8 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
@@ -26,6 +26,12 @@ public class TurtleIDE extends Application {
     private static final int height = 680;
     private static final int padding = 15;
     private TextEditor textEditor;
+    private Console console;
+    private Console myUserDefined;
+    private Console myStates;
+    private BackendModel backend;
+    private Map <String, Double> savedVarMap = new HashMap<>();
+
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
@@ -40,106 +46,86 @@ public class TurtleIDE extends Application {
 
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
-        Console console = new Console(width, height, padding);
-        VBox user = new VBox(15, textEditor, console);
+        console = new Console(width, height, padding, "Console");
+        VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
     }
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
         Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-        HBox controls = createSettingsButtons(turtle, turtleDisplay);
+        VBox controls = createSettingsButtons(turtle, turtleDisplay);
         VBox display = new VBox(15, turtleDisplay, controls);
         display.setPadding(new Insets(padding,padding,padding,padding));
         return display;
     }
-    private HBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
+    private VBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
-        LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
+        LanguagesDropDown languagesDropDown = new LanguagesDropDown();
+        PenSize penSize = new PenSize(turtle);
         Button playButton = new Button("Play");
-
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                BackendModel backend = new BackendModel();
-                backend.setLanguage("English");
-                String commands = textEditor.getText();
-                System.out.println(commands);
-                backend.interpret(commands);
-                turtle.moveTurtle(backend.getCommands());
-            }
-        });
-        Button reset = createResetButton(turtle, turtleDisplay);
+        backend = new BackendModel();
+        playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
         Button help = createHelpButton();
-        HBox controls = new HBox(6, playButton, reset, help, settingsBox, penColorDropDown, languagesDropDown);
+        HBox top = new HBox(6, playButton, help, settingsBox);
+        HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize);
+        VBox controls = new VBox(6, top, bottom);
+        controls.setMaxWidth(width/2);
         return controls;
     }
-
-    private Button createResetButton(Turtle turtle, TurtleDisplay turtleDisplay){
-        Button reset = new Button("Reset");
-        reset.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                turtle.stopTurtle();
-                Canvas canvas = turtleDisplay.createNewCanvas();
-                turtle.changeCanvas(canvas);
-                turtle.resetTurtle();
-            }
-        });
-        return reset;
+    private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
+//        BackendModel backend = new BackendModel();
+        // map of variables and respective values, display to the user
+        //backend.getBackendManager().getVariableManager().getVariableMap();
+        String commands = textEditor.getText();
+        try {
+            String language = languagesDropDown.getValue().toString();
+            backend.setLanguage(language);
+            backend.getCommandManager().clearCommandList();
+            backend.interpret(commands);
+            turtle.moveTurtle(backend.getCommands(),myStates);
+            console.setText(console.getText()+ "\r\n" + commands);
+//            savedVarMap.putAll(backend.getBackendManager().getVariableManager().getVariableMap());
+//            System.out.println(savedVarMap);
+//            myUserDefined.setText("Variables and Commands" +  "\r\n" + savedVarMap);
+            myUserDefined.setText("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().toString());
+        }catch(NullPointerException ex){
+            showError("Please Choose a Language");
+        }
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    HelpScreen.displayHelpScreen();
-                } catch (Exception e){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(e.getMessage());
-                    alert.setContentText("Invalid File. Check to see if the file exists");
-                    alert.showAndWait();
-                }
-            }
-        });
+        help.setOnAction(e -> createHelpScreen());
         return help;
     }
+    private void createHelpScreen(){
+        try {
+            HelpScreen.displayHelpScreen();
+        } catch (Exception e){
+            showError("Wrong File");
+        }
+    }
+    private void showError(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setHeaderText("There was an error");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
-//    private Button createLoadButton(){
-//        Button load = new Button("Load");
-//        load.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                FileChooser fileChooser = new FileChooser();
-//                fileChooser.setTitle("Load Previous Code");
-//                File file = fileChooser.showOpenDialog(primaryStage);
-//                TextReader textReader = new TextReader(file);
-//                textEditor.setText(textReader.getText());
-//            }
-//        });
-//        return load;
-//    }
+    private HBox displayUserDefined(){
+        myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
+        myUserDefined.setPrefWidth(width/4 - padding *2);
+        Console states = new Console(width / 2, height, padding, "Turtle State");
+        states.setPrefWidth(width/4 - padding);
+        HBox user = new HBox(15, myUserDefined, states);
+        return user;
+    }
 
-    //    private Button createSaveButton(){
-//        Button save = new Button("Save");
-//        save.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                FileChooser fileChooser = new FileChooser();
-//                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-//                fileChooser.getExtensionFilters().add(extFilter);
-//                File file = fileChooser.showSaveDialog(primaryStage);
-//                if (file != null) {
-//                    TextWriter textWriter = new TextWriter(file);
-//                    textWriter.writeTextFile(textEditor.getText());
-//                }
-//            }
-//        });
-//        return save;
-//    }
+    private void updateStates(){
+
+    }
     /**
      * Start the program.
      */

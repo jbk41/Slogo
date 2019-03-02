@@ -37,6 +37,10 @@ public class BackendModel implements BackendAPI {
         return myBM;
     }
 
+    public CommandManager getCommandManager(){
+        return myCM;
+    }
+
     public TurtleManager getTurtleManager() { return myTM; }
 
     public void printCommands(){
