@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class TurtleIDE extends Application {
@@ -28,7 +29,8 @@ public class TurtleIDE extends Application {
     private Console console;
     private Console myUserDefined;
     private Console myStates;
-    private Map <String, Double> savedVarMap = null;
+    private BackendModel backend;
+    private Map <String, Double> savedVarMap = new HashMap<>();
 
     @Override
     public void start(Stage stage){
@@ -63,23 +65,28 @@ public class TurtleIDE extends Application {
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
         PenSize penSize = new PenSize(turtle);
         Button playButton = new Button("Play");
+        backend = new BackendModel();
         playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
         Button help = createHelpButton();
         HBox controls = new HBox(6, playButton, help, settingsBox, penColorDropDown, languagesDropDown, penSize);
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
-        BackendModel backend = new BackendModel();
+//        BackendModel backend = new BackendModel();
         // map of variables and respective values, display to the user
         //backend.getBackendManager().getVariableManager().getVariableMap();
         String commands = textEditor.getText();
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
+            backend.getCommandManager().clearCommandList();
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands());
             console.setText(console.getText()+ "\r\n" + commands);
-            myUserDefined.setText("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().keySet().toString());
+//            savedVarMap.putAll(backend.getBackendManager().getVariableManager().getVariableMap());
+//            System.out.println(savedVarMap);
+//            myUserDefined.setText("Variables and Commands" +  "\r\n" + savedVarMap);
+            myUserDefined.setText("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().toString());
             System.out.println(backend.getBackendManager().getVariableManager().getVariableMap().keySet());
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
