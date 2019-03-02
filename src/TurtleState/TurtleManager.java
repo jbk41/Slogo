@@ -53,10 +53,15 @@ public class TurtleManager {
         myDeg = setDegrees(command);
         myX += command.getDisplacement() * Math.sin(myDeg * Math.PI / 180);
         myY += command.getDisplacement() * Math.cos(myDeg * Math.PI / 180);
-        penDown = command.getPenDown();
+        penDown = setPen(command);
         showTurtle = command.getVisible();
         if (command.getType().equals("ClearScreen") || command.getType().equals("Home")) resetTurtle(command);
         return new TurtleState(myX, myY, myDeg, penDown, showTurtle, myID);
+    }
+
+    private boolean setPen(TurtleCommand command) {
+        if (command.getPenDown()) penDown = true;
+        return penDown;
     }
 
     private double setDegrees(TurtleCommand command) {

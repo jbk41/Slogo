@@ -72,11 +72,13 @@ public class Turtle {
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
-        for(int x = 1; x < turtleStateList.size(); x ++){
+        double prevDegrees = 0.0;
+        for(int x = 0; x < turtleStateList.size(); x ++){
             TurtleState currentTurtleState = turtleStateList.get(x);
             double degrees = currentTurtleState.getMyDegrees();
-            RotateTransition rt = rotationTransition(turtleImageView, degrees, turtleStateList.get(x-1).getMyDegrees());
+            RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
             sequentialTransition.getChildren().add(rt);
+            prevDegrees = degrees;
             double newX = currentTurtleState.getXPos() + defaultX;
             double newY = defaultY - currentTurtleState.getYPos();
             if(turtleXPosition() == newX && turtleYPosition() == newY){
@@ -87,7 +89,7 @@ public class Turtle {
             path.getElements().add(new LineTo(newX, newY));
             turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
             turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
-            PathTransition pathTransition = createTransition(path, turtleStateList.get(x-1));
+            PathTransition pathTransition = createTransition(path, turtleStateList.get(x));
             sequentialTransition.getChildren().add(pathTransition);
         }
 
@@ -102,13 +104,6 @@ public class Turtle {
     }
     public void stopTurtle(){
         sequentialTransition.stop();
-    }
-
-    private double getXDisplacement(int degrees, int displacement){
-        return Math.cos(Math.toRadians(degrees)) * displacement;
-    }
-    private double getYDisplacement(int degrees, int displacement){
-        return Math.sin(Math.toRadians(degrees)) * displacement;
     }
 
     private PathTransition createTransition(Path path, TurtleState turtleState){
