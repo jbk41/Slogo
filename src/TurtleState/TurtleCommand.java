@@ -3,11 +3,11 @@ package TurtleState;
 import commands.GeneralCommand;
 
 public class TurtleCommand {
-    private Boolean penDown;
-    private Boolean jump = false;
-    private Double degrees;
-    private Double displacement;
-    private Boolean visible = true;
+    private int penDown = 0;
+    private boolean jump = false;
+    private double degrees;
+    private double displacement;
+    private boolean visible = true;
     private commands.GeneralCommand Command;
 
     public TurtleCommand(GeneralCommand command){
@@ -31,8 +31,8 @@ public class TurtleCommand {
     }
 
     private void setPen(String type) {
-        if (type.equals("PenDown")) penDown = true;
-        else if (type.equals("PenUp")) penDown = false;
+        if (type.equals("PenDown")) penDown = 1;
+        else if (type.equals("PenUp")) penDown = 2;
     }
 
     public Double getDisplacement() {
@@ -43,9 +43,7 @@ public class TurtleCommand {
         return degrees;
     }
 
-    public Boolean getPenDown() {
-        return penDown;
-    }
+    public int getPenDown() { return penDown; }
 
     public Boolean getJump() {
         return jump;
