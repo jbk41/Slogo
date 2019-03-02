@@ -20,11 +20,15 @@ public class TestClass {
 
         BackendModel backend = new BackendModel();
         backend.setLanguage("English");
+<<<<<<< HEAD
         backend.interpret("set :trial 50 fd :trial fd 100 pd rt 30 pu fd 200 bk 20");
+=======
+        backend.interpret("fd 100 pd rt 30 fd 200 pu bk 25");
+>>>>>>> 46d75890341d5a49aa603c82dc1e62923bfb1624
         var map = backend.getBackendManager().getVariableManager().getVariableMap();
-        for (String key : map.keySet()){
-            System.out.println(key);
-            System.out.println(map.get(key));
-        }
+//        for (String key : map.keySet()){
+//            System.out.println(key);
+//            System.out.println(map.get(key));
+//        }
     }
 }
