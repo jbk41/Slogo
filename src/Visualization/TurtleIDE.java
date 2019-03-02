@@ -98,8 +98,10 @@ public class TurtleIDE extends Application {
     }
 
     private HBox displayUserDefined(){
-        Console variables = new Console(width / 2, height, padding, "Variables and Commands");
+        Console variables = new Console(width /2 , height, padding, "Variables and Commands");
+        variables.setPrefWidth(width/4 - padding *2);
         Console commands = new Console(width / 2, height, padding, "Turtle State");
+        commands.setPrefWidth(width/4 - padding);
         HBox user = new HBox(15, variables, commands);
         return user;
     }
