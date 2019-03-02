@@ -13,7 +13,7 @@ public class Console extends Label{
     public Console(double width, double height, int padding){
         setText("Console");
         setPadding(new Insets(textPadding,textPadding,textPadding,textPadding));
-        setMaxWidth(width/2 - padding * 2);
+        setPrefWidth(width/2 - padding * 2);
         setPrefHeight(height * 0.25 - padding * 3);
         setAlignment(Pos.TOP_LEFT);
         setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
