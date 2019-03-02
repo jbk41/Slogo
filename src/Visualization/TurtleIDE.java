@@ -25,6 +25,7 @@ public class TurtleIDE extends Application {
     private TextEditor textEditor;
     private Console console;
     private Console myUserDefined;
+    private Console myStates;
 
     @Override
     public void start(Stage stage){
@@ -59,43 +60,38 @@ public class TurtleIDE extends Application {
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
         PenSize penSize = new PenSize(turtle);
         Button playButton = new Button("Play");
-        playButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                BackendModel backend = new BackendModel();
-                // map of variables and respective values, display to the user
-                //backend.getBackendManager().getVariableManager().getVariableMap();
-                String commands = textEditor.getText();
-                try {
-                    String language = languagesDropDown.getValue().toString();
-                    backend.setLanguage(language);
-                    backend.interpret(commands);
-                    turtle.moveTurtle(backend.getCommands());
-                    console.setText(console.getText() + "\r\n" + commands);
-                    var userDefined = backend.getBackendManager().getVariableManager().getVariableMap().keySet();
-                    myUserDefined.setText(userDefined.toString());
-                }catch(NullPointerException ex){
-                    showError("Please Choose a Language");
-                }
-            }
-        });
+        playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
         Button help = createHelpButton();
         HBox controls = new HBox(6, playButton, help, settingsBox, penColorDropDown, languagesDropDown, penSize);
         return controls;
     }
+    private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
+        BackendModel backend = new BackendModel();
+        // map of variables and respective values, display to the user
+        //backend.getBackendManager().getVariableManager().getVariableMap();
+        String commands = textEditor.getText();
+        try {
+            String language = languagesDropDown.getValue().toString();
+            backend.setLanguage(language);
+            backend.interpret(commands);
+            turtle.moveTurtle(backend.getCommands());
+            console.setText(console.getText()+ "\r\n" + commands);
+            myUserDefined.setText(backend.getBackendManager().getVariableManager().getVariableMap().keySet().toString());
+        }catch(NullPointerException ex){
+            showError("Please Choose a Language");
+        }
+    }
     private Button createHelpButton(){
         Button help = new Button("Help");
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    HelpScreen.displayHelpScreen();
-                } catch (Exception e){
-                    showError("Wrong File");
-                }
-            }
-        });
+        help.setOnAction(e -> createHelpScreen());
         return help;
+    }
+    private void createHelpScreen(){
+        try {
+            HelpScreen.displayHelpScreen();
+        } catch (Exception e){
+            showError("Wrong File");
+        }
     }
     private void showError(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -104,7 +100,6 @@ public class TurtleIDE extends Application {
         alert.showAndWait();
     }
 
-
     private HBox displayUserDefined(){
         Console variables = new Console(width /2 , height, padding, "Variables and Commands");
         variables.setPrefWidth(width/4 - padding *2);
@@ -112,6 +107,10 @@ public class TurtleIDE extends Application {
         commands.setPrefWidth(width/4 - padding);
         HBox user = new HBox(15, variables, commands);
         return user;
+    }
+
+    private void updateStates(){
+
     }
     /**
      * Start the program.

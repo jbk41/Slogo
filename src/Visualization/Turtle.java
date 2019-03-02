@@ -95,7 +95,6 @@ public class Turtle {
             PathTransition pathTransition = createTransition(path, turtleStateList.get(x));
             sequentialTransition.getChildren().add(pathTransition);
         }
-
         sequentialTransition.play();
     }
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
@@ -148,5 +147,9 @@ public class Turtle {
     }
     private Boolean checkHeightOutOfBounds(double y){
         return y < 0 || y > pane.getPrefHeight();
+    }
+
+    public String getState(double x, double y, double heading, boolean pen){
+        return new String("X: " + x + "\r\n" + );
     }
 }
