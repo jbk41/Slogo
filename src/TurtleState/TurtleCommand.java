@@ -3,7 +3,6 @@ package TurtleState;
 import commands.GeneralCommand;
 
 public class TurtleCommand {
-
     private int penDown = 0;
     private boolean jump = false;
     private double degrees;
