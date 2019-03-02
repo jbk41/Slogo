@@ -18,12 +18,5 @@ class LanguagesDropDown extends ComboBox{
                 "French",
                 "German", "Italian", "Portuguese", "Russian", "Spanish", "Urdu"
         );
-        getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                //TODO: CHANGES LANGUAGE COMMANDS INTERPRETED IN
-
-            }
-        });
     }
 }

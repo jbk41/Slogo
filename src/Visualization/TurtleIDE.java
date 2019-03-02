@@ -56,6 +56,7 @@ public class TurtleIDE extends Application {
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
+        PenSize penSize = new PenSize(turtle);
         Button playButton = new Button("Play");
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -67,16 +68,16 @@ public class TurtleIDE extends Application {
                 try {
                     String language = languagesDropDown.getValue().toString();
                     backend.setLanguage(language);
+                    backend.interpret(commands);
+                    turtle.moveTurtle(backend.getCommands());
+                    console.setText(console.getText() + commands + "\r\n");
                 }catch(NullPointerException ex){
                     showError("Please Choose a Language");
                 }
-                backend.interpret(commands);
-                turtle.moveTurtle(backend.getCommands());
-                console.setText(console.getText() + commands + "\r\n");
             }
         });
         Button help = createHelpButton();
-        HBox controls = new HBox(6, playButton, help, settingsBox, penColorDropDown, languagesDropDown);
+        HBox controls = new HBox(6, playButton, help, settingsBox, penColorDropDown, languagesDropDown, penSize);
         return controls;
     }
     private Button createHelpButton(){
@@ -107,39 +108,6 @@ public class TurtleIDE extends Application {
         HBox user = new HBox(15, variables, commands);
         return user;
     }
-
-//    private Button createLoadButton(){
-//        Button load = new Button("Load");
-//        load.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                FileChooser fileChooser = new FileChooser();
-//                fileChooser.setTitle("Load Previous Code");
-//                File file = fileChooser.showOpenDialog(primaryStage);
-//                TextReader textReader = new TextReader(file);
-//                textEditor.setText(textReader.getText());
-//            }
-//        });
-//        return load;
-//    }
-
-    //    private Button createSaveButton(){
-//        Button save = new Button("Save");
-//        save.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                FileChooser fileChooser = new FileChooser();
-//                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-//                fileChooser.getExtensionFilters().add(extFilter);
-//                File file = fileChooser.showSaveDialog(primaryStage);
-//                if (file != null) {
-//                    TextWriter textWriter = new TextWriter(file);
-//                    textWriter.writeTextFile(textEditor.getText());
-//                }
-//            }
-//        });
-//        return save;
-//    }
     /**
      * Start the program.
      */

@@ -18,30 +18,27 @@ import javafx.util.Callback;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ColorDropDown extends HBox{
+public class ColorDropDown extends ComboBox{
     private Pane display;
     public ColorDropDown(int padding, Pane display){
-        super(padding);
         this.display = display;
         createDropDownMenu();
     }
 
     private void createDropDownMenu(){
-        ComboBox<String> backgroundColorComboBox = new ComboBox<String>();
-        backgroundColorComboBox.setPromptText("Background");
-        backgroundColorComboBox.getItems().addAll(
+        setPromptText("Background");
+        getItems().addAll(
                 "LIGHTBLUE",
                 "WHITE",
                 "LIGHTGREEN",
                 "LIGHTGRAY"
         );
-        backgroundColorComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 Paint color = Paint.valueOf(t1);
                 display.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
-        getChildren().add(backgroundColorComboBox);
     }
 }

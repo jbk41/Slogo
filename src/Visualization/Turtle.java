@@ -27,7 +27,7 @@ public class Turtle {
     private Pane pane;
     private Canvas canvas;
     private Paint PEN_COLOR;
-
+    private int PEN_SIZE = 4;
     public Turtle(Pane pane, Canvas canvas){
         this.pane = pane;
         this.canvas = canvas;
@@ -38,6 +38,9 @@ public class Turtle {
     }
     public void setPEN_COLOR(Paint color){
         PEN_COLOR = color;
+    }
+    public void setPEN_SIZE(int size){
+        PEN_SIZE = size;
     }
 
     private void addTurtleToRoot(){
@@ -126,7 +129,7 @@ public class Turtle {
                 }
                 if(turtleState.getPenState()) {
                     gc.setStroke(PEN_COLOR);
-                    gc.setLineWidth(4);
+                    gc.setLineWidth(PEN_SIZE);
                     gc.strokeLine(oldX, oldY, x, y);
                 }
                 oldX = x;
