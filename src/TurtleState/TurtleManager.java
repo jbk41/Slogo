@@ -13,8 +13,8 @@ public class TurtleManager {
     private double myDeg ;
     private boolean penDown ;
     private boolean showTurtle ;
-    private double myID;
     private boolean clear;
+    private double myID;
     public ArrayList<TurtleState> myCommands = new ArrayList<TurtleState>();
 
     public TurtleManager(CommandManager manager){
@@ -53,15 +53,10 @@ public class TurtleManager {
         myDeg = setDegrees(command);
         myX += command.getDisplacement() * Math.sin(myDeg * Math.PI / 180);
         myY += command.getDisplacement() * Math.cos(myDeg * Math.PI / 180);
-        penDown = setPen(command);
+        setPen(command);
         showTurtle = command.getVisible();
         if (command.getType().equals("ClearScreen") || command.getType().equals("Home")) resetTurtle(command);
-        return new TurtleState(myX, myY, myDeg, penDown, showTurtle, myID);
-    }
-
-    private boolean setPen(TurtleCommand command) {
-        if (command.getPenDown()) penDown = true;
-        return penDown;
+        return new TurtleState(myX, myY, myDeg, penDown, showTurtle, myID, clear);
     }
 
     private double setDegrees(TurtleCommand command) {
@@ -80,8 +75,8 @@ public class TurtleManager {
         if (command.getType().equals("ClearScreen")) clear = true;
     }
 
-
-
-
-
+    private void setPen(TurtleCommand command) {
+        if (command.getPenDown() == 1) penDown = true;
+        else if (command.getPenDown() == 2) penDown = false;
+    }
 }
