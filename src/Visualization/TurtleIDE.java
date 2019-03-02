@@ -24,6 +24,7 @@ public class TurtleIDE extends Application {
     private static final int padding = 15;
     private TextEditor textEditor;
     private Console console;
+    private Console myUserDefined;
 
     @Override
     public void start(Stage stage){
@@ -70,7 +71,9 @@ public class TurtleIDE extends Application {
                     backend.setLanguage(language);
                     backend.interpret(commands);
                     turtle.moveTurtle(backend.getCommands());
-                    console.setText(console.getText() + commands + "\r\n");
+                    console.setText(console.getText() + "\r\n" + commands);
+                    var userDefined = backend.getBackendManager().getVariableManager().getVariableMap().keySet();
+                    myUserDefined.setText(userDefined.toString());
                 }catch(NullPointerException ex){
                     showError("Please Choose a Language");
                 }
