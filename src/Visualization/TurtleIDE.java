@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
     private static final Paint backgroundColor = Color.AQUA;
@@ -26,6 +28,7 @@ public class TurtleIDE extends Application {
     private Console console;
     private Console myUserDefined;
     private Console myStates;
+    private Map <String, Double> savedVarMap = null;
 
     @Override
     public void start(Stage stage){
@@ -76,7 +79,8 @@ public class TurtleIDE extends Application {
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands());
             console.setText(console.getText()+ "\r\n" + commands);
-            myUserDefined.setText(backend.getBackendManager().getVariableManager().getVariableMap().keySet().toString());
+            myUserDefined.setText("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().keySet().toString());
+            System.out.println(backend.getBackendManager().getVariableManager().getVariableMap().keySet());
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
@@ -101,11 +105,11 @@ public class TurtleIDE extends Application {
     }
 
     private HBox displayUserDefined(){
-        Console variables = new Console(width /2 , height, padding, "Variables and Commands");
-        variables.setPrefWidth(width/4 - padding *2);
-        Console commands = new Console(width / 2, height, padding, "Turtle State");
-        commands.setPrefWidth(width/4 - padding);
-        HBox user = new HBox(15, variables, commands);
+        myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
+        myUserDefined.setPrefWidth(width/4 - padding *2);
+        Console states = new Console(width / 2, height, padding, "Turtle State");
+        states.setPrefWidth(width/4 - padding);
+        HBox user = new HBox(15, myUserDefined, states);
         return user;
     }
 

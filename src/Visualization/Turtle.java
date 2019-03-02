@@ -24,17 +24,19 @@ public class Turtle {
     private static final String TURTLE_IMAGE = "turtle.gif";
     private ImageView turtleImageView;
     private SequentialTransition sequentialTransition;
-    private Pane pane;
+    private TurtleDisplay pane;
     private Canvas canvas;
     private Paint PEN_COLOR;
     private int PEN_SIZE = 4;
-    public Turtle(Pane pane, Canvas canvas){
+    private GraphicsContext gc;
+    public Turtle(TurtleDisplay pane, Canvas canvas){
         this.pane = pane;
         this.canvas = canvas;
         addTurtleToRoot();
     }
-    public void changeCanvas(Canvas canvas){
-        this.canvas = canvas;
+    private void clearScreen(){
+        this.canvas = pane.createNewCanvas();
+        gc = canvas.getGraphicsContext2D();
     }
     public void setPEN_COLOR(Paint color){
         PEN_COLOR = color;
@@ -48,10 +50,6 @@ public class Turtle {
         turtleImageView = new ImageView(turtleImage);
         pane.getChildren().add(turtleImageView);
         setDefaultTurtleLocation();
-    }
-    public void resetTurtle(){
-        pane.getChildren().remove(turtleImageView);
-        addTurtleToRoot();
     }
 
     //returns the X position of the turtle at the center of the ImageView
@@ -104,17 +102,13 @@ public class Turtle {
         return rt;
 
     }
-    public void stopTurtle(){
-        sequentialTransition.stop();
-    }
-
     private PathTransition createTransition(Path path, TurtleState turtleState){
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.millis(1000));
         pathTransition.setPath(path);
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc = canvas.getGraphicsContext2D();
         pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
             double oldX;
             double oldY;
@@ -133,7 +127,8 @@ public class Turtle {
                 }
                 oldX = x;
                 oldY = y;
-                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y)){
+                if(turtleState.getClear()){clearScreen();}
+                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || !turtleState.getVisibility()){
                     turtleImageView.setVisible(false);
                 }else{
                     turtleImageView.setVisible(true);
@@ -150,6 +145,6 @@ public class Turtle {
     }
 
     public String getState(double x, double y, double heading, boolean pen){
-        return new String("X: " + x + "\r\n" + );
+        return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
     }
 }
