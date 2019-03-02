@@ -73,7 +73,7 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands());
-            console.setText(console.getText()+ "\r\n" + commands + "\r\n");
+            console.setText(console.getText() + "\r\n" + commands);
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
