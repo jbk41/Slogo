@@ -47,12 +47,12 @@ public class TurtleIDE extends Application {
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
         Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-        HBox controls = createSettingsButtons(turtle, turtleDisplay);
+        VBox controls = createSettingsButtons(turtle, turtleDisplay);
         VBox display = new VBox(15, turtleDisplay, controls);
         display.setPadding(new Insets(padding,padding,padding,padding));
         return display;
     }
-    private HBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
+    private VBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
@@ -60,7 +60,10 @@ public class TurtleIDE extends Application {
         Button playButton = new Button("Play");
         playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
         Button help = createHelpButton();
-        HBox controls = new HBox(6, playButton, help, settingsBox, penColorDropDown, languagesDropDown, penSize);
+        HBox top = new HBox(6, playButton, help, settingsBox);
+        HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize);
+        VBox controls = new VBox(6, top, bottom);
+        controls.setMaxWidth(width/2);
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
@@ -93,6 +96,7 @@ public class TurtleIDE extends Application {
     private void showError(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Error");
+        alert.setHeaderText("There was an error");
         alert.setContentText(message);
         alert.showAndWait();
     }
