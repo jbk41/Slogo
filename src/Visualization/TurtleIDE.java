@@ -22,6 +22,8 @@ public class TurtleIDE extends Application {
     private static final int height = 680;
     private static final int padding = 15;
     private TextEditor textEditor;
+    private Console console;
+
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
@@ -36,7 +38,7 @@ public class TurtleIDE extends Application {
 
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
-        Console console = new Console(width, height, padding);
+        console = new Console(width, height, padding);
         VBox user = new VBox(15, textEditor, console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
@@ -54,16 +56,15 @@ public class TurtleIDE extends Application {
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
         Button playButton = new Button("Play");
-
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 BackendModel backend = new BackendModel();
                 backend.setLanguage("English");
                 String commands = textEditor.getText();
-
                 backend.interpret(commands);
                 turtle.moveTurtle(backend.getCommands());
+                console.setText(commands);
             }
         });
         Button help = createHelpButton();

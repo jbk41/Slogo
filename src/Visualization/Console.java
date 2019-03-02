@@ -19,4 +19,6 @@ public class Console extends Label{
         setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
+
+
 }
