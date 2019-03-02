@@ -13,9 +13,10 @@ public class UserDefinedBox extends Label{
     //FIXME: REDUNDANT globals below, just testing for now
     private static final int width = 1050;
     private static final int height = 680;
-    private static final int padding = 15;
+    private static final int padding = 5;
 
     public UserDefinedBox(String name){
+        setText(name);
         setAlignment(Pos.TOP_LEFT);
         setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         setPrefWidth(width/4 - padding*2);

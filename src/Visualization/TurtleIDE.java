@@ -39,7 +39,7 @@ public class TurtleIDE extends Application {
 
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
-        console = new Console(width, height, padding);
+        console = new Console(width, height, padding, "Console");
         VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
@@ -103,8 +103,8 @@ public class TurtleIDE extends Application {
 
 
     private HBox displayUserDefined(){
-        Console variables = new Console(width / 2, height, padding);
-        Console commands = new Console(width / 2, height, padding);
+        Console variables = new Console(width / 2, height, padding, "Variables and Commands");
+        Console commands = new Console(width / 2, height, padding, "Turtle State");
         HBox user = new HBox(15, variables, commands);
         return user;
     }
