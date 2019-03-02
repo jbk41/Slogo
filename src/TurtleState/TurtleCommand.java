@@ -3,7 +3,7 @@ package TurtleState;
 import commands.GeneralCommand;
 
 public class TurtleCommand {
-    private Boolean penDown;
+    private Boolean penDown = false;
     private Boolean jump = false;
     private Double degrees;
     private Double displacement;

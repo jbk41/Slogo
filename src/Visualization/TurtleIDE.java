@@ -52,16 +52,19 @@ public class TurtleIDE extends Application {
     private HBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
         ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
-        LanguagesDropDown languagesDropDown = new LanguagesDropDown(padding, turtleDisplay);
+        LanguagesDropDown languagesDropDown = new LanguagesDropDown();
         Button playButton = new Button("Play");
 
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 BackendModel backend = new BackendModel();
-                backend.setLanguage("English");
+                // map of variables and respective values, display to the user
+                //backend.getBackendManager().getVariableManager().getVariableMap();
                 String commands = textEditor.getText();
-
+                String language = languagesDropDown.getValue().toString();
+                System.out.println(language);
+                backend.setLanguage(language);
                 backend.interpret(commands);
                 turtle.moveTurtle(backend.getCommands());
             }
