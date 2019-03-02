@@ -39,7 +39,7 @@ public class TurtleIDE extends Application {
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
         console = new Console(width, height, padding);
-        VBox user = new VBox(15, textEditor, console);
+        VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
     }
@@ -89,6 +89,32 @@ public class TurtleIDE extends Application {
         });
         return help;
     }
+
+    private HBox displayUserDefined(){
+        Console variables = new Console(width,height/2,padding);
+        variables.setText("Variables");
+        Console commands = new Console(width,height/2,padding);
+        commands.setText("User Commands");
+        HBox user = new HBox(15, variables, commands);
+        return user;
+    }
+
+    private HBox displayVariables(){
+        Console console = new Console(width,height/5,padding);
+        console.setText("Variables");
+        HBox user = new HBox(15, console);
+        user.setPadding(new Insets(padding, padding,padding,padding));
+        return user;
+    }
+
+    private HBox displayUserCommands(){
+        Console console = new Console(width,height/5,padding);
+        console.setText("User Commands");
+        HBox user = new HBox(15, console);
+        user.setPadding(new Insets(padding, padding,padding,padding));
+        return user;
+    }
+
 
 //    private Button createLoadButton(){
 //        Button load = new Button("Load");
