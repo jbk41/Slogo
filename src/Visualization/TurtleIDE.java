@@ -92,18 +92,8 @@ public class TurtleIDE extends Application {
     }
 
     private HBox displayUserDefined(){
-        Label variables = new Label("Variables");
-        variables.setAlignment(Pos.TOP_LEFT);
-        variables.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        variables.setPrefWidth(width/4 - padding*2);
-        variables.setPrefHeight(height * 0.25 - padding *2);
-        variables.setPadding(new Insets(padding,padding,padding,padding));
-        Label commands = new Label("User Commands");
-        commands.setAlignment(Pos.TOP_LEFT);
-        commands.setPrefWidth(width/4 - padding *2);
-        commands.setPrefHeight(height * 0.25 - padding *2);
-        commands.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        commands.setPadding(new Insets(padding,padding,padding,padding));
+        UserDefinedBox variables = new UserDefinedBox("Variables");
+        UserDefinedBox commands = new UserDefinedBox("User Commands");
         HBox user = new HBox(15, variables, commands);
         return user;
     }
