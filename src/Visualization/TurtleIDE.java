@@ -64,8 +64,12 @@ public class TurtleIDE extends Application {
                 // map of variables and respective values, display to the user
                 //backend.getBackendManager().getVariableManager().getVariableMap();
                 String commands = textEditor.getText();
-                String language = languagesDropDown.getValue().toString();
-                backend.setLanguage(language);
+                try {
+                    String language = languagesDropDown.getValue().toString();
+                    backend.setLanguage(language);
+                }catch(NullPointerException ex){
+                    showError("Please Choose a Language");
+                }
                 backend.interpret(commands);
                 turtle.moveTurtle(backend.getCommands());
                 console.setText(console.getText() + commands + "\r\n");
@@ -83,20 +87,23 @@ public class TurtleIDE extends Application {
                 try {
                     HelpScreen.displayHelpScreen();
                 } catch (Exception e){
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(e.getMessage());
-                    alert.setContentText("Invalid File. Check to see if the file exists");
-                    alert.showAndWait();
+                    showError("Wrong File");
                 }
             }
         });
         return help;
     }
+    private void showError(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     private HBox displayUserDefined(){
-        UserDefinedBox variables = new UserDefinedBox("Variables");
-        UserDefinedBox commands = new UserDefinedBox("User Commands");
+        Console variables = new Console(width / 2, height, padding);
+        Console commands = new Console(width / 2, height, padding);
         HBox user = new HBox(15, variables, commands);
         return user;
     }
