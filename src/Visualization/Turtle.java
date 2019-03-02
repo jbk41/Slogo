@@ -69,7 +69,7 @@ public class Turtle {
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
-    public void moveTurtle(List<TurtleState> turtleStateList){
+    public void moveTurtle(List<TurtleState> turtleStateList, Console turtleState){
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
@@ -85,6 +85,7 @@ public class Turtle {
             if(turtleXPosition() == newX && turtleYPosition() == newY){
                 continue;
             }
+            //TODO: add visualization of turtle states
             Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(newX, newY));
