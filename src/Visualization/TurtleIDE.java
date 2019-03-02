@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -91,10 +92,18 @@ public class TurtleIDE extends Application {
     }
 
     private HBox displayUserDefined(){
-        Console variables = new Console(width,height/2,padding);
-        variables.setText("Variables");
-        Console commands = new Console(width,height/2,padding);
-        commands.setText("User Commands");
+        Label variables = new Label("Variables");
+        variables.setAlignment(Pos.TOP_LEFT);
+        variables.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        variables.setPrefWidth(width/4 - padding*2);
+        variables.setPrefHeight(height * 0.25 - padding *2);
+        variables.setPadding(new Insets(padding,padding,padding,padding));
+        Label commands = new Label("User Commands");
+        commands.setAlignment(Pos.TOP_LEFT);
+        commands.setPrefWidth(width/4 - padding *2);
+        commands.setPrefHeight(height * 0.25 - padding *2);
+        commands.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        commands.setPadding(new Insets(padding,padding,padding,padding));
         HBox user = new HBox(15, variables, commands);
         return user;
     }
