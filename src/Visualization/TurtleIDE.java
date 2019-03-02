@@ -101,23 +101,6 @@ public class TurtleIDE extends Application {
         return user;
     }
 
-    private HBox displayVariables(){
-        Console console = new Console(width,height/5,padding);
-        console.setText("Variables");
-        HBox user = new HBox(15, console);
-        user.setPadding(new Insets(padding, padding,padding,padding));
-        return user;
-    }
-
-    private HBox displayUserCommands(){
-        Console console = new Console(width,height/5,padding);
-        console.setText("User Commands");
-        HBox user = new HBox(15, console);
-        user.setPadding(new Insets(padding, padding,padding,padding));
-        return user;
-    }
-
-
 //    private Button createLoadButton(){
 //        Button load = new Button("Load");
 //        load.setOnAction(new EventHandler<ActionEvent>() {
