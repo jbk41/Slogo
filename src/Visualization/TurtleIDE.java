@@ -68,7 +68,7 @@ public class TurtleIDE extends Application {
                 backend.setLanguage(language);
                 backend.interpret(commands);
                 turtle.moveTurtle(backend.getCommands());
-                console.setText(commands);
+                console.setText(console.getText() + commands + "\r\n");
             }
         });
         Button help = createHelpButton();
