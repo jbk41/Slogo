@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -22,6 +23,8 @@ public class TurtleIDE extends Application {
     private static final int height = 680;
     private static final int padding = 15;
     private TextEditor textEditor;
+    private Console console;
+
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
@@ -36,8 +39,8 @@ public class TurtleIDE extends Application {
 
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
-        Console console = new Console(width, height, padding);
-        VBox user = new VBox(15, textEditor, console);
+        console = new Console(width, height, padding);
+        VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
     }
@@ -54,7 +57,6 @@ public class TurtleIDE extends Application {
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
         Button playButton = new Button("Play");
-
         playButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -63,10 +65,10 @@ public class TurtleIDE extends Application {
                 //backend.getBackendManager().getVariableManager().getVariableMap();
                 String commands = textEditor.getText();
                 String language = languagesDropDown.getValue().toString();
-                System.out.println(language);
                 backend.setLanguage(language);
                 backend.interpret(commands);
                 turtle.moveTurtle(backend.getCommands());
+                console.setText(commands);
             }
         });
         Button help = createHelpButton();
@@ -91,6 +93,40 @@ public class TurtleIDE extends Application {
         });
         return help;
     }
+
+    private HBox displayUserDefined(){
+        Label variables = new Label("Variables");
+        variables.setAlignment(Pos.TOP_LEFT);
+        variables.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        variables.setPrefWidth(width/4 - padding*2);
+        variables.setPrefHeight(height * 0.25 - padding *2);
+        variables.setPadding(new Insets(padding,padding,padding,padding));
+        Label commands = new Label("User Commands");
+        commands.setAlignment(Pos.TOP_LEFT);
+        commands.setPrefWidth(width/4 - padding *2);
+        commands.setPrefHeight(height * 0.25 - padding *2);
+        commands.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        commands.setPadding(new Insets(padding,padding,padding,padding));
+        HBox user = new HBox(15, variables, commands);
+        return user;
+    }
+
+    private HBox displayVariables(){
+        Console console = new Console(width,height/5,padding);
+        console.setText("Variables");
+        HBox user = new HBox(15, console);
+        user.setPadding(new Insets(padding, padding,padding,padding));
+        return user;
+    }
+
+    private HBox displayUserCommands(){
+        Console console = new Console(width,height/5,padding);
+        console.setText("User Commands");
+        HBox user = new HBox(15, console);
+        user.setPadding(new Insets(padding, padding,padding,padding));
+        return user;
+    }
+
 
 //    private Button createLoadButton(){
 //        Button load = new Button("Load");
