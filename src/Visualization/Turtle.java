@@ -74,7 +74,7 @@ public class Turtle {
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
-    public void moveTurtle(List<TurtleState> turtleStateList, Console turtleState){
+    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole){
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
@@ -103,10 +103,12 @@ public class Turtle {
             path.getElements().add(new LineTo(newX, newY));
             turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
             turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
-            PathTransition pathTransition = createTransition(path, turtleStateList.get(x));
+            PathTransition pathTransition = createTransition(path, turtleStateList.get(x), stateConsole);
             sequentialTransition.getChildren().add(pathTransition);
+//            stateConsole.setText(getState(currentTurtleState.getXPos(), currentTurtleState.getYPos(), currentTurtleState.getMyDegrees(), currentTurtleState.getPenDown()));
         }
         sequentialTransition.play();
+
     }
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(3000), turtleImageView);
@@ -115,7 +117,7 @@ public class Turtle {
         return rt;
 
     }
-    private PathTransition createTransition(Path path, TurtleState turtleState){
+    private PathTransition createTransition(Path path, TurtleState turtleState, Console stateConsole){
         PathTransition pathTransition = new PathTransition();
         pathTransition.setDuration(Duration.millis(1000));
         pathTransition.setPath(path);
@@ -146,6 +148,8 @@ public class Turtle {
                 }else{
                     turtleImageView.setVisible(true);
                 }
+                stateConsole.setText(getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
+
             }
         });
         return pathTransition;

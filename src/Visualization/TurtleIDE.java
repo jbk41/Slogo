@@ -117,9 +117,9 @@ public class TurtleIDE extends Application {
     private HBox displayUserDefined(){
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
-        Console states = new Console(width / 2, height, padding, "Turtle State");
-        states.setPrefWidth(width/4 - padding);
-        HBox user = new HBox(15, myUserDefined, states);
+        myStates = new Console(width / 2, height, padding, "Turtle State");
+        myStates.setPrefWidth(width/4 - padding);
+        HBox user = new HBox(15, myUserDefined, myStates);
         return user;
     }
 
