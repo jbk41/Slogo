@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -85,10 +86,7 @@ public class TurtleIDE extends Application {
             backend.getCommandManager().clearCommandList();
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands(),myStates);
-            console.setText(console.getText()+ "\r\n" + commands);
-//            savedVarMap.putAll(backend.getBackendManager().getVariableManager().getVariableMap());
-//            System.out.println(savedVarMap);
-//            myUserDefined.setText("Variables and Commands" +  "\r\n" + savedVarMap);
+            console.setText(console.getContent().toString() + "\r\n" + commands);
             myUserDefined.setText("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().toString());
         }catch(NullPointerException ex){
             showError("Please Choose a Language");

@@ -14,6 +14,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import TurtleState.TurtleState;
 
