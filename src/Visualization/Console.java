@@ -29,4 +29,8 @@ public class Console extends ScrollPane {
     public void setText(String input){
         text.setText(input);
     }
+
+    public String getText(){
+        return text.getText();
+    }
 }

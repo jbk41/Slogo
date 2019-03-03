@@ -86,7 +86,7 @@ public class TurtleIDE extends Application {
             backend.getCommandManager().clearCommandList();
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands(),myStates);
-            console.setText(console.getContent().toString() + "\r\n" + commands);
+            console.setText(console.getText() + "\r\n" + commands);
             myUserDefined.setText("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().toString());
         }catch(NullPointerException ex){
             showError("Please Choose a Language");

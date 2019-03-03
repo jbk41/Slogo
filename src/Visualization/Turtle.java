@@ -149,7 +149,7 @@ public class Turtle {
                 }else{
                     turtleImageView.setVisible(true);
                 }
-                stateConsole.setText(getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
+                stateConsole.setText("Turtle State" + "\r\n" + getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
 
             }
         });
