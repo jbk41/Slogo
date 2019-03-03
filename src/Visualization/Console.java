@@ -18,6 +18,7 @@ public class Console extends ScrollPane {
     private TextArea text;
     public Console(double width, double height, int padding, String name){
         text = new TextArea(name);
+        text.setWrapText(true);
         setContent(text);
         setPadding(new Insets(textPadding,textPadding,textPadding,textPadding));
         setPrefWidth(width/2 - padding * 2);
