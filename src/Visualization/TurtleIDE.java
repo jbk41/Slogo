@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -48,7 +49,7 @@ public class TurtleIDE extends Application {
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
         console = new Console(width, height, padding, "Console");
-//        console.setFitToWidth(true);
+        console.setOnMouseClicked(e -> System.out.println(console.getSelectionModel().getSelectedItem()));
         VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
@@ -86,7 +87,13 @@ public class TurtleIDE extends Application {
             turtle.moveTurtle(backend.getCommands(),myStates);
             console.getItems().add(commands);
             myUserDefined.getItems().clear();
-            myUserDefined.getItems().add("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().toString());
+            myUserDefined.getItems().add("Variables and Commands");
+            savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
+            System.out.println("var map is cool");
+            for (String key : savedVarMap.keySet()){
+                System.out.println(savedVarMap.get(key).toString());
+                myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
+            }
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
@@ -114,10 +121,10 @@ public class TurtleIDE extends Application {
     private HBox displayUserDefined(){
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
-//        myUserDefined.setFitToWidth(true);
+        myUserDefined.setOnMouseClicked(e -> System.out.println(myUserDefined.getSelectionModel().getSelectedItem()));
+        System.out.println("initialized");
         myStates = new Console(width / 2, height, padding, "Turtle State");
         myStates.setPrefWidth(width/4 - padding);
-//        myStates.setFitToWidth(true);
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
     }
