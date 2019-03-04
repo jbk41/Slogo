@@ -47,6 +47,10 @@ public class BackendModel implements BackendAPI {
         for (TurtleCommand command : myCM.getCommandList());
     }
 
+    public void clearCommands(){
+        myTM.clearCommands();
+    }
+
 //    public void printTree(){
 //        myCT.printTree();
 //    }

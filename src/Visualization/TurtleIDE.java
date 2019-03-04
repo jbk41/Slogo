@@ -26,6 +26,7 @@ public class TurtleIDE extends Application {
     private Console myStates;
     private BackendModel backend;
     private Map <String, Double> savedVarMap = new HashMap<>();
+    private Turtle turtle;
 
     @Override
     public void start(Stage stage){
@@ -42,14 +43,21 @@ public class TurtleIDE extends Application {
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
         console = new Console(width, height, padding, "Console");
-        console.setOnMouseClicked(e -> System.out.println(console.getSelectionModel().getSelectedItem()));
+        console.setOnMouseClicked(e -> reInterpret(console.getSelectionModel().getSelectedItem().toString()));
+//        console.setOnMouseClicked(e -> System.out.println(console.getSelectionModel().getSelectedItem().toString()));
         VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
     }
+
+    private void reInterpret(String command){
+        backend.getCommandManager().clearCommandList();
+        backend.interpret(command);
+        turtle.moveTurtle(backend.getCommands(),myStates);
+    }
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
-        Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+        turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
         VBox controls = createSettingsButtons(turtle, turtleDisplay);
         VBox display = new VBox(15, turtleDisplay, controls);
         display.setPadding(new Insets(padding,padding,padding,padding));
@@ -119,12 +127,21 @@ public class TurtleIDE extends Application {
     private HBox displayUserDefined(){
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
-        myUserDefined.setOnMouseClicked(e -> System.out.println(myUserDefined.getSelectionModel().getSelectedItem()));
+        myUserDefined.setOnMouseClicked(e -> System.out.println(myUserDefined.getSelectionModel().getSelectedItems()));
         myStates = new Console(width / 2, height, padding, "Turtle State");
         myStates.setPrefWidth(width/4 - padding);
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
     }
+
+    private Turtle getTurtle(int id){
+        return turtle;
+    }
+
+    private Console getStateConsole(){
+        return myStates;
+    }
+
 
     /**
      * Start the program.

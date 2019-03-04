@@ -61,12 +61,10 @@ public class Turtle {
         setDefaultTurtleLocation();
     }
 
-    //returns the X position of the turtle at the center of the ImageView
     private double turtleXPosition(){
         return turtleImageView.getX() + turtleImageView.getBoundsInLocal().getWidth()/2;
     }
 
-    //returns the Y position of the turtle at the center of the ImageView
     private double turtleYPosition(){
         return turtleImageView.getY() + turtleImageView.getBoundsInLocal().getHeight()/2;
     }
