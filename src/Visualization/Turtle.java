@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Turtle {
     private String TURTLE_IMAGE = "cuteturtle.gif";
-    private static final int ANIMATION_SPEED = 300;
+    private int ANIMATION_SPEED = 300;
     private ImageView turtleImageView;
     private SequentialTransition sequentialTransition;
     private TurtleDisplay pane;
@@ -44,6 +44,10 @@ public class Turtle {
         TURTLE_IMAGE = imageName;
         pane.getChildren().remove(turtleImageView);
         addTurtleToRoot(imageName);
+    }
+
+    public void setAnimationSpeed(int newSpeed){
+        ANIMATION_SPEED = newSpeed;
     }
     private void clearScreen(){
         this.canvas = pane.createNewCanvas();
