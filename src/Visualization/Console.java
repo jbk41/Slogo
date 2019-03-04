@@ -23,6 +23,7 @@ public class Console extends ListView {
 //        text = new TextArea(name);
 //        text.setWrapText(true);
         ObservableList<String> items = FXCollections.observableArrayList(name);
+        setItems(items);
         setPadding(new Insets(textPadding,textPadding,textPadding,textPadding));
         setPrefWidth(width/2 - padding * 2);
         setPrefHeight(height * 0.25 - padding * 3);
@@ -30,10 +31,4 @@ public class Console extends ListView {
         setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
-//    public void setText(String input){ setText(input);
-//    }
-
-//    public String getText(){
-//        return getText();
-//    }
 }
