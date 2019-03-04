@@ -48,6 +48,7 @@ public class TurtleIDE extends Application {
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
         console = new Console(width, height, padding, "Console");
+        console.setFitToWidth(true);
         VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
@@ -76,9 +77,6 @@ public class TurtleIDE extends Application {
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
-//        BackendModel backend = new BackendModel();
-        // map of variables and respective values, display to the user
-        //backend.getBackendManager().getVariableManager().getVariableMap();
         String commands = textEditor.getText();
         try {
             String language = languagesDropDown.getValue().toString();
@@ -115,15 +113,14 @@ public class TurtleIDE extends Application {
     private HBox displayUserDefined(){
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
+        myUserDefined.setFitToWidth(true);
         myStates = new Console(width / 2, height, padding, "Turtle State");
         myStates.setPrefWidth(width/4 - padding);
+        myStates.setFitToWidth(true);
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
     }
 
-    private void updateStates(){
-
-    }
     /**
      * Start the program.
      */
