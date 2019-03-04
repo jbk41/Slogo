@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
@@ -137,7 +138,7 @@ public class TurtleIDE extends Application {
     private HBox displayUserDefined(){
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
-        myUserDefined.setOnMouseClicked(e -> System.out.println(myUserDefined.getSelectionModel().getSelectedItems()));
+        myUserDefined.setOnMouseClicked(e -> createVariableScreen(myUserDefined.getSelectionModel().getSelectedItem().toString().substring(0, myUserDefined.getSelectionModel().getSelectedItem().toString().indexOf('=') )));
         myStates = new Console(width / 2, height, padding, "Turtle State");
         myStates.setPrefWidth(width/4 - padding);
         HBox user = new HBox(15, myUserDefined, myStates);
@@ -146,6 +147,20 @@ public class TurtleIDE extends Application {
 
     private Turtle getTurtle(int id){
         return turtle;
+    }
+
+    private Dialog createVariableScreen(String rawKey){
+        final String key = rawKey.trim();
+        Dialog inputBox = new TextInputDialog("Change the input");
+        inputBox.setHeaderText("Enter the new value for " + key);
+        inputBox.setContentText("Value: ");
+        Optional<String> result = inputBox.showAndWait();
+        result.ifPresent(e -> backend.getBackendManager().getVariableManager().getVariableMap().put(key, Double.parseDouble(result.get())));
+        savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
+        return inputBox;
+    }
+
+    private void replaceMapValue(String key){
     }
 
     private Console getStateConsole(){
