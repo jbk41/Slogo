@@ -72,7 +72,7 @@ public class TurtleIDE extends Application {
         playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
         Button help = createHelpButton();
         HBox top = new HBox(6, playButton, help, settingsBox);
-        HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize);
+        HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize, addWorkspace());
         VBox controls = new VBox(6, top, bottom);
         controls.setMaxWidth(width/2);
         return controls;
@@ -125,6 +125,12 @@ public class TurtleIDE extends Application {
         myStates.setPrefWidth(width/4 - padding);
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
+    }
+
+    private Button addWorkspace(){
+        Button newWorkspace = new Button("Add Workspace");
+        newWorkspace.setOnAction(e -> start(new Stage()));
+        return newWorkspace;
     }
 
     /**

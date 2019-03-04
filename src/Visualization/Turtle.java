@@ -37,6 +37,7 @@ public class Turtle {
     public void setPEN_SIZE(int size){
         PEN_SIZE = size;
     }
+
     public void setTurtleImage(String imageName){
         TURTLE_IMAGE = imageName;
         pane.getChildren().remove(turtleImageView);
