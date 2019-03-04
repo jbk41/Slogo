@@ -1,6 +1,7 @@
 package Visualization;
 
 
+import TurtleState.TurtleState;
 import backend.BackendModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -11,6 +12,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +30,7 @@ public class TurtleIDE extends Application {
     private BackendModel backend;
     private Map <String, Double> savedVarMap = new HashMap<>();
     private Turtle turtle;
+    private ArrayList<Turtle> turtleList = new ArrayList<>();
 
     @Override
     public void start(Stage stage){
@@ -44,7 +48,6 @@ public class TurtleIDE extends Application {
         textEditor = new TextEditor(width, height);
         console = new Console(width, height, padding, "Console");
         console.setOnMouseClicked(e -> reInterpret(console.getSelectionModel().getSelectedItem().toString()));
-//        console.setOnMouseClicked(e -> System.out.println(console.getSelectionModel().getSelectedItem().toString()));
         VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
@@ -53,6 +56,7 @@ public class TurtleIDE extends Application {
     private void reInterpret(String command){
         backend.getCommandManager().clearCommandList();
         backend.interpret(command);
+        //todo: grab the id of the turtle before executing
         turtle.moveTurtle(backend.getCommands(),myStates);
     }
     private VBox createTurtleDisplay(){
@@ -72,7 +76,7 @@ public class TurtleIDE extends Application {
         backend = new BackendModel();
         playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
         Button help = createHelpButton();
-        HBox top = new HBox(6, playButton, help, settingsBox);
+        HBox top = new HBox(6, playButton, help, settingsBox, createUndoButton());
         HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize, addWorkspace());
         VBox controls = new VBox(6, top, bottom);
         controls.setMaxWidth(width/2);
@@ -101,6 +105,12 @@ public class TurtleIDE extends Application {
         Button help = new Button("Help");
         help.setOnAction(e -> createHelpScreen());
         return help;
+    }
+
+    private Button createUndoButton(){
+        Button undo = new Button("Undo");
+        undo.setOnAction(e -> undoLastCommand());
+        return undo;
     }
 
     private Button addWorkspace(){
@@ -140,6 +150,15 @@ public class TurtleIDE extends Application {
 
     private Console getStateConsole(){
         return myStates;
+    }
+
+    private void undoLastCommand(){
+        TurtleState lastState = backend.getCommands().get(backend.getCommands().size()-2);
+        //TODO: some way to account for the different id
+        System.out.println(lastState.getXPos());
+        System.out.println(lastState.getYPos());
+        System.out.println(lastState.getMyDegrees());
+        System.out.println(lastState.getPenDown());
     }
 
 
