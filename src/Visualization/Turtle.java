@@ -9,16 +9,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import TurtleState.TurtleState;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Turtle {
@@ -98,7 +94,6 @@ public class Turtle {
                     continue;
                 }
             }
-            //TODO: add visualization of turtle states
             Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(newX, newY));
@@ -106,7 +101,6 @@ public class Turtle {
             turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
             PathTransition pathTransition = createTransition(path, turtleStateList.get(x), stateConsole);
             sequentialTransition.getChildren().add(pathTransition);
-//            stateConsole.setText(getState(currentTurtleState.getXPos(), currentTurtleState.getYPos(), currentTurtleState.getMyDegrees(), currentTurtleState.getPenDown()));
         }
         sequentialTransition.play();
 
