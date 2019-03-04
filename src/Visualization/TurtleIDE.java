@@ -1,25 +1,22 @@
 package Visualization;
 
 
+import TurtleState.TurtleState;
 import backend.BackendModel;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
@@ -33,6 +30,8 @@ public class TurtleIDE extends Application {
     private Console myStates;
     private BackendModel backend;
     private Map <String, Double> savedVarMap = new HashMap<>();
+    private Turtle turtle;
+    private ArrayList<Turtle> turtleList = new ArrayList<>();
 
     @Override
     public void start(Stage stage){
@@ -49,14 +48,21 @@ public class TurtleIDE extends Application {
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
         console = new Console(width, height, padding, "Console");
-        console.setOnMouseClicked(e -> System.out.println(console.getSelectionModel().getSelectedItem()));
+        console.setOnMouseClicked(e -> reInterpret(console.getSelectionModel().getSelectedItem().toString()));
         VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
     }
+
+    private void reInterpret(String command){
+        backend.getCommandManager().clearCommandList();
+        backend.interpret(command);
+        //todo: grab the id of the turtle before executing
+        turtle.moveTurtle(backend.getCommands(),myStates);
+    }
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
-        Turtle turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+        turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
         VBox controls = createSettingsButtons(turtle, turtleDisplay);
         VBox display = new VBox(15, turtleDisplay, controls);
         display.setPadding(new Insets(padding,padding,padding,padding));
@@ -71,8 +77,8 @@ public class TurtleIDE extends Application {
         backend = new BackendModel();
         playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
         Button help = createHelpButton();
-        HBox top = new HBox(6, playButton, help, settingsBox);
-        HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize);
+        HBox top = new HBox(6, playButton, help, settingsBox, createUndoButton());
+        HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize, addWorkspace());
         VBox controls = new VBox(6, top, bottom);
         controls.setMaxWidth(width/2);
         return controls;
@@ -89,9 +95,7 @@ public class TurtleIDE extends Application {
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands");
             savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
-            System.out.println("var map is cool");
             for (String key : savedVarMap.keySet()){
-                System.out.println(savedVarMap.get(key).toString());
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
         }catch(NullPointerException ex){
@@ -103,6 +107,19 @@ public class TurtleIDE extends Application {
         help.setOnAction(e -> createHelpScreen());
         return help;
     }
+
+    private Button createUndoButton(){
+        Button undo = new Button("Undo");
+        undo.setOnAction(e -> undoLastCommand());
+        return undo;
+    }
+
+    private Button addWorkspace(){
+        Button newWorkspace = new Button("Add Workspace");
+        newWorkspace.setOnAction(e -> start(new Stage()));
+        return newWorkspace;
+    }
+
     private void createHelpScreen(){
         try {
             HelpScreen.displayHelpScreen();
@@ -121,12 +138,39 @@ public class TurtleIDE extends Application {
     private HBox displayUserDefined(){
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
-        myUserDefined.setOnMouseClicked(e -> System.out.println(myUserDefined.getSelectionModel().getSelectedItem()));
-        System.out.println("initialized");
+        myUserDefined.setOnMouseClicked(e -> createVariableScreen(myUserDefined.getSelectionModel().getSelectedItem().toString().substring(0, myUserDefined.getSelectionModel().getSelectedItem().toString().indexOf('=') )));
         myStates = new Console(width / 2, height, padding, "Turtle State");
         myStates.setPrefWidth(width/4 - padding);
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
+    }
+
+    private Turtle getTurtle(int id){
+        return turtle;
+    }
+
+    private Dialog createVariableScreen(String rawKey){
+        final String key = rawKey.trim();
+        Dialog inputBox = new TextInputDialog("Change the input");
+        inputBox.setHeaderText("Enter the new value for " + key);
+        inputBox.setContentText("Value: ");
+        Optional<String> result = inputBox.showAndWait();
+        result.ifPresent(e -> backend.getBackendManager().getVariableManager().getVariableMap().put(key, Double.parseDouble(result.get())));
+        savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
+        return inputBox;
+    }
+
+    private Console getStateConsole(){
+        return myStates;
+    }
+
+    private void undoLastCommand(){
+        TurtleState lastState = backend.getCommands().get(backend.getCommands().size()-2);
+        //TODO: some way to account for the different id
+        System.out.println(lastState.getXPos());
+        System.out.println(lastState.getYPos());
+        System.out.println(lastState.getMyDegrees());
+        System.out.println(lastState.getPenDown());
     }
 
     /**
