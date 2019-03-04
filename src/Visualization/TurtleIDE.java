@@ -3,21 +3,14 @@ package Visualization;
 
 import backend.BackendModel;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,6 +94,13 @@ public class TurtleIDE extends Application {
         help.setOnAction(e -> createHelpScreen());
         return help;
     }
+
+    private Button addWorkspace(){
+        Button newWorkspace = new Button("Add Workspace");
+        newWorkspace.setOnAction(e -> start(new Stage()));
+        return newWorkspace;
+    }
+
     private void createHelpScreen(){
         try {
             HelpScreen.displayHelpScreen();
@@ -120,17 +120,10 @@ public class TurtleIDE extends Application {
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
         myUserDefined.setOnMouseClicked(e -> System.out.println(myUserDefined.getSelectionModel().getSelectedItem()));
-        System.out.println("initialized");
         myStates = new Console(width / 2, height, padding, "Turtle State");
         myStates.setPrefWidth(width/4 - padding);
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
-    }
-
-    private Button addWorkspace(){
-        Button newWorkspace = new Button("Add Workspace");
-        newWorkspace.setOnAction(e -> start(new Stage()));
-        return newWorkspace;
     }
 
     /**

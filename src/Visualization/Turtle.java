@@ -19,6 +19,7 @@ import java.util.List;
 
 public class Turtle {
     private String TURTLE_IMAGE = "cuteturtle.gif";
+    private static final int ANIMATION_SPEED = 300;
     private ImageView turtleImageView;
     private SequentialTransition sequentialTransition;
     private TurtleDisplay pane;
@@ -26,6 +27,7 @@ public class Turtle {
     private Paint PEN_COLOR;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
+
     public Turtle(TurtleDisplay pane, Canvas canvas){
         this.pane = pane;
         this.canvas = canvas;
@@ -107,7 +109,7 @@ public class Turtle {
 
     }
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
-        RotateTransition rt = new RotateTransition(Duration.millis(3000), turtleImageView);
+        RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);
         rt.setByAngle(degrees - prevDegrees);
         rt.setCycleCount(1);
         return rt;
@@ -115,7 +117,7 @@ public class Turtle {
     }
     private PathTransition createTransition(Path path, TurtleState turtleState, Console stateConsole){
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(1000));
+        pathTransition.setDuration(Duration.millis(ANIMATION_SPEED));
         pathTransition.setPath(path);
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
