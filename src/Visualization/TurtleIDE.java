@@ -160,9 +160,6 @@ public class TurtleIDE extends Application {
         return inputBox;
     }
 
-    private void replaceMapValue(String key){
-    }
-
     private Console getStateConsole(){
         return myStates;
     }
@@ -175,7 +172,6 @@ public class TurtleIDE extends Application {
         System.out.println(lastState.getMyDegrees());
         System.out.println(lastState.getPenDown());
     }
-
 
     /**
      * Start the program.
