@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Turtle {
-    private String TURTLE_IMAGE = "turtle.gif";
+    private String TURTLE_IMAGE = "cuteturtle.gif";
     private ImageView turtleImageView;
     private SequentialTransition sequentialTransition;
     private TurtleDisplay pane;
@@ -149,7 +149,8 @@ public class Turtle {
                 }else{
                     turtleImageView.setVisible(true);
                 }
-                stateConsole.setText("Turtle State" + "\r\n" + getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
+                stateConsole.getItems().clear();
+                stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
 
             }
         });
@@ -163,6 +164,6 @@ public class Turtle {
     }
 
     public String getState(double x, double y, double heading, boolean pen){
-        return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
+        return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading: " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
     }
 }
