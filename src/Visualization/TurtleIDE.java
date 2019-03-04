@@ -48,7 +48,7 @@ public class TurtleIDE extends Application {
     private VBox createUserBox(){
         textEditor = new TextEditor(width, height);
         console = new Console(width, height, padding, "Console");
-        console.setFitToWidth(true);
+//        console.setFitToWidth(true);
         VBox user = new VBox(15, textEditor, displayUserDefined(), console);
         user.setPadding(new Insets(padding, padding,padding,padding));
         return user;
@@ -84,8 +84,9 @@ public class TurtleIDE extends Application {
             backend.getCommandManager().clearCommandList();
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands(),myStates);
-            console.setText(console.getText() + "\r\n" + commands);
-            myUserDefined.setText("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().toString());
+            console.getItems().add(commands);
+            myUserDefined.getItems().clear();
+            myUserDefined.getItems().add("Variables and Commands" +  "\r\n" + backend.getBackendManager().getVariableManager().getVariableMap().toString());
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
@@ -113,10 +114,10 @@ public class TurtleIDE extends Application {
     private HBox displayUserDefined(){
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
-        myUserDefined.setFitToWidth(true);
+//        myUserDefined.setFitToWidth(true);
         myStates = new Console(width / 2, height, padding, "Turtle State");
         myStates.setPrefWidth(width/4 - padding);
-        myStates.setFitToWidth(true);
+//        myStates.setFitToWidth(true);
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
     }
