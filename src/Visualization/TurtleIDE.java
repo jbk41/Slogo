@@ -89,9 +89,7 @@ public class TurtleIDE extends Application {
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands");
             savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
-            System.out.println("var map is cool");
             for (String key : savedVarMap.keySet()){
-                System.out.println(savedVarMap.get(key).toString());
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
         }catch(NullPointerException ex){
