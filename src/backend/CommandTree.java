@@ -9,8 +9,8 @@ import parser.CommandFactory;
 import parser.ParseCleaner;
 
 public class CommandTree {
-    //private List<String> myArguments;
-    private List<Syntax> myArguments;
+    private List<String> myArguments;
+    //private List<Syntax> myArguments;
     private GeneralCommand head;
     private int start;
     private int end;
@@ -19,7 +19,7 @@ public class CommandTree {
 
 
     public CommandTree(String text, ParseCleaner clean,  BackendManager bm){
-        //myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
+        myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
         myBM = bm;
         myCommandFactory = new CommandFactory(clean, myBM);
         head = new RootCommand(bm);
