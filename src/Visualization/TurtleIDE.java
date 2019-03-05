@@ -151,13 +151,22 @@ public class TurtleIDE extends Application {
 
     private Dialog createVariableScreen(String rawKey){
         final String key = rawKey.trim();
-        Dialog inputBox = new TextInputDialog("Change the input");
+        Dialog inputBox = new TextInputDialog("");
         inputBox.setHeaderText("Enter the new value for " + key);
         inputBox.setContentText("Value: ");
         Optional<String> result = inputBox.showAndWait();
-        result.ifPresent(e -> backend.getBackendManager().getVariableManager().getVariableMap().put(key, Double.parseDouble(result.get())));
+        result.ifPresent(e -> updateVariable(key,result));
         savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
         return inputBox;
+    }
+
+    private void updateVariable(String key, Optional<String> result){
+        backend.getBackendManager().getVariableManager().getVariableMap().put(key, Double.parseDouble(result.get()));
+        myUserDefined.getItems().clear();
+        myUserDefined.getItems().add("Variables and Commands");
+        for (String keyString : savedVarMap .keySet()){
+            myUserDefined.getItems().add(key + " = " + savedVarMap.get(keyString).toString());
+        }
     }
 
     private Console getStateConsole(){
