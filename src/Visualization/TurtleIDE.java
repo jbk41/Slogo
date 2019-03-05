@@ -31,6 +31,7 @@ public class TurtleIDE extends Application {
     private BackendModel backend;
     private Map <String, Double> savedVarMap = new HashMap<>();
     private Turtle turtle;
+    private ArrayList<TurtleState> history = new ArrayList<>();
     private ArrayList<Turtle> turtleList = new ArrayList<>();
 
     @Override
@@ -90,7 +91,7 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.getCommandManager().clearCommandList();
             backend.interpret(commands);
-            turtle.moveTurtle(backend.getCommands(),myStates);
+            turtle.moveTurtle(backend.getCommands(),myStates, history);
             console.getItems().add(commands);
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands");
@@ -165,21 +166,35 @@ public class TurtleIDE extends Application {
         myUserDefined.getItems().clear();
         myUserDefined.getItems().add("Variables and Commands");
         for (String keyString : savedVarMap .keySet()){
-            myUserDefined.getItems().add(key + " = " + savedVarMap.get(keyString).toString());
+            myUserDefined.getItems().add(keyString + " = " + savedVarMap.get(keyString).toString());
         }
     }
 
-    private Console getStateConsole(){
-        return myStates;
-    }
-
     private void undoLastCommand(){
-        backend.getCommands().remove(backend.getCommands().size()-1);
-        TurtleState lastState = backend.getCommands().get(backend.getCommands().size()-1);
-        //TODO: some way to account for the different id, not done just testing
-        turtle.getTurtleImageView().setX(lastState.getXPos() + turtle.getXOffset());
-        turtle.getTurtleImageView().setY(lastState.getYPos() + turtle.getYOffset());
-        backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
+        if (backend.getCommands().size()  > 1) {
+            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
+            TurtleState prevState = backend.getCommands().get(backend.getCommands().size() - 2);
+            backend.getCommands().remove(backend.getCommands().size() - 1);
+            //TODO: some way to account for the different id, not done just testing
+            System.out.println(turtle.getTurtleImageView().getX());
+            System.out.println(turtle.getTurtleImageView().getY());
+            turtle.getTurtleImageView().setX(turtle.getTransXPos(lastState) - prevState.getXPos());
+            turtle.getTurtleImageView().setY(turtle.getTransYPos(lastState) - prevState.getYPos());
+            backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
+
+            System.out.println(turtle.getTurtleImageView().getX());
+            System.out.println(turtle.getTurtleImageView().getY());
+
+            System.out.println("X: " + lastState.getXPos());
+            System.out.println("Y: " + lastState.getYPos());
+            System.out.println("Deg: " + lastState.getMyDegrees());
+            System.out.println("PD: " + lastState.getPenDown());
+            System.out.println("Vis: " + lastState.getVisibility());
+        }
+        else{
+            //TODO: decide if we want to implement extensive command history
+            turtle.setDefaultTurtleLocation();
+        }
     }
 
     /**

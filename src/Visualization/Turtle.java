@@ -76,7 +76,7 @@ public class Turtle {
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
-    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole){
+    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole, List<TurtleState> history){
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
@@ -162,19 +162,19 @@ public class Turtle {
         return y < 0 || y > pane.getPrefHeight();
     }
 
-    public String getState(double x, double y, double heading, boolean pen){
+    private String getState(double x, double y, double heading, boolean pen){
         return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading: " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
     }
 
-    public ImageView getTurtleImageView(){
+    ImageView getTurtleImageView(){
         return turtleImageView;
     }
 
-    public double getXOffset(){
-        return turtleImageView.getBoundsInLocal().getWidth()/2;
+    double getTransXPos(TurtleState state){
+        return turtleXPosition() + state.getXPos() - getTurtleImageView().getBoundsInLocal().getWidth()/2;
     }
 
-    public double getYOffset(){
-        return turtleImageView.getBoundsInLocal().getHeight()/2;
+    double getTransYPos(TurtleState state){
+        return turtleYPosition() + state.getYPos() - getTurtleImageView().getBoundsInLocal().getHeight()/2;
     }
 }
