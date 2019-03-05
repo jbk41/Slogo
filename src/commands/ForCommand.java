@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class ForCommand extends GeneralCommand {
 
     public ForCommand(BackendManager bm){
-        super();
+        super(bm);
         myType = "For";
         myMaxChildren = 2;
     }
@@ -20,7 +20,7 @@ public class ForCommand extends GeneralCommand {
         double step = conditionCommand.getChildren().get(3).getVal();
 
         for (int i = (int) start; i < (int) end; i += (int) step){
-            //var.setValue((double) i);
+            //myBM.getVariableManager().getVariableMap().put(myKey, myValue);
             executeCommand.execute();
             myVal = start;
         }

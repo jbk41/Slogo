@@ -9,9 +9,8 @@ public class VariableCommand extends GeneralCommand{
     public String myName;
     public BackendManager myBM;
 
-    public VariableCommand(BackendManager manager, String name){
-        super();
-        myBM = manager;
+    public VariableCommand(BackendManager bm, String name){
+        super(bm);
         myType = "Variable";
         myMaxChildren = 0;
         myName = name;

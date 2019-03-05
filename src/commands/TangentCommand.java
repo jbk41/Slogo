@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class TangentCommand extends GeneralCommand{
 
     public TangentCommand(BackendManager bm){
-        super();
+        super(bm);
         myMaxChildren = 1;
         myType = "Tangent";
     }

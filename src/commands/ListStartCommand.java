@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class ListStartCommand extends GeneralCommand {
 
     public ListStartCommand(BackendManager bm){
-        super();
+        super(bm);
         myType = "ListStart";
     }
 

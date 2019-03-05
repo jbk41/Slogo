@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class RepeatCommand extends GeneralCommand {
 
     public RepeatCommand(BackendManager bm){
-        super();
+        super(bm);
         myType = "Repeat";
         myMaxChildren = 2;
     }

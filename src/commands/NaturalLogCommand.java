@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class NaturalLogCommand extends GeneralCommand{
 
     public NaturalLogCommand(BackendManager bm){
-        super();
+        super(bm);
         myMaxChildren = 1;
         myType = "NaturalLog";
     }

@@ -21,7 +21,7 @@ public class CommandTree {
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
         myBM = bm;
         myCommandFactory = new CommandFactory(clean, myBM);
-        head = new RootCommand();
+        head = new RootCommand(bm);
         end = myArguments.size() ;
         generateTree();
         //linkParentsAndInitializeVariables(head);

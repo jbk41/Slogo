@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class SineCommand extends GeneralCommand{
 
     public SineCommand(BackendManager bm){
-        super();
+        super(bm);
         myMaxChildren = 1;
         myType = "Sine";
     }
@@ -13,8 +13,7 @@ public class SineCommand extends GeneralCommand{
     public void execute(){
         checkParameterCount();
         executeChildren();
-        var childVals = getChildrenValues();
-        double deg = childVals.get(0)*Math.PI/180;
+        double deg = myChildren.get(0).getVal()*Math.PI/180;
         myVal  = Math.sin(deg);
     }
 }

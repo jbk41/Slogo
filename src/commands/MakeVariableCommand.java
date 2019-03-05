@@ -12,8 +12,7 @@ public class MakeVariableCommand extends GeneralCommand {
     public double myValue;
 
     public MakeVariableCommand(BackendManager bm){
-        super();
-        myBM = bm;
+        super(bm);
         myType = "MakeVariable";
         myMaxChildren = 2;
     }

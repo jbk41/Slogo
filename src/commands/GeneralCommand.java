@@ -17,10 +17,12 @@ public abstract class GeneralCommand {
     protected int myMaxChildren;
     protected boolean isReady;
     protected double myVal;
+    protected BackendManager myBM;
 
-    protected GeneralCommand(){
+    protected GeneralCommand(BackendManager bm){
         myChildren = new ArrayList<>();
         isReady = false;
+        myBM = bm;
     }
 
     public List<GeneralCommand> getChildren(){
