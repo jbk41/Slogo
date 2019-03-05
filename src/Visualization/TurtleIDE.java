@@ -174,12 +174,12 @@ public class TurtleIDE extends Application {
     }
 
     private void undoLastCommand(){
-        TurtleState lastState = backend.getCommands().get(backend.getCommands().size()-2);
-        //TODO: some way to account for the different id
-        System.out.println(lastState.getXPos());
-        System.out.println(lastState.getYPos());
-        System.out.println(lastState.getMyDegrees());
-        System.out.println(lastState.getPenDown());
+        backend.getCommands().remove(backend.getCommands().size()-1);
+        TurtleState lastState = backend.getCommands().get(backend.getCommands().size()-1);
+        //TODO: some way to account for the different id, not done just testing
+        turtle.getTurtleImageView().setX(lastState.getXPos() + turtle.getXOffset());
+        turtle.getTurtleImageView().setY(lastState.getYPos() + turtle.getYOffset());
+        backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
     }
 
     /**

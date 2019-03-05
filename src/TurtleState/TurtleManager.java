@@ -83,4 +83,9 @@ public class TurtleManager {
         if (command.getPenDown() == 1) penDown = true;
         else if (command.getPenDown() == 2) penDown = false;
     }
+
+    public void setMyDegrees(double deg){
+        myDeg = deg;
+    }
+
 }

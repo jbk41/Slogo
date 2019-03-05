@@ -165,4 +165,16 @@ public class Turtle {
     public String getState(double x, double y, double heading, boolean pen){
         return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading: " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
     }
+
+    public ImageView getTurtleImageView(){
+        return turtleImageView;
+    }
+
+    public double getXOffset(){
+        return turtleImageView.getBoundsInLocal().getWidth()/2;
+    }
+
+    public double getYOffset(){
+        return turtleImageView.getBoundsInLocal().getHeight()/2;
+    }
 }
