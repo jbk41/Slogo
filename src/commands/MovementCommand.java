@@ -14,14 +14,6 @@ public class MovementCommand extends GeneralCommand {
     public void execute() {
         checkParameterCount();
         executeChildren();
-
-//        GeneralCommand child = myChildren.get(0);
-////        try {
-////            myVal = child.getVal();
-////        } catch (IllegalArgumentException e) {
-////            System.out.println(e);
-////            return;
-////        }
         myVal = myChildren.get(0).getVal();
         TurtleCommand command = new TurtleCommand(this);
         System.out.println("adding command");
