@@ -4,11 +4,9 @@ import TurtleState.TurtleCommand;
 import backend.BackendManager;
 
 public class MovementCommand extends GeneralCommand {
-    public BackendManager BM;
 
     public MovementCommand(BackendManager bm){
-        super();
-        BM = bm;
+        super(bm);
     }
 
 
@@ -17,15 +15,17 @@ public class MovementCommand extends GeneralCommand {
         checkParameterCount();
         executeChildren();
 
-        GeneralCommand child = myChildren.get(0);
-        try {
-            myVal = child.getVal();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-            return;
-        }
-        var command = new TurtleCommand(this);
-        BM.getCommandManager().addToList(command);
+//        GeneralCommand child = myChildren.get(0);
+////        try {
+////            myVal = child.getVal();
+////        } catch (IllegalArgumentException e) {
+////            System.out.println(e);
+////            return;
+////        }
+        myVal = myChildren.get(0).getVal();
+        TurtleCommand command = new TurtleCommand(this);
+        System.out.println("adding command");
+        myBM.getCommandManager().addToList(command);
     }
 
     @Override

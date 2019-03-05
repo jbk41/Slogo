@@ -1,10 +1,12 @@
 package commands;
+import backend.BackendManager;
 
 import java.util.List;
 
 public class RootCommand extends GeneralCommand {
 
-    public RootCommand(){
+    public RootCommand(BackendManager bm){
+        super(bm);
         myType = "Root";
     }
 

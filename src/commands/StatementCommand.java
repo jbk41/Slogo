@@ -5,17 +5,15 @@ import backend.BackendManager;
 
 public class StatementCommand extends GeneralCommand {
 
-    public BackendManager BM;
 
     public StatementCommand(BackendManager bm){
-        super();
-        BM = bm;
+        super(bm);
     }
 
     @Override
     public void execute() {
         var command = new TurtleCommand(this);
-        BM.getCommandManager().addToList(command);
+        myBM.getCommandManager().addToList(command);
     }
 
     @Override

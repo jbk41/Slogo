@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class IfCommand extends GeneralCommand {
 
     public IfCommand(BackendManager bm){
-        super();
+        super(bm);
         myMaxChildren = 2;
         myType = "If";
     }

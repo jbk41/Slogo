@@ -1,11 +1,12 @@
 package commands;
 
 import backend.BackendManager;
+import java.util.ArrayList;
 
 public class SumCommand extends GeneralCommand {
 
     public SumCommand(BackendManager bm) {
-        super();
+        super(bm);
         myType = "Sum";
         myMaxChildren = 2;
     }
@@ -13,10 +14,7 @@ public class SumCommand extends GeneralCommand {
     @Override
     public void execute() throws IllegalArgumentException {
         checkParameterCount();
-        for (int i = 0; i < myMaxChildren; i++) {
-            myChildren.get(i).execute();
-        }
-        var myChildrenVals = getChildrenValues();
+        ArrayList<Double> myChildrenVals = getChildrenValues();
         for (double val : myChildrenVals) {
             myVal += val;
         }

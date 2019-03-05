@@ -21,7 +21,7 @@ public class CommandTree {
         myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
         myBM = bm;
         myCommandFactory = new CommandFactory(clean, myBM);
-        head = new RootCommand();
+        head = new RootCommand(bm);
         end = myArguments.size() ;
         generateTree();
         //linkParentsAndInitializeVariables(head);
@@ -88,26 +88,6 @@ public class CommandTree {
         }
         // now deal with the node
         System.out.println(c.toString() + " with parent: " + c.printParent());
-    }
-
-//    // after the tree has been generated, use this to command to create a link from the child to the parent
-//    private void linkParentsAndInitializeVariables(GeneralCommand c){
-//        for (GeneralCommand command: c.getChildren()){
-//            command.setParent(c);
-//            if (c instanceof VariableCommand){
-//                VariableCommand temp = (VariableCommand) c;
-//                temp.setVariableManager(myBM.getVariableManager());
-//            }
-//            linkParentsAndInitializeVariables(command);
-//        }
-//    }
-
-    // actually execute the command;
-    private void executeTree(GeneralCommand c){
-//        for (GeneralCommand command: c.getChildren()){
-//            executeTree(command);
-//        }
-//        c.execute();
     }
 
 }

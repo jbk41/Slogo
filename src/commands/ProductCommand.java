@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class ProductCommand extends GeneralCommand {
 
     public ProductCommand(BackendManager bm){
-        super();
+        super(bm);
         //isFull = false;
         myType = "Product";
         myMaxChildren = 2;
@@ -14,7 +14,6 @@ public class ProductCommand extends GeneralCommand {
     public void execute(){
         checkParameterCount();
         executeChildren();
-        var childVals = getChildrenValues();
-        myVal = childVals.get(0) * childVals.get(1);
+        myVal = myChildren.get(0).getVal() * myChildren.get(1).getVal();
     }
 }
