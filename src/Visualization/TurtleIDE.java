@@ -182,7 +182,7 @@ public class TurtleIDE extends Application {
             System.out.println(turtle.getTurtleImageView().getX());
             System.out.println(turtle.getTurtleImageView().getY());
             if (lastState.getXPos() != prevState.getXPos() && prevState.getYPos() != lastState.getYPos()) {
-                turtle.getTurtleImageView().setX(turtle.getTransXPos(lastState) - prevState.getXPos());
+                turtle.getTurtleImageView().setX(turtle.getTransXPos(lastState) + prevState.getXPos());
                 turtle.getTurtleImageView().setY(turtle.getTransYPos(lastState) - prevState.getYPos());
             }
             backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
@@ -197,7 +197,6 @@ public class TurtleIDE extends Application {
 
         }
         else{
-            //TODO: decide if we want to implement extensive command history
             stateConsole.getItems().clear();
             stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(0,0,0,false));
             turtle.setDefaultTurtleLocation();
