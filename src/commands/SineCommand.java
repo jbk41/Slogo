@@ -14,6 +14,6 @@ public class SineCommand extends GeneralCommand{
         checkParameterCount();
         executeChildren();
         double deg = myChildren.get(0).getVal()*Math.PI/180;
-        myVal  = Math.sin(deg);
+        myVal = Math.sin(deg);
     }
 }

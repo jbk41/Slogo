@@ -121,17 +121,6 @@ public abstract class GeneralCommand {
         if (!myChildren.contains(command)){
             throw new IllegalArgumentException("Command is not in list of children");
         }
-//        if (!(command instanceof VariableCommand || command instanceof ConstantCommand)){
-//            throw new IllegalArgumentException("Only accepts variable and constant types");
-//        }
-//        if (command instanceof VariableCommand){
-//            VariableCommand vc = (VariableCommand) command;
-//            return vc.getVal();
-//        }
-//        else { // is constant command
-//            ConstantCommand cc = (ConstantCommand) command;
-//            return cc.getVal();
-//        }
         return command.getVal();
     }
 

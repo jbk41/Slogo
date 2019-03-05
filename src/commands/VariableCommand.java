@@ -7,7 +7,6 @@ import java.security.InvalidKeyException;
 public class VariableCommand extends GeneralCommand{
 
     public String myName;
-    public BackendManager myBM;
 
     public VariableCommand(BackendManager bm, String name){
         super(bm);
@@ -18,13 +17,14 @@ public class VariableCommand extends GeneralCommand{
     }
 
     public void execute() {
-        if(myBM.getVariableManager().getVariableMap().containsKey(myName)) {
-            myVal = myBM.getVariableManager().getVariableMap().get(myName);
+        if(myBM.hasVariable(myName)) {
+            myVal = myBM.getValOfVar(myName);
         }
         else {
             myVal = 0;
         }
     }
 
-    public String getVarName() { return myName; }
+    public String getVarName() {
+        return myName; }
 }

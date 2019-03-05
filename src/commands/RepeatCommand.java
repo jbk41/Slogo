@@ -12,6 +12,7 @@ public class RepeatCommand extends GeneralCommand {
 
     public void execute(){
         double numRunTimes;
+        myChildren.get(0).execute();
         try {
             numRunTimes = getValFromChild(myChildren.get(0));
         }
@@ -21,6 +22,5 @@ public class RepeatCommand extends GeneralCommand {
         for (int i = 0; i < numRunTimes; i++){
             myChildren.get(1).execute();
         }
-
     }
 }

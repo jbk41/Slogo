@@ -22,7 +22,9 @@ public class MovementCommand extends GeneralCommand {
 ////            System.out.println(e);
 ////            return;
 ////        }
+        myVal = myChildren.get(0).getVal();
         TurtleCommand command = new TurtleCommand(this);
+        System.out.println("adding command");
         myBM.getCommandManager().addToList(command);
     }
 
