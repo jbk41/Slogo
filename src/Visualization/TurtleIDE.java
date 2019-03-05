@@ -178,23 +178,13 @@ public class TurtleIDE extends Application {
             TurtleState lastState = commandHistory.get(commandHistory.size() - 1);
             TurtleState prevState = commandHistory.get(commandHistory.size() - 2);
             commandHistory.remove(commandHistory.size() - 1);
-            //TODO: some way to account for the different id, not done just testing
-            System.out.println(turtle.getTurtleImageView().getX());
-            System.out.println(turtle.getTurtleImageView().getY());
-            if (lastState.getXPos() != prevState.getXPos() && prevState.getYPos() != lastState.getYPos()) {
-                turtle.getTurtleImageView().setX(turtle.getTransXPos(lastState) + prevState.getXPos());
-                turtle.getTurtleImageView().setY(turtle.getTransYPos(lastState) - prevState.getYPos());
+            if (lastState.getXPos() != prevState.getXPos() || prevState.getYPos() != lastState.getYPos()) {
+                turtle.getTurtleImageView().setX(turtle.getDefaultX() + prevState.getXPos());
+                turtle.getTurtleImageView().setY(turtle.getDefaultY() - prevState.getYPos());
             }
             backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
-
-            System.out.println(turtle.getTurtleImageView().getX());
-            System.out.println(turtle.getTurtleImageView().getY());
-
             stateConsole.getItems().clear();
             stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(prevState.getXPos(), prevState.getYPos(), prevState.getMyDegrees(), prevState.getPenDown()));
-
-
-
         }
         else{
             stateConsole.getItems().clear();
