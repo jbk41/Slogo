@@ -30,6 +30,10 @@ public class TurtleManager {
         return myCommands;
     }
 
+    public void clearCommands(){
+        myCommands.clear();
+    }
+
     public void printCommands() {
         for (TurtleState state : myCommands) {
             System.out.println("X: " + state.getXPos());
