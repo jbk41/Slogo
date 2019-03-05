@@ -85,6 +85,8 @@ public class Turtle {
         double prevDegrees = 0.0;
         for(int x = 0; x < turtleStateList.size(); x ++){
             TurtleState currentTurtleState = turtleStateList.get(x);
+            history.add(currentTurtleState);
+            System.out.println(history.size());
             double degrees = currentTurtleState.getMyDegrees();
             RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
             sequentialTransition.getChildren().add(rt);

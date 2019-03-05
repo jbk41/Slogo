@@ -31,7 +31,7 @@ public class TurtleIDE extends Application {
     private BackendModel backend;
     private Map <String, Double> savedVarMap = new HashMap<>();
     private Turtle turtle;
-    private ArrayList<TurtleState> history = new ArrayList<>();
+    private ArrayList<TurtleState> commandHistory = new ArrayList<>();
     private ArrayList<Turtle> turtleList = new ArrayList<>();
 
     @Override
@@ -59,7 +59,7 @@ public class TurtleIDE extends Application {
         backend.getCommandManager().clearCommandList();
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
-        turtle.moveTurtle(backend.getCommands(),myStates);
+        turtle.moveTurtle(backend.getCommands(),myStates, commandHistory);
     }
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
@@ -91,7 +91,7 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.getCommandManager().clearCommandList();
             backend.interpret(commands);
-            turtle.moveTurtle(backend.getCommands(),myStates, history);
+            turtle.moveTurtle(backend.getCommands(),myStates, commandHistory);
             console.getItems().add(commands);
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands");
@@ -171,10 +171,13 @@ public class TurtleIDE extends Application {
     }
 
     private void undoLastCommand(){
-        if (backend.getCommands().size()  > 1) {
-            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
-            TurtleState prevState = backend.getCommands().get(backend.getCommands().size() - 2);
-            backend.getCommands().remove(backend.getCommands().size() - 1);
+        if (commandHistory.size() > 1) {
+//            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
+//            TurtleState prevState = backend.getCommands().get(backend.getCommands().size() - 2);
+//            backend.getCommands().remove(backend.getCommands().size() - 1);
+            TurtleState lastState = commandHistory.get(commandHistory.size() - 1);
+            TurtleState prevState = commandHistory.get(commandHistory.size() - 2);
+            commandHistory.remove(commandHistory.size() - 1);
             //TODO: some way to account for the different id, not done just testing
             System.out.println(turtle.getTurtleImageView().getX());
             System.out.println(turtle.getTurtleImageView().getY());
