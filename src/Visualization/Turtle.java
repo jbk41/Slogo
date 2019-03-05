@@ -164,7 +164,7 @@ public class Turtle {
         return y < 0 || y > pane.getPrefHeight();
     }
 
-    private String getState(double x, double y, double heading, boolean pen){
+    String getState(double x, double y, double heading, boolean pen){
         return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading: " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
     }
 

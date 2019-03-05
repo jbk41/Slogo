@@ -27,7 +27,7 @@ public class TurtleIDE extends Application {
     private TextEditor textEditor;
     private Console console;
     private Console myUserDefined;
-    private Console myStates;
+    private Console stateConsole;
     private BackendModel backend;
     private Map <String, Double> savedVarMap = new HashMap<>();
     private Turtle turtle;
@@ -59,7 +59,7 @@ public class TurtleIDE extends Application {
         backend.getCommandManager().clearCommandList();
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
-        turtle.moveTurtle(backend.getCommands(),myStates, commandHistory);
+        turtle.moveTurtle(backend.getCommands(),stateConsole, commandHistory);
     }
     private VBox createTurtleDisplay(){
         TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
@@ -91,7 +91,7 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.getCommandManager().clearCommandList();
             backend.interpret(commands);
-            turtle.moveTurtle(backend.getCommands(),myStates, commandHistory);
+            turtle.moveTurtle(backend.getCommands(),stateConsole, commandHistory);
             console.getItems().add(commands);
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands");
@@ -111,7 +111,7 @@ public class TurtleIDE extends Application {
 
     private Button createUndoButton(){
         Button undo = new Button("Undo");
-        undo.setOnAction(e -> undoLastCommand());
+        undo.setOnAction(e -> undoLastCommand(stateConsole));
         return undo;
     }
 
@@ -140,9 +140,9 @@ public class TurtleIDE extends Application {
         myUserDefined = new Console(width /2 , height, padding, "Variables and Commands");
         myUserDefined.setPrefWidth(width/4 - padding *2);
         myUserDefined.setOnMouseClicked(e -> createVariableScreen(myUserDefined.getSelectionModel().getSelectedItem().toString().substring(0, myUserDefined.getSelectionModel().getSelectedItem().toString().indexOf('=') )));
-        myStates = new Console(width / 2, height, padding, "Turtle State");
-        myStates.setPrefWidth(width/4 - padding);
-        HBox user = new HBox(15, myUserDefined, myStates);
+        stateConsole = new Console(width / 2, height, padding, "Turtle State");
+        stateConsole.setPrefWidth(width/4 - padding);
+        HBox user = new HBox(15, myUserDefined, stateConsole);
         return user;
     }
 
@@ -170,7 +170,7 @@ public class TurtleIDE extends Application {
         }
     }
 
-    private void undoLastCommand(){
+    private void undoLastCommand(Console stateConsole){
         if (commandHistory.size() > 1) {
 //            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
 //            TurtleState prevState = backend.getCommands().get(backend.getCommands().size() - 2);
@@ -181,21 +181,25 @@ public class TurtleIDE extends Application {
             //TODO: some way to account for the different id, not done just testing
             System.out.println(turtle.getTurtleImageView().getX());
             System.out.println(turtle.getTurtleImageView().getY());
-            turtle.getTurtleImageView().setX(turtle.getTransXPos(lastState) - prevState.getXPos());
-            turtle.getTurtleImageView().setY(turtle.getTransYPos(lastState) - prevState.getYPos());
+            if (lastState.getXPos() != prevState.getXPos() && prevState.getYPos() != lastState.getYPos()) {
+                turtle.getTurtleImageView().setX(turtle.getTransXPos(lastState) - prevState.getXPos());
+                turtle.getTurtleImageView().setY(turtle.getTransYPos(lastState) - prevState.getYPos());
+            }
             backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
 
             System.out.println(turtle.getTurtleImageView().getX());
             System.out.println(turtle.getTurtleImageView().getY());
 
-            System.out.println("X: " + lastState.getXPos());
-            System.out.println("Y: " + lastState.getYPos());
-            System.out.println("Deg: " + lastState.getMyDegrees());
-            System.out.println("PD: " + lastState.getPenDown());
-            System.out.println("Vis: " + lastState.getVisibility());
+            stateConsole.getItems().clear();
+            stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(prevState.getXPos(), prevState.getYPos(), prevState.getMyDegrees(), prevState.getPenDown()));
+
+
+
         }
         else{
             //TODO: decide if we want to implement extensive command history
+            stateConsole.getItems().clear();
+            stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(0,0,0,false));
             turtle.setDefaultTurtleLocation();
         }
     }
