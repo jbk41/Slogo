@@ -1,11 +1,29 @@
 package backend;
+import commands.GeneralCommand;
 
 import TurtleState.TurtleCommand;
+import java.util.Map;
+import java.util.HashMap;
+
 
 import java.util.ArrayList;
 
 public class CommandManager {
+    private Map<String, GeneralCommand> userCommands;
 
+    public CommandManager(){
+        userCommands = new HashMap<>();
+    }
+
+    public void addCommand(String commandName, GeneralCommand command){
+        userCommands.put(commandName, command);
+    }
+
+    public GeneralCommand getCommand(String commandName){
+        return userCommands.get(commandName);
+    }
+
+    /*
     public ArrayList<TurtleCommand> myCommandList;
 
     public CommandManager(){
@@ -27,6 +45,7 @@ public class CommandManager {
     public void clearCommandList(){
         myCommandList.clear();
     }
+    */
 
 }
 
