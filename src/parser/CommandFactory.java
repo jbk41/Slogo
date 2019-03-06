@@ -13,12 +13,14 @@ import java.util.List;
 
 public class CommandFactory {
 
+    final String VARIABLE_COMMAND_NAME = "Variable";
+    final String CONSTANT_COMMAND_NAME = "Constant";
     private ParseCleaner myLanguages;
-    public BackendManager BM;
+    public BackendManager myBM;
 
     public CommandFactory(ParseCleaner p, BackendManager bm) {
         myLanguages = p;
-        BM = bm;
+        myBM = bm;
 
     }
 
@@ -37,15 +39,22 @@ public class CommandFactory {
 
     private GeneralCommand makeCommand(List<String> list) {
         try {
-            Class clazz = Class.forName("commands." + list.get(0) + "Command");
-            if (list.size() == 1)
-                return (GeneralCommand) clazz.getConstructor(BackendManager.class).newInstance(BM);
-            else if (list.get(0).equals("Constant")) {
-                System.out.println("making constant class");
-                return (GeneralCommand) clazz.getConstructor(BackendManager.class, double.class).newInstance(BM, Double.parseDouble(list.get(1)));
+            String commandName = list.get(0);
+
+            Class clazz = Class.forName("commands." + commandName + "Command");
+
+            if (commandName.equals(CONSTANT_COMMAND_NAME)) {
+                return (GeneralCommand) clazz.getConstructor(BackendManager.class, double.class).newInstance(myBM, Double.parseDouble(list.get(1)));
             }
-            else
-                return (GeneralCommand) clazz.getConstructor(BackendManager.class, String.class).newInstance(BM, list.get(1));
+            else if (commandName.equals(VARIABLE_COMMAND_NAME)){
+                return (GeneralCommand) clazz.getConstructor(BackendManager.class, String.class).newInstance(myBM, list.get(1));
+            }
+            else if (myLanguages.containsCommand(commandName)){
+                return (GeneralCommand) clazz.getConstructor(BackendManager.class).newInstance(myBM);
+            }
+            else {
+                return new UndefinedCommand(myBM, commandName);
+            }
         } catch (InstantiationException e) { System.out.println("The Command Could not be instantiated");
         } catch (InvocationTargetException e) { e.printStackTrace();
         } catch (NoSuchMethodException e) { System.out.println(e + ": " + list.get(0) + " Command does not exist");
