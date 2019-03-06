@@ -3,6 +3,7 @@ package backend;
 import TurtleState.TurtleManager;
 import TurtleState.TurtleState;
 import commands.BackwardCommand;
+import commands.UserDefinedCommand;
 
 import java.util.ArrayList;
 
@@ -107,9 +108,6 @@ public class BackendManager implements BackendManagerAPI{
         return false;
     }
 
-    public CommandManager getCommandManager() { return myCM; }
-
-    public VariableManager getVariableManager() { return myVM; }
 
     public void setVariable(String varName, double val){
         myVM.set(varName, val);
@@ -121,6 +119,10 @@ public class BackendManager implements BackendManagerAPI{
 
     public double getValOfVar(String varName){
         return myVM.getVal(varName);
+    }
+
+    public void addUserDefinedCommand(UserDefinedCommand userDefinedCommand){
+        myCM.addCommand(userDefinedCommand);
     }
 
 }

@@ -1,5 +1,6 @@
 package backend;
 import commands.GeneralCommand;
+import commands.UserDefinedCommand;
 
 public interface BackendManagerAPI {
 
@@ -31,7 +32,7 @@ public interface BackendManagerAPI {
 
     public boolean containsCommand(String key);
 
-    public void addUserCommand(String commandName, GeneralCommand vars, GeneralCommand syntaxTree);
+    public void addUserDefinedCommand(UserDefinedCommand userDefinedCommand);
 
-    public GeneralCommand getUserCommand(String commandName);
+    public UserDefinedCommand getUserCommand(String commandName);
 }

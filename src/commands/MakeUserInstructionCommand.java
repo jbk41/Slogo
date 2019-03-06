@@ -22,11 +22,9 @@ public class MakeUserInstructionCommand extends GeneralCommand {
         else {
             //TODO throw an error. user command should not be in the list of standard commands
         }
-        GeneralCommand userCommannd = new GeneralCommand(myBM);
-        userCommand.addChild(new ListStartCommand(vars));
 
-
-        myBM.addUserCommand(commandName, vars, commands);
+        UserDefinedCommand userDefinedCommand = new UserDefinedCommand(myBM, commandName, vars, commands);
+        //myBM.addUserCommand(commandName, userDefinedCommand);
     }
 
 

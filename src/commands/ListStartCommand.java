@@ -19,6 +19,10 @@ public class ListStartCommand extends GeneralCommand {
         }
     }
 
+    public int getNumActualChildren(){ // excludes the ending ] command
+        return myChildren.size()-1;
+    }
+
     public boolean doesContainEnd(){
         boolean containsEnd = false;
         for (GeneralCommand c : myChildren){
