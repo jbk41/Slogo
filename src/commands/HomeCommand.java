@@ -9,4 +9,9 @@ public class HomeCommand extends StatementCommand{
         myType = "Home";
         myMaxChildren = 0;
     }
+
+    @Override
+    public void update() {
+        myBM.home();
+    }
 }

@@ -33,6 +33,7 @@ public class BackendModel implements BackendAPI {
         myTM = new TurtleManager(myBM.getCommandManager());
     }
     public ArrayList<TurtleState> getCommands(){return myTM.getCommands();}
+
     public BackendManager getBackendManager(){
         return myBM;
     }

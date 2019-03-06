@@ -11,4 +11,9 @@ public class HideTurtleCommand extends StatementCommand {
         myVal = 0;
         makeReady();
     }
+
+    @Override
+    public void update() {
+        myBM.hideTurtle();
+    }
 }

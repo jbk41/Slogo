@@ -3,7 +3,7 @@ package commands;
 import TurtleState.TurtleCommand;
 import backend.BackendManager;
 
-public class MovementCommand extends GeneralCommand {
+public abstract class MovementCommand extends GeneralCommand {
 
     public MovementCommand(BackendManager bm){
         super(bm);
@@ -24,15 +24,10 @@ public class MovementCommand extends GeneralCommand {
 ////        }
         myVal = myChildren.get(0).getVal();
         update();
-
-        TurtleCommand command = new TurtleCommand(this);
-        myBM.getCommandManager().addToList(command);
     }
 
 
-    private void update(){
-
-    }
+    protected abstract void update() ;
 
     @Override
     public String toString() {
