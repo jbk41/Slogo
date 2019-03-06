@@ -13,4 +13,10 @@ public interface BackendAPI {
 
     public void setLanguage(String language);
 
+    public void forward(double val);
+
+    public void backward(double val);
+
+    public void left
+
 }

@@ -23,9 +23,15 @@ public class MovementCommand extends GeneralCommand {
 ////            return;
 ////        }
         myVal = myChildren.get(0).getVal();
+        update();
+
         TurtleCommand command = new TurtleCommand(this);
-        System.out.println("adding command");
         myBM.getCommandManager().addToList(command);
+    }
+
+
+    private void update(){
+
     }
 
     @Override
