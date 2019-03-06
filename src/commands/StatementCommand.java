@@ -3,7 +3,7 @@ package commands;
 import TurtleState.TurtleCommand;
 import backend.BackendManager;
 
-public class StatementCommand extends GeneralCommand {
+public abstract class StatementCommand extends GeneralCommand {
 
 
     public StatementCommand(BackendManager bm){
@@ -12,9 +12,10 @@ public class StatementCommand extends GeneralCommand {
 
     @Override
     public void execute() {
-        var command = new TurtleCommand(this);
-        myBM.getCommandManager().addToList(command);
+        update();
     }
+
+    public abstract void update();
 
     @Override
     public String toString(){

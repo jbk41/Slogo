@@ -9,4 +9,9 @@ public class ClearScreenCommand extends StatementCommand {
         myType = "ClearScreen";
         myMaxChildren = 0;
     }
+
+    @Override
+    public void update() {
+        myBM.clearScreen();
+    }
 }

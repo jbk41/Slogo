@@ -11,5 +11,10 @@ public class ShowTurtleCommand extends StatementCommand {
         myVal = 1;
         myType = "ShowTurtle";
     }
+
+    @Override
+    public void update() {
+        myBM.showTurtle();
+    }
 }
 

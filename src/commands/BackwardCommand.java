@@ -11,4 +11,9 @@ public class BackwardCommand extends MovementCommand {
         myMaxChildren = 1;
         myType = "Backward";
     }
+
+    @Override
+    protected void update() {
+        myBM.backward(myVal);
+    }
 }

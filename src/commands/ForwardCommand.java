@@ -13,7 +13,7 @@ public class ForwardCommand extends MovementCommand {
     }
 
     @Override
-    private void update(){
+    public void update(){
         myBM.forward(myVal);
     }
 }

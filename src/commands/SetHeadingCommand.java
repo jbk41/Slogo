@@ -10,4 +10,9 @@ public class SetHeadingCommand extends MovementCommand {
         myMaxChildren = 1;
     }
 
+    @Override
+    protected void update() {
+        myBM.setHeading(myVal);
+    }
+
 }

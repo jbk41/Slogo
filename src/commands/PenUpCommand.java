@@ -11,4 +11,9 @@ public class PenUpCommand extends StatementCommand {
         myType = "PenUp";
         myVal = 0;
     }
+
+    @Override
+    public void update() {
+        myBM.penUp();
+    }
 }
