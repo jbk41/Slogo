@@ -6,7 +6,7 @@ public class MakeUserInstructionCommand extends GeneralCommand {
 
     public MakeUserInstructionCommand(BackendManager bm) {
         super(bm);
-        myMaxChildren = 2;
+        myMaxChildren = 3;
         myType = "MakeUserInstruction";
     }
 
@@ -22,8 +22,11 @@ public class MakeUserInstructionCommand extends GeneralCommand {
         else {
             //TODO throw an error. user command should not be in the list of standard commands
         }
+        GeneralCommand userCommannd = new GeneralCommand(myBM);
+        userCommand.addChild(new ListStartCommand(vars));
 
-        myBM.addUserCommand(commandName, this);
+
+        myBM.addUserCommand(commandName, vars, commands);
     }
 
 

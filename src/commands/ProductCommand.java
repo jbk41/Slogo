@@ -11,6 +11,10 @@ public class ProductCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public ProductCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

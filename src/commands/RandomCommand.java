@@ -12,6 +12,10 @@ public class RandomCommand extends GeneralCommand {
         myType = "Random";
     }
 
+    public RandomCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute() {
         checkParameterCount();
         executeChildren();

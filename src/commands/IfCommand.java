@@ -10,6 +10,9 @@ public class IfCommand extends GeneralCommand {
         myType = "If";
     }
 
+    public IfCommand(GeneralCommand c){
+        super(c);
+    }
     public void execute(){
         GeneralCommand conditionCommand = myChildren.get(0);
         GeneralCommand executeCommand = myChildren.get(1);

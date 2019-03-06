@@ -10,6 +10,10 @@ public class RootCommand extends GeneralCommand {
         myType = "Root";
     }
 
+    public RootCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         for (GeneralCommand command: myChildren){
             command.execute();

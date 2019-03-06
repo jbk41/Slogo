@@ -10,6 +10,10 @@ public class SineCommand extends GeneralCommand{
         myType = "Sine";
     }
 
+    public SineCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

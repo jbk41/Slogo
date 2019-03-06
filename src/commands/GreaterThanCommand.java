@@ -10,6 +10,9 @@ public class GreaterThanCommand extends BooleanCommand {
         myMaxChildren = 2;
     }
 
+    public GreaterThanCommand(GeneralCommand c){
+        super(c);
+    }
     protected boolean evaluate(double a, double b){
         return (a > b);
     }

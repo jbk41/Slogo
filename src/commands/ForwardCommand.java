@@ -12,6 +12,10 @@ public class ForwardCommand extends MovementCommand {
         myMaxChildren = 1;
     }
 
+    public ForwardCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     public void update(){
         myBM.forward(myVal);

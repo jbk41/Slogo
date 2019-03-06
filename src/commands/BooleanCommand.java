@@ -9,6 +9,10 @@ public abstract class BooleanCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public BooleanCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     public void execute(){
         checkParameterCount();

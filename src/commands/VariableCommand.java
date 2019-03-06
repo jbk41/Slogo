@@ -16,6 +16,14 @@ public class VariableCommand extends GeneralCommand{
         //makeReady(); // variables should be ready upon initialization
     }
 
+    public VariableCommand(GeneralCommand c){
+        super(c);
+        if (c instanceof VariableCommand){
+            VariableCommand vc = (VariableCommand) c;
+            myName = vc.getVarName();
+        }
+    }
+
     public void execute() {
         if(myBM.hasVariable(myName)) {
             myVal = myBM.getValOfVar(myName);

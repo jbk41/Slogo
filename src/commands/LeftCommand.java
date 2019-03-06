@@ -14,6 +14,10 @@ public class LeftCommand extends MovementCommand {
         myMaxChildren = 1;
     }
 
+    public LeftCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     protected void update() {
         myBM.left(myVal);

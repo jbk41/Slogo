@@ -9,4 +9,8 @@ public class ListEndCommand extends GeneralCommand {
         super(bm);
         myType = "ListEnd";
     }
+
+    public ListEndCommand(GeneralCommand c){
+        super(c);
+    }
 }

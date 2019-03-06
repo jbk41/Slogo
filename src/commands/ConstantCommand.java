@@ -11,4 +11,8 @@ public class ConstantCommand extends GeneralCommand{
         isReady = true;
     }
 
+    public ConstantCommand(GeneralCommand c){
+        super(c);
+    }
+
 }

@@ -10,6 +10,9 @@ public class DoTimesCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public DoTimesCommand(GeneralCommand c){
+        super(c);
+    }
     public void execute(){
         GeneralCommand conditionCommand = myChildren.get(0);
         GeneralCommand executeCommand = myChildren.get(1);

@@ -10,6 +10,10 @@ public class AndCommand extends BooleanCommand {
         myMaxChildren = 2;
     }
 
+    public AndCommand(GeneralCommand c){
+        super(c);
+    }
+
 
     protected boolean evaluate(double a, double b){ return (a >= 0 && b >= 0);
     }

@@ -10,6 +10,9 @@ public class ForCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public ForCommand(GeneralCommand c){
+        super(c);
+    }
     public void execute(){
         GeneralCommand conditionCommand = myChildren.get(0);
         GeneralCommand executeCommand = myChildren.get(1);

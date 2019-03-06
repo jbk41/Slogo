@@ -10,6 +10,10 @@ public class PowerCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public PowerCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

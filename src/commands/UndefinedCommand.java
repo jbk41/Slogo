@@ -12,6 +12,10 @@ public class UndefinedCommand extends GeneralCommand{
         myName = name;
     }
 
+    public UndefinedCommand(GeneralCommand c){
+        super(c);
+    }
+
     public String getCommandName(){
         return myName;
     }

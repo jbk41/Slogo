@@ -10,6 +10,10 @@ public class QuotientCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public QuotientCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

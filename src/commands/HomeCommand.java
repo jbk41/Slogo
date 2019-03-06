@@ -9,6 +9,9 @@ public class HomeCommand extends StatementCommand{
         myType = "Home";
         myMaxChildren = 0;
     }
+    public HomeCommand(GeneralCommand c){
+        super(c);
+    }
 
     @Override
     public void update() {

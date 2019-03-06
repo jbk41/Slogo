@@ -10,6 +10,10 @@ public class ClearScreenCommand extends StatementCommand {
         myMaxChildren = 0;
     }
 
+    public ClearScreenCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     public void update() {
         myBM.clearScreen();

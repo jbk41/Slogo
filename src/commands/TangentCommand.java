@@ -10,6 +10,10 @@ public class TangentCommand extends GeneralCommand{
         myType = "Tangent";
     }
 
+    public TangentCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

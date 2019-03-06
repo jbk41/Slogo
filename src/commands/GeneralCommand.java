@@ -6,7 +6,7 @@ import backend.VariableManager;
 import java.util.List;
 import java.util.ArrayList;
 
-public abstract class GeneralCommand {
+public class GeneralCommand {
 
     /**
      * @author Justin Kim
@@ -25,11 +25,27 @@ public abstract class GeneralCommand {
         myBM = bm;
     }
 
+    protected GeneralCommand(GeneralCommand c){
+        myChildren = c.getChildren();
+        myMaxChildren = c.getMaxChildren();
+        myParent = c.getParent();
+        myType = c.getType();
+        myVal = c.getVal();
+        myBM = c.getBM();
+    }
+
     public List<GeneralCommand> getChildren(){
         return myChildren;
     }
 
-    public String getVarName() {return ""; }
+    //public String getVarName() {return ""; }
+
+    public BackendManager getBM() {
+        return myBM;
+    }
+    public GeneralCommand getParent(){
+        return myParent;
+    }
 
     /**
      *
@@ -103,17 +119,14 @@ public abstract class GeneralCommand {
         }
     }
 
-    public void executeVariable(){
-
-    }
 
     protected void makeReady(){
         isReady = true;
     }
 
-    protected int getIndexOfCurrentInParent(){
-        return (myParent.getChildren().indexOf(this));
-    }
+    //protected int getIndexOfCurrentInParent(){
+    //    return (myParent.getChildren().indexOf(this));
+    //}
 
     public double getVal() { return myVal; }
 

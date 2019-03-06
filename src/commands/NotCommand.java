@@ -11,6 +11,10 @@ public class NotCommand extends GeneralCommand {
         myMaxChildren = 1;
     }
 
+    public NotCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         double returnVal = 0;

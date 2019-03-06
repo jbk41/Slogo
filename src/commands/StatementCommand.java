@@ -10,6 +10,10 @@ public abstract class StatementCommand extends GeneralCommand {
         super(bm);
     }
 
+    public StatementCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     public void execute() {
         update();

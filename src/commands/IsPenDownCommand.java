@@ -10,4 +10,8 @@ public class IsPenDownCommand extends GeneralCommand {
         myType = "IsPenDown";
         makeReady();
     }
+
+    public IsPenDownCommand(GeneralCommand c){
+        super(c);
+    }
 }

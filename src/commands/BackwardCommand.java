@@ -12,6 +12,10 @@ public class BackwardCommand extends MovementCommand {
         myType = "Backward";
     }
 
+    public BackwardCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     protected void update() {
         myBM.backward(myVal);

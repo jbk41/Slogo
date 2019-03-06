@@ -11,6 +11,10 @@ public class SumCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public SumCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     public void execute() throws IllegalArgumentException {
         checkParameterCount();

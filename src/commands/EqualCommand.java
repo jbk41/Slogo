@@ -10,6 +10,9 @@ public class EqualCommand extends BooleanCommand {
         myMaxChildren = 2;
     }
 
+    public EqualCommand(GeneralCommand c){
+        super(c);
+    }
     protected boolean evaluate(double a, double b){
         return (a == b);
     }

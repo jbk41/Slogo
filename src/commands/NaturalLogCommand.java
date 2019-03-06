@@ -10,6 +10,10 @@ public class NaturalLogCommand extends GeneralCommand{
         myType = "NaturalLog";
     }
 
+    public NaturalLogCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

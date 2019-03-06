@@ -10,6 +10,10 @@ public class RepeatCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public RepeatCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         double numRunTimes;
         myChildren.get(0).execute();

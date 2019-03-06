@@ -10,6 +10,10 @@ public class ArcTangentCommand extends GeneralCommand{
         myType = "ArcTangent";
     }
 
+    public ArcTangentCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     public void execute() throws IllegalArgumentException {
         checkParameterCount();

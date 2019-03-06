@@ -9,6 +9,11 @@ public class MinusCommand extends GeneralCommand{
         myMaxChildren = 1;
         myType = "Minus";
     }
+
+    public MinusCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

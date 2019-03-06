@@ -10,6 +10,10 @@ public class RemainderCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public RemainderCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

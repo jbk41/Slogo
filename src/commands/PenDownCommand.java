@@ -12,6 +12,10 @@ public class PenDownCommand extends StatementCommand{
         myVal = 1.0;
     }
 
+    public PenDownCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     public void update() {
         myBM.penDown();

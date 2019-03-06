@@ -9,6 +9,10 @@ public class ListStartCommand extends GeneralCommand {
         myType = "ListStart";
     }
 
+    public ListStartCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         for (GeneralCommand command: myChildren){
             command.execute();

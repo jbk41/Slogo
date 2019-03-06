@@ -12,6 +12,9 @@ public class MakeVariableCommand extends GeneralCommand {
         myType = "MakeVariable";
         myMaxChildren = 2;
     }
+    public MakeVariableCommand(GeneralCommand c){
+        super(c);
+    }
 
     public void execute(){
         executeChildren();

@@ -12,6 +12,10 @@ public class RightCommand extends MovementCommand {
         myMaxChildren = 1;
     }
 
+    public RightCommand(GeneralCommand c){
+        super(c);
+    }
+
     @Override
     protected void update() {
         myBM.right(myVal);

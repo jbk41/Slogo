@@ -10,6 +10,10 @@ public class DifferenceCommand extends GeneralCommand {
         myMaxChildren = 2;
     }
 
+    public DifferenceCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();

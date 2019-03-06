@@ -10,6 +10,10 @@ public class CosineCommand extends GeneralCommand{
         myType = "Cosine";
     }
 
+    public CosineCommand(GeneralCommand c){
+        super(c);
+    }
+
     public void execute(){
         checkParameterCount();
         executeChildren();
