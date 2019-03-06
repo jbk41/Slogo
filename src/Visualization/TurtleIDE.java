@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -17,6 +18,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import static javafx.scene.paint.Color.RED;
+import static javafx.scene.paint.Color.WHITE;
+import static javafx.scene.paint.Paint.valueOf;
 
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
@@ -179,8 +184,14 @@ public class TurtleIDE extends Application {
             TurtleState prevState = commandHistory.get(commandHistory.size() - 2);
             commandHistory.remove(commandHistory.size() - 1);
             if (lastState.getXPos() != prevState.getXPos() || prevState.getYPos() != lastState.getYPos()) {
+                double oldX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
+                double oldY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
                 turtle.getTurtleImageView().setX(turtle.getDefaultX() + prevState.getXPos());
                 turtle.getTurtleImageView().setY(turtle.getDefaultY() - prevState.getYPos());
+                double newX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
+                double newY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
+                turtle.getGraphics().setStroke(WHITE);
+                turtle.getGraphics().strokeLine(oldX, oldY, newX, newY);
             }
             backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
             stateConsole.getItems().clear();

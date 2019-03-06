@@ -27,7 +27,7 @@ public class Turtle {
     private SequentialTransition sequentialTransition;
     private TurtleDisplay pane;
     private Canvas canvas;
-    private Paint PEN_COLOR;
+    public Paint PEN_COLOR;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
 
@@ -177,19 +177,19 @@ public class Turtle {
         return turtleImageView;
     }
 
-    double getTransXPos(TurtleState state){
-        return turtleXPosition() + state.getXPos() - getTurtleImageView().getBoundsInLocal().getWidth()/2;
-    }
-
-    double getTransYPos(TurtleState state){
-        return turtleYPosition() - state.getYPos() - getTurtleImageView().getBoundsInLocal().getHeight()/2;
-    }
-
     double getDefaultX(){
         return pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2;
     }
 
     double getDefaultY(){
         return pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2;
+    }
+
+    double getCenterX(){
+        return 0;
+    }
+
+    GraphicsContext getGraphics(){
+        return gc;
     }
 }
