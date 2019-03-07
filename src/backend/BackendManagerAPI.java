@@ -35,4 +35,10 @@ public interface BackendManagerAPI {
     public void addUserDefinedCommand(UserDefinedCommand userDefinedCommand);
 
     public UserDefinedCommand getUserCommand(String commandName);
+
+    public void setVariable(String varName, double val);
+
+    public double getVariable(String varName);
+
+    public boolean hasVariable(String varName);
 }

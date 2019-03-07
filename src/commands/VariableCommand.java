@@ -26,7 +26,7 @@ public class VariableCommand extends GeneralCommand{
 
     public void execute() {
         if(myBM.hasVariable(myName)) {
-            myVal = myBM.getValOfVar(myName);
+            myVal = myBM.getVariable(myName);
         }
         else {
             myVal = 0;

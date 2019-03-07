@@ -14,7 +14,6 @@ public class CommandManager {
     private Map<String, UserDefinedCommand> userCommands;
 
     public CommandManager(){
-
         userCommands = new HashMap<>();
     }
 
@@ -24,8 +23,11 @@ public class CommandManager {
     }
 
     public UserDefinedCommand getCommand(String commandName){
-
         return userCommands.get(commandName);
+    }
+
+    public boolean containsCommand(String commandName){
+        return userCommands.containsKey(commandName);
     }
 
 
