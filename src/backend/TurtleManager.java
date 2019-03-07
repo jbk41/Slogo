@@ -12,7 +12,6 @@ public class TurtleManager {
     private Map<Double, TurtleState> stateOfTurtles;
 
     public TurtleManager(){
-
         stateOfTurtles = new HashMap<>();
     }
 

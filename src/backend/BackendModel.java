@@ -1,10 +1,7 @@
 package backend;
 import TurtleState.TurtleCommand;
-import TurtleState.TurtleManager;
 import TurtleState.TurtleState;
-import Visualization.Turtle;
 import parser.ParseCleaner;
-import commands.GeneralCommand;
 
 import java.util.ArrayList;
 
@@ -28,15 +25,14 @@ public class BackendModel implements BackendAPI {
     }
 
     public void interpret(String text){
-        myBM = new BackendManager(myCM, myVM);
+        myBM = new BackendManager();
         myCT = new CommandTree(text, myPC, myBM);
-        myTM = new TurtleManager(myBM.getCommandManager());
     }
-    public ArrayList<TurtleState> getCommands(){return myTM.getCommands();}
+    public ArrayList<TurtleState> getCommands(){return myBM.getCommands();}
 
     public BackendManager getBackendManager(){
         return myBM;
-    }
+    }s
 
     public CommandManager getCommandManager(){
         return myCM;
@@ -44,13 +40,6 @@ public class BackendModel implements BackendAPI {
 
     public TurtleManager getTurtleManager() { return myTM; }
 
-    public void printCommands(){
-        for (TurtleCommand command : myCM.getCommandList());
-    }
-
-    public void clearCommands(){
-        myTM.clearCommands();
-    }
 
 //    public void printTree(){
 //        myCT.printTree();
