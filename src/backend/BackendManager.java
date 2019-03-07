@@ -1,24 +1,27 @@
 package backend;
 
-import TurtleState.TurtleManager;
 import TurtleState.TurtleState;
-import commands.BackwardCommand;
 import commands.UserDefinedCommand;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BackendManager implements BackendManagerAPI{
 
     public CommandManager myCM;
     public VariableManager myVM;
-    public ArrayList<TurtleState> myStates;
+    public TurtleManager myTM;
+    //public ArrayList<TurtleState> myStates;
 
     public BackendManager(CommandManager cm, VariableManager vm){
         myCM = cm;
         myVM = vm;
-        myStates = new ArrayList<TurtleState>();
+
     }
 
+    /*
+    Sets values of turtles
+     */
     public void forward(double val) {
         var x = turtle.getX();
         var y = turtle.getY();
@@ -91,6 +94,12 @@ public class BackendManager implements BackendManagerAPI{
     }
 
 
+
+
+
+    /*
+    meant for backend control (variables)
+     */
     public void setVariable(String varName, double val){
         myVM.set(varName, val);
     }
@@ -104,6 +113,11 @@ public class BackendManager implements BackendManagerAPI{
     }
 
 
+
+
+    /*
+    Meant for backend control (user defined commands)
+     */
     public boolean containsCommand(String commandName) {
         return myCM.containsCommand(commandName);
     }
@@ -114,6 +128,19 @@ public class BackendManager implements BackendManagerAPI{
 
     public UserDefinedCommand getUserCommand(String commandName){
         return myCM.getCommand(commandName);
+    }
+
+
+
+    /*
+    Meant for backend control (turtles)
+     */
+    public void setTurtles(List<Double> turtleIDs){
+        myTM.setActiveTurtles(turtleIDs);
+    }
+
+    public int getNumberActiveTurtles(){
+        return myTM.getNumberActiveTurtles();
     }
 
 }

@@ -19,14 +19,10 @@ public abstract class MovementCommand extends GeneralCommand {
         executeChildren();
         myVal = myChildren.get(0).getVal();
         update();
-
-        TurtleCommand command = new TurtleCommand(this);
-        //System.out.println("adding command");
-        myBM.getCommandManager().addToList(command);
     }
 
 
-    protected abstract void update() ;
+    protected abstract void update();
 
     @Override
     public String toString() {

@@ -7,7 +7,7 @@ public class TurtleState {
     private double myDegrees;
     private boolean isPenDown;
     private boolean isVisible;
-    private int myId;
+    private double myId;
     private boolean myClear;
 
     /**
@@ -37,7 +37,7 @@ public class TurtleState {
     }
 
     // constructor for initializing turtle
-    public TurtleState(int id){
+    public TurtleState(double id){
         myXPos = 0;
         myYPos = 0;
         myDegrees = 0;
@@ -60,7 +60,7 @@ public class TurtleState {
 
     public boolean getPenDown() { return isPenDown; }
 
-    public int getId(){
+    public double getId(){
         return myId;
     }
 
