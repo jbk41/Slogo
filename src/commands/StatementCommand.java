@@ -10,10 +10,6 @@ public abstract class StatementCommand extends GeneralCommand {
         super(bm);
     }
 
-    public StatementCommand(GeneralCommand c){
-        super(c);
-    }
-
     @Override
     public void execute() {
         update();
@@ -23,7 +19,7 @@ public abstract class StatementCommand extends GeneralCommand {
 
     @Override
     public String toString(){
-        return myType;
+        return getType();
     }
 }
 

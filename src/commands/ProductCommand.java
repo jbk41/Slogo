@@ -7,17 +7,13 @@ public class ProductCommand extends GeneralCommand {
     public ProductCommand(BackendManager bm){
         super(bm);
         //isFull = false;
-        myType = "Product";
-        myMaxChildren = 2;
-    }
-
-    public ProductCommand(GeneralCommand c){
-        super(c);
+        setType("Product");
+        setMaxChildren(2);
     }
 
     public void execute(){
         checkParameterCount();
         executeChildren();
-        myVal = myChildren.get(0).getVal() * myChildren.get(1).getVal();
+        setVal(getChildren().get(0).getVal() * getChildren().get(1).getVal());
     }
 }

@@ -6,15 +6,12 @@ public class HomeCommand extends StatementCommand{
 
     public HomeCommand (BackendManager bm){
         super(bm);
-        myType = "Home";
-        myMaxChildren = 0;
-    }
-    public HomeCommand(GeneralCommand c){
-        super(c);
+        setType("Home");
+        setMaxChildren(0);
     }
 
     @Override
     public void update() {
-        myBM.home();
+        getBM().home();
     }
 }

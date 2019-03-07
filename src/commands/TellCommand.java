@@ -7,22 +7,22 @@ public class TellCommand extends GeneralCommand {
 
     public TellCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 1;
-        myType = "Tell";
+        setMaxChildren(1);
+        setType("Tell");
 
     }
 
     public void execute(){
         List<Double> turtleIDs = new ArrayList<>();
-        for (GeneralCommand child: myChildren){
+        for (GeneralCommand child: getChildren()){
             if (!(child instanceof ListEndCommand)){
                 turtleIDs.add(child.getVal());
             }
         }
 
-        myBM.setTurtles(turtleIDs);
+        getBM().setTurtles(turtleIDs);
 
-        myVal = turtleIDs.get(turtleIDs.size()-1);
+        setVal(turtleIDs.get(turtleIDs.size()-1));
     }
 
 }
