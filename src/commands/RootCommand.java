@@ -7,11 +7,11 @@ public class RootCommand extends GeneralCommand {
 
     public RootCommand(BackendManager bm){
         super(bm);
-        myType = "Root";
+        setType("Root");
     }
 
     public void execute(){
-        for (GeneralCommand command: myChildren){
+        for (GeneralCommand command: getChildren()){
             command.execute();
         }
     }

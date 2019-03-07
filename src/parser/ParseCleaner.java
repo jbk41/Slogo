@@ -33,6 +33,15 @@ public class ParseCleaner {
         addLang("Syntax");
     }
 
+    /**
+     * checks if commandName is a valid command
+     * @param commandName
+     * @return
+     */
+    public boolean containsCommand(String commandName){
+        return mySymbols.contains(commandName);
+    }
+
 
     private void addLang(String lang) {
         try {

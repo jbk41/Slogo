@@ -28,7 +28,7 @@ public class Turtle {
     private SequentialTransition sequentialTransition;
     private TurtleDisplay pane;
     private Canvas canvas;
-    public Paint PEN_COLOR;
+    private Paint PEN_COLOR;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
 
@@ -79,7 +79,7 @@ public class Turtle {
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
-    void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole, List<TurtleState> history){
+    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole){
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
@@ -88,7 +88,6 @@ public class Turtle {
         double prevDegrees = 0.0;
         for(int x = 0; x < turtleStateList.size(); x ++){
             TurtleState currentTurtleState = turtleStateList.get(x);
-            history.add(currentTurtleState);
             double degrees = currentTurtleState.getMyDegrees();
             RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
             sequentialTransition.getChildren().add(rt);
@@ -103,7 +102,12 @@ public class Turtle {
                     continue;
                 }
             }
-            Path path = new Path();
+            PathTransition pathTransition = createTransition(createPath(newX, newY), turtleStateList.get(x), stateConsole);
+            sequentialTransition.getChildren().add(pathTransition);
+        }
+        sequentialTransition.play();
+    private Path createPath(double newX, double newY){
+        Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(newX, newY));
             this.turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
@@ -128,12 +132,11 @@ public class Turtle {
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
         gc = canvas.getGraphicsContext2D();
-        pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            double oldX;
-            double oldY;
-            @Override
-            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
-                double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+        pathTransition.currentTimeProperty().addListener(() -> drawLine());
+        return pathTransition;
+    }
+    private void drawLine(){
+        double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
                 double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
                 if(oldX == 0){
                     oldX = x;
@@ -154,10 +157,6 @@ public class Turtle {
                 }
                 stateConsole.getItems().clear();
                 stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
-
-            }
-        });
-        return pathTransition;
     }
     private Boolean checkWidthOutOfBounds(double x){
         return x < 0 || x > pane.getPrefWidth();
@@ -186,6 +185,10 @@ public class Turtle {
 
     double getCenterX(){
         return 0;
+    }
+
+    double getPenSize(){
+        return PEN_SIZE;
     }
 
     GraphicsContext getGraphics(){

@@ -6,14 +6,14 @@ public class IfElseCommand extends GeneralCommand{
 
     public IfElseCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 3;
-        myType = "IfElse";
+        setMaxChildren(3);
+        setType("IfElse");
     }
 
     public void execute(){
-        GeneralCommand conditionCommand = myChildren.get(0);
-        GeneralCommand ifCommand = myChildren.get(1);
-        GeneralCommand elseCommand = myChildren.get(2);
+        GeneralCommand conditionCommand = getChildren().get(0);
+        GeneralCommand ifCommand = getChildren().get(1);
+        GeneralCommand elseCommand = getChildren().get(2);
 
         conditionCommand.execute();
 

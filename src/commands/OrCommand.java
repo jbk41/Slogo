@@ -6,8 +6,8 @@ public class OrCommand extends BooleanCommand {
 
     public OrCommand(BackendManager bm){
         super(bm);
-        myType = "Or";
-        myMaxChildren = 2;
+        setType("Or");
+        setMaxChildren(2);
     }
 
     protected boolean evaluate(double a, double b){

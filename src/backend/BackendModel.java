@@ -1,26 +1,23 @@
 package backend;
 import TurtleState.TurtleCommand;
-import TurtleState.TurtleManager;
 import TurtleState.TurtleState;
-import Visualization.Turtle;
 import parser.ParseCleaner;
-import commands.GeneralCommand;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BackendModel implements BackendAPI {
 
+    final String DEFAULT_LANGUAGE = "English";
 
     private BackendManager myBM;
-    private CommandManager myCM;
-    private VariableManager myVM;
     private CommandTree myCT;
     private ParseCleaner myPC;
-    private TurtleManager myTM;
 
     public BackendModel(){
-        myCM = new CommandManager();
-        myVM = new VariableManager();
+        myBM = new BackendManager();
+        myPC = new ParseCleaner(DEFAULT_LANGUAGE);
+
     }
 
     public void setLanguage(String language){
@@ -28,33 +25,12 @@ public class BackendModel implements BackendAPI {
     }
 
     public void interpret(String text){
-        myBM = new BackendManager(myCM, myVM);
         myCT = new CommandTree(text, myPC, myBM);
-        myTM = new TurtleManager(myBM.getCommandManager());
-    }
-    public ArrayList<TurtleState> getCommands(){return myTM.getCommands();}
-    public BackendManager getBackendManager(){
-        return myBM;
     }
 
-    public CommandManager getCommandManager(){
-        return myCM;
+    public List<TurtleState> getCommands(){
+        return myBM.getCommands();
     }
-
-    public TurtleManager getTurtleManager() { return myTM; }
-
-    public void printCommands(){
-        for (TurtleCommand command : myCM.getCommandList());
-    }
-
-    public void clearCommands(){
-        myTM.clearCommands();
-    }
-
-//    public void printTree(){
-//        myCT.printTree();
-//    }
-
 
 
 }

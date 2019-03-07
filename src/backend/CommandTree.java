@@ -15,7 +15,7 @@ public class CommandTree {
     private int start;
     private int end;
     private CommandFactory myCommandFactory;
-    public BackendManager myBM;
+    private BackendManager myBM;
 
 
     public CommandTree(String text, ParseCleaner clean,  BackendManager bm){

@@ -6,9 +6,14 @@ public class HideTurtleCommand extends StatementCommand {
 
     public HideTurtleCommand(BackendManager bm) {
         super(bm);
-        myMaxChildren = 0;
-        myType = "HideTurtle";
-        myVal = 0;
+        setMaxChildren(0);
+        setType("HideTurtle");
+        setVal(0);
         makeReady();
+    }
+
+    @Override
+    public void update() {
+        getBM().hideTurtle();
     }
 }

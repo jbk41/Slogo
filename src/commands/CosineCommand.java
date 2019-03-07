@@ -6,8 +6,8 @@ public class CosineCommand extends GeneralCommand{
 
     public CosineCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 1;
-        myType = "Cosine";
+        setMaxChildren(1);
+        setType("Cosine");
     }
 
     public void execute(){
@@ -16,6 +16,6 @@ public class CosineCommand extends GeneralCommand{
         var childVals = getChildrenValues();
         double deg = childVals.get(0)*Math.PI/180;
         double cos = Math.cos(deg);
-        myVal = cos;
+        setVal(cos);
     }
 }

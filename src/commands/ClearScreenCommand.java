@@ -6,7 +6,13 @@ public class ClearScreenCommand extends StatementCommand {
 
     public ClearScreenCommand(BackendManager bm){
         super(bm);
-        myType = "ClearScreen";
-        myMaxChildren = 0;
+        setType("ClearScreen");
+        setMaxChildren(0);
+    }
+
+
+    @Override
+    public void update() {
+        getBM().clearScreen();
     }
 }

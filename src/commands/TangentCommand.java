@@ -6,8 +6,8 @@ public class TangentCommand extends GeneralCommand{
 
     public TangentCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 1;
-        myType = "Tangent";
+        setMaxChildren(1);
+        setType("Tangent");
     }
 
     public void execute(){
@@ -15,7 +15,7 @@ public class TangentCommand extends GeneralCommand{
         executeChildren();
         var childVals = getChildrenValues();
         double deg = childVals.get(0)*Math.PI/180;
-        myVal = Math.tan(deg);
+        setVal(Math.tan(deg));
     }
 
 }

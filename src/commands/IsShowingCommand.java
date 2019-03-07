@@ -6,8 +6,8 @@ public class IsShowingCommand extends GeneralCommand {
 
     public IsShowingCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 0;
-        myType = "IsPenDown";
+        setMaxChildren(0);
+        setType("IsPenDown");
         makeReady();
     }
 }

@@ -14,6 +14,9 @@ public class TurtleCommand {
         displacement = 0.0;
         invisible = false;
     }
+
+
+
     public void setPenUp(boolean penUp){this.penUp = penUp;}
     public void setJump(boolean jump){this.jump = jump;}
     public void setDegrees(double degrees){this.degrees = degrees;}

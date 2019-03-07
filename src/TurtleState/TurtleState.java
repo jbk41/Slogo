@@ -7,7 +7,7 @@ public class TurtleState extends State{
     private double myDegrees;
     private boolean isPenDown;
     private boolean isVisible;
-    private double myId;
+    private double myID;
     private boolean myClear;
 
     /**
@@ -32,26 +32,34 @@ public class TurtleState extends State{
         myDegrees = degrees;
         isPenDown = pen;
         isVisible = visible;
-        myId = id;
+        myID = id;
         myClear = clear;
     }
 
-    public double getXPos(){
+    // constructor for initializing turtle
+    public TurtleState(double id){
+        myXPos = 0;
+        myYPos = 0;
+        myDegrees = 0;
+        isPenDown = false;
+        myID = id;
+        myClear = false;
+    }
+
+    public double getX(){
         return myXPos;
     }
 
-    public double getYPos(){
+    public double getY(){
         return myYPos;
     }
 
-    public double getMyDegrees(){
+    public double getDeg(){
         return myDegrees;
     }
 
-    public boolean getPenDown() { return isPenDown; }
-
-    public double getId(){
-        return myId;
+    public double getID(){
+        return myID;
     }
 
     public boolean getPenState(){
