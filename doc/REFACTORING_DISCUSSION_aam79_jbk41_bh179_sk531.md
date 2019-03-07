@@ -10,3 +10,6 @@
 * Before we branched, we changed ArrayLists to Lists for instance variables and return types and HashMaps to Maps for the same.
 * In VariableManager, we removed methods that were unnecessary.
 
+In the Turtle class, we had methods that were longer and could have been split into smaller methods with more specific responsibilities.
+
+
