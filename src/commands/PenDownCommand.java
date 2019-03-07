@@ -6,9 +6,15 @@ public class PenDownCommand extends StatementCommand{
 
     public PenDownCommand(BackendManager bm) {
         super(bm);
-        myMaxChildren = 0;
+        setMaxChildren(0);
         makeReady();
-        myType = "PenDown";
-        myVal = 1.0;
+        setType("PenDown");
+        setVal(1.0);
     }
+
+    @Override
+    public void update() {
+        getBM().penDown();
+    }
+
 }

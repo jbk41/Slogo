@@ -6,8 +6,9 @@ public class IsPenDownCommand extends GeneralCommand {
 
     public IsPenDownCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 0;
-        myType = "IsPenDown";
+        setMaxChildren(0);
+        setType("IsPenDown");
         makeReady();
     }
+
 }

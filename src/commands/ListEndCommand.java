@@ -7,6 +7,6 @@ public class ListEndCommand extends GeneralCommand {
 
     public ListEndCommand(BackendManager bm) {
         super(bm);
-        myType = "ListEnd";
+        setType("ListEnd");
     }
 }

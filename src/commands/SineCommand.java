@@ -6,14 +6,14 @@ public class SineCommand extends GeneralCommand{
 
     public SineCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 1;
-        myType = "Sine";
+        setMaxChildren(1);
+        setType("Sine");
     }
 
     public void execute(){
         checkParameterCount();
         executeChildren();
-        double deg = myChildren.get(0).getVal()*Math.PI/180;
-        myVal = Math.sin(deg);
+        double deg = getChildren().get(0).getVal()*Math.PI/180;
+        setVal(Math.sin(deg));
     }
 }

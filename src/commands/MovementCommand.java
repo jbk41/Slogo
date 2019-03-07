@@ -3,25 +3,24 @@ package commands;
 import TurtleState.TurtleCommand;
 import backend.BackendManager;
 
-public class MovementCommand extends GeneralCommand {
+public abstract class MovementCommand extends GeneralCommand {
 
     public MovementCommand(BackendManager bm){
         super(bm);
     }
 
-
     @Override
     public void execute() {
         checkParameterCount();
         executeChildren();
-        myVal = myChildren.get(0).getVal();
-        TurtleCommand command = new TurtleCommand(this);
-        //System.out.println("adding command");
-        myBM.getCommandManager().addToList(command);
+        setVal(getChildren().get(0).getVal());
+        update();
     }
+
+    protected abstract void update();
 
     @Override
     public String toString() {
-        return myType;
+        return this.getType();
     }
 }

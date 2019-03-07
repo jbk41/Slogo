@@ -8,7 +8,12 @@ public class BackwardCommand extends MovementCommand {
 
     public BackwardCommand (BackendManager bm){
         super(bm);
-        myMaxChildren = 1;
-        myType = "Backward";
+        setMaxChildren(1);
+        setType("Backward");
+    }
+
+
+    @Override
+    protected void update() { getBM().backward(getVal());
     }
 }

@@ -7,8 +7,8 @@ public class SumCommand extends GeneralCommand {
 
     public SumCommand(BackendManager bm) {
         super(bm);
-        myType = "Sum";
-        myMaxChildren = 2;
+        setType("Sum");
+        setMaxChildren(2);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class SumCommand extends GeneralCommand {
         checkParameterCount();
         ArrayList<Double> myChildrenVals = getChildrenValues();
         for (double val : myChildrenVals) {
-            myVal += val;
+            setVal(getVal() + val);
         }
     }
 }

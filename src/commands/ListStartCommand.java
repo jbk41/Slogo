@@ -6,18 +6,22 @@ public class ListStartCommand extends GeneralCommand {
 
     public ListStartCommand(BackendManager bm){
         super(bm);
-        myType = "ListStart";
+        setType("ListStart");
     }
 
     public void execute(){
-        for (GeneralCommand command: myChildren){
+        for (GeneralCommand command: getChildren()){
             command.execute();
         }
     }
 
+    public int getNumActualChildren(){ // excludes the ending ] command
+        return getChildren().size()-1;
+    }
+
     public boolean doesContainEnd(){
         boolean containsEnd = false;
-        for (GeneralCommand c : myChildren){
+        for (GeneralCommand c : getChildren()){
             if (c instanceof ListEndCommand){
                 containsEnd = true;
             }
