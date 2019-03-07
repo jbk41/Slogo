@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class QuotientCommand extends GeneralCommand {
 
     public QuotientCommand(BackendManager bm){
-        super();
+        super(bm);
         myType = "Quotient";
         myMaxChildren = 2;
     }
@@ -13,7 +13,10 @@ public class QuotientCommand extends GeneralCommand {
     public void execute(){
         checkParameterCount();
         executeChildren();
-        var childVals = getChildrenValues();
-        myVal = childVals.get(0)/childVals.get(1);
+        double denominator = myChildren.get(1).getVal();
+        if (denominator == 0){
+            //TODO: throw visible by 0 error
+        }
+        myVal = myChildren.get(0).getVal()/denominator;
     }
 }

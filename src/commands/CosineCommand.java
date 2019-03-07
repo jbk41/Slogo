@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class CosineCommand extends GeneralCommand{
 
     public CosineCommand(BackendManager bm){
-        super();
+        super(bm);
         myMaxChildren = 1;
         myType = "Cosine";
     }

@@ -38,14 +38,19 @@ public class CommandFactory {
     private GeneralCommand makeCommand(List<String> list) {
         try {
             Class clazz = Class.forName("commands." + list.get(0) + "Command");
-            if (list.size() == 1) return (GeneralCommand) clazz.getConstructor(BackendManager.class).newInstance(BM);
-            else if (list.get(0).equals("Constant")) return (GeneralCommand) clazz.getConstructor(double.class).newInstance(Double.parseDouble(list.get(1)));
-            else  return (GeneralCommand) clazz.getConstructor(BackendManager.class, String.class).newInstance(BM, list.get(1));
+            if (list.size() == 1)
+                return (GeneralCommand) clazz.getConstructor(BackendManager.class).newInstance(BM);
+            else if (list.get(0).equals("Constant")) {
+                System.out.println("making constant class");
+                return (GeneralCommand) clazz.getConstructor(BackendManager.class, double.class).newInstance(BM, Double.parseDouble(list.get(1)));
+            }
+            else
+                return (GeneralCommand) clazz.getConstructor(BackendManager.class, String.class).newInstance(BM, list.get(1));
         } catch (InstantiationException e) { System.out.println("The Command Could not be instantiated");
         } catch (InvocationTargetException e) { e.printStackTrace();
-        } catch (NoSuchMethodException e) { System.out.println(e + ": This Command does not exist");
+        } catch (NoSuchMethodException e) { System.out.println(e + ": " + list.get(0) + " Command does not exist");
         } catch (IllegalAccessException e) { e.printStackTrace();
-        } catch (ClassNotFoundException e) { System.out.println(e + ": This Command does not exist"); }
+        } catch (ClassNotFoundException e) { System.out.println(e + ": " + list.get(0) + " This Command does not exist"); }
         return null;
     }
 

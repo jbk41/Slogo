@@ -17,10 +17,12 @@ public abstract class GeneralCommand {
     protected int myMaxChildren;
     protected boolean isReady;
     protected double myVal;
+    protected BackendManager myBM;
 
-    protected GeneralCommand(){
+    protected GeneralCommand(BackendManager bm){
         myChildren = new ArrayList<>();
         isReady = false;
+        myBM = bm;
     }
 
     public List<GeneralCommand> getChildren(){
@@ -119,17 +121,6 @@ public abstract class GeneralCommand {
         if (!myChildren.contains(command)){
             throw new IllegalArgumentException("Command is not in list of children");
         }
-//        if (!(command instanceof VariableCommand || command instanceof ConstantCommand)){
-//            throw new IllegalArgumentException("Only accepts variable and constant types");
-//        }
-//        if (command instanceof VariableCommand){
-//            VariableCommand vc = (VariableCommand) command;
-//            return vc.getVal();
-//        }
-//        else { // is constant command
-//            ConstantCommand cc = (ConstantCommand) command;
-//            return cc.getVal();
-//        }
         return command.getVal();
     }
 

@@ -13,4 +13,16 @@ public class VariableManager {
     }
 
     public Map<String, Double> getVariableMap() { return variableMap; }
+
+    public void set(String varName, double val){
+        variableMap.put(varName, val);
+    }
+
+    public boolean contains(String varName){
+        return variableMap.containsKey(varName);
+    }
+
+    public double getVal(String varName){
+        return variableMap.get(varName);
+    }
 }

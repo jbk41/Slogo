@@ -5,6 +5,7 @@ import backend.BackendManager;
 public class ArcTangentCommand extends GeneralCommand{
 
     public ArcTangentCommand(BackendManager bm){
+        super(bm);
         myMaxChildren = 1;
         myType = "ArcTangent";
     }

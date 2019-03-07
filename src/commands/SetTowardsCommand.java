@@ -2,13 +2,14 @@ package commands;
 
 import TurtleState.TurtleCommand;
 import backend.BackendManager;
+import TurtleState.TurtleCommand;
 
-public class MovementCommand extends GeneralCommand {
-
-    public MovementCommand(BackendManager bm){
+public class SetTowardsCommand extends MovementCommand {
+    public SetTowardsCommand(BackendManager bm){
         super(bm);
+        myMaxChildren = 2;
+        myType = "SetTowards";
     }
-
 
     @Override
     public void execute() {
@@ -18,10 +19,5 @@ public class MovementCommand extends GeneralCommand {
         TurtleCommand command = new TurtleCommand(this);
         //System.out.println("adding command");
         myBM.getCommandManager().addToList(command);
-    }
-
-    @Override
-    public String toString() {
-        return myType;
     }
 }

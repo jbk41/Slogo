@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class MinusCommand extends GeneralCommand{
 
     public MinusCommand(BackendManager bm) {
-        super();
+        super(bm);
         myMaxChildren = 1;
         myType = "Minus";
     }

@@ -2,11 +2,11 @@ package commands;
 
 import backend.BackendManager;
 
-public class ForCommand extends GeneralCommand {
+public class DoTimesCommand extends GeneralCommand {
 
-    public ForCommand(BackendManager bm){
+    public DoTimesCommand(BackendManager bm){
         super(bm);
-        myType = "For";
+        myType = "DoTimes";
         myMaxChildren = 2;
     }
 
@@ -14,12 +14,10 @@ public class ForCommand extends GeneralCommand {
         GeneralCommand conditionCommand = myChildren.get(0);
         GeneralCommand executeCommand = myChildren.get(1);
 
+        double numTimes = conditionCommand.getChildren().get(1).getVal();
         VariableCommand var = (VariableCommand) conditionCommand.getChildren().get(0);
-        double start = conditionCommand.getChildren().get(1).getVal();
-        double end = conditionCommand.getChildren().get(2).getVal();
-        double step = conditionCommand.getChildren().get(3).getVal();
 
-        for (double i = start; i < end; i += step){
+        for (double i = 1; i < numTimes; i++){
             myBM.setVariable(var.getVarName(), i);
             executeCommand.execute();
             myVal = i;
