@@ -12,8 +12,6 @@ public class VariableManager {
         variableMap = new HashMap<String, Double>();
     }
 
-    public Map<String, Double> getVariableMap() { return variableMap; }
-
     public void set(String varName, double val){
         variableMap.put(varName, val);
     }

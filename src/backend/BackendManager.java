@@ -12,12 +12,11 @@ public class BackendManager implements BackendManagerAPI{
     private CommandManager myCM;
     private VariableManager myVM;
     private TurtleManager myTM;
-    private ArrayList<TurtleState> myCommands;
+    private List<TurtleState> myCommands;
 
     public BackendManager(){
         myCM = new CommandManager();
         myVM = new VariableManager();
-
         myCommands = new ArrayList<TurtleState>();
     }
 
@@ -273,6 +272,10 @@ public class BackendManager implements BackendManagerAPI{
         return myTM.getActiveTurtles();
     }
 
+
+    public List<TurtleState> getCommands(){
+        return myCommands;
+    }
 
 
 }
