@@ -15,6 +15,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import TurtleState.TurtleState;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Turtle {
@@ -24,7 +27,7 @@ public class Turtle {
     private SequentialTransition sequentialTransition;
     private TurtleDisplay pane;
     private Canvas canvas;
-    private Paint PEN_COLOR;
+    public Paint PEN_COLOR;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
 
@@ -32,22 +35,6 @@ public class Turtle {
         this.pane = pane;
         this.canvas = canvas;
         addTurtleToRoot(TURTLE_IMAGE);
-    }
-    public void setPEN_COLOR(Paint color){
-        PEN_COLOR = color;
-    }
-    public void setPEN_SIZE(int size){
-        PEN_SIZE = size;
-    }
-
-    public void setTurtleImage(String imageName){
-        TURTLE_IMAGE = imageName;
-        pane.getChildren().remove(turtleImageView);
-        addTurtleToRoot(imageName);
-    }
-
-    public void setAnimationSpeed(int newSpeed){
-        ANIMATION_SPEED = newSpeed;
     }
     private void clearScreen(){
         this.canvas = pane.createNewCanvas();
@@ -72,11 +59,11 @@ public class Turtle {
     /**
      * sets the turtle location to the center of the screen
      */
-    public void setDefaultTurtleLocation(){
+    void setDefaultTurtleLocation(){
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
-    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole){
+    void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole, List<TurtleState> history){
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
@@ -85,6 +72,7 @@ public class Turtle {
         double prevDegrees = 0.0;
         for(int x = 0; x < turtleStateList.size(); x ++){
             TurtleState currentTurtleState = turtleStateList.get(x);
+            history.add(currentTurtleState);
             double degrees = currentTurtleState.getMyDegrees();
             RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
             sequentialTransition.getChildren().add(rt);
@@ -162,7 +150,46 @@ public class Turtle {
         return y < 0 || y > pane.getPrefHeight();
     }
 
-    public String getState(double x, double y, double heading, boolean pen){
-        return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading: " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
+    void setPEN_COLOR(Paint color){
+        PEN_COLOR = color;
+    }
+    void setPEN_SIZE(int size){
+        PEN_SIZE = size;
+    }
+
+    private void setTurtleImage(String imageName){
+        TURTLE_IMAGE = imageName;
+        pane.getChildren().remove(turtleImageView);
+        addTurtleToRoot(imageName);
+    }
+
+    public void setAnimationSpeed(int newSpeed){
+        ANIMATION_SPEED = newSpeed;
+    }
+
+    String getState(double x, double y, double heading, boolean pen){
+        DecimalFormat df = new DecimalFormat("##.#");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return "X: " + df.format(x) + "\r\n" + "Y: " + df.format(y) + "\r\n" + "Heading: " + df.format(heading) + "\r\n"  + "Pen: " + pen + "\r\n";
+    }
+
+    ImageView getTurtleImageView(){
+        return turtleImageView;
+    }
+
+    double getDefaultX(){
+        return pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2;
+    }
+
+    double getDefaultY(){
+        return pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2;
+    }
+
+    double getCenterX(){
+        return 0;
+    }
+
+    GraphicsContext getGraphics(){
+        return gc;
     }
 }
