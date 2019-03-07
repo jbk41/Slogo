@@ -31,7 +31,10 @@ public class Turtle {
     private Paint PEN_COLOR;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
-
+    private double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+    private double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
+    private double oldX;
+    private double oldY;
     public Turtle(TurtleDisplay pane, Canvas canvas){
         this.pane = pane;
         this.canvas = canvas;
@@ -79,26 +82,26 @@ public class Turtle {
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
-    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole){
+    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole) {
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
-        double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2;
-        double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2;
+        double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
+        double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
         double prevDegrees = 0.0;
-        for(int x = 0; x < turtleStateList.size(); x ++){
+        for (int x = 0; x < turtleStateList.size(); x++) {
             TurtleState currentTurtleState = turtleStateList.get(x);
-            double degrees = currentTurtleState.getMyDegrees();
+            double degrees = currentTurtleState.getDeg();
             RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
             sequentialTransition.getChildren().add(rt);
             prevDegrees = degrees;
-            double newX = currentTurtleState.getXPos() + defaultX;
-            double newY = defaultY - currentTurtleState.getYPos();
-            if(turtleXPosition() == newX && turtleYPosition() == newY){
-                if(currentTurtleState.getClear()){
-                    newX = currentTurtleState.getXPos() + xAtZero;
-                    newY = yAtZero - currentTurtleState.getYPos();
-                }else{
+            double newX = currentTurtleState.getX() + defaultX;
+            double newY = defaultY - currentTurtleState.getY();
+            if (turtleXPosition() == newX && turtleYPosition() == newY) {
+                if (currentTurtleState.getClear()) {
+                    newX = currentTurtleState.getX() + xAtZero;
+                    newY = yAtZero - currentTurtleState.getY();
+                } else {
                     continue;
                 }
             }
@@ -106,17 +109,14 @@ public class Turtle {
             sequentialTransition.getChildren().add(pathTransition);
         }
         sequentialTransition.play();
+    }
     private Path createPath(double newX, double newY){
         Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(newX, newY));
             this.turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
             this.turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
-            PathTransition pathTransition = createTransition(path, turtleStateList.get(x), stateConsole);
-            sequentialTransition.getChildren().add(pathTransition);
-        }
-
-        sequentialTransition.play();
+            return path;
     }
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);
@@ -132,31 +132,31 @@ public class Turtle {
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
         gc = canvas.getGraphicsContext2D();
-        pathTransition.currentTimeProperty().addListener(() -> drawLine());
+        pathTransition.currentTimeProperty().addListener(e -> drawLine(turtleState, stateConsole));
         return pathTransition;
     }
-    private void drawLine(){
-        double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
-                double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
-                if(oldX == 0){
-                    oldX = x;
-                    oldY = y;
-                }
-                if(turtleState.getPenState()) {
-                    gc.setStroke(PEN_COLOR);
-                    gc.setLineWidth(PEN_SIZE);
-                    gc.strokeLine(oldX, oldY, x, y);
-                }
-                oldX = x;
-                oldY = y;
-                if(turtleState.getClear()){clearScreen();}
-                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || !turtleState.getVisibility()){
-                    turtleImageView.setVisible(false);
-                }else{
-                    turtleImageView.setVisible(true);
-                }
-                stateConsole.getItems().clear();
-                stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
+    private void drawLine(TurtleState turtleState, Console stateConsole) {
+        if (oldX == 0) {
+            oldX = x;
+            oldY = y;
+        }
+        if (turtleState.getPenState()) {
+            gc.setStroke(PEN_COLOR);
+            gc.setLineWidth(PEN_SIZE);
+            gc.strokeLine(oldX, oldY, x, y);
+        }
+        oldX = x;
+        oldY = y;
+        if (turtleState.getClear()) {
+            clearScreen();
+        }
+        if (checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || !turtleState.getVisibility()) {
+            turtleImageView.setVisible(false);
+        } else {
+            turtleImageView.setVisible(true);
+        }
+        stateConsole.getItems().clear();
+        stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getX(), turtleState.getY(), turtleState.getDeg(), turtleState.getPenState()));
     }
     private Boolean checkWidthOutOfBounds(double x){
         return x < 0 || x > pane.getPrefWidth();
