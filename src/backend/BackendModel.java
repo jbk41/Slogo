@@ -4,6 +4,7 @@ import TurtleState.TurtleState;
 import parser.ParseCleaner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BackendModel implements BackendAPI {
 
@@ -28,7 +29,7 @@ public class BackendModel implements BackendAPI {
     public void interpret(String text){
         myCT = new CommandTree(text, myPC, myBM);
     }
-    public ArrayList<TurtleState> getCommands(){return myBM.getCommands();}
+    public List<TurtleState> getCommands(){return myBM.getCommands();}
 
     public BackendManager getBackendManager(){
         return myBM;
