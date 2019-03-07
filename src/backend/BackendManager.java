@@ -99,6 +99,16 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     public void setTowards(double x, double y) {
+        List<Double> activeTurtles = myTM.getActiveTurtles();
+        for (int i = 0; i < activeTurtles.size(); i ++) {
+            double turtleID = activeTurtles.get(i);
+            TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
+
+
+
+        }
+
+
         var curr_x = turtle.getX();
         var curr_y = turtle.getY();
         var new_x = curr_x - x;
