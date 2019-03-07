@@ -7,25 +7,25 @@ import java.util.ArrayList;
 
 public class BackendModel implements BackendAPI {
 
+    final static String DEFAULT_LANGUAGE = "English";
 
     private BackendManager myBM;
-    private CommandManager myCM;
-    private VariableManager myVM;
     private CommandTree myCT;
     private ParseCleaner myPC;
     private TurtleManager myTM;
 
     public BackendModel(){
-        myCM = new CommandManager();
-        myVM = new VariableManager();
+        myBM = new BackendManager();
+        myPC = new ParseCleaner(DEFAULT_LANGUAGE);
+
     }
 
     public void setLanguage(String language){
+
         myPC = new ParseCleaner(language);
     }
 
     public void interpret(String text){
-        myBM = new BackendManager();
         myCT = new CommandTree(text, myPC, myBM);
     }
     public ArrayList<TurtleState> getCommands(){return myBM.getCommands();}

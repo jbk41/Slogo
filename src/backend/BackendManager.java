@@ -9,10 +9,10 @@ import java.util.List;
 
 public class BackendManager implements BackendManagerAPI{
 
-    public CommandManager myCM;
-    public VariableManager myVM;
-    public TurtleManager myTM;
-    public ArrayList<TurtleState> myCommands;
+    private CommandManager myCM;
+    private VariableManager myVM;
+    private TurtleManager myTM;
+    private ArrayList<TurtleState> myCommands;
 
     public BackendManager(){
         myCM = new CommandManager();
@@ -239,8 +239,6 @@ public class BackendManager implements BackendManagerAPI{
     public double getVariable(String varName){
         return myVM.getVal(varName);
     }
-
-
 
 
     /*

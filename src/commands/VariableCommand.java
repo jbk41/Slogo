@@ -6,7 +6,7 @@ import java.security.InvalidKeyException;
 
 public class VariableCommand extends GeneralCommand{
 
-    public String myName;
+    private String myName;
 
     public VariableCommand(BackendManager bm, String name){
         super(bm);

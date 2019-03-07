@@ -11,13 +11,13 @@ public class GeneralCommand {
     /**
      * @author Justin Kim
      */
-    protected List<GeneralCommand> myChildren;
-    protected GeneralCommand myParent;
-    protected String myType;
-    protected int myMaxChildren;
-    protected boolean isReady;
-    protected double myVal;
-    protected BackendManager myBM;
+    private List<GeneralCommand> myChildren;
+    private GeneralCommand myParent;
+    private String myType;
+    private int myMaxChildren;
+    private boolean isReady;
+    private double myVal;
+    private BackendManager myBM;
 
     protected GeneralCommand(BackendManager bm){
         myChildren = new ArrayList<>();
