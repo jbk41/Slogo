@@ -1,5 +1,6 @@
 package Visualization;
 
+import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -40,12 +41,6 @@ public class Turtle {
         PEN_SIZE = size;
     }
 
-    public void setTurtleImage(String imageName){
-        TURTLE_IMAGE = imageName;
-        pane.getChildren().remove(turtleImageView);
-        addTurtleToRoot(imageName);
-    }
-
     public void setAnimationSpeed(int newSpeed){
         ANIMATION_SPEED = newSpeed;
     }
@@ -54,10 +49,15 @@ public class Turtle {
         gc = canvas.getGraphicsContext2D();
         setTurtleImage(TURTLE_IMAGE);
     }
+    public void setTurtleImage(String imageName){
+        TURTLE_IMAGE = imageName;
+        pane.getChildren().remove(this.turtleImageView);
+        addTurtleToRoot(imageName);
+    }
     private void addTurtleToRoot(String imageName){
         Image turtleImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName));
-        turtleImageView = new ImageView(turtleImage);
-        pane.getChildren().add(turtleImageView);
+        this.turtleImageView = new ImageView(turtleImage);
+        pane.getChildren().add(this.turtleImageView);
         setDefaultTurtleLocation();
     }
 
@@ -73,8 +73,8 @@ public class Turtle {
      * sets the turtle location to the center of the screen
      */
     public void setDefaultTurtleLocation(){
-        turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
-        turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
+        this.turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
+        this.turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
     public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole){
         sequentialTransition = new SequentialTransition();
@@ -102,13 +102,13 @@ public class Turtle {
             Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(newX, newY));
-            turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
-            turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
+            this.turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
+            this.turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
             PathTransition pathTransition = createTransition(path, turtleStateList.get(x), stateConsole);
             sequentialTransition.getChildren().add(pathTransition);
         }
-        sequentialTransition.play();
 
+        sequentialTransition.play();
     }
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);
