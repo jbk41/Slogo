@@ -10,16 +10,12 @@ public class LeftCommand extends MovementCommand {
 
     public LeftCommand (BackendManager bm){
         super(bm);
-        myType = "Left";
-        myMaxChildren = 1;
-    }
-
-    public LeftCommand(GeneralCommand c){
-        super(c);
+        setType("Left");
+        setMaxChildren(1);
     }
 
     @Override
     protected void update() {
-        myBM.left(myVal);
+        getBM().left(getVal());
     }
 }

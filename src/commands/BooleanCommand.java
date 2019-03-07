@@ -6,12 +6,9 @@ public abstract class BooleanCommand extends GeneralCommand {
 
     public BooleanCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 2;
+        setMaxChildren(2);
     }
 
-    public BooleanCommand(GeneralCommand c){
-        super(c);
-    }
 
     @Override
     public void execute(){
@@ -22,7 +19,7 @@ public abstract class BooleanCommand extends GeneralCommand {
         if (evaluate(childVals.get(0), childVals.get(1))){
             returnVal = 1;
         }
-        myVal = returnVal;
+        setVal(returnVal);
     }
 
     protected abstract boolean evaluate(double a, double b);

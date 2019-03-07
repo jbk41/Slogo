@@ -7,17 +7,12 @@ public class UndefinedCommand extends GeneralCommand{
 
     public UndefinedCommand(BackendManager bm, String name){
         super(bm);
-        myType = "Undefined";
-        myMaxChildren = 0;
+        setType("Undefined");
+        setMaxChildren(0);
         myName = name;
     }
 
-    public UndefinedCommand(GeneralCommand c) {
-        super(c);
-    }
-
     public String getCommandName(){
-
         return myName;
     }
 }

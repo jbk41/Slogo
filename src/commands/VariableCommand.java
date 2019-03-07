@@ -2,7 +2,6 @@ package commands;
 
 import backend.BackendManager;
 
-import java.security.InvalidKeyException;
 
 public class VariableCommand extends GeneralCommand{
 
@@ -10,26 +9,18 @@ public class VariableCommand extends GeneralCommand{
 
     public VariableCommand(BackendManager bm, String name){
         super(bm);
-        myType = "Variable";
-        myMaxChildren = 0;
+       setType("Variable");
+        setMaxChildren(0);
         myName = name;
-        //makeReady(); // variables should be ready upon initialization
     }
 
-    public VariableCommand(GeneralCommand c){
-        super(c);
-        if (c instanceof VariableCommand){
-            VariableCommand vc = (VariableCommand) c;
-            myName = vc.getVarName();
-        }
-    }
 
     public void execute() {
-        if(myBM.hasVariable(myName)) {
-            myVal = myBM.getVariable(myName);
+        if(getBM().hasVariable(myName)) {
+            setVal(getBM().getVariable(myName));
         }
         else {
-            myVal = 0;
+            setVal(0);
         }
     }
 

@@ -6,12 +6,8 @@ public class ArcTangentCommand extends GeneralCommand{
 
     public ArcTangentCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 1;
-        myType = "ArcTangent";
-    }
-
-    public ArcTangentCommand(GeneralCommand c){
-        super(c);
+        setMaxChildren(1);
+        setType("ArcTangent");
     }
 
     @Override
@@ -22,6 +18,6 @@ public class ArcTangentCommand extends GeneralCommand{
         double val = myVals.get(0);
         double deg = val*Math.PI/180;
         double atan = Math.atan(deg);
-        myVal = atan;
+        setVal(atan);
     }
 }

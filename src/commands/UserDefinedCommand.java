@@ -5,19 +5,16 @@ public class UserDefinedCommand extends GeneralCommand {
 
 
     private int maxArgs;
+
     private String myCommandName;
 
     public UserDefinedCommand(BackendManager bm, String commandName, GeneralCommand vars, GeneralCommand commands){
         super(bm);
-        myType = "UserDefined";
-        myMaxChildren = 2;
+        setType("UserDefined");
+        setMaxChildren(2);
         setMaxArgs();
-        myChildren.add(vars);
-        myChildren.add(commands);
-    }
-
-    public UserDefinedCommand(GeneralCommand c){
-        super(c);
+        getChildren().add(vars);
+        getChildren().add(commands);
     }
 
     public int getMaxArgs(){
@@ -29,7 +26,7 @@ public class UserDefinedCommand extends GeneralCommand {
     }
 
     private void setMaxArgs(){
-        GeneralCommand v = myChildren.get(0);
+        GeneralCommand v = getChildren().get(0);
         if (v instanceof ListStartCommand){
             ListStartCommand vars = (ListStartCommand) v;
             maxArgs = vars.getNumActualChildren();
@@ -39,7 +36,6 @@ public class UserDefinedCommand extends GeneralCommand {
         }
     }
 
-    public void execute() {
-        myBM.addUserDefinedCommand(this);
+    public void execute() { getBM().addUserDefinedCommand(this);
     }
 }
