@@ -18,4 +18,16 @@ public class BackendManager {
 
     public VariableManager getVariableManager() { return myVM; }
 
+    public void setVariable(String varName, double val){
+        myVM.set(varName, val);
+    }
+
+    public boolean hasVariable(String varName){
+        return myVM.contains(varName);
+    }
+
+    public double getValOfVar(String varName){
+        return myVM.getVal(varName);
+    }
+
 }

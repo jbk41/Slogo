@@ -5,7 +5,7 @@ import backend.BackendManager;
 public class DifferenceCommand extends GeneralCommand {
 
     public DifferenceCommand(BackendManager bm){
-        super();
+        super(bm);
         myType = "Difference";
         myMaxChildren = 2;
     }
