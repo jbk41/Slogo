@@ -124,12 +124,11 @@ public class Turtle {
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
         gc = canvas.getGraphicsContext2D();
-        pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            double oldX;
-            double oldY;
-            @Override
-            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
-                double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+        pathTransition.currentTimeProperty().addListener(() -> drawLine());
+        return pathTransition;
+    }
+    private void drawLine(){
+        double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
                 double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
                 if(oldX == 0){
                     oldX = x;
@@ -150,10 +149,6 @@ public class Turtle {
                 }
                 stateConsole.getItems().clear();
                 stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
-
-            }
-        });
-        return pathTransition;
     }
     private Boolean checkWidthOutOfBounds(double x){
         return x < 0 || x > pane.getPrefWidth();
