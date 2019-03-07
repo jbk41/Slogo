@@ -15,6 +15,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import TurtleState.TurtleState;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Turtle {
@@ -162,7 +165,34 @@ public class Turtle {
         return y < 0 || y > pane.getPrefHeight();
     }
 
-    public String getState(double x, double y, double heading, boolean pen){
-        return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading: " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
+
+    String getState(double x, double y, double heading, boolean pen){
+        DecimalFormat df = new DecimalFormat("##.#");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return "X: " + df.format(x) + "\r\n" + "Y: " + df.format(y) + "\r\n" + "Heading: " + df.format(heading) + "\r\n"  + "Pen: " + pen + "\r\n";
+    }
+
+    ImageView getTurtleImageView(){
+        return turtleImageView;
+    }
+
+    double getDefaultX(){
+        return pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2;
+    }
+
+    double getDefaultY(){
+        return pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2;
+    }
+
+    double getCenterX(){
+        return 0;
+    }
+
+    double getPenSize(){
+        return PEN_SIZE;
+    }
+
+    GraphicsContext getGraphics(){
+        return gc;
     }
 }
