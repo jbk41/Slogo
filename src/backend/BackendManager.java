@@ -22,38 +22,80 @@ public class BackendManager implements BackendManagerAPI{
     /*
     Sets values of turtles
      */
-    public void forward(double val) {
-        var x = turtle.getX();
-        var y = turtle.getY();
-        var deg = turtle.getDeg();
-        x += val * Math.sin(deg * Math.PI / 180);
-        y += val * Math.cos(deg * Math.PI / 180);
-        TurtleState state = new TurtleState(x, y, deg, turtle.getPen(), turtle.getVisible, turtle, false);
+    public void forward(double dist) {
+
+        List<Double> activeTurtles = myTM.getActiveTurtles();
+        for (int i = 0; i < activeTurtles.size(); i ++){
+            double turtleID = activeTurtles.get(i);
+            TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
+
+            double currX = currentTurtle.getX();
+            double currY = currentTurtle.getY();
+
+            double deg = currentTurtle.getDeg();
+            double newX = currX + dist * Math.sin(deg * Math.PI / 180);
+            double newY = currY + dist * Math.cos(deg * Math.PI / 180);
+            boolean clearState = false;
+
+            TurtleState newState = new TurtleState(
+                    newX,
+                    newY,
+                    deg,
+                    currentTurtle.getPenState(),
+                    currentTurtle.getVisibility(),
+                    turtleID,
+                    clearState);
+            //TODO: add new State to list of states
+        }
+
     }
 
-    public void backward(double val) {
-        var x = turtle.getX();
-        var y = turtle.getY();
-        var deg = turtle.getDeg();
-        x -= val * Math.sin(deg * Math.PI / 180);
-        y -= val * Math.cos(deg * Math.PI / 180);
-        TurtleState state = new TurtleState(x, y, deg, turtle.getPen(), turtle.getVisible, turtle, false);
+    public void backward(double dist) {
+        forward(dist * -1);
     }
 
-    public void left(double val) {
-        var deg = turtle.getDeg();
-        deg -= val;
-        TurtleState state = new TurtleState(turtle.getX(), turtle.getY(), deg, turtle.getPen(), turtle.getVisible, turtle, false);
+    public void left(double deg) {
+
+        List<Double> activeTurtles = myTM.getActiveTurtles();
+        for (int i = 0; i < activeTurtles.size(); i ++){
+            double turtleID = activeTurtles.get(i);
+            TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
+
+            double currDeg = currentTurtle.getDeg();
+            double newDeg = currentTurtle.getDeg() - deg;
+
+            TurtleState newState = new TurtleState(
+                    currentTurtle.getX(),
+                    currentTurtle.getY(),
+                    newDeg,
+                    currentTurtle.getPenState(),
+                    currentTurtle.getVisibility(),
+                    turtleID,
+                    false);
+            //TODO: add new State to list of states
+        }
     }
 
     public void right(double deg) {
-        var deg = turtle.getDeg();
-        deg += val;
-        TurtleState state = new TurtleState(turtle.getX(), turtle.getY(), deg, turtle.getPen(), turtle.getVisible, turtle, false);
+        left(deg * -1);
     }
 
     public void setHeading(double deg) {
-        TurtleState state = new TurtleState(turtle.getX(), turtle.getY(), deg, turtle.getPen(), turtle.getVisible, turtle, false);
+        List<Double> activeTurtles = myTM.getActiveTurtles();
+        for (int i = 0; i < activeTurtles.size(); i ++) {
+            double turtleID = activeTurtles.get(i);
+            TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
+            TurtleState newState = new TurtleState(
+                    currentTurtle.getX(),
+                    currentTurtle.getY(),
+                    deg,
+                    currentTurtle.getPenState(),
+                    currentTurtle.getVisibility(),
+                    turtleID,
+                    false);
+            //TODO: add newState
+        }
+
     }
 
     public void setTowards(double x, double y) {
@@ -142,5 +184,11 @@ public class BackendManager implements BackendManagerAPI{
     public int getNumberActiveTurtles(){
         return myTM.getNumberActiveTurtles();
     }
+
+    public List<Double> getActiveTurtles(){
+        return myTM.getActiveTurtles();
+    }
+
+
 
 }

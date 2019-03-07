@@ -21,6 +21,8 @@ public class TellCommand extends GeneralCommand {
         }
 
         myBM.setTurtles(turtleIDs);
+
+        myVal = turtleIDs.get(turtleIDs.size()-1);
     }
 
 }

@@ -7,7 +7,7 @@ public class TurtleState {
     private double myDegrees;
     private boolean isPenDown;
     private boolean isVisible;
-    private double myId;
+    private double myID;
     private boolean myClear;
 
     /**
@@ -26,13 +26,13 @@ public class TurtleState {
      * @param
      */
 
-    public TurtleState(double xPos, double yPos, double degrees, boolean pen, boolean visible, int id, boolean clear){
+    public TurtleState(double xPos, double yPos, double degrees, boolean pen, boolean visible, double id, boolean clear){
         myXPos = xPos;
         myYPos = yPos;
         myDegrees = degrees;
         isPenDown = pen;
         isVisible = visible;
-        myId = id;
+        myID = id;
         myClear = clear;
     }
 
@@ -42,26 +42,24 @@ public class TurtleState {
         myYPos = 0;
         myDegrees = 0;
         isPenDown = false;
-        myId = id;
+        myID = id;
         myClear = false;
     }
 
-    public double getXPos(){
+    public double getX(){
         return myXPos;
     }
 
-    public double getYPos(){
+    public double getY(){
         return myYPos;
     }
 
-    public double getMyDegrees(){
+    public double getDeg(){
         return myDegrees;
     }
 
-    public boolean getPenDown() { return isPenDown; }
-
-    public double getId(){
-        return myId;
+    public double getID(){
+        return myID;
     }
 
     public boolean getPenState(){
