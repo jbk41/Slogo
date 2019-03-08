@@ -163,7 +163,7 @@ public class Turtle {
                     oldX = x;
                     oldY = y;
                 }
-                if(turtleState.getPenState()) {
+                if(!turtleState.getPenState()) {
                     gc.setStroke(PEN_COLOR);
                     gc.setLineWidth(PEN_SIZE);
                     gc.strokeLine(oldX, oldY, x, y);
@@ -171,7 +171,7 @@ public class Turtle {
                 oldX = x;
                 oldY = y;
                 if(turtleState.getClear()){clearScreen();}
-                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || !turtleState.getVisibility()){
+                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || turtleState.getVisibility()){
                     turtleImageView.setVisible(false);
                 }else{
                     turtleImageView.setVisible(true);
