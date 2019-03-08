@@ -1,6 +1,6 @@
-package TurtleState;
+package Executable;
 
-public class TurtleState {
+public class TurtleState extends Executable{
 
     private double myXPos;
     private double myYPos;

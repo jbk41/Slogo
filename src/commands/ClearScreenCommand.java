@@ -13,6 +13,7 @@ public class ClearScreenCommand extends StatementCommand {
 
     @Override
     public void update() {
+        checkParameterCount();
         getBM().clearScreen();
     }
 }

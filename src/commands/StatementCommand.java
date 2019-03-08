@@ -1,6 +1,5 @@
 package commands;
 
-import TurtleState.TurtleCommand;
 import backend.BackendManager;
 
 public abstract class StatementCommand extends GeneralCommand {

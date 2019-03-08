@@ -15,7 +15,8 @@ public class QuotientCommand extends GeneralCommand {
         executeChildren();
         double denominator = getChildren().get(1).getVal();
         if (denominator == 0){
-            //TODO: throw visible by 0 error
+            getBM().throwError("Divide by 0", getLineNumber());
+            return;
         }
         setVal(getChildren().get(0).getVal()/denominator);
     }

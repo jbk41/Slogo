@@ -7,7 +7,17 @@ public class IsShowingCommand extends GeneralCommand {
     public IsShowingCommand(BackendManager bm){
         super(bm);
         setMaxChildren(0);
-        setType("IsPenDown");
+        setType("IsShowing");
         makeReady();
+    }
+
+    public void execute(){
+        if (getBM().getCurrentTurtle().getVisibility()){
+            setVal(1);
+        }
+        else {
+            setVal(0);
+        }
+
     }
 }

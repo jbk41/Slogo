@@ -1,7 +1,7 @@
 package Visualization;
 
 
-import TurtleState.TurtleState;
+import Executable.TurtleState;
 import backend.BackendModel;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,7 +14,6 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 

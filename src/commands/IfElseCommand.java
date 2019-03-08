@@ -15,6 +15,10 @@ public class IfElseCommand extends GeneralCommand{
         GeneralCommand ifCommand = getChildren().get(1);
         GeneralCommand elseCommand = getChildren().get(2);
 
+        if (!(ifCommand instanceof ListStartCommand && elseCommand instanceof ListStartCommand)){
+            getBM().throwError("IfElse requires two lists as parameters", getLineNumber());
+            return;
+        }
         conditionCommand.execute();
 
         if (conditionCommand.getVal() != 0){

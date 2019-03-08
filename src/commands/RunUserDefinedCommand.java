@@ -8,6 +8,9 @@ public class RunUserDefinedCommand extends GeneralCommand {
 
     public RunUserDefinedCommand(BackendManager bm, String commandName){
         super(bm);
+        if (!getBM().containsCommand(commandName)){
+            getBM().throwError("Unrecognizable command", getLineNumber());
+        }
         userDefinedCommand = bm.getUserCommand(commandName);
         setMaxChildren(userDefinedCommand.getMaxArgs());
     }
@@ -16,7 +19,8 @@ public class RunUserDefinedCommand extends GeneralCommand {
         GeneralCommand vars = userDefinedCommand.getChildren().get(0);
         GeneralCommand commands = userDefinedCommand.getChildren().get(1);
         if (getMaxChildren() != userDefinedCommand.getMaxArgs()){
-            //TODO: throw an error because userDefinedCommand needs to have
+            getBM().throwError("Wrong number of requirements for user defined command", getLineNumber());
+            return;
         }
         for (int i = 0; i < getMaxChildren(); i++){
             GeneralCommand temp = vars.getChildren().get(i);
@@ -26,7 +30,8 @@ public class RunUserDefinedCommand extends GeneralCommand {
                 getBM().setVariable(vc.getVarName(), getChildren().get(i).getVal());
             }
             else {
-                //TODO: throw and error. must be of type VariableCommand
+                getBM().throwError("Requires variable command", getLineNumber());
+                return;
             }
         }
         commands.execute();

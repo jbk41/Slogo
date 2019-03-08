@@ -1,6 +1,6 @@
 package backend;
 
-import TurtleState.TurtleState;
+import Executable.*;
 import parser.ParseCleaner;
 
 import java.util.Collections;
@@ -40,9 +40,23 @@ public class BackendModel implements BackendAPI {
         myBM.setVariable(key, val);
     }
 
-    public List<TurtleState> getCommands(){
+    public List<Executable> getCommands(){
         return myBM.getCommands();
     }
 
+    public void setBackgroundIndex(double backgroundIndex){
+        myBM.getCurrentEnvironment().setBackgroundIndex(backgroundIndex);
+    }
 
+    public void setColorIndex(double colorIndex){
+        myBM.getCurrentEnvironment().setColorIndex(colorIndex);
+    }
+
+    public void setPenSize(double penSize){
+        myBM.getCurrentEnvironment().setPenSize(penSize);
+    }
+
+    public void setShapeIndex(double shapeIndex){
+        myBM.getCurrentEnvironment().setShapeIndex(shapeIndex);
+    }
 }

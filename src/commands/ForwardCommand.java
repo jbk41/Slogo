@@ -14,9 +14,7 @@ public class ForwardCommand extends MovementCommand {
 
     @Override
     public void update(){
-        System.out.println("about to add turtle forward command to list");
         getBM().forward(getChildren().get(0).getVal());
-        System.out.println("added turtle forward command to list");
 
     }
 }

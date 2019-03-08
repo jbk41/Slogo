@@ -13,8 +13,8 @@ public class MinusCommand extends GeneralCommand{
     public void execute(){
         checkParameterCount();
         executeChildren();
-        GeneralCommand child = getChildren().get(0);
-        var childVals = getChildrenValues();
-        setVal(childVals.get(0)*-1.0);
+        GeneralCommand child1 = getChildren().get(0);
+        GeneralCommand child2 = getChildren().get(1);
+        setVal(child1.getVal() - child2.getVal());
     }
 }

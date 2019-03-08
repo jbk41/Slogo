@@ -14,6 +14,6 @@ public class RightCommand extends MovementCommand {
 
     @Override
     protected void update() {
-        getBM().right(getVal());
+        getBM().right(getChildren().get(0).getVal());
     }
 }

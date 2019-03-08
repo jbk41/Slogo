@@ -16,7 +16,7 @@ public class RepeatCommand extends GeneralCommand {
         GeneralCommand numTimesCommand = getChildren().get(0);
         GeneralCommand commands = getChildren().get(1);
         if (!(commands instanceof ListStartCommand)){
-            //TODO: throw an error, needs list start command type
+            getBM().throwError("Repeat requires list parameter", getLineNumber());
         }
         numTimesCommand.execute();
         try {

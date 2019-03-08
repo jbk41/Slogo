@@ -20,11 +20,17 @@ public class MakeUserInstructionCommand extends GeneralCommand {
             commandName = newCommand.getCommandName();
         }
         else {
+            getBM().throwError("Command name already in use", getLineNumber());
+            return;
             //TODO throw an error. user command should not be in the list of standard commands
         }
 
+        if (getBM().containsCommand(commandName)){
+            getBM().throwError("Command already defined", getLineNumber());
+        }
+
         UserDefinedCommand userDefinedCommand = new UserDefinedCommand(getBM(), commandName, vars, commands);
-        //myBM.addUserCommand(commandName, userDefinedCommand);
+        getBM().addUserDefinedCommand(userDefinedCommand);
     }
 
 

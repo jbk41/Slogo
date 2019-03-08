@@ -14,6 +14,7 @@ public class AskCommand extends GeneralCommand {
     }
 
     public void execute(){
+        checkParameterCount();
         List<Double> oldActiveTurtles = getBM().getActiveTurtles(); // set active turtles to this list at the end
 
         List<Double> turtleIDs = new ArrayList<>();
