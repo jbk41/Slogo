@@ -2,5 +2,7 @@ package Executable;
 
 public abstract class Executable {
 
-    // just meant to hold other types of executables
+    @Override
+    public abstract String toString() ;
+
 }
