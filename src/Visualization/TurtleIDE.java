@@ -62,6 +62,12 @@ public class TurtleIDE extends Application {
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
         if (backend.getCommands().get(0) instanceof TurtleState){
+            if (((TurtleState) backend.getCommands().get(0)).getClear()){
+                for (Turtle turt : turtleMap.values()){
+                    turtleDisplay.getChildren().remove(turt.getTurtleImageView());
+                }
+                clearTurtleMap();
+            }
             Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
             turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
         }
@@ -91,6 +97,8 @@ public class TurtleIDE extends Application {
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown){
         String commands = textEditor.getText();
+        console.getItems().add(commands);
+        System.out.println(commands);
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
@@ -103,7 +111,6 @@ public class TurtleIDE extends Application {
                     runTurtleStateCommand(commandToRun);
                 }
                 //TODO: MARK ADD IFS HERE
-                console.getItems().add(commands);
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
                 savedVarMap = backend.getVarMap();
