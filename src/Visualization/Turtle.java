@@ -95,7 +95,6 @@ public class Turtle {
         for (int x = 0; x < turtleStateList.size(); x++) {
             Executable currentTurtleState = turtleStateList.get(x);
             if(currentTurtleState instanceof TurtleState) {
-                System.out.println("TurtleState");
                 TurtleState currentTurtle = (TurtleState)currentTurtleState;
                 double degrees = currentTurtle.getDeg();
                 RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
