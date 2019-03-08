@@ -85,7 +85,6 @@ public class Turtle {
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
     public void moveTurtle(List<Executable> turtleStateList, Console stateConsole) {
-        System.out.println(turtleStateList);
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
@@ -102,8 +101,6 @@ public class Turtle {
                 prevDegrees = degrees;
                 double newX = currentTurtle.getX() + defaultX;
                 double newY = defaultY - currentTurtle.getY();
-                System.out.println(newX);
-                System.out.println(newY);
                 if(turtleXPosition() == newX && turtleYPosition() == newY){
                     if(currentTurtle.getClear()){
                         newX = currentTurtle.getX() + xAtZero;
