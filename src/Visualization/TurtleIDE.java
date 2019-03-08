@@ -110,7 +110,6 @@ public class TurtleIDE extends Application {
                         Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
                         turtleMap.put(command.getID(), newTurtle);
                     }
-
                     turtle = turtleMap.get(command.getID());
                     turtle.moveTurtle(command, myStates);
                 }
