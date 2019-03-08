@@ -30,4 +30,9 @@ public class ColorPaletteEntry extends Executable{
         return b;
     }
 
+    @Override
+    public String toString() {
+        return "change in palette";
+    }
+
 }

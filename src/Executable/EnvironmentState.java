@@ -53,4 +53,9 @@ public class EnvironmentState extends Executable{
     public void setShapeIndex(double shapeIndex) {
         this.shapeIndex = shapeIndex;
     }
+
+    @Override
+    public String toString(){
+        return "Change in environment";
+    }
 }
