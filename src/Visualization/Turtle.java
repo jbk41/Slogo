@@ -125,9 +125,6 @@ public class Turtle {
         sequentialTransition.play();
     }
 
-
-
-
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);
         rt.setByAngle(degrees - prevDegrees);

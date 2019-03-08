@@ -97,8 +97,8 @@ public class TurtleIDE extends Application {
             backend.clearCommandList();
             backend.interpret(commands);
             Turtle turtle;
-
             for (Executable commandToRun : backend.getCommands()) {
+                System.out.println(commandToRun);
                 if (commandToRun instanceof TurtleState) {
                     runTurtleStateCommand(commandToRun);
                 }
@@ -119,6 +119,10 @@ public class TurtleIDE extends Application {
     public void runTurtleStateCommand(Executable commandToRun){
         TurtleState command = (TurtleState)commandToRun;
         if (command.getClear()){
+            for (Turtle turt : turtleMap.values()){
+                turtleDisplay.getChildren().remove(turt.getTurtleImageView());
+            }
+            System.out.println(turtleDisplay.getChildren());
             turtleDisplay.getChildren().removeAll();
             System.out.println(turtleDisplay.getChildren());
             turtleDisplay.createNewCanvas();
