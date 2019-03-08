@@ -96,6 +96,7 @@ public class TurtleIDE extends Application {
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown){
+        backend.clearCommandList();
         String commands = textEditor.getText();
         console.getItems().add(commands);
         System.out.println(commands);
@@ -129,9 +130,6 @@ public class TurtleIDE extends Application {
             for (Turtle turt : turtleMap.values()){
                 turtleDisplay.getChildren().remove(turt.getTurtleImageView());
             }
-            System.out.println(turtleDisplay.getChildren());
-            turtleDisplay.getChildren().removeAll();
-            System.out.println(turtleDisplay.getChildren());
             turtleDisplay.createNewCanvas();
             clearTurtleMap();
         }
