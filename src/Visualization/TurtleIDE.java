@@ -111,23 +111,14 @@ public class TurtleIDE extends Application {
             backend.interpret(commands);
             Turtle turtle;
             for (Executable commandToRun : backend.getCommands()) {
-                System.out.println(commandToRun);
                 if (commandToRun instanceof TurtleState) {
                     runTurtleStateCommand(commandToRun);
                 }
-                //TODO: MARK ADD IFS HERE
-                    System.out.println("turtleState");
-                    TurtleState command = (TurtleState)commandToRun;
-                    System.out.println(command.getID());
-                    if (!turtleMap.containsKey(command.getID())) {
-                        System.out.println("did not contain turtle");
-                        Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-                        turtleMap.put(command.getID(), newTurtle);
-                    }
-                    turtle = turtleMap.get(command.getID());
-                    turtle.moveTurtle(command, myStates);
+                TurtleState command = (TurtleState)commandToRun;
                 }
-             myUserDefined.getItems().clear();
+                //TODO: MARK ADD IFS HERE
+
+                myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
                 savedVarMap = backend.getVarMap();
                 for (String key : savedVarMap.keySet()) {
