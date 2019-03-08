@@ -95,16 +95,15 @@ public class Turtle {
         for (int x = 0; x < turtleStateList.size(); x++) {
             Executable currentTurtleState = turtleStateList.get(x);
             if(currentTurtleState instanceof TurtleState) {
-                System.out.println("TurtleState");
                 TurtleState currentTurtle = (TurtleState)currentTurtleState;
-                System.out.println(currentTurtle.getX());
-                System.out.println(currentTurtle.getY());
                 double degrees = currentTurtle.getDeg();
                 RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
                 sequentialTransition.getChildren().add(rt);
                 prevDegrees = degrees;
                 double newX = currentTurtle.getX() + defaultX;
                 double newY = defaultY - currentTurtle.getY();
+                System.out.println(newX);
+                System.out.println(newY);
                 if(turtleXPosition() == newX && turtleYPosition() == newY){
                     if(currentTurtle.getClear()){
                         newX = currentTurtle.getX() + xAtZero;
