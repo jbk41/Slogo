@@ -85,53 +85,61 @@ public class Turtle {
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
     public void moveTurtle(List<Executable> turtleStateList, Console stateConsole) {
+        System.out.println(turtleStateList);
         sequentialTransition = new SequentialTransition();
-        if(turtleStateList instanceof ColorPaletteEntry){
-            double r = ((ColorPaletteEntry) turtleStateList).getR();
-            double b = ((ColorPaletteEntry) turtleStateList).getB();
-            double g = ((ColorPaletteEntry) turtleStateList).getG();
-        }
-        if(turtleStateList instanceof ErrorMessage){
-            stateConsole.getItems().add(((ErrorMessage) turtleStateList).getError());
-        }
-        if(turtleStateList instanceof EnvironmentState){
-
-        }
-        if(turtleStateList instanceof TurtleState){
-            double defaultX = turtleXPosition();
-            double defaultY = turtleYPosition();
-            double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
-            double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
-            double prevDegrees = 0.0;
-            for (int x = 0; x < turtleStateList.size(); x++) {
-                TurtleState currentTurtleState = (TurtleState)turtleStateList.get(x);
-                double degrees = currentTurtleState.getDeg();
+        double defaultX = turtleXPosition();
+        double defaultY = turtleYPosition();
+        double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
+        double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
+        double prevDegrees = 0.0;
+        for (int x = 0; x < turtleStateList.size(); x++) {
+            Executable currentTurtleState = turtleStateList.get(x);
+            if(currentTurtleState instanceof TurtleState) {
+                TurtleState currentTurtle = (TurtleState)currentTurtleState;
+                System.out.println("Turtle State");
+                System.out.println("Current State");
+                System.out.println(turtleImageView.getX());
+                System.out.println(turtleImageView.getY());
+                double degrees = currentTurtle.getDeg();
                 RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
                 sequentialTransition.getChildren().add(rt);
                 prevDegrees = degrees;
-                double newX = currentTurtleState.getX() + defaultX;
-                double newY = defaultY - currentTurtleState.getY();
-                if (turtleXPosition() == newX && turtleYPosition() == newY) {
-                    if (currentTurtleState.getClear()) {
-                        newX = currentTurtleState.getX() + xAtZero;
-                        newY = yAtZero - currentTurtleState.getY();
-                    } else {
+                double newX = currentTurtle.getX() + defaultX;
+                double newY = defaultY - currentTurtle.getY();
+                System.out.println("Calculated Positions:");
+                System.out.println(newX);
+                System.out.println(newY);
+                if(turtleXPosition() == newX && turtleYPosition() == newY){
+                    if(currentTurtle.getClear()){
+                        newX = currentTurtle.getX() + xAtZero;
+                        newY = yAtZero - currentTurtle.getY();
+                    }else{
                         continue;
                     }
                 }
-                PathTransition pathTransition = createTransition(createPath(newX, newY), currentTurtleState, stateConsole);
+                Path path = new Path();
+                path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
+                path.getElements().add(new LineTo(newX, newY));
+                turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
+                turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
+                System.out.println("New ImageView State");
+                System.out.println(turtleImageView.getX());
+                System.out.println(turtleImageView.getY());
+                PathTransition pathTransition = createTransition(path, (TurtleState)turtleStateList.get(x), stateConsole);
                 sequentialTransition.getChildren().add(pathTransition);
             }
-            sequentialTransition.play();
+            if(currentTurtleState instanceof EnvironmentState){
+            }
+            if(currentTurtleState instanceof ErrorMessage){
+                stateConsole.getItems().add(((ErrorMessage) turtleStateList).getError());
+            }
+            if(currentTurtleState instanceof ColorPaletteEntry){
+                double r = ((ColorPaletteEntry) turtleStateList).getR();
+                double b = ((ColorPaletteEntry) turtleStateList).getB();
+                double g = ((ColorPaletteEntry) turtleStateList).getG();
+            }
         }
-    }
-    private Path createPath(double newX, double newY){
-        Path path = new Path();
-            path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
-            path.getElements().add(new LineTo(newX, newY));
-            this.turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
-            this.turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
-            return path;
+        sequentialTransition.play();
     }
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);

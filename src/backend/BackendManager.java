@@ -36,7 +36,7 @@ public class BackendManager implements BackendManagerAPI{
             myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     currentTurtle.getX() + dist * Math.sin(currentTurtle.getDeg() * Math.PI / 180),
-                    currentTurtle.getX() + dist * Math.sin(currentTurtle.getDeg() * Math.PI / 180),
+                    currentTurtle.getY() + dist * Math.cos(currentTurtle.getDeg() * Math.PI / 180),
                     currentTurtle.getDeg(),
                     currentTurtle.getPenState(),
                     currentTurtle.getVisibility(),
