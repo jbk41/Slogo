@@ -98,8 +98,8 @@ public class TurtleIDE extends Application {
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
         }catch(NullPointerException ex){
-            showError("Please Choose a Language");
-        }
+        showError("Please Choose a Language");
+    }
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
