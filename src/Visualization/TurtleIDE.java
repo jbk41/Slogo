@@ -96,25 +96,12 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
-
             Turtle turtle;
 
             for (Executable commandToRun : backend.getCommands()) {
-                System.out.println(commandToRun);
                 if (commandToRun instanceof TurtleState) {
-                    System.out.println("turtleState");
-                    TurtleState command = (TurtleState)commandToRun;
-                    System.out.println(command.getID());
-                    if (!turtleMap.containsKey(command.getID())) {
-                        System.out.println("did not contain turtle");
-                        Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-                        turtleMap.put(command.getID(), newTurtle);
-                    }
-
-                    turtle = turtleMap.get(command.getID());
-                    turtle.moveTurtle(command, myStates);
+                    runTurtleStateCommand(commandToRun);
                 }
-
                 //TODO: MARK ADD IFS HERE
                 console.getItems().add(commands);
                 myUserDefined.getItems().clear();
@@ -126,6 +113,24 @@ public class TurtleIDE extends Application {
             }
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
+        }
+    }
+
+    public void runTurtleStateCommand(Executable commandToRun){
+        TurtleState command = (TurtleState)commandToRun;
+        if (command.getClear()){
+            turtleDisplay.getChildren().removeAll();
+            System.out.println(turtleDisplay.getChildren());
+            turtleDisplay.createNewCanvas();
+            clearTurtleMap();
+        }
+        else {
+            if (!turtleMap.containsKey(command.getID())) {
+                Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+                turtleMap.put(command.getID(), newTurtle);
+            }
+            turtle = turtleMap.get(command.getID());
+            turtle.moveTurtle(command, myStates);
         }
     }
 

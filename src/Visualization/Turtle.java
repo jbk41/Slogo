@@ -59,7 +59,7 @@ public class Turtle {
     private void clearScreen() {
         this.canvas = pane.createNewCanvas();
         gc = canvas.getGraphicsContext2D();
-        setTurtleImage(TURTLE_IMAGE);
+        pane.getChildren().removeAll();
     }
 
     public void setTurtleImage(String imageName) {
