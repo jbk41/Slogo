@@ -15,8 +15,10 @@ public class SumCommand extends GeneralCommand {
     public void execute() throws IllegalArgumentException {
         checkParameterCount();
         ArrayList<Double> myChildrenVals = getChildrenValues();
+        double sum = 0;
         for (double val : myChildrenVals) {
-            setVal(getVal() + val);
+            sum += val;
         }
+        setVal(sum);
     }
 }

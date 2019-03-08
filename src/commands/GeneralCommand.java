@@ -124,9 +124,9 @@ public class GeneralCommand {
         return this.isReady;
     }
 
-    protected void checkParameterCount() throws IllegalAccessError{
+    public void checkParameterCount(){
         if (myChildren.size() != myMaxChildren) {
-            throw new IllegalArgumentException(myType + " takes in " + myMaxChildren + " parameters");
+            myBM.throwError("Incorrect number of parameters", myLineNumber);
         }
     }
 
@@ -136,7 +136,7 @@ public class GeneralCommand {
         }
     }
 
-    protected double getValFromChild(GeneralCommand command) throws IllegalArgumentException {
+    public double getValFromChild(GeneralCommand command) throws IllegalArgumentException {
         if (!myChildren.contains(command)){
             throw new IllegalArgumentException("Command is not in list of children");
         }

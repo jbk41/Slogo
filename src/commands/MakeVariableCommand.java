@@ -1,9 +1,6 @@
 package commands;
 
-import TurtleState.TurtleCommand;
 import backend.BackendManager;
-
-import java.security.InvalidKeyException;
 
 public class MakeVariableCommand extends GeneralCommand {
 
@@ -23,6 +20,7 @@ public class MakeVariableCommand extends GeneralCommand {
                 varName = vc.getVarName();
             }
             else {
+                getBM().throwError("Make command requires an actual variable", getLineNumber());
                 //TODO: not a variable error
                 return;
             }

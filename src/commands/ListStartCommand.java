@@ -10,7 +10,6 @@ public class ListStartCommand extends GeneralCommand {
     }
 
     public void execute(){
-        System.out.println("executing list");
         for (GeneralCommand command: getChildren()){
             command.execute();
         }

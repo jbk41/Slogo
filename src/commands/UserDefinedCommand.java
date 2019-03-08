@@ -32,7 +32,7 @@ public class UserDefinedCommand extends GeneralCommand {
             maxArgs = vars.getNumActualChildren();
         }
         else {
-            //TODO: throw error
+            getBM().throwError("Wrong number of args", getLineNumber());
         }
     }
 

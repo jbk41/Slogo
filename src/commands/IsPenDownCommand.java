@@ -11,4 +11,13 @@ public class IsPenDownCommand extends GeneralCommand {
         makeReady();
     }
 
+    public void execute(){
+        if (getBM().getCurrentTurtle().getPenState()){
+            setVal(1);
+        }
+        else {
+            setVal(0);
+        }
+    }
+
 }

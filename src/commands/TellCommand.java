@@ -20,7 +20,6 @@ public class TellCommand extends GeneralCommand {
                     turtleIDs.add(child.getVal());
                 }
             }
-        System.out.println(turtleIDs.toString());
         getBM().setTurtles(turtleIDs);
 
         setVal(turtleIDs.get(turtleIDs.size()-1));

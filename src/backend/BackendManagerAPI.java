@@ -1,18 +1,18 @@
 package backend;
 import commands.GeneralCommand;
 import commands.UserDefinedCommand;
+import Executable.*;
+
+import java.util.List;
+import java.util.Map;
 
 public interface BackendManagerAPI {
 
-    public void forward(double val);
+    public void forward(double dist);
 
-    public void backward(double val);
-
-    public void left(double deg);
+    public void backward(double dist);
 
     public void right(double deg);
-
-    public void setHeading(double deg);
 
     public void setTowards(double x, double y);
 
@@ -30,15 +30,44 @@ public interface BackendManagerAPI {
 
     public void clearScreen();
 
-    public boolean containsCommand(String key);
+    public void throwError(String error, int lineNumber);
+
+    public void setVariable(String varName, double val);
+
+    public boolean hasVariable(String varName);
+
+    public double getVariable(String varName);
+
+    public boolean containsCommand(String commandName);
 
     public void addUserDefinedCommand(UserDefinedCommand userDefinedCommand);
 
     public UserDefinedCommand getUserCommand(String commandName);
 
-    public void setVariable(String varName, double val);
+    public void setTurtles(List<Double> turtleIDs);
 
-    public double getVariable(String varName);
+    public int getNumberActiveTurtles();
 
-    public boolean hasVariable(String varName);
+    public List<Double> getActiveTurtles();
+
+    public TurtleState getCurrentTurtle();
+
+    public void clearCommands();
+
+    public Map<String, Double> getVarMap();
+
+    public List<Executable> getCommands();
+
+    public void setBackgroundIndex(double backgroundIndex);
+
+    public void setColorIndex(double colorIndex);
+
+    public void setPenSize(double penSize);
+
+    public void setShapeIndex(double shapeIndex);
+
+    public EnvironmentState getCurrentEnvironment();
+
+    public void setColorPaletteEntry(double index, double r, double g, double b);
+
 }

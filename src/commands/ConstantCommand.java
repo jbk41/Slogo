@@ -12,7 +12,6 @@ public class ConstantCommand extends GeneralCommand{
     }
 
     public void execute(){
-        System.out.println("running constant command");
         return;
     }
 
