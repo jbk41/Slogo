@@ -4,6 +4,8 @@ package Visualization;
 import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
+import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -18,7 +20,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+import Executable.EnvironmentState;
+import Executable.ErrorMessage;
+import Executable.ColorPaletteEntry;
+import Executable.TurtleState;
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
     private static final Paint backgroundColor = Color.AQUA;
@@ -110,9 +115,17 @@ public class TurtleIDE extends Application {
                         Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
                         turtleMap.put(command.getID(), newTurtle);
                     }
-
                     turtle = turtleMap.get(command.getID());
                     turtle.moveTurtle(command, myStates);
+                }
+                if(commandToRun instanceof ColorPaletteEntry){
+
+                }
+                if(commandToRun instanceof ErrorMessage){
+
+                }
+                if(commandToRun instanceof EnvironmentState){
+
                 }
                 console.getItems().add(commands);
                 myUserDefined.getItems().clear();
@@ -122,6 +135,13 @@ public class TurtleIDE extends Application {
                     myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
                 }
             }
+            ParallelTransition parallelTransition = new ParallelTransition();
+
+            for(double id: turtleMap.keySet()){
+                SequentialTransition sequentialTransition = turtleMap.get(id).getST();
+                parallelTransition.getChildren().add(sequentialTransition);
+            }
+            parallelTransition.play();
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
