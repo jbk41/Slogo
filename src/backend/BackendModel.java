@@ -4,6 +4,7 @@ import TurtleState.TurtleState;
 import parser.ParseCleaner;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BackendModel implements BackendAPI {
 
@@ -12,39 +13,22 @@ public class BackendModel implements BackendAPI {
     private BackendManager myBM;
     private CommandTree myCT;
     private ParseCleaner myPC;
-    private TurtleManager myTM;
 
     public BackendModel(){
         myBM = new BackendManager();
         myPC = new ParseCleaner(DEFAULT_LANGUAGE);
-
     }
 
-    public void setLanguage(String language){
+    public void setLanguage(String language){ myPC = new ParseCleaner(language);   }
 
-        myPC = new ParseCleaner(language);
-    }
+    public void interpret(String text){ myCT = new CommandTree(text, myPC, myBM);}
 
-    public void interpret(String text){
-        myCT = new CommandTree(text, myPC, myBM);
-    }
-    public ArrayList<TurtleState> getCommands(){return myBM.getCommands();}
+    public List<TurtleState> getCommands(){return myBM.getCommands();}
 
-    public BackendManager getBackendManager(){
-        return myBM;
-    }s
+    public BackendManager getBackendManager(){ return myBM; }
 
-    public CommandManager getCommandManager(){
-        return myCM;
-    }
+    public CommandManager getCommandManager(){ return myBM.getCommandManager(); }
 
-    public TurtleManager getTurtleManager() { return myTM; }
-
-
-//    public void printTree(){
-//        myCT.printTree();
-//    }
-
-
+    public TurtleManager getTurtleManager() { return myBM.getTurtleManager(); }
 
 }
