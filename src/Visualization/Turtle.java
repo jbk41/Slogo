@@ -27,7 +27,7 @@ public class Turtle {
     private String TURTLE_IMAGE = "cuteturtle.gif";
     private int ANIMATION_SPEED = 300;
     private ImageView turtleImageView;
-    private SequentialTransition sequentialTransition;
+    private SequentialTransition sequentialTransition  = new SequentialTransition();;
     private TurtleDisplay pane;
     private Canvas canvas;
     private Paint PEN_COLOR;
@@ -94,7 +94,6 @@ public class Turtle {
     }
 
     public void moveTurtle(TurtleState currentTurtleState, Console stateConsole) {
-        sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
         System.out.println("id: " + currentTurtleState.getID());

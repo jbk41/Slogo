@@ -97,7 +97,6 @@ public class TurtleIDE extends Application {
     private void playTheCommands(LanguagesDropDown languagesDropDown){
         String commands = textEditor.getText();
         console.getItems().add(commands);
-
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
