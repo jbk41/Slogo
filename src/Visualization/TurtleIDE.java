@@ -121,7 +121,7 @@ public class TurtleIDE extends Application {
 
                 }
                 if(commandToRun instanceof ErrorMessage){
-
+                    console.getItems().add(((ErrorMessage) commandToRun).getError());
                 }
                 if(commandToRun instanceof EnvironmentState){
 
@@ -137,10 +137,10 @@ public class TurtleIDE extends Application {
             ParallelTransition parallelTransition = new ParallelTransition();
 
             for(double id: turtleMap.keySet()){
-                turtleMap.get(id).getST().play();
-//                parallelTransition.getChildren().add(sequentialTransition);
+                SequentialTransition sequentialTransition = turtleMap.get(id).getST();
+                parallelTransition.getChildren().add(sequentialTransition);
             }
-//            parallelTransition.play();
+            parallelTransition.play();
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
