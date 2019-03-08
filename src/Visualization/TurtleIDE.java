@@ -15,14 +15,15 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import Executable.ColorPaletteEntry;
-import Executable.EnvironmentState;
-import Executable.ErrorMessage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+import Executable.EnvironmentState;
+import Executable.ErrorMessage;
+import Executable.ColorPaletteEntry;
+import Executable.TurtleState;
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
     private static final Paint backgroundColor = Color.AQUA;
@@ -66,12 +67,6 @@ public class TurtleIDE extends Application {
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
         if (backend.getCommands().get(0) instanceof TurtleState){
-            if (((TurtleState) backend.getCommands().get(0)).getClear()){
-                for (Turtle turt : turtleMap.values()){
-                    turtleDisplay.getChildren().remove(turt.getTurtleImageView());
-                }
-                clearTurtleMap();
-            }
             Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
             turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
         }
@@ -100,21 +95,44 @@ public class TurtleIDE extends Application {
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown){
-        backend.clearCommandList();
         String commands = textEditor.getText();
         console.getItems().add(commands);
+
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
+
             Turtle turtle;
+
             for (Executable commandToRun : backend.getCommands()) {
+                System.out.println(commandToRun);
                 if (commandToRun instanceof TurtleState) {
                     System.out.println("Current command: " + commandToRun);
-                    runTurtleStateCommand(commandToRun);
-                }
+
                 //TODO: MARK ADD IFS HERE
+                    System.out.println("turtleState");
+                    TurtleState command = (TurtleState)commandToRun;
+                    System.out.println(command.getID());
+                    if (!turtleMap.containsKey(command.getID())) {
+                        System.out.println("did not contain turtle");
+                        Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+                        turtleMap.put(command.getID(), newTurtle);
+                    }
+                    turtle = turtleMap.get(command.getID());
+                    turtle.moveTurtle(command, myStates);
+                }
+                if(commandToRun instanceof ColorPaletteEntry){
+
+                }
+                if(commandToRun instanceof ErrorMessage){
+
+                }
+                if(commandToRun instanceof EnvironmentState){
+
+                }
+                console.getItems().add(commands);
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
                 savedVarMap = backend.getVarMap();
@@ -126,38 +144,14 @@ public class TurtleIDE extends Application {
             ParallelTransition parallelTransition = new ParallelTransition();
 
             for(double id: turtleMap.keySet()){
-                turtleMap.get(id).getST().play();
-//                parallelTransition.getChildren().add(sequentialTransition);
+                SequentialTransition sequentialTransition = turtleMap.get(id).getST();
+                parallelTransition.getChildren().add(sequentialTransition);
             }
-//            parallelTransition.play();
+            parallelTransition.play();
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
     }
-
-    public void runTurtleStateCommand(Executable commandToRun){
-        TurtleState command = (TurtleState)commandToRun;
-        if (command.getClear()){
-            for (Turtle turt : turtleMap.values()){
-                turtleDisplay.getChildren().remove(turt.getTurtleImageView());
-            }
-            turtleDisplay.createNewCanvas();
-            clearTurtleMap();
-        }
-        else {
-            if (!turtleMap.containsKey(command.getID())) {
-                Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-                turtleMap.put(command.getID(), newTurtle);
-            }
-            turtle = turtleMap.get(command.getID());
-            turtle.moveTurtle(command, myStates);
-        }
-    }
-
-    public void clearTurtleMap(){
-        turtleMap.clear();
-    }
-
     private Button createHelpButton(){
         Button help = new Button("Help");
         help.setOnAction(e -> createHelpScreen());
