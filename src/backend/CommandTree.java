@@ -26,9 +26,7 @@ public class CommandTree {
         end = myArguments.size() ;
         generateTree();
         //linkParentsAndInitializeVariables(head);
-        System.out.println("generated Tree");
         head.execute();
-        System.out.println("what");
 
     }
 
