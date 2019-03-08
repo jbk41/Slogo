@@ -11,6 +11,7 @@ public class RootCommand extends GeneralCommand {
     }
 
     public void execute(){
+        System.out.println("about to execute head node");
         for (GeneralCommand command: getChildren()){
             command.execute();
         }

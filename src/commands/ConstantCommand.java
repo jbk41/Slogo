@@ -11,5 +11,10 @@ public class ConstantCommand extends GeneralCommand{
         makeReady();
     }
 
+    public void execute(){
+        System.out.println("running constant command");
+        return;
+    }
+
 
 }

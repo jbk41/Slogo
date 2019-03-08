@@ -3,7 +3,6 @@ package backend;
 import TurtleState.TurtleState;
 import commands.UserDefinedCommand;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
@@ -40,6 +39,7 @@ public class BackendManager implements BackendManagerAPI{
                     turtleID,
                     false);
             myCommands.add(newState);
+            System.out.println("added new state");
         }
     }
 
@@ -81,6 +81,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            System.out.println("adding new turtle state");
             myCommands.add(newState);
         }
     }
@@ -288,6 +289,7 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     public List<TurtleState> getCommands(){
+
         return myCommands;
     }
 

@@ -14,12 +14,13 @@ public class TellCommand extends GeneralCommand {
 
     public void execute(){
         List<Double> turtleIDs = new ArrayList<>();
-        for (GeneralCommand child: getChildren()){
-            if (!(child instanceof ListEndCommand)){
-                turtleIDs.add(child.getVal());
+        GeneralCommand listOfTurtlesCommand = getChildren().get(0);
+            for (GeneralCommand child: listOfTurtlesCommand.getChildren()){
+                if (!(child instanceof ListEndCommand)){
+                    turtleIDs.add(child.getVal());
+                }
             }
-        }
-
+        System.out.println(turtleIDs.toString());
         getBM().setTurtles(turtleIDs);
 
         setVal(turtleIDs.get(turtleIDs.size()-1));

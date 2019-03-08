@@ -45,15 +45,19 @@ public class CommandFactory {
             Class clazz = Class.forName("commands." + commandName + "Command");
 
             if (commandName.equals(CONSTANT_COMMAND_NAME)) {
+                //System.out.println("Making constant command");
                 return (GeneralCommand) clazz.getConstructor(BackendManager.class, double.class).newInstance(myBM, Double.parseDouble(list.get(1)));
             }
             else if (commandName.equals(VARIABLE_COMMAND_NAME)){
+                //System.out.println("Making variable command");
                 return (GeneralCommand) clazz.getConstructor(BackendManager.class, String.class).newInstance(myBM, list.get(1));
             }
             else if (myLanguages.containsCommand(commandName)){
+                //System.out.println("Making regular command");
                 return (GeneralCommand) clazz.getConstructor(BackendManager.class).newInstance(myBM);
             }
             else {
+                //System.out.println("Making undefined command");
                 return new UndefinedCommand(myBM, commandName);
             }
         } catch (InstantiationException e) { System.out.println("The Command Could not be instantiated");

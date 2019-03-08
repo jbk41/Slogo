@@ -17,4 +17,8 @@ public class Syntax {
     public String getCommand(){
         return myCommand;
     }
+
+    public String toString(){
+        return myCommand + " " + myLine;
+    }
 }

@@ -26,11 +26,15 @@ public class CommandTree {
         end = myArguments.size() ;
         generateTree();
         //linkParentsAndInitializeVariables(head);
+        System.out.println("generated Tree");
         head.execute();
+        System.out.println("what");
+
     }
 
     private List<Syntax> split(String text){
         SyntaxSplitter syntaxSplitter = new SyntaxSplitter();
+        //System.out.println(syntaxSplitter.split(text).toString());
         return syntaxSplitter.split(text);
     }
 
@@ -62,6 +66,7 @@ public class CommandTree {
     // reads in string by word and generates syntax tree for a single "line" of commands
     private GeneralCommand generateOneSet(){
         Syntax syntax = myArguments.get(start);
+        //System.out.println(syntax.getCommand());
         GeneralCommand command = myCommandFactory.getCommand(syntax.getCommand());
         //System.out.println(start);
 
@@ -96,7 +101,7 @@ public class CommandTree {
             printPostOrder(command);
         }
         // now deal with the node
-        System.out.println(c.toString() + " with parent: " + c.printParent());
+        //System.out.println(c.toString() + " with parent: " + c.printParent());
     }
 
 }

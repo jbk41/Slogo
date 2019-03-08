@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
  */
 public class ParseCleaner {
 
+    final String SYNTAX_KEY = "Syntax";
     private List<Entry<String, Pattern>> mySymbols;
     private String myLanguage;
 
@@ -30,7 +31,7 @@ public class ParseCleaner {
      */
     public void addPatterns (String language) {
         addLang(language);
-        addLang("Syntax");
+        addLang(SYNTAX_KEY);
     }
 
     /**
@@ -39,7 +40,13 @@ public class ParseCleaner {
      * @return
      */
     public boolean containsCommand(String commandName){
-        return mySymbols.contains(commandName);
+        String symbol = getSymbol(commandName);
+        for (Entry<String, Pattern> entry: mySymbols){
+            if (entry.getKey().equals(symbol)){
+                return true;
+            }
+        }
+        return false;
     }
 
 

@@ -12,7 +12,13 @@ public class RepeatCommand extends GeneralCommand {
 
     public void execute(){
         double numRunTimes;
-        getChildren().get(0).execute();
+        System.out.println("executing repeat node");
+        GeneralCommand numTimesCommand = getChildren().get(0);
+        GeneralCommand commands = getChildren().get(1);
+        if (!(commands instanceof ListStartCommand)){
+            //TODO: throw an error, needs list start command type
+        }
+        numTimesCommand.execute();
         try {
             numRunTimes = getValFromChild(getChildren().get(0));
         }
@@ -20,7 +26,7 @@ public class RepeatCommand extends GeneralCommand {
             return;
         }
         for (int i = 0; i < numRunTimes; i++){
-            getChildren().get(1).execute();
+            commands.execute();
         }
     }
 }
