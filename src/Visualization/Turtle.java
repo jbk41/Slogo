@@ -95,6 +95,10 @@ public class Turtle {
             Executable currentTurtleState = turtleStateList.get(x);
             if(currentTurtleState instanceof TurtleState) {
                 TurtleState currentTurtle = (TurtleState)currentTurtleState;
+                System.out.println("Turtle State");
+                System.out.println("Current State");
+                System.out.println(turtleImageView.getX());
+                System.out.println(turtleImageView.getY());
                 double degrees = currentTurtle.getDeg();
                 RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
                 sequentialTransition.getChildren().add(rt);
@@ -114,6 +118,9 @@ public class Turtle {
                 path.getElements().add(new LineTo(newX, newY));
                 turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
                 turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
+                System.out.println("New ImageView State");
+                System.out.println(turtleImageView.getX());
+                System.out.println(turtleImageView.getY());
                 PathTransition pathTransition = createTransition(path, (TurtleState)turtleStateList.get(x), stateConsole);
                 sequentialTransition.getChildren().add(pathTransition);
             }
