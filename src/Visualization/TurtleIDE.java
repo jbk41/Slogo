@@ -1,6 +1,7 @@
 package Visualization;
 
 
+import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
 import javafx.application.Application;
@@ -24,12 +25,14 @@ public class TurtleIDE extends Application {
     private static final int height = 680;
     private static final int padding = 15;
     private TextEditor textEditor;
+    private TurtleDisplay turtleDisplay;
     private Console console;
     private Console myUserDefined;
     private Console myStates;
     private BackendModel backend;
     private Map <String, Double> savedVarMap;
     private Turtle turtle;
+    private Map <Double, Turtle> turtleMap;
     private ArrayList<Turtle> turtleList;
 
     @Override
@@ -37,7 +40,7 @@ public class TurtleIDE extends Application {
         Stage primaryStage = stage;
         Group root = new Group();
         var startScene = new Scene(root, width, height, backgroundColor);
-        HBox IDE = new HBox(createUserBox(), createTurtleDisplay());
+        HBox IDE = new HBox(createUserBox(), createTurtleEnvironment());
         root.getChildren().add(IDE);
         primaryStage.setScene(startScene);
         primaryStage.setTitle(title);
@@ -57,11 +60,14 @@ public class TurtleIDE extends Application {
         backend.clearCommandList();
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
-        turtle.moveTurtle(backend.getCommands(),myStates);
+        if (backend.getCommands().get(0) instanceof TurtleState){
+            Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
+            turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
+        }
+//        turtle.moveTurtle(backend.getCommands(),myStates);
     }
-    private VBox createTurtleDisplay(){
-        TurtleDisplay turtleDisplay = new TurtleDisplay(width, height, padding);
-        turtle =  new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+    private VBox createTurtleEnvironment(){
+        turtleDisplay = new TurtleDisplay(width, height, padding);
         VBox controls = createSettingsButtons(turtle, turtleDisplay);
         VBox display = new VBox(15, turtleDisplay, controls);
         display.setPadding(new Insets(padding,padding,padding,padding));
@@ -74,7 +80,7 @@ public class TurtleIDE extends Application {
         PenSize penSize = new PenSize(turtle);
         Button playButton = new Button("Play");
         backend = new BackendModel();
-        playButton.setOnAction(e -> playTheCommands(languagesDropDown, turtle));
+        playButton.setOnAction(e -> playTheCommands(languagesDropDown));
         Button help = createHelpButton();
         HBox top = new HBox(6, playButton, help, settingsBox, createUndoButton());
         HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize, addWorkspace());
@@ -82,20 +88,35 @@ public class TurtleIDE extends Application {
         controls.setMaxWidth(width/2);
         return controls;
     }
-    private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
+    private void playTheCommands(LanguagesDropDown languagesDropDown){
         String commands = textEditor.getText();
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
-            turtle.moveTurtle(backend.getCommands(),myStates);
-            console.getItems().add(commands);
-            myUserDefined.getItems().clear();
-            myUserDefined.getItems().add("Variables and Commands");
-            savedVarMap = backend.getVarMap();
-            for (String key : savedVarMap.keySet()){
-                myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
+
+            Turtle turtle;
+
+            for (Executable commandToRun : backend.getCommands()) {
+                if (commandToRun instanceof TurtleState) {
+                    TurtleState command = (TurtleState)commandToRun;
+                    if (!turtleMap.containsKey(command.getID())) {
+                        System.out.println("did not contain turtle");
+                        Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+                        turtleMap.put(command.getID(), newTurtle);
+                    }
+
+                    turtle = turtleMap.get(command.getID());
+                    turtle.moveTurtle(command, myStates);
+                }
+                console.getItems().add(commands);
+                myUserDefined.getItems().clear();
+                myUserDefined.getItems().add("Variables and Commands");
+                savedVarMap = backend.getVarMap();
+                for (String key : savedVarMap.keySet()) {
+                    myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
+                }
             }
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
