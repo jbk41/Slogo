@@ -102,20 +102,15 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
-
             Turtle turtle;
 
             for (Executable commandToRun : backend.getCommands()) {
                 System.out.println(commandToRun);
                 if (commandToRun instanceof TurtleState) {
                     System.out.println("Current command: " + commandToRun);
-
-                //TODO: MARK ADD IFS HERE
-                    System.out.println("turtleState");
                     TurtleState command = (TurtleState)commandToRun;
                     System.out.println(command.getID());
                     if (!turtleMap.containsKey(command.getID())) {
-                        System.out.println("did not contain turtle");
                         Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
                         turtleMap.put(command.getID(), newTurtle);
                     }
@@ -131,7 +126,6 @@ public class TurtleIDE extends Application {
                 if(commandToRun instanceof EnvironmentState){
 
                 }
-                console.getItems().add(commands);
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
                 savedVarMap = backend.getVarMap();
