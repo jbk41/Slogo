@@ -274,11 +274,13 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     /*
-    Get the Command list to send to frontend
+    For frontend
      */
     public List<TurtleState> getCommands() { return myCommands; }
 
-    public CommandManager getCommandManager() { return myCM; }
+    public void clearCommands(){
+        myCommands.clear();
+    }
 
-    public TurtleManager getTurtleManager() { return myTM; }
+
 }

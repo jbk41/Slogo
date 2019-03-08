@@ -19,16 +19,26 @@ public class BackendModel implements BackendAPI {
         myPC = new ParseCleaner(DEFAULT_LANGUAGE);
     }
 
-    public void setLanguage(String language){ myPC = new ParseCleaner(language);   }
+    public void setLanguage(String language){
+        myPC = new ParseCleaner(language);
+    }
 
-    public void interpret(String text){ myCT = new CommandTree(text, myPC, myBM);}
+    public void interpret(String text){
+        myCT = new CommandTree(text, myPC, myBM);
+    }
 
-    public List<TurtleState> getCommands(){return myBM.getCommands();}
+    public List<TurtleState> getCommands(){
+        return myBM.getCommands();
+    }
 
-    public BackendManager getBackendManager(){ return myBM; }
+    public void clearCommandList(){
+        myBM.clearCommands();
+    }
 
-    public CommandManager getCommandManager(){ return myBM.getCommandManager(); }
+    //public BackendManager getBackendManager(){ return myBM; }
 
-    public TurtleManager getTurtleManager() { return myBM.getTurtleManager(); }
+    //public CommandManager getCommandManager(){ return myBM.getCommandManager(); }
+
+    //public TurtleManager getTurtleManager() { return myBM.getTurtleManager(); }
 
 }

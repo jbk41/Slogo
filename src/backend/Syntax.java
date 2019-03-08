@@ -2,11 +2,19 @@ package backend;
 
 public class Syntax {
 
-    private String mySyntax;
+    private String myCommand;
     private int myLine;
 
     public Syntax(String s, int lineNumber){
-        mySyntax = s;
+        myCommand = s;
         myLine = lineNumber;
+    }
+
+    public int getLine(){
+        return myLine;
+    }
+
+    public String getCommand(){
+        return myCommand;
     }
 }
