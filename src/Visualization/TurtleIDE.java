@@ -103,7 +103,6 @@ public class TurtleIDE extends Application {
         backend.clearCommandList();
         String commands = textEditor.getText();
         console.getItems().add(commands);
-        System.out.println(commands);
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
@@ -112,18 +111,17 @@ public class TurtleIDE extends Application {
             Turtle turtle;
             for (Executable commandToRun : backend.getCommands()) {
                 if (commandToRun instanceof TurtleState) {
+                    System.out.println("Current command: " + commandToRun);
                     runTurtleStateCommand(commandToRun);
                 }
-                TurtleState command = (TurtleState)commandToRun;
-                }
                 //TODO: MARK ADD IFS HERE
-
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
                 savedVarMap = backend.getVarMap();
                 for (String key : savedVarMap.keySet()) {
                     myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
                 }
+            }
 
             ParallelTransition parallelTransition = new ParallelTransition();
 

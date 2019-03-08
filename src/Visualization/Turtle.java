@@ -97,6 +97,9 @@ public class Turtle {
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
+        System.out.println("id: " + currentTurtleState.getID());
+        System.out.println("old x: " + turtleImageView.getX());
+        System.out.println("old y: " + turtleImageView.getY());
         double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
         double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
         double prevDegrees = 0.0;
@@ -120,6 +123,8 @@ public class Turtle {
         path.getElements().add(new LineTo(newX, newY));
         turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth() / 2);
         turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight() / 2);
+        System.out.println("New x: " + turtleImageView.getX());
+        System.out.println("New y: " + turtleImageView.getY() + "\n");
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
         sequentialTransition.getChildren().add(pathTransition);
 //        sequentialTransition.play();
