@@ -4,6 +4,8 @@ import Executable.Executable;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -85,7 +87,6 @@ public class Turtle {
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
     public void moveTurtle(List<Executable> turtleStateList, Console stateConsole) {
-        System.out.println(turtleStateList);
         sequentialTransition = new SequentialTransition();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
@@ -96,19 +97,12 @@ public class Turtle {
             Executable currentTurtleState = turtleStateList.get(x);
             if(currentTurtleState instanceof TurtleState) {
                 TurtleState currentTurtle = (TurtleState)currentTurtleState;
-                System.out.println("Turtle State");
-                System.out.println("Current State");
-                System.out.println(turtleImageView.getX());
-                System.out.println(turtleImageView.getY());
                 double degrees = currentTurtle.getDeg();
                 RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
                 sequentialTransition.getChildren().add(rt);
                 prevDegrees = degrees;
                 double newX = currentTurtle.getX() + defaultX;
                 double newY = defaultY - currentTurtle.getY();
-                System.out.println("Calculated Positions:");
-                System.out.println(newX);
-                System.out.println(newY);
                 if(turtleXPosition() == newX && turtleYPosition() == newY){
                     if(currentTurtle.getClear()){
                         newX = currentTurtle.getX() + xAtZero;
@@ -119,13 +113,16 @@ public class Turtle {
                 }
                 Path path = new Path();
                 path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
+                System.out.println("original: ");
+                System.out.println(turtleXPosition());
+                System.out.println(turtleYPosition());
                 path.getElements().add(new LineTo(newX, newY));
+                System.out.println("move to: ");
+                System.out.println(newX);
+                System.out.println(newY);
                 turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
                 turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
-                System.out.println("New ImageView State");
-                System.out.println(turtleImageView.getX());
-                System.out.println(turtleImageView.getY());
-                PathTransition pathTransition = createTransition(path, (TurtleState)turtleStateList.get(x), stateConsole);
+                PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
                 sequentialTransition.getChildren().add(pathTransition);
             }
             if(currentTurtleState instanceof EnvironmentState){
@@ -155,32 +152,38 @@ public class Turtle {
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
         gc = canvas.getGraphicsContext2D();
-        pathTransition.currentTimeProperty().addListener(e -> drawLine(turtleState, stateConsole));
+        pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            double oldX;
+            double oldY;
+            @Override
+            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
+                double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+                double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
+                if(oldX == 0){
+                    oldX = x;
+                    oldY = y;
+                }
+                if(turtleState.getPenState()) {
+                    gc.setStroke(PEN_COLOR);
+                    gc.setLineWidth(PEN_SIZE);
+                    gc.strokeLine(oldX, oldY, x, y);
+                }
+                oldX = x;
+                oldY = y;
+                if(turtleState.getClear()){clearScreen();}
+                if(checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || !turtleState.getVisibility()){
+                    turtleImageView.setVisible(false);
+                }else{
+                    turtleImageView.setVisible(true);
+                }
+                stateConsole.getItems().clear();
+                stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getX(), turtleState.getY(), turtleState.getDeg(), turtleState.getPenState()));
+
+            }
+        });
         return pathTransition;
     }
-    private void drawLine(TurtleState turtleState, Console stateConsole) {
-        if (oldX == 0) {
-            oldX = x;
-            oldY = y;
-        }
-        if (turtleState.getPenState()) {
-            gc.setStroke(PEN_COLOR);
-            gc.setLineWidth(PEN_SIZE);
-            gc.strokeLine(oldX, oldY, x, y);
-        }
-        oldX = x;
-        oldY = y;
-        if (turtleState.getClear()) {
-            clearScreen();
-        }
-        if (checkWidthOutOfBounds(x) || checkHeightOutOfBounds(y) || !turtleState.getVisibility()) {
-            turtleImageView.setVisible(false);
-        } else {
-            turtleImageView.setVisible(true);
-        }
-        stateConsole.getItems().clear();
-        stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getX(), turtleState.getY(), turtleState.getDeg(), turtleState.getPenState()));
-    }
+
     private Boolean checkWidthOutOfBounds(double x){
         return x < 0 || x > pane.getPrefWidth();
     }
