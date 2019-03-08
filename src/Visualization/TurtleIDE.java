@@ -114,6 +114,15 @@ public class TurtleIDE extends Application {
                     turtle = turtleMap.get(command.getID());
                     turtle.moveTurtle(command, myStates);
                 }
+//                if (commandToRun instanceof ErrorMessage){
+//                    return;
+//                }
+//                if (commandToRun instanceof EnvironmentState){
+//
+//                }
+//                if (commandToRun instanceof ColorPaletteEntry){
+//
+//                }
                 console.getItems().add(commands);
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
