@@ -2,6 +2,7 @@ package parser;
 
 import backend.BackendManager;
 import backend.CommandManager;
+import backend.Syntax;
 import backend.VariableManager;
 import commands.*;
 
@@ -64,8 +65,8 @@ public class CommandFactory {
     }
 
 
-    private ArrayList<String> parseText(String s) {
-        ArrayList<String> cleanText = new ArrayList<>();
+    private List<String> parseText(String s) {
+        List<String> cleanText = new ArrayList<>();
         String temp = myLanguages.getSymbol(s);
         cleanText.add(temp);
         if (temp.equals("Constant") || temp.equals("Variable")){

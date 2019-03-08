@@ -9,8 +9,8 @@ import parser.CommandFactory;
 import parser.ParseCleaner;
 
 public class CommandTree {
-    private List<String> myArguments;
-    //private List<Syntax> myArguments;
+    //private List<String> myArguments;
+    private List<Syntax> myArguments;
     private GeneralCommand head;
     private int start;
     private int end;
@@ -19,7 +19,7 @@ public class CommandTree {
 
 
     public CommandTree(String text, ParseCleaner clean,  BackendManager bm){
-        myArguments = new ArrayList<>(Arrays.asList(text.split("\\s+")));
+        myArguments = split(text);
         myBM = bm;
         myCommandFactory = new CommandFactory(clean, myBM);
         head = new RootCommand(bm);
@@ -27,6 +27,11 @@ public class CommandTree {
         generateTree();
         //linkParentsAndInitializeVariables(head);
         head.execute();
+    }
+
+    private List<Syntax> split(String text){
+        SyntaxSplitter syntaxSplitter = new SyntaxSplitter();
+        return syntaxSplitter.split(text);
     }
 
     /**
@@ -53,9 +58,11 @@ public class CommandTree {
         }
     }
 
+
     // reads in string by word and generates syntax tree for a single "line" of commands
     private GeneralCommand generateOneSet(){
-        GeneralCommand command = myCommandFactory.getCommand(myArguments.get(start));
+        Syntax syntax = myArguments.get(start);
+        GeneralCommand command = myCommandFactory.getCommand(syntax.getCommand());
         //System.out.println(start);
 
         if (start == end){
@@ -75,6 +82,7 @@ public class CommandTree {
                 command.addChild(generateOneSet());
             }
         }
+        command.setLineNumber(syntax.getLine());
         return command;
     }
 

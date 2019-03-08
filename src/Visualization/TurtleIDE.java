@@ -29,9 +29,9 @@ public class TurtleIDE extends Application {
     private Console myUserDefined;
     private Console myStates;
     private BackendModel backend;
-    private Map <String, Double> savedVarMap = new HashMap<>();
+    private Map <String, Double> savedVarMap;
     private Turtle turtle;
-    private ArrayList<Turtle> turtleList = new ArrayList<>();
+    private ArrayList<Turtle> turtleList;
 
     @Override
     public void start(Stage stage){
@@ -55,7 +55,7 @@ public class TurtleIDE extends Application {
     }
 
     private void reInterpret(String command){
-        backend.getCommandManager().clearCommandList();
+        backend.clearCommandList();
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
         turtle.moveTurtle(backend.getCommands(),myStates);
@@ -88,13 +88,13 @@ public class TurtleIDE extends Application {
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
-            backend.getCommandManager().clearCommandList();
+            backend.clearCommandList();
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands(),myStates);
             console.getItems().add(commands);
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands");
-            savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
+            savedVarMap = backend.getVarMap();
             for (String key : savedVarMap.keySet()){
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
@@ -156,8 +156,8 @@ public class TurtleIDE extends Application {
         inputBox.setHeaderText("Enter the new value for " + key);
         inputBox.setContentText("Value: ");
         Optional<String> result = inputBox.showAndWait();
-        result.ifPresent(e -> backend.getBackendManager().getVariableManager().getVariableMap().put(key, Double.parseDouble(result.get())));
-        savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
+        result.ifPresent(e -> backend.setVariable(key, Double.parseDouble(result.get())));
+        savedVarMap = backend.getVarMap();
         return inputBox;
     }
 
@@ -165,7 +165,14 @@ public class TurtleIDE extends Application {
         return myStates;
     }
 
-
+    private void undoLastCommand() {
+        TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 2);
+        //TODO: some way to account for the different id
+        System.out.println(lastState.getX());
+        System.out.println(lastState.getY());
+        System.out.println(lastState.getDeg());
+        System.out.println(lastState.getPenState());
+    }
     private void undoLastCommand(Console stateConsole){
         if (commandHistory.size() > 1) {
 //            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
@@ -174,15 +181,15 @@ public class TurtleIDE extends Application {
             TurtleState lastState = commandHistory.get(commandHistory.size() - 1);
             TurtleState prevState = commandHistory.get(commandHistory.size() - 2);
             commandHistory.remove(commandHistory.size() - 1);
-            if (lastState.getXPos() != prevState.getXPos() || prevState.getYPos() != lastState.getYPos()) {
+            if (lastState.getX() != prevState.getX() || prevState.getY() != lastState.getY()) {
                 double oldX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
                 double oldY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
-                turtle.getTurtleImageView().setX(turtle.getDefaultX() + prevState.getXPos());
-                turtle.getTurtleImageView().setY(turtle.getDefaultY() - prevState.getYPos());
+                turtle.getTurtleImageView().setX(turtle.getDefaultX() + prevState.getX());
+                turtle.getTurtleImageView().setY(turtle.getDefaultY() - prevState.getY());
                 double newX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
                 double newY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
                 Paint color = turtle.getGraphics().getFill();
-                turtle.getGraphics().setStroke(WHITE);
+                turtle.getGraphics().setStroke(Color.WHITE);
                 turtle.getGraphics().setLineWidth(turtle.getPenSize() + 1);
                 turtle.getGraphics().strokeLine(oldX, oldY, newX, newY);
                 turtle.getGraphics().setStroke(color);
@@ -190,7 +197,7 @@ public class TurtleIDE extends Application {
             }
             backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
             stateConsole.getItems().clear();
-            stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(prevState.getXPos(), prevState.getYPos(), prevState.getMyDegrees(), prevState.getPenDown()));
+            stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(prevState.getX(), prevState.getY(), prevState.getDeg(), prevState.getPenState()));
         }
         else{
             stateConsole.getItems().clear();
