@@ -29,9 +29,9 @@ public class TurtleIDE extends Application {
     private Console myUserDefined;
     private Console myStates;
     private BackendModel backend;
-    private Map <String, Double> savedVarMap = new HashMap<>();
+    private Map <String, Double> savedVarMap;
     private Turtle turtle;
-    private ArrayList<Turtle> turtleList = new ArrayList<>();
+    private ArrayList<Turtle> turtleList;
 
     @Override
     public void start(Stage stage){
@@ -55,7 +55,7 @@ public class TurtleIDE extends Application {
     }
 
     private void reInterpret(String command){
-        backend.getCommandManager().clearCommandList();
+        backend.clearCommandList();
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
         turtle.moveTurtle(backend.getCommands(),myStates);
@@ -88,13 +88,13 @@ public class TurtleIDE extends Application {
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
-            backend.getCommandManager().clearCommandList();
+            backend.clearCommandList();
             backend.interpret(commands);
             turtle.moveTurtle(backend.getCommands(),myStates);
             console.getItems().add(commands);
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands");
-            savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
+            savedVarMap = backend.getVarMap();
             for (String key : savedVarMap.keySet()){
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
@@ -155,8 +155,8 @@ public class TurtleIDE extends Application {
         inputBox.setHeaderText("Enter the new value for " + key);
         inputBox.setContentText("Value: ");
         Optional<String> result = inputBox.showAndWait();
-        result.ifPresent(e -> backend.getBackendManager().getVariableManager().getVariableMap().put(key, Double.parseDouble(result.get())));
-        savedVarMap = backend.getBackendManager().getVariableManager().getVariableMap();
+        result.ifPresent(e -> backend.setVariable(key, Double.parseDouble(result.get())));
+        savedVarMap = backend.getVarMap();
         return inputBox;
     }
 
@@ -167,10 +167,10 @@ public class TurtleIDE extends Application {
     private void undoLastCommand(){
         TurtleState lastState = backend.getCommands().get(backend.getCommands().size()-2);
         //TODO: some way to account for the different id
-        System.out.println(lastState.getXPos());
-        System.out.println(lastState.getYPos());
-        System.out.println(lastState.getMyDegrees());
-        System.out.println(lastState.getPenDown());
+        System.out.println(lastState.getX());
+        System.out.println(lastState.getY());
+        System.out.println(lastState.getDeg());
+        System.out.println(lastState.getPenState());
     }
 
     /**

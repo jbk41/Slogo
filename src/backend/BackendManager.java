@@ -6,6 +6,8 @@ import commands.UserDefinedCommand;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Map;
 
 public class BackendManager implements BackendManagerAPI{
 
@@ -274,13 +276,18 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     /*
-    For frontend
+    For frontend (communication with BackendModel)
      */
-    public List<TurtleState> getCommands() { return myCommands; }
+    public List<TurtleState> getCommands() {
+        return myCommands;
+    }
 
     public void clearCommands(){
         myCommands.clear();
     }
 
+    public Map<String, Double> getVarMap(){
+        return Collections.unmodifiableMap(myVM.getVariableMap());
+    }
 
 }

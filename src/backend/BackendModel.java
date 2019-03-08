@@ -4,7 +4,9 @@ import TurtleState.TurtleState;
 import parser.ParseCleaner;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class BackendModel implements BackendAPI {
 
@@ -33,6 +35,14 @@ public class BackendModel implements BackendAPI {
 
     public void clearCommandList(){
         myBM.clearCommands();
+    }
+
+    public Map<String, Double> getVarMap(){
+        return Collections.unmodifiableMap(myBM.getVarMap());
+    }
+
+    public void setVariable(String key, double val){
+        myBM.setVariable(key, val);
     }
 
     //public BackendManager getBackendManager(){ return myBM; }
