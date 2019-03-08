@@ -15,6 +15,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class TurtleIDE extends Application {
     private BackendModel backend;
     private Map <String, Double> savedVarMap;
     private Turtle turtle;
-    private Map <Double, Turtle> turtleMap;
+    private Map <Double, Turtle> turtleMap = new HashMap<Double, Turtle>();
     private ArrayList<Turtle> turtleList;
 
     @Override
@@ -99,8 +100,11 @@ public class TurtleIDE extends Application {
             Turtle turtle;
 
             for (Executable commandToRun : backend.getCommands()) {
+                System.out.println(commandToRun);
                 if (commandToRun instanceof TurtleState) {
+                    System.out.println("turtleState");
                     TurtleState command = (TurtleState)commandToRun;
+                    System.out.println(command.getID());
                     if (!turtleMap.containsKey(command.getID())) {
                         System.out.println("did not contain turtle");
                         Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
