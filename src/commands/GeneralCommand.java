@@ -18,6 +18,7 @@ public class GeneralCommand {
     private boolean isReady;
     private double myVal;
     private BackendManager myBM;
+    private int myLineNumber;
 
     protected GeneralCommand(BackendManager bm){
         myChildren = new ArrayList<>();
@@ -38,6 +39,13 @@ public class GeneralCommand {
         return myChildren;
     }
 
+    public void setLineNumber(int lineNumber){
+        myLineNumber = lineNumber;
+    }
+
+    public int getLineNumber(){
+        return myLineNumber;
+    }
     //public String getVarName() {return ""; }
 
     public BackendManager getBM() {
