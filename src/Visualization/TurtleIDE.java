@@ -4,6 +4,8 @@ package Visualization;
 import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
+import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -13,7 +15,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
+import Executable.ColorPaletteEntry;
+import Executable.EnvironmentState;
+import Executable.ErrorMessage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -112,13 +116,33 @@ public class TurtleIDE extends Application {
                     runTurtleStateCommand(commandToRun);
                 }
                 //TODO: MARK ADD IFS HERE
+                    System.out.println("turtleState");
+                    TurtleState command = (TurtleState)commandToRun;
+                    System.out.println(command.getID());
+                    if (!turtleMap.containsKey(command.getID())) {
+                        System.out.println("did not contain turtle");
+                        Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+                        turtleMap.put(command.getID(), newTurtle);
+                    }
+                    turtle = turtleMap.get(command.getID());
+                    turtle.moveTurtle(command, myStates);
+                }
+
+                console.getItems().add(commands);
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
                 savedVarMap = backend.getVarMap();
                 for (String key : savedVarMap.keySet()) {
                     myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
                 }
+
+            ParallelTransition parallelTransition = new ParallelTransition();
+
+            for(double id: turtleMap.keySet()){
+                turtleMap.get(id).getST().play();
+//                parallelTransition.getChildren().add(sequentialTransition);
             }
+//            parallelTransition.play();
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }

@@ -122,8 +122,11 @@ public class Turtle {
         turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight() / 2);
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
         sequentialTransition.getChildren().add(pathTransition);
-        sequentialTransition.play();
+//        sequentialTransition.play();
     }
+
+
+    public SequentialTransition getST(){return sequentialTransition;}
 
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);
