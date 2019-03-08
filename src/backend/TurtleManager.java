@@ -2,6 +2,7 @@ package backend;
 
 import Executable.TurtleState;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ public class TurtleManager {
     private Map<Double, TurtleState> stateOfTurtles;
 
     public TurtleManager(){
+        activeTurtles = new ArrayList<>();
         stateOfTurtles = new HashMap<>();
     }
 
