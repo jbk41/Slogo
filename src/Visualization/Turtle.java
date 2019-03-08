@@ -88,6 +88,7 @@ public class Turtle {
     }
     public void moveTurtle(List<Executable> turtleStateList, Console stateConsole) {
         sequentialTransition = new SequentialTransition();
+        clearScreen();
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
         double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
@@ -113,13 +114,7 @@ public class Turtle {
                 }
                 Path path = new Path();
                 path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
-                System.out.println("original: ");
-                System.out.println(turtleXPosition());
-                System.out.println(turtleYPosition());
                 path.getElements().add(new LineTo(newX, newY));
-                System.out.println("move to: ");
-                System.out.println(newX);
-                System.out.println(newY);
                 turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
                 turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
                 PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
