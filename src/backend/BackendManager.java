@@ -42,6 +42,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -64,6 +65,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -86,6 +88,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -108,6 +111,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -126,6 +130,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -144,6 +149,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -162,6 +168,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -180,6 +187,7 @@ public class BackendManager implements BackendManagerAPI{
                     true,
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -198,6 +206,7 @@ public class BackendManager implements BackendManagerAPI{
                     false,
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -216,6 +225,7 @@ public class BackendManager implements BackendManagerAPI{
                     true,
                     turtleID,
                     false);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }
@@ -234,6 +244,7 @@ public class BackendManager implements BackendManagerAPI{
                     true,
                     turtleID,
                     true);
+            myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
     }

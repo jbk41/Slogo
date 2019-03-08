@@ -43,4 +43,8 @@ public class TurtleManager {
     public TurtleState getStateOfTurtle(double id){
         return stateOfTurtles.get(id);
     }
+
+    public void setStateOfTurtle(double id, TurtleState ts){
+        stateOfTurtles.put(id, ts);
+    }
 }
