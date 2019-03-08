@@ -84,7 +84,7 @@ public class TurtleIDE extends Application {
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
         String commands = textEditor.getText();
-//        try {
+        try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
             backend.clearCommandList();
@@ -97,9 +97,9 @@ public class TurtleIDE extends Application {
             for (String key : savedVarMap.keySet()){
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
-//        }catch(NullPointerException ex){
-//            showError("Please Choose a Language");
-//        }
+        }catch(NullPointerException ex){
+            showError("Please Choose a Language");
+        }
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
