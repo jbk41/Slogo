@@ -1,5 +1,6 @@
 package Visualization;
 
+import Executable.Executable;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -13,7 +14,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import Executable.TurtleState;
-
+import Executable.ColorPaletteEntry;
+import Executable.EnvironmentState;
+import Executable.ErrorMessage;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -81,33 +84,46 @@ public class Turtle {
         turtleImageView.setX(pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2);
         turtleImageView.setY(pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2);
     }
-    public void moveTurtle(List<TurtleState> turtleStateList, Console stateConsole) {
+    public void moveTurtle(List<Executable> turtleStateList, Console stateConsole) {
         sequentialTransition = new SequentialTransition();
-        double defaultX = turtleXPosition();
-        double defaultY = turtleYPosition();
-        double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
-        double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
-        double prevDegrees = 0.0;
-        for (int x = 0; x < turtleStateList.size(); x++) {
-            TurtleState currentTurtleState = turtleStateList.get(x);
-            double degrees = currentTurtleState.getDeg();
-            RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
-            sequentialTransition.getChildren().add(rt);
-            prevDegrees = degrees;
-            double newX = currentTurtleState.getX() + defaultX;
-            double newY = defaultY - currentTurtleState.getY();
-            if (turtleXPosition() == newX && turtleYPosition() == newY) {
-                if (currentTurtleState.getClear()) {
-                    newX = currentTurtleState.getX() + xAtZero;
-                    newY = yAtZero - currentTurtleState.getY();
-                } else {
-                    continue;
-                }
-            }
-            PathTransition pathTransition = createTransition(createPath(newX, newY), turtleStateList.get(x), stateConsole);
-            sequentialTransition.getChildren().add(pathTransition);
+        if(turtleStateList instanceof ColorPaletteEntry){
+            double r = ((ColorPaletteEntry) turtleStateList).getR();
+            double b = ((ColorPaletteEntry) turtleStateList).getB();
+            double g = ((ColorPaletteEntry) turtleStateList).getG();
         }
-        sequentialTransition.play();
+        if(turtleStateList instanceof ErrorMessage){
+            stateConsole.getItems().add(((ErrorMessage) turtleStateList).getError());
+        }
+        if(turtleStateList instanceof EnvironmentState){
+
+        }
+        if(turtleStateList instanceof TurtleState){
+            double defaultX = turtleXPosition();
+            double defaultY = turtleYPosition();
+            double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
+            double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
+            double prevDegrees = 0.0;
+            for (int x = 0; x < turtleStateList.size(); x++) {
+                TurtleState currentTurtleState = (TurtleState)turtleStateList.get(x);
+                double degrees = currentTurtleState.getDeg();
+                RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
+                sequentialTransition.getChildren().add(rt);
+                prevDegrees = degrees;
+                double newX = currentTurtleState.getX() + defaultX;
+                double newY = defaultY - currentTurtleState.getY();
+                if (turtleXPosition() == newX && turtleYPosition() == newY) {
+                    if (currentTurtleState.getClear()) {
+                        newX = currentTurtleState.getX() + xAtZero;
+                        newY = yAtZero - currentTurtleState.getY();
+                    } else {
+                        continue;
+                    }
+                }
+                PathTransition pathTransition = createTransition(createPath(newX, newY), currentTurtleState, stateConsole);
+                sequentialTransition.getChildren().add(pathTransition);
+            }
+            sequentialTransition.play();
+        }
     }
     private Path createPath(double newX, double newY){
         Path path = new Path();

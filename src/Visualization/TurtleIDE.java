@@ -84,7 +84,7 @@ public class TurtleIDE extends Application {
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown, Turtle turtle){
         String commands = textEditor.getText();
-        try {
+//        try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
             backend.clearCommandList();
@@ -97,9 +97,9 @@ public class TurtleIDE extends Application {
             for (String key : savedVarMap.keySet()){
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
-        }catch(NullPointerException ex){
-            showError("Please Choose a Language");
-        }
+//        }catch(NullPointerException ex){
+//            showError("Please Choose a Language");
+//        }
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
@@ -109,7 +109,7 @@ public class TurtleIDE extends Application {
 
     private Button createUndoButton(){
         Button undo = new Button("Undo");
-        undo.setOnAction(e -> undoLastCommand());
+//        undo.setOnAction(e -> undoLastCommand());
         return undo;
     }
 
@@ -164,14 +164,14 @@ public class TurtleIDE extends Application {
         return myStates;
     }
 
-    private void undoLastCommand() {
-        TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 2);
-        //TODO: some way to account for the different id
-        System.out.println(lastState.getX());
-        System.out.println(lastState.getY());
-        System.out.println(lastState.getDeg());
-        System.out.println(lastState.getPenState());
-    }
+//    private void undoLastCommand() {
+//        TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 2);
+//        //TODO: some way to account for the different id
+//        System.out.println(lastState.getX());
+//        System.out.println(lastState.getY());
+//        System.out.println(lastState.getDeg());
+//        System.out.println(lastState.getPenState());
+//    }
     /*
     private void undoLastCommand(Console stateConsole){
 
