@@ -173,7 +173,9 @@ public class TurtleIDE extends Application {
         System.out.println(lastState.getDeg());
         System.out.println(lastState.getPenState());
     }
+    /*
     private void undoLastCommand(Console stateConsole){
+
         if (commandHistory.size() > 1) {
 //            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
 //            TurtleState prevState = backend.getCommands().get(backend.getCommands().size() - 2);
@@ -205,6 +207,7 @@ public class TurtleIDE extends Application {
             turtle.setDefaultTurtleLocation();
         }
     }
+    */
 
     /**
      * Start the program.

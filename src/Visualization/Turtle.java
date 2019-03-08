@@ -31,8 +31,8 @@ public class Turtle {
     private Paint PEN_COLOR;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
-    private double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
-    private double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
+    private double x;
+    private double y;
     private double oldX;
     private double oldY;
     public Turtle(TurtleDisplay pane, Canvas canvas){
@@ -63,6 +63,8 @@ public class Turtle {
     private void addTurtleToRoot(String imageName){
         Image turtleImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName));
         this.turtleImageView = new ImageView(turtleImage);
+        x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+        y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
         pane.getChildren().add(this.turtleImageView);
         setDefaultTurtleLocation();
     }
