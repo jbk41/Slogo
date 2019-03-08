@@ -114,6 +114,8 @@ public class TurtleIDE extends Application {
                     turtle = turtleMap.get(command.getID());
                     turtle.moveTurtle(command, myStates);
                 }
+
+                //TODO: MARK ADD IFS HERE
                 console.getItems().add(commands);
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
@@ -126,6 +128,11 @@ public class TurtleIDE extends Application {
             showError("Please Choose a Language");
         }
     }
+
+    public void clearTurtleMap(){
+        turtleMap.clear();
+    }
+
     private Button createHelpButton(){
         Button help = new Button("Help");
         help.setOnAction(e -> createHelpScreen());
