@@ -127,9 +127,7 @@ public class TurtleIDE extends Application {
                     turtle = turtleMap.get(command.getID());
                     turtle.moveTurtle(command, myStates);
                 }
-
-                console.getItems().add(commands);
-                myUserDefined.getItems().clear();
+             myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
                 savedVarMap = backend.getVarMap();
                 for (String key : savedVarMap.keySet()) {
