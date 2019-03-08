@@ -42,6 +42,7 @@ public class TurtleState extends Executable{
         myYPos = 0;
         myDegrees = 0;
         isPenDown = false;
+        isVisible = true;
         myID = id;
         myClear = false;
     }
