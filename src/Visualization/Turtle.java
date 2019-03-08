@@ -59,7 +59,7 @@ public class Turtle {
     private void clearScreen() {
         this.canvas = pane.createNewCanvas();
         gc = canvas.getGraphicsContext2D();
-        setTurtleImage(TURTLE_IMAGE);
+        pane.getChildren().removeAll();
     }
 
     public void setTurtleImage(String imageName) {
@@ -167,7 +167,7 @@ public class Turtle {
                     turtleImageView.setVisible(true);
                 }
                 stateConsole.getItems().clear();
-                stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getX(), turtleState.getY(), turtleState.getDeg(), turtleState.getPenState()));
+                stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getX(), turtleState.getY(), turtleState.getDeg()%360, turtleState.getPenState()));
 
             }
         });

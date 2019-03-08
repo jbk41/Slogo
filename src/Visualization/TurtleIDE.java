@@ -4,8 +4,6 @@ package Visualization;
 import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
-import javafx.animation.ParallelTransition;
-import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -15,9 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import Executable.ColorPaletteEntry;
-import Executable.EnvironmentState;
-import Executable.ErrorMessage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -114,17 +110,9 @@ public class TurtleIDE extends Application {
                         Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
                         turtleMap.put(command.getID(), newTurtle);
                     }
+
                     turtle = turtleMap.get(command.getID());
                     turtle.moveTurtle(command, myStates);
-                }
-                if(commandToRun instanceof ColorPaletteEntry){
-
-                }
-                if(commandToRun instanceof ErrorMessage){
-                    console.getItems().add(((ErrorMessage) commandToRun).getError());
-                }
-                if(commandToRun instanceof EnvironmentState){
-
                 }
                 console.getItems().add(commands);
                 myUserDefined.getItems().clear();
@@ -134,22 +122,10 @@ public class TurtleIDE extends Application {
                     myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
                 }
             }
-            ParallelTransition parallelTransition = new ParallelTransition();
-
-            for(double id: turtleMap.keySet()){
-                SequentialTransition sequentialTransition = turtleMap.get(id).getST();
-                parallelTransition.getChildren().add(sequentialTransition);
-            }
-            parallelTransition.play();
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
     }
-
-    public void clearTurtleMap(){
-        turtleMap.clear();
-    }
-
     private Button createHelpButton(){
         Button help = new Button("Help");
         help.setOnAction(e -> createHelpScreen());
