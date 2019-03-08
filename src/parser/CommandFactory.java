@@ -55,7 +55,7 @@ public class CommandFactory {
                 System.out.println("standard com " + commandName);
                 return (GeneralCommand) Class.forName("commands." + commandName + "Command").getConstructor(BackendManager.class).newInstance(myBM);
             }
-            else if (myBM.containsCommand(commandName)){
+            else if (myBM.containsCommand(list.get(1))){
                 System.out.println("user com " + list.get(1));
                 return new RunUserDefinedCommand(myBM, list.get(1));
             }
