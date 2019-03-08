@@ -1,6 +1,6 @@
 package TurtleState;
 
-public class TurtleState extends State{
+public class TurtleState {
 
     private double myXPos;
     private double myYPos;
