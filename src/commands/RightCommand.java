@@ -8,17 +8,12 @@ public class RightCommand extends MovementCommand {
 
     public RightCommand (BackendManager bm){
         super(bm);
-        myType = "Right";
-        myMaxChildren = 1;
-    }
-
-    public RightCommand(GeneralCommand c){
-        super(c);
+        setType("Right");
+        setMaxChildren(1);
     }
 
     @Override
     protected void update() {
-        myBM.right(myVal);
+        getBM().right(getVal());
     }
-
 }

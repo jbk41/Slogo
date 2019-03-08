@@ -15,6 +15,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import TurtleState.TurtleState;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class Turtle {
@@ -99,16 +102,17 @@ public class Turtle {
                     continue;
                 }
             }
-            Path path = new Path();
+            PathTransition pathTransition = createTransition(createPath(newX, newY), turtleStateList.get(x), stateConsole);
+            sequentialTransition.getChildren().add(pathTransition);
+        }
+        sequentialTransition.play();
+    private Path createPath(double newX, double newY){
+        Path path = new Path();
             path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
             path.getElements().add(new LineTo(newX, newY));
             turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth()/2);
             turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight()/2);
-            PathTransition pathTransition = createTransition(path, turtleStateList.get(x), stateConsole);
-            sequentialTransition.getChildren().add(pathTransition);
-        }
-        sequentialTransition.play();
-
+    }
     }
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);
@@ -124,12 +128,11 @@ public class Turtle {
         pathTransition.setNode(turtleImageView);
         pathTransition.setCycleCount(1);
         gc = canvas.getGraphicsContext2D();
-        pathTransition.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            double oldX;
-            double oldY;
-            @Override
-            public void changed(ObservableValue<? extends Duration> observableValue, Duration duration, Duration t1) {
-                double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+        pathTransition.currentTimeProperty().addListener(() -> drawLine());
+        return pathTransition;
+    }
+    private void drawLine(){
+        double x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
                 double y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
                 if(oldX == 0){
                     oldX = x;
@@ -150,10 +153,6 @@ public class Turtle {
                 }
                 stateConsole.getItems().clear();
                 stateConsole.getItems().add("Turtle State" + "\r\n" + getState(turtleState.getXPos(), turtleState.getYPos(), turtleState.getMyDegrees(), turtleState.getPenDown()));
-
-            }
-        });
-        return pathTransition;
     }
     private Boolean checkWidthOutOfBounds(double x){
         return x < 0 || x > pane.getPrefWidth();
@@ -162,7 +161,34 @@ public class Turtle {
         return y < 0 || y > pane.getPrefHeight();
     }
 
-    public String getState(double x, double y, double heading, boolean pen){
-        return "X: " + x + "\r\n" + "Y: " + y + "\r\n" + "Heading: " + heading + "\r\n"  + "Pen: " + pen + "\r\n";
+
+    String getState(double x, double y, double heading, boolean pen){
+        DecimalFormat df = new DecimalFormat("##.#");
+        df.setRoundingMode(RoundingMode.CEILING);
+        return "X: " + df.format(x) + "\r\n" + "Y: " + df.format(y) + "\r\n" + "Heading: " + df.format(heading) + "\r\n"  + "Pen: " + pen + "\r\n";
+    }
+
+    ImageView getTurtleImageView(){
+        return turtleImageView;
+    }
+
+    double getDefaultX(){
+        return pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth()/2;
+    }
+
+    double getDefaultY(){
+        return pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2;
+    }
+
+    double getCenterX(){
+        return 0;
+    }
+
+    double getPenSize(){
+        return PEN_SIZE;
+    }
+
+    GraphicsContext getGraphics(){
+        return gc;
     }
 }

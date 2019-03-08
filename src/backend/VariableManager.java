@@ -1,6 +1,7 @@
 package backend;
 
 import java.security.InvalidKeyException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +13,6 @@ public class VariableManager {
         variableMap = new HashMap<String, Double>();
     }
 
-    public Map<String, Double> getVariableMap() { return variableMap; }
-
     public void set(String varName, double val){
         variableMap.put(varName, val);
     }
@@ -24,5 +23,9 @@ public class VariableManager {
 
     public double getVal(String varName){
         return variableMap.get(varName);
+    }
+
+    public Map<String, Double> getVariableMap(){
+        return Collections.unmodifiableMap(variableMap);
     }
 }

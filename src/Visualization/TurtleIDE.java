@@ -122,7 +122,8 @@ public class TurtleIDE extends Application {
 
     private void createHelpScreen(){
         try {
-            HelpScreen.displayHelpScreen();
+            HelpScreen help = new HelpScreen();
+            help.displayHelpScreen();
         } catch (Exception e){
             showError("Wrong File");
         }
@@ -164,13 +165,45 @@ public class TurtleIDE extends Application {
         return myStates;
     }
 
-    private void undoLastCommand(){
-        TurtleState lastState = backend.getCommands().get(backend.getCommands().size()-2);
+    private void undoLastCommand() {
+        TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 2);
         //TODO: some way to account for the different id
         System.out.println(lastState.getX());
         System.out.println(lastState.getY());
         System.out.println(lastState.getDeg());
         System.out.println(lastState.getPenState());
+    }
+    private void undoLastCommand(Console stateConsole){
+        if (commandHistory.size() > 1) {
+//            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
+//            TurtleState prevState = backend.getCommands().get(backend.getCommands().size() - 2);
+//            backend.getCommands().remove(backend.getCommands().size() - 1);
+            TurtleState lastState = commandHistory.get(commandHistory.size() - 1);
+            TurtleState prevState = commandHistory.get(commandHistory.size() - 2);
+            commandHistory.remove(commandHistory.size() - 1);
+            if (lastState.getX() != prevState.getX() || prevState.getY() != lastState.getY()) {
+                double oldX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
+                double oldY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
+                turtle.getTurtleImageView().setX(turtle.getDefaultX() + prevState.getX());
+                turtle.getTurtleImageView().setY(turtle.getDefaultY() - prevState.getY());
+                double newX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
+                double newY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
+                Paint color = turtle.getGraphics().getFill();
+                turtle.getGraphics().setStroke(Color.WHITE);
+                turtle.getGraphics().setLineWidth(turtle.getPenSize() + 1);
+                turtle.getGraphics().strokeLine(oldX, oldY, newX, newY);
+                turtle.getGraphics().setStroke(color);
+                turtle.getGraphics().setLineWidth(turtle.getPenSize());
+            }
+            backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
+            stateConsole.getItems().clear();
+            stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(prevState.getX(), prevState.getY(), prevState.getDeg(), prevState.getPenState()));
+        }
+        else{
+            stateConsole.getItems().clear();
+            stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(0,0,0,false));
+            turtle.setDefaultTurtleLocation();
+        }
     }
 
     /**

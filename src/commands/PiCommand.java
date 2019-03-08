@@ -6,8 +6,8 @@ public class PiCommand extends GeneralCommand{
 
     public PiCommand(BackendManager bm) {
         super(bm);
-        myMaxChildren = 0;
-        myType = "Pi";
-        myVal = Math.PI;
+        setMaxChildren(0);
+        setType("Pi");
+        setVal(Math.PI);
     }
 }

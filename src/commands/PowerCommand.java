@@ -6,18 +6,13 @@ public class PowerCommand extends GeneralCommand {
 
     public PowerCommand(BackendManager bm){
         super(bm);
-        myType = "Power";
-        myMaxChildren = 2;
-    }
-
-    public PowerCommand(GeneralCommand c){
-        super(c);
+        setType("Power");
+        setMaxChildren(2);
     }
 
     public void execute(){
         checkParameterCount();
         executeChildren();
-
-        myVal = Math.pow(myChildren.get(0).getVal(), myChildren.get(1).getVal());
+        setVal(Math.pow(getChildren().get(0).getVal(), getChildren().get(1).getVal()));
     }
 }

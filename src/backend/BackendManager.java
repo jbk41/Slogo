@@ -14,7 +14,7 @@ public class BackendManager implements BackendManagerAPI{
     private CommandManager myCM;
     private VariableManager myVM;
     private TurtleManager myTM;
-    private ArrayList<TurtleState> myCommands;
+    private List<TurtleState> myCommands;
 
     public BackendManager(){
         myCM = new CommandManager();
@@ -278,9 +278,6 @@ public class BackendManager implements BackendManagerAPI{
     /*
     For frontend (communication with BackendModel)
      */
-    public List<TurtleState> getCommands() {
-        return myCommands;
-    }
 
     public void clearCommands(){
         myCommands.clear();
@@ -289,5 +286,10 @@ public class BackendManager implements BackendManagerAPI{
     public Map<String, Double> getVarMap(){
         return Collections.unmodifiableMap(myVM.getVariableMap());
     }
+
+    public List<TurtleState> getCommands(){
+        return myCommands;
+    }
+
 
 }

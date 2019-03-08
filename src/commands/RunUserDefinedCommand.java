@@ -9,21 +9,21 @@ public class RunUserDefinedCommand extends GeneralCommand {
     public RunUserDefinedCommand(BackendManager bm, String commandName){
         super(bm);
         userDefinedCommand = bm.getUserCommand(commandName);
-        myMaxChildren = userDefinedCommand.getMaxArgs();
+        setMaxChildren(userDefinedCommand.getMaxArgs());
     }
 
     public void execute(){
         GeneralCommand vars = userDefinedCommand.getChildren().get(0);
         GeneralCommand commands = userDefinedCommand.getChildren().get(1);
-        if (myMaxChildren != userDefinedCommand.getMaxArgs()){
+        if (getMaxChildren() != userDefinedCommand.getMaxArgs()){
             //TODO: throw an error because userDefinedCommand needs to have
         }
-        for (int i = 0; i < myMaxChildren; i++){
+        for (int i = 0; i < getMaxChildren(); i++){
             GeneralCommand temp = vars.getChildren().get(i);
             VariableCommand vc;
             if (temp instanceof VariableCommand){
                 vc = (VariableCommand) temp;
-                myBM.setVariable(vc.getVarName(), myChildren.get(i).getVal());
+                getBM().setVariable(vc.getVarName(), getChildren().get(i).getVal());
             }
             else {
                 //TODO: throw and error. must be of type VariableCommand

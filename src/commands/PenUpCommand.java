@@ -7,17 +7,13 @@ public class PenUpCommand extends StatementCommand {
     public PenUpCommand(BackendManager bm) {
         super(bm);
         makeReady();
-        myMaxChildren = 0;
-        myType = "PenUp";
-        myVal = 0;
-    }
-
-    public PenUpCommand(GeneralCommand c){
-        super(c);
+        setMaxChildren(0);
+        setType("PenUp");
+        setVal(0);
     }
 
     @Override
     public void update() {
-        myBM.penUp();
+        getBM().penUp();
     }
 }

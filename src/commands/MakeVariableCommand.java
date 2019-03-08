@@ -9,11 +9,8 @@ public class MakeVariableCommand extends GeneralCommand {
 
     public MakeVariableCommand(BackendManager bm){
         super(bm);
-        myType = "MakeVariable";
-        myMaxChildren = 2;
-    }
-    public MakeVariableCommand(GeneralCommand c){
-        super(c);
+        setType("MakeVariable");
+        setMaxChildren(2);
     }
 
     public void execute(){
@@ -21,8 +18,8 @@ public class MakeVariableCommand extends GeneralCommand {
         checkParameterCount();
         try {
             String varName = "";
-            if (myChildren.get(0) instanceof VariableCommand){
-                VariableCommand vc = (VariableCommand) myChildren.get(0);
+            if (getChildren().get(0) instanceof VariableCommand){
+                VariableCommand vc = (VariableCommand) getChildren().get(0);
                 varName = vc.getVarName();
             }
             else {
@@ -30,8 +27,8 @@ public class MakeVariableCommand extends GeneralCommand {
                 return;
             }
 
-            double val = myChildren.get(1).getVal();
-            myBM.setVariable(varName, val);
+            double val = getChildren().get(1).getVal();
+            getBM().setVariable(varName, val);
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }

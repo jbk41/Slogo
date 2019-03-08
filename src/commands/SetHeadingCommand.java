@@ -8,17 +8,13 @@ public class SetHeadingCommand extends MovementCommand {
 
     public SetHeadingCommand(BackendManager bm){
         super(bm);
-        myType = "SetHeading";
-        myMaxChildren = 1;
-    }
-
-    public SetHeadingCommand(GeneralCommand c){
-        super(c);
+        setType("SetHeading");
+        setMaxChildren(1);
     }
 
     @Override
     protected void update() {
-        myBM.setHeading(myVal);
+        getBM().setHeading(getVal());
     }
 
 }

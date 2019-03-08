@@ -9,23 +9,23 @@ public class AskCommand extends GeneralCommand {
 
     public AskCommand(BackendManager bm){
         super(bm);
-        myMaxChildren = 2;
-        myType = "Ask";
+        setMaxChildren(2);
+        setType("Ask");
     }
 
     public void execute(){
-        List<Double> oldActiveTurtles = myBM.getActiveTurtles(); // set active turtles to this list at the end
+        List<Double> oldActiveTurtles = getBM().getActiveTurtles(); // set active turtles to this list at the end
 
         List<Double> turtleIDs = new ArrayList<>();
-        for (GeneralCommand child: myChildren){
+        for (GeneralCommand child: getChildren()){
             if (!(child instanceof ListEndCommand)){
                 turtleIDs.add(child.getVal());
             }
         }
-        myBM.setTurtles(turtleIDs);
+        getBM().setTurtles(turtleIDs);
 
-        GeneralCommand commands = myChildren.get(1);
+        GeneralCommand commands = getChildren().get(1);
         commands.execute();
-        myBM.setTurtles(oldActiveTurtles);
+        getBM().setTurtles(oldActiveTurtles);
     }
 }

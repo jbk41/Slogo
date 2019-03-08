@@ -47,10 +47,31 @@ public class GeneralCommand {
         return myLineNumber;
     }
     //public String getVarName() {return ""; }
+    protected void makeReady(){
+        isReady = true;
+    }
+
+    public double getVal() { return myVal; }
+
+    public void setVal(double val) {myVal = val;}
+
+    public int getMaxChildren(){
+        return myMaxChildren;
+    }
+
+    public void setMaxChildren(int children) { myMaxChildren = children; }
+
+    public String getType(){
+        return myType;
+    }
+
+    public void setType(String type) {myType = type; }
 
     public BackendManager getBM() {
         return myBM;
     }
+
+
     public GeneralCommand getParent(){
         return myParent;
     }
@@ -67,10 +88,6 @@ public class GeneralCommand {
         return childValues;
     }
 
-    public int getMaxChildren(){
-        return myMaxChildren;
-    }
-
     public String printParent(){
         if (myParent != null){
             return this.myParent.toString();
@@ -80,14 +97,6 @@ public class GeneralCommand {
         }
     }
 
-
-    public void setParent(GeneralCommand command){
-        myParent = command;
-    }
-
-    public String getType(){
-        return myType;
-    }
 
     /**
      * adds a child to its list of children
@@ -127,22 +136,15 @@ public class GeneralCommand {
         }
     }
 
-
-    protected void makeReady(){
-        isReady = true;
-    }
-
-    //protected int getIndexOfCurrentInParent(){
-    //    return (myParent.getChildren().indexOf(this));
-    //}
-
-    public double getVal() { return myVal; }
-
     protected double getValFromChild(GeneralCommand command) throws IllegalArgumentException {
         if (!myChildren.contains(command)){
             throw new IllegalArgumentException("Command is not in list of children");
         }
         return command.getVal();
     }
+
+
+
+
 
 }

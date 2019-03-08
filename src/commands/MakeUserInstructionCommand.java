@@ -6,14 +6,14 @@ public class MakeUserInstructionCommand extends GeneralCommand {
 
     public MakeUserInstructionCommand(BackendManager bm) {
         super(bm);
-        myMaxChildren = 3;
-        myType = "MakeUserInstruction";
+        setMaxChildren(3);
+        setType("MakeUserInstruction");
     }
 
     public void execute(){
-        GeneralCommand userCommand = myChildren.get(0);
-        GeneralCommand vars = myChildren.get(1);
-        GeneralCommand commands = myChildren.get(2);
+        GeneralCommand userCommand = getChildren().get(0);
+        GeneralCommand vars = getChildren().get(1);
+        GeneralCommand commands = getChildren().get(2);
         String commandName = "";
         if (userCommand instanceof UndefinedCommand){
             UndefinedCommand newCommand = (UndefinedCommand) userCommand;
@@ -23,7 +23,7 @@ public class MakeUserInstructionCommand extends GeneralCommand {
             //TODO throw an error. user command should not be in the list of standard commands
         }
 
-        UserDefinedCommand userDefinedCommand = new UserDefinedCommand(myBM, commandName, vars, commands);
+        UserDefinedCommand userDefinedCommand = new UserDefinedCommand(getBM(), commandName, vars, commands);
         //myBM.addUserCommand(commandName, userDefinedCommand);
     }
 

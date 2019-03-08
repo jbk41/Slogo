@@ -1,16 +1,15 @@
 package backend;
-import TurtleState.TurtleCommand;
+
 import TurtleState.TurtleState;
 import parser.ParseCleaner;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public class BackendModel implements BackendAPI {
 
-    final static String DEFAULT_LANGUAGE = "English";
+    final String DEFAULT_LANGUAGE = "English";
 
     private BackendManager myBM;
     private CommandTree myCT;
@@ -29,10 +28,6 @@ public class BackendModel implements BackendAPI {
         myCT = new CommandTree(text, myPC, myBM);
     }
 
-    public List<TurtleState> getCommands(){
-        return myBM.getCommands();
-    }
-
     public void clearCommandList(){
         myBM.clearCommands();
     }
@@ -45,10 +40,9 @@ public class BackendModel implements BackendAPI {
         myBM.setVariable(key, val);
     }
 
-    //public BackendManager getBackendManager(){ return myBM; }
+    public List<TurtleState> getCommands(){
+        return myBM.getCommands();
+    }
 
-    //public CommandManager getCommandManager(){ return myBM.getCommandManager(); }
-
-    //public TurtleManager getTurtleManager() { return myBM.getTurtleManager(); }
 
 }

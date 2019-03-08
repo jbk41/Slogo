@@ -8,16 +8,12 @@ public class ForwardCommand extends MovementCommand {
 
     public ForwardCommand (BackendManager bm){
         super(bm);
-        myType = "Forward";
-        myMaxChildren = 1;
-    }
-
-    public ForwardCommand(GeneralCommand c){
-        super(c);
+        setType("Forward");
+        setMaxChildren(1);
     }
 
     @Override
     public void update(){
-        myBM.forward(myVal);
+        getBM().forward(getVal());
     }
 }
