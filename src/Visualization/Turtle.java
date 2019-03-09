@@ -110,9 +110,9 @@ public class Turtle {
         double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
         TurtleState currentTurtle = currentTurtleState;
         myDegrees = currentTurtle.getDeg();
-        prevDegrees = myDegrees;
         RotateTransition rt = rotationTransition(turtleImageView, myDegrees, prevDegrees);
         sequentialTransition.getChildren().add(rt);
+        prevDegrees = myDegrees;
         System.out.println("oldx and oldy");
         System.out.println(turtleImageView.getX());
         System.out.println(turtleImageView.getY());
