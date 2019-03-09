@@ -94,7 +94,6 @@ public class Turtle {
     }
 
     public void moveTurtle(TurtleState currentTurtleState, Console stateConsole) {
-
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
         System.out.println("id: " + currentTurtleState.getID());
@@ -133,6 +132,8 @@ public class Turtle {
 
 
     public SequentialTransition getST(){return sequentialTransition;}
+
+    public void clearST(){sequentialTransition.getChildren().removeAll();}
 
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);

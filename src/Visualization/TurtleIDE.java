@@ -43,6 +43,9 @@ public class TurtleIDE extends Application {
     private Map <Double, Turtle> turtleMap;
     private ArrayList<Turtle> turtleList;
     private ArrayList<Executable> commandHistory;
+    private ParallelTransition parallelTransition;
+    private SequentialTransition prevSequential = new SequentialTransition();
+    private SequentialTransition sequenceHistory;
 
     @Override
     public void start(Stage stage){
@@ -112,6 +115,8 @@ public class TurtleIDE extends Application {
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown){
+        sequenceHistory = new SequentialTransition();
+        sequenceHistory.getChildren().addAll(prevSequential.getChildren());
         String commands = textEditor.getText();
         console.getItems().add(commands);
         try {
@@ -139,14 +144,17 @@ public class TurtleIDE extends Application {
             for (String key : savedVarMap.keySet()) {
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
-            ParallelTransition parallelTransition = new ParallelTransition();
+            parallelTransition = new ParallelTransition();
+
             for(double id: turtleMap.keySet()){
                 SequentialTransition sequentialTransition = turtleMap.get(id).getST();
+                System.out.println(sequentialTransition.getChildren());
+                System.out.println(sequenceHistory.getChildren());
+                sequentialTransition.getChildren().removeAll(sequenceHistory.getChildren());
+                System.out.println(sequentialTransition.getChildren());
                 parallelTransition.getChildren().add(sequentialTransition);
-                turtleMap.get(id).getST().getChildren().removeAll();
             }
             parallelTransition.play();
-            parallelTransition.getChildren().removeAll();
 
         } catch(NullPointerException ex){
             showError("Please Choose a Language");
@@ -163,6 +171,7 @@ public class TurtleIDE extends Application {
         if (!command.getClear()) {
             turtle = turtleMap.get(command.getID());
             turtle.moveTurtle(command, myStates);
+            prevSequential = turtle.getST();
         }
     }
 
