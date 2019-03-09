@@ -104,17 +104,8 @@ public class TurtleIDE extends Application {
             backend.interpret(commands);
             Turtle turtle;
             for (Executable commandToRun : backend.getCommands()) {
-//                System.out.println(commandToRun.toString());
                 if (commandToRun instanceof TurtleState) {
-//                    System.out.println("Current command: " + commandToRun.toString());
-                    TurtleState command = (TurtleState)commandToRun;
-                    System.out.println(command.getID());
-                    if (!turtleMap.containsKey(command.getID())) {
-                        Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-                        turtleMap.put(command.getID(), newTurtle);
-                    }
-                    turtle = turtleMap.get(command.getID());
-                    turtle.moveTurtle(command, myStates);
+                    runTurtleCommand(commandToRun);
                 }
                 if(commandToRun instanceof ColorPaletteEntry){
 
@@ -143,6 +134,16 @@ public class TurtleIDE extends Application {
         }catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
+    }
+
+    private void runTurtleCommand(Executable commandToRun){
+        TurtleState command = (TurtleState)commandToRun;
+        if (!turtleMap.containsKey(command.getID())) {
+            Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+            turtleMap.put(command.getID(), newTurtle);
+        }
+        turtle = turtleMap.get(command.getID());
+        turtle.moveTurtle(command, myStates);
     }
     private Button createHelpButton(){
         Button help = new Button("Help");
