@@ -85,12 +85,12 @@ public class CommandTree {
                 start += 1;
                 lsc.addChild(generateOneSet());
             }
-            if (command.getParent() instanceof UndefinedCommand){
+            lsc.setMaxChildren(lsc.getChildren().size()-1);
+            if (command.getParent() instanceof MakeUserInstructionCommand){
                 UndefinedCommand ud = (UndefinedCommand) command;
                 String commandName = ud.getCommandName();
-                if (command.getParent().getParent() instanceof MakeUserInstructionCommand){
-                    myBM.setMaxVarForUserDefinedCommand(commandName, ((ListStartCommand) command).getNumActualChildren());
-                }
+                myBM.setMaxVarForUserDefinedCommand(commandName, ((ListStartCommand) command).getNumActualChildren());
+
             }
         }
         else { // handle every other command
