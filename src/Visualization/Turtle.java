@@ -142,7 +142,7 @@ public class Turtle {
         System.out.println("X:" + turtleXPosition() + " " + "Y: "+ turtleYPosition());
         System.out.println("newX:" + turtleXPosition());
         System.out.println("newY:" + turtleYPosition());
-        path.getElements().add(new MoveTo(turtleXPosition() + 30, turtleYPosition()));
+        path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
         path.getElements().add(new LineTo(newX , newY));
         myX = currentTurtle.getX();
         myY = currentTurtle.getY();
