@@ -6,6 +6,7 @@ import backend.VariableManager;
 
 public class RightCommand extends MovementCommand {
 
+    final int VAL_INDEX = 0;
     public RightCommand (BackendManager bm){
         super(bm);
         setType("Right");
@@ -14,6 +15,6 @@ public class RightCommand extends MovementCommand {
 
     @Override
     protected void update() {
-        getBM().right(getChildren().get(0).getVal());
+        getBM().right(getChildren().get(VAL_INDEX).getVal());
     }
 }

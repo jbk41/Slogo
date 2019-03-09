@@ -4,6 +4,9 @@ import backend.BackendManager;
 
 public class IfCommand extends GeneralCommand {
 
+    final int CONDITION_INDEX = 0;
+    final int EXECUTE_INDEX = 1;
+
     public IfCommand(BackendManager bm){
         super(bm);
         setMaxChildren(2);
@@ -11,8 +14,8 @@ public class IfCommand extends GeneralCommand {
     }
 
     public void execute(){
-        GeneralCommand conditionCommand = getChildren().get(0);
-        GeneralCommand executeCommand = getChildren().get(1);
+        GeneralCommand conditionCommand = getChildren().get(CONDITION_INDEX);
+        GeneralCommand executeCommand = getChildren().get(EXECUTE_INDEX);
         if (!(executeCommand instanceof ListStartCommand)){
             getBM().throwError("If requires list parameter", getLineNumber());
         }

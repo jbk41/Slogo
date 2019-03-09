@@ -4,6 +4,7 @@ import backend.BackendManager;
 
 public class NaturalLogCommand extends GeneralCommand{
 
+    final int INDEX = 0;
     public NaturalLogCommand(BackendManager bm){
         super(bm);
         setMaxChildren(1);
@@ -15,6 +16,6 @@ public class NaturalLogCommand extends GeneralCommand{
         checkParameterCount();
         executeChildren();
         var childVals = getChildrenValues();
-        setVal(Math.log(childVals.get(0)));
+        setVal(Math.log(childVals.get(INDEX)));
     }
 }

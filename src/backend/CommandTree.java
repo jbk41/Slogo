@@ -10,6 +10,12 @@ import parser.ParseCleaner;
 
 public class CommandTree {
     //private List<String> myArguments;
+
+
+    final int OFFSET = 1;
+    final int UNDEFINED_INDEX = 0;
+    final int SIZE_AFTER_UNDEFINED = 1;
+
     private List<Syntax> myArguments;
     private GeneralCommand head;
     private int start;
@@ -87,11 +93,11 @@ public class CommandTree {
                 lsc.addChild(generateOneSet(command));
             }
             lsc.setMaxChildren(lsc.getChildren().size());
-            if (command.getParent() instanceof MakeUserInstructionCommand && command.getParent().getChildren().size() == 1){
-                System.out.println("num of var: " + (command.getMaxChildren() - 1));
-                UndefinedCommand ud = (UndefinedCommand) command.getParent().getChildren().get(0);
+            if (command.getParent() instanceof MakeUserInstructionCommand && command.getParent().getChildren().size() == SIZE_AFTER_UNDEFINED){
+                System.out.println("num of var: " + (command.getMaxChildren() - OFFSET));
+                UndefinedCommand ud = (UndefinedCommand) command.getParent().getChildren().get(UNDEFINED_INDEX);
                 String commandName = ud.getCommandName();
-                myBM.setMaxVarForUserDefinedCommand(commandName, command.getMaxChildren() - 1);
+                myBM.setMaxVarForUserDefinedCommand(commandName, command.getMaxChildren() - OFFSET);
             }
         }
         else { // handle every other command

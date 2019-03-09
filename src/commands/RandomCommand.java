@@ -6,6 +6,10 @@ import java.util.Random;
 
 public class RandomCommand extends GeneralCommand {
 
+    final int VAL_INDEX = 0;
+    final double OFFSET = .1;
+    final int LIMIT = 10;
+
     public RandomCommand(BackendManager bm) {
         super(bm);
         setMaxChildren(1);
@@ -15,9 +19,9 @@ public class RandomCommand extends GeneralCommand {
     public void execute() {
         checkParameterCount();
         executeChildren();
-        double max = getChildren().get(0).getVal();
+        double max = getChildren().get(VAL_INDEX).getVal();
         Random rand = new Random();
-        setVal(rand.nextInt((int)max) - 0.1 * rand.nextInt(10));
+        setVal(rand.nextInt((int)max) - OFFSET * rand.nextInt(LIMIT));
     }
 }
 
