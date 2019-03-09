@@ -4,9 +4,11 @@ package Visualization;
 import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
+import javafx.animation.Animation;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -38,13 +40,18 @@ public class TurtleIDE extends Application {
     private BackendModel backend;
     private Map <String, Double> savedVarMap;
     private Turtle turtle;
-    private Map <Double, Turtle> turtleMap = new HashMap<Double, Turtle>();
+    private Map <Double, Turtle> turtleMap;
     private ArrayList<Turtle> turtleList;
+    private ArrayList<Executable> commandHistory;
+    private ParallelTransition parallelTransition;
+    private SequentialTransition prevSequential = new SequentialTransition();
+    private SequentialTransition sequenceHistory;
 
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
         Group root = new Group();
+        turtleMap = new HashMap<Double, Turtle>();
         var startScene = new Scene(root, width, height, backgroundColor);
         HBox IDE = new HBox(createUserBox(), createTurtleEnvironment());
         root.getChildren().add(IDE);
@@ -73,8 +80,8 @@ public class TurtleIDE extends Application {
             if(commandToRun instanceof ColorPaletteEntry){
             }
             if(commandToRun instanceof ErrorMessage){
-                System.out.println(((ErrorMessage) commandToRun).getError());
-                console.getItems().add(((ErrorMessage) commandToRun).getError());
+//                System.out.println(((ErrorMessage)commandToRun).getError());
+                console.getItems().add(((ErrorMessage)commandToRun).getError());
             }
             if(commandToRun instanceof EnvironmentState){
             }
@@ -108,6 +115,8 @@ public class TurtleIDE extends Application {
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown){
+        sequenceHistory = new SequentialTransition();
+        sequenceHistory.getChildren().addAll(prevSequential.getChildren());
         String commands = textEditor.getText();
         console.getItems().add(commands);
         try {
@@ -135,12 +144,18 @@ public class TurtleIDE extends Application {
             for (String key : savedVarMap.keySet()) {
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
-            ParallelTransition parallelTransition = new ParallelTransition();
+            parallelTransition = new ParallelTransition();
+
             for(double id: turtleMap.keySet()){
                 SequentialTransition sequentialTransition = turtleMap.get(id).getST();
+                System.out.println(sequentialTransition.getChildren());
+                System.out.println(sequenceHistory.getChildren());
+                sequentialTransition.getChildren().removeAll(sequenceHistory.getChildren());
+                System.out.println(sequentialTransition.getChildren());
                 parallelTransition.getChildren().add(sequentialTransition);
             }
             parallelTransition.play();
+
         } catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
@@ -156,6 +171,7 @@ public class TurtleIDE extends Application {
         if (!command.getClear()) {
             turtle = turtleMap.get(command.getID());
             turtle.moveTurtle(command, myStates);
+            prevSequential = turtle.getST();
         }
     }
 
