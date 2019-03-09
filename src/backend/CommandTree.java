@@ -87,7 +87,7 @@ public class CommandTree {
             }
             lsc.setMaxChildren(lsc.getChildren().size()-1);
             if (command.getParent() instanceof MakeUserInstructionCommand){
-                UndefinedCommand ud = (UndefinedCommand) command;
+                UndefinedCommand ud = (UndefinedCommand) command.getParent().getChildren().get(0);
                 String commandName = ud.getCommandName();
                 myBM.setMaxVarForUserDefinedCommand(commandName, ((ListStartCommand) command).getNumActualChildren());
 
