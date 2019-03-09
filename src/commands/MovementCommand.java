@@ -4,6 +4,7 @@ import backend.BackendManager;
 
 public abstract class MovementCommand extends GeneralCommand {
 
+    final int INDEX = 0;
     public MovementCommand(BackendManager bm){
         super(bm);
     }
@@ -12,7 +13,7 @@ public abstract class MovementCommand extends GeneralCommand {
     public void execute() {
         checkParameterCount();
         executeChildren();
-        setVal(getChildren().get(0).getVal());
+        setVal(getChildren().get(INDEX).getVal());
         update();
     }
 

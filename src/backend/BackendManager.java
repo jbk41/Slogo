@@ -10,6 +10,9 @@ import java.util.Map;
 
 public class BackendManager implements BackendManagerAPI{
 
+    final int REVERSE_INT = -1;
+    final int PI_RAD = 180;
+
     private CommandManager myCM;
     private VariableManager myVM;
     private TurtleManager myTM;
@@ -35,8 +38,8 @@ public class BackendManager implements BackendManagerAPI{
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
             myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
-                    currentTurtle.getX() + dist * Math.sin(currentTurtle.getDeg() * Math.PI / 180),
-                    currentTurtle.getY() + dist * Math.cos(currentTurtle.getDeg() * Math.PI / 180),
+                    currentTurtle.getX() + dist * Math.sin(currentTurtle.getDeg() * Math.PI / PI_RAD),
+                    currentTurtle.getY() + dist * Math.cos(currentTurtle.getDeg() * Math.PI / PI_RAD),
                     currentTurtle.getDeg(),
                     currentTurtle.getPenState(),
                     currentTurtle.getVisibility(),
@@ -48,7 +51,7 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     public void backward(double dist) {
-        forward(dist * -1);
+        forward(dist * REVERSE_INT);
     }
 
     public void left(double deg) {
@@ -71,7 +74,7 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     public void right(double deg) {
-        left(deg * -1);
+        left(deg * REVERSE_INT);
     }
 
     public void setHeading(double deg) {

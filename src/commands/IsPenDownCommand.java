@@ -4,6 +4,9 @@ import backend.BackendManager;
 
 public class IsPenDownCommand extends GeneralCommand {
 
+    final int TRUE = 1;
+    final int FALSE = 0;
+
     public IsPenDownCommand(BackendManager bm){
         super(bm);
         setMaxChildren(0);
@@ -13,10 +16,10 @@ public class IsPenDownCommand extends GeneralCommand {
 
     public void execute(){
         if (getBM().getCurrentTurtle().getPenState()){
-            setVal(1);
+            setVal(TRUE);
         }
         else {
-            setVal(0);
+            setVal(FALSE);
         }
     }
 

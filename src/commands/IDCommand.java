@@ -3,6 +3,8 @@ package commands;
 import backend.BackendManager;
 
 public class IDCommand extends GeneralCommand {
+
+
     public IDCommand(BackendManager bm){
         super(bm);
         setMaxChildren(0);

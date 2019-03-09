@@ -4,6 +4,12 @@ import backend.BackendManager;
 
 public class DoTimesCommand extends GeneralCommand {
 
+    final String POSITIVE_ERROR = "Number of times run must be positive";
+    final String LIST_REQUIRED = "DoTimes requires list as parameter";
+    final int START_INDEX = 1;
+    final int EXECUTE_INDEX = 1;
+    final int VAR_INDEX = 0;
+
     public DoTimesCommand(BackendManager bm){
         super(bm);
         setType("DoTimes");
@@ -11,21 +17,21 @@ public class DoTimesCommand extends GeneralCommand {
     }
 
     public void execute(){
-        GeneralCommand conditionCommand = getChildren().get(0);
-        GeneralCommand executeCommand = getChildren().get(1);
+        GeneralCommand conditionCommand = getChildren().get(VAR_INDEX);
+        GeneralCommand executeCommand = getChildren().get(EXECUTE_INDEX);
 
-        double numTimes = conditionCommand.getChildren().get(1).getVal();
+        double numTimes = conditionCommand.getChildren().get(EXECUTE_INDEX).getVal();
         if (numTimes < 0){
-            getBM().throwError("Number of times run must be positive", getLineNumber());
+            getBM().throwError(POSITIVE_ERROR, getLineNumber());
             return;
         }
         if (!(executeCommand instanceof ListStartCommand)){
-            getBM().throwError("DoTimes requires list as parameter", getLineNumber());
+            getBM().throwError(LIST_REQUIRED, getLineNumber());
             return;
         }
-        VariableCommand var = (VariableCommand) conditionCommand.getChildren().get(0);
+        VariableCommand var = (VariableCommand) conditionCommand.getChildren().get(VAR_INDEX);
 
-        for (double i = 1; i < numTimes; i++){
+        for (double i = START_INDEX; i < numTimes; i++){
             getBM().setVariable(var.getVarName(), i);
             executeCommand.execute();
             setVal(i);

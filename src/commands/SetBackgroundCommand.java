@@ -4,6 +4,8 @@ import backend.BackendManager;
 
 public class SetBackgroundCommand extends GeneralCommand {
 
+    final int VAL_INDEX = 0;
+
     public SetBackgroundCommand(BackendManager bm){
         super(bm);
         setMaxChildren(1);
@@ -12,7 +14,7 @@ public class SetBackgroundCommand extends GeneralCommand {
 
     public void execute(){
         checkParameterCount();
-        getChildren().get(0).execute();
-        getBM().setBackgroundIndex(getChildren().get(0).getVal());
+        getChildren().get(VAL_INDEX).execute();
+        getBM().setBackgroundIndex(getChildren().get(VAL_INDEX).getVal());
     }
 }

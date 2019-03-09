@@ -4,6 +4,9 @@ import backend.BackendManager;
 
 public class MakeVariableCommand extends GeneralCommand {
 
+    final int VAR_INDEX = 0;
+    final int VAL_INDEX = 1;
+
     public MakeVariableCommand(BackendManager bm){
         super(bm);
         setType("MakeVariable");
@@ -15,7 +18,7 @@ public class MakeVariableCommand extends GeneralCommand {
         checkParameterCount();
         try {
             String varName = "";
-            if (getChildren().get(0) instanceof VariableCommand){
+            if (getChildren().get(VAR_INDEX) instanceof VariableCommand){
                 VariableCommand vc = (VariableCommand) getChildren().get(0);
                 varName = vc.getVarName();
             }
@@ -25,7 +28,7 @@ public class MakeVariableCommand extends GeneralCommand {
                 return;
             }
 
-            double val = getChildren().get(1).getVal();
+            double val = getChildren().get(VAL_INDEX).getVal();
             getBM().setVariable(varName, val);
         } catch (IllegalArgumentException e) {
             System.out.println(e);

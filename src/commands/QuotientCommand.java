@@ -4,6 +4,9 @@ import backend.BackendManager;
 
 public class QuotientCommand extends GeneralCommand {
 
+    final int DEN_INDEX = 1;
+    final int NUM_INDEX = 0;
+
     public QuotientCommand(BackendManager bm){
         super(bm);
         setType("Quotient");
@@ -13,11 +16,11 @@ public class QuotientCommand extends GeneralCommand {
     public void execute(){
         checkParameterCount();
         executeChildren();
-        double denominator = getChildren().get(1).getVal();
+        double denominator = getChildren().get(DEN_INDEX).getVal();
         if (denominator == 0){
             getBM().throwError("Divide by 0", getLineNumber());
             return;
         }
-        setVal(getChildren().get(0).getVal()/denominator);
+        setVal(getChildren().get(NUM_INDEX).getVal()/denominator);
     }
 }
