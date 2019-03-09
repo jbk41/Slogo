@@ -137,15 +137,19 @@ public class TurtleIDE extends Application {
             Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
             turtleMap.put(command.getID(), newTurtle);
         }
-        if (((TurtleState)commandToRun).getClear()){
+        checkClear((TurtleState)commandToRun);
+        turtle = turtleMap.get(command.getID());
+        turtle.moveTurtle(command, myStates);
+    }
+
+    private void checkClear(TurtleState command){
+        if (command.getClear()){
             for (Turtle turt: turtleMap.values()){
                 turtleDisplay.getChildren().remove(turt.getTurtleImageView());
             }
             turtleDisplay.createNewCanvas();
             return;
         }
-        turtle = turtleMap.get(command.getID());
-        turtle.moveTurtle(command, myStates);
     }
 
     private Button createHelpButton(){
