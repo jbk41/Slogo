@@ -104,7 +104,6 @@ public class TurtleIDE extends Application {
             backend.interpret(commands);
             for (Executable commandToRun : backend.getCommands()) {
                 if (commandToRun instanceof TurtleState) {
-
                     runTurtleCommand(commandToRun);
                 }
                 if(commandToRun instanceof ColorPaletteEntry){
