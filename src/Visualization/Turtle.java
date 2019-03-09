@@ -94,6 +94,7 @@ public class Turtle {
     }
 
     public void moveTurtle(TurtleState currentTurtleState, Console stateConsole) {
+
         double defaultX = turtleXPosition();
         double defaultY = turtleYPosition();
         System.out.println("id: " + currentTurtleState.getID());

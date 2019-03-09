@@ -104,16 +104,15 @@ public class TurtleIDE extends Application {
             backend.interpret(commands);
             for (Executable commandToRun : backend.getCommands()) {
                 if (commandToRun instanceof TurtleState) {
+
                     runTurtleCommand(commandToRun);
                 }
                 if(commandToRun instanceof ColorPaletteEntry){
-
                 }
                 if(commandToRun instanceof ErrorMessage){
                     console.getItems().add(((ErrorMessage) commandToRun).getError());
                 }
                 if(commandToRun instanceof EnvironmentState){
-
                 }
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");
@@ -122,28 +121,38 @@ public class TurtleIDE extends Application {
                     myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
                 }
             }
-
             ParallelTransition parallelTransition = new ParallelTransition();
-
             for(double id: turtleMap.keySet()){
                 SequentialTransition sequentialTransition = turtleMap.get(id).getST();
                 parallelTransition.getChildren().add(sequentialTransition);
             }
             parallelTransition.play();
-        }catch(NullPointerException ex){
+            } catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
     }
 
     private void runTurtleCommand(Executable commandToRun){
         TurtleState command = (TurtleState)commandToRun;
-        if (!turtleMap.containsKey(command.getID())) {
+        if (!turtleMap.containsKey(command.getID()) && !command.getClear()) {
             Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
             turtleMap.put(command.getID(), newTurtle);
         }
+        checkClear((TurtleState)commandToRun);
         turtle = turtleMap.get(command.getID());
         turtle.moveTurtle(command, myStates);
     }
+
+    private void checkClear(TurtleState command){
+        if (command.getClear()){
+            for (Turtle turt: turtleMap.values()){
+                turtleDisplay.getChildren().remove(turt.getTurtleImageView());
+            }
+            turtleDisplay.createNewCanvas();
+            return;
+        }
+    }
+
     private Button createHelpButton(){
         Button help = new Button("Help");
         help.setOnAction(e -> createHelpScreen());
