@@ -44,7 +44,7 @@ public class TurtleIDE extends Application {
     private ArrayList<Turtle> turtleList;
     private ColorDropDown backgroundColorSettings;
     private PenColorDropDown penColorDropDown;
-    private ArrayList<Executable> commandHistory;
+    private ArrayList<TurtleState> movementHistory;
     private ParallelTransition parallelTransition;
     private SequentialTransition prevSequential = new SequentialTransition();
     private SequentialTransition sequenceHistory;
@@ -53,6 +53,7 @@ public class TurtleIDE extends Application {
         Stage primaryStage = stage;
         Group root = new Group();
         turtleMap = new HashMap<Double, Turtle>();
+        movementHistory= new ArrayList<TurtleState>();
         var startScene = new Scene(root, width, height, backgroundColor);
         HBox IDE = new HBox(createUserBox(), createTurtleEnvironment());
         root.getChildren().add(IDE);
@@ -73,16 +74,10 @@ public class TurtleIDE extends Application {
     private void reInterpret(String command){
         backend.clearCommandList();
         backend.interpret(command);
-        //todo: grab the id of the turtle before executing
         for (Executable commandToRun : backend.getCommands()) {
             runTurtleCommand(commandToRun);
         }
         createTransition();
-//        if (backend.getCommands().get(0) instanceof TurtleState){
-//            Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
-//            turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
-//        }
-//        turtle.moveTurtle(backend.getCommands(),myStates);
     }
     private VBox createTurtleEnvironment(){
         turtleDisplay = new TurtleDisplay(width, height, padding);
@@ -111,13 +106,14 @@ public class TurtleIDE extends Application {
         sequenceHistory.getChildren().addAll(prevSequential.getChildren());
         String commands = textEditor.getText();
         console.getItems().add(commands);
-//        try {
+        try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
             for (Executable commandToRun : backend.getCommands()) {
                 if (commandToRun instanceof TurtleState) {
+                    movementHistory.add((TurtleState)commandToRun);
                     runTurtleCommand(commandToRun);
                 }
                 if(commandToRun instanceof ColorPaletteEntry){
@@ -133,9 +129,9 @@ public class TurtleIDE extends Application {
             displayVariables();
             createTransition();
 
-//        } catch(NullPointerException ex){
-//            showError("Please Choose a Language");
-//        }
+        } catch(NullPointerException ex){
+            showError("Please Choose a Language");
+        }
     }
 
     private void displayError(Executable commandToRun){
@@ -213,7 +209,7 @@ public class TurtleIDE extends Application {
 
     private Button createUndoButton(){
         Button undo = new Button("Undo");
-//        undo.setOnAction(e -> undoLastCommand());
+        undo.setOnAction(e -> undoLastCommand(myStates));
         return undo;
     }
 
@@ -264,39 +260,14 @@ public class TurtleIDE extends Application {
         return inputBox;
     }
 
-//    private void undoLastCommand() {
-//        TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 2);
-//        //TODO: some way to account for the different id
-//        System.out.println(lastState.getX());
-//        System.out.println(lastState.getY());
-//        System.out.println(lastState.getDeg());
-//        System.out.println(lastState.getPenState());
-//    }
-    /*
     private void undoLastCommand(Console stateConsole){
-
-        if (commandHistory.size() > 1) {
-//            TurtleState lastState = backend.getCommands().get(backend.getCommands().size() - 1);
-//            TurtleState prevState = backend.getCommands().get(backend.getCommands().size() - 2);
-//            backend.getCommands().remove(backend.getCommands().size() - 1);
-            TurtleState lastState = commandHistory.get(commandHistory.size() - 1);
-            TurtleState prevState = commandHistory.get(commandHistory.size() - 2);
-            commandHistory.remove(commandHistory.size() - 1);
+        if (movementHistory.size() > 1) {
+            TurtleState lastState = movementHistory.get(movementHistory.size() - 1);
+            TurtleState prevState = movementHistory.get(movementHistory.size() - 2);
+            movementHistory.remove(movementHistory.size() - 1);
             if (lastState.getX() != prevState.getX() || prevState.getY() != lastState.getY()) {
-                double oldX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
-                double oldY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
-                turtle.getTurtleImageView().setX(turtle.getDefaultX() + prevState.getX());
-                turtle.getTurtleImageView().setY(turtle.getDefaultY() - prevState.getY());
-                double newX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
-                double newY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
-                Paint color = turtle.getGraphics().getFill();
-                turtle.getGraphics().setStroke(Color.WHITE);
-                turtle.getGraphics().setLineWidth(turtle.getPenSize() + 1);
-                turtle.getGraphics().strokeLine(oldX, oldY, newX, newY);
-                turtle.getGraphics().setStroke(color);
-                turtle.getGraphics().setLineWidth(turtle.getPenSize());
+                eraseLine(prevState);
             }
-            backend.getTurtleManager().setMyDegrees(lastState.getMyDegrees());
             stateConsole.getItems().clear();
             stateConsole.getItems().add("Turtle State" + "\r\n" + turtle.getState(prevState.getX(), prevState.getY(), prevState.getDeg(), prevState.getPenState()));
         }
@@ -306,7 +277,22 @@ public class TurtleIDE extends Application {
             turtle.setDefaultTurtleLocation();
         }
     }
-    */
+
+    private void eraseLine(TurtleState prevState){
+        double oldX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
+        double oldY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
+        turtle.getTurtleImageView().setX(turtle.getDefaultX() + prevState.getX());
+        turtle.getTurtleImageView().setY(turtle.getDefaultY() - prevState.getY());
+        double newX = turtle.getTurtleImageView().getBoundsInParent().getCenterX();
+        double newY = turtle.getTurtleImageView().getBoundsInParent().getCenterY();
+        Paint color = turtle.getGraphics().getFill();
+        turtle.getGraphics().setStroke(Color.WHITE);
+        turtle.getGraphics().setLineWidth(turtle.getPenSize() + 1);
+        turtle.getGraphics().strokeLine(oldX, oldY, newX, newY);
+        turtle.getGraphics().setStroke(color);
+        turtle.getGraphics().setLineWidth(turtle.getPenSize());
+    }
+
 
     /**
      * Start the program.
