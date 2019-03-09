@@ -16,6 +16,7 @@ public class RunUserDefinedCommand extends GeneralCommand {
             getBM().throwError(userDefinedCommand.getCommandName() + " does not exist", getLineNumber());
         }
         setMaxChildren(userDefinedCommand.getMaxArgs());
+        System.out.println(userDefinedCommand.getMaxArgs());
     }
 
     public void execute(){
@@ -25,7 +26,7 @@ public class RunUserDefinedCommand extends GeneralCommand {
             getBM().throwError("Wrong number of requirements for user defined command", getLineNumber());
             return;
         }
-        for (int i = 0; i < getMaxChildren(); i++){
+        for (int i = 0; i < vars.getMaxChildren()-1; i++){
             GeneralCommand temp = vars.getChildren().get(i);
             VariableCommand vc;
             if (temp instanceof VariableCommand){

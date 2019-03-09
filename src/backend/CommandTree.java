@@ -25,7 +25,7 @@ public class CommandTree {
         head = new RootCommand(bm);
         end = myArguments.size() ;
         generateTree();
-        linkParents(head);
+        //linkParents(head);
         //linkParentsAndInitializeVariables(head);
         head.execute();
 
@@ -56,7 +56,7 @@ public class CommandTree {
 
     private void generateTree(){
         while (start != end){
-            head.addChild(generateOneSet());
+            head.addChild(generateOneSet(head));
             start += 1;
         }
     }
@@ -69,10 +69,11 @@ public class CommandTree {
     }
 
     // reads in string by word and generates syntax tree for a single "line" of commands
-    private GeneralCommand generateOneSet(){
+    private GeneralCommand generateOneSet(GeneralCommand parent){
         Syntax syntax = myArguments.get(start);
         //System.out.println(syntax.getCommand());
         GeneralCommand command = myCommandFactory.getCommand(syntax.getCommand());
+        command.setParent(parent);
         //System.out.println(start);
 
         if (start == end){
@@ -83,20 +84,20 @@ public class CommandTree {
             ListStartCommand lsc = (ListStartCommand) command;
             while (!lsc.doesContainEnd()){
                 start += 1;
-                lsc.addChild(generateOneSet());
+                lsc.addChild(generateOneSet(command));
             }
-            lsc.setMaxChildren(lsc.getChildren().size()-1);
-            if (command.getParent() instanceof MakeUserInstructionCommand){
+            lsc.setMaxChildren(lsc.getChildren().size());
+            if (command.getParent() instanceof MakeUserInstructionCommand && command.getParent().getChildren().size() == 1){
+                System.out.println("num of var: " + (command.getMaxChildren() - 1));
                 UndefinedCommand ud = (UndefinedCommand) command.getParent().getChildren().get(0);
                 String commandName = ud.getCommandName();
-                myBM.setMaxVarForUserDefinedCommand(commandName, ((ListStartCommand) command).getNumActualChildren());
-
+                myBM.setMaxVarForUserDefinedCommand(commandName, command.getMaxChildren() - 1);
             }
         }
         else { // handle every other command
             for (int i = 0; i < command.getMaxChildren(); i++) {
                 start += 1;
-                command.addChild(generateOneSet());
+                command.addChild(generateOneSet(command));
             }
         }
         command.setLineNumber(syntax.getLine());
