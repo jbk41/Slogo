@@ -124,15 +124,6 @@ public class TurtleIDE extends Application {
                 }
                 if(commandToRun instanceof EnvironmentState) {
                     changeEnvironment(commandToRun);
-//                if (commandToRun instanceof ErrorMessage){
-//                    return;
-//                }
-//                if (commandToRun instanceof EnvironmentState){
-//
-//                }
-//                if (commandToRun instanceof ColorPaletteEntry){
-//
-//                }
                 }
                 console.getItems().add(commands);
                 myUserDefined.getItems().clear();
