@@ -66,10 +66,23 @@ public class TurtleIDE extends Application {
         backend.clearCommandList();
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
-        if (backend.getCommands().get(0) instanceof TurtleState){
-            Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
-            turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
+        for (Executable commandToRun : backend.getCommands()) {
+            if (commandToRun instanceof TurtleState) {
+                runTurtleCommand(commandToRun);
+            }
+            if(commandToRun instanceof ColorPaletteEntry){
+            }
+            if(commandToRun instanceof ErrorMessage){
+                System.out.println(((ErrorMessage) commandToRun).getError());
+                console.getItems().add(((ErrorMessage) commandToRun).getError());
+            }
+            if(commandToRun instanceof EnvironmentState){
+            }
         }
+//        if (backend.getCommands().get(0) instanceof TurtleState){
+//            Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
+//            turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
+//        }
 //        turtle.moveTurtle(backend.getCommands(),myStates);
     }
     private VBox createTurtleEnvironment(){
@@ -103,6 +116,7 @@ public class TurtleIDE extends Application {
             backend.clearCommandList();
             backend.interpret(commands);
             for (Executable commandToRun : backend.getCommands()) {
+                System.out.println("runs");
                 if (commandToRun instanceof TurtleState) {
                     runTurtleCommand(commandToRun);
                 }
@@ -119,12 +133,13 @@ public class TurtleIDE extends Application {
                     Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
                     turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
                 }
-                myUserDefined.getItems().clear();
-                myUserDefined.getItems().add("Variables and Commands");
-                savedVarMap = backend.getVarMap();
-                for (String key : savedVarMap.keySet()) {
-                    myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
-                }
+            }
+            myUserDefined.getItems().clear();
+            myUserDefined.getItems().add("Variables and Commands: ");
+            savedVarMap = backend.getVarMap();
+//            System.out.println(savedVarMap);
+            for (String key : savedVarMap.keySet()) {
+                myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
             ParallelTransition parallelTransition = new ParallelTransition();
             for(double id: turtleMap.keySet()){
@@ -132,7 +147,7 @@ public class TurtleIDE extends Application {
                 parallelTransition.getChildren().add(sequentialTransition);
             }
             parallelTransition.play();
-            } catch(NullPointerException ex){
+        } catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
     }
@@ -217,6 +232,13 @@ public class TurtleIDE extends Application {
         Optional<String> result = inputBox.showAndWait();
         result.ifPresent(e -> backend.setVariable(key, Double.parseDouble(result.get())));
         savedVarMap = backend.getVarMap();
+        myUserDefined.getItems().clear();
+        myUserDefined.getItems().add("Variables and Commands: ");
+//        System.out.println(savedVarMap);
+        for (String keyVal : savedVarMap.keySet()) {
+            myUserDefined.getItems().add(keyVal + " = " + savedVarMap.get(keyVal).toString());
+//            System.out.println(key);
+        }
         return inputBox;
     }
 
