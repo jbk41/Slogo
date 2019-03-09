@@ -107,6 +107,7 @@ public class Turtle {
         double degrees = currentTurtle.getDeg();
         RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
         sequentialTransition.getChildren().add(rt);
+        System.out.println(sequentialTransition.getChildren());
         prevDegrees = degrees;
         double newX = currentTurtle.getX() + defaultX;
         double newY = defaultY - currentTurtle.getY();
