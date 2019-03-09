@@ -4,7 +4,11 @@ package Visualization;
 import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
+import javafx.animation.Animation;
+import javafx.animation.ParallelTransition;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,7 +22,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+import Executable.EnvironmentState;
+import Executable.ErrorMessage;
+import Executable.ColorPaletteEntry;
+import Executable.TurtleState;
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
     private static final Paint backgroundColor = Color.AQUA;
@@ -33,13 +40,18 @@ public class TurtleIDE extends Application {
     private BackendModel backend;
     private Map <String, Double> savedVarMap;
     private Turtle turtle;
-    private Map <Double, Turtle> turtleMap = new HashMap<Double, Turtle>();
+    private Map <Double, Turtle> turtleMap;
     private ArrayList<Turtle> turtleList;
+    private ArrayList<Executable> commandHistory;
+    private ParallelTransition parallelTransition;
+    private SequentialTransition prevSequential = new SequentialTransition();
+    private SequentialTransition sequenceHistory;
 
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
         Group root = new Group();
+        turtleMap = new HashMap<Double, Turtle>();
         var startScene = new Scene(root, width, height, backgroundColor);
         HBox IDE = new HBox(createUserBox(), createTurtleEnvironment());
         root.getChildren().add(IDE);
@@ -61,10 +73,23 @@ public class TurtleIDE extends Application {
         backend.clearCommandList();
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
-        if (backend.getCommands().get(0) instanceof TurtleState){
-            Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
-            turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
+        for (Executable commandToRun : backend.getCommands()) {
+            if (commandToRun instanceof TurtleState) {
+                runTurtleCommand(commandToRun);
+            }
+            if(commandToRun instanceof ColorPaletteEntry){
+            }
+            if(commandToRun instanceof ErrorMessage){
+//                System.out.println(((ErrorMessage)commandToRun).getError());
+                console.getItems().add(((ErrorMessage)commandToRun).getError());
+            }
+            if(commandToRun instanceof EnvironmentState){
+            }
         }
+//        if (backend.getCommands().get(0) instanceof TurtleState){
+//            Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
+//            turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
+//        }
 //        turtle.moveTurtle(backend.getCommands(),myStates);
     }
     private VBox createTurtleEnvironment(){
@@ -90,42 +115,77 @@ public class TurtleIDE extends Application {
         return controls;
     }
     private void playTheCommands(LanguagesDropDown languagesDropDown){
+        sequenceHistory = new SequentialTransition();
+        sequenceHistory.getChildren().addAll(prevSequential.getChildren());
         String commands = textEditor.getText();
+        console.getItems().add(commands);
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
-
-            Turtle turtle;
-
             for (Executable commandToRun : backend.getCommands()) {
-                System.out.println(commandToRun);
+                System.out.println("runs");
                 if (commandToRun instanceof TurtleState) {
-                    System.out.println("turtleState");
-                    TurtleState command = (TurtleState)commandToRun;
-                    System.out.println(command.getID());
-                    if (!turtleMap.containsKey(command.getID())) {
-                        System.out.println("did not contain turtle");
-                        Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
-                        turtleMap.put(command.getID(), newTurtle);
-                    }
-
-                    turtle = turtleMap.get(command.getID());
-                    turtle.moveTurtle(command, myStates);
+                    runTurtleCommand(commandToRun);
                 }
-                console.getItems().add(commands);
-                myUserDefined.getItems().clear();
-                myUserDefined.getItems().add("Variables and Commands");
-                savedVarMap = backend.getVarMap();
-                for (String key : savedVarMap.keySet()) {
-                    myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
+                if(commandToRun instanceof ColorPaletteEntry){
+                }
+                if(commandToRun instanceof ErrorMessage){
+                    console.getItems().add(((ErrorMessage) commandToRun).getError());
+                }
+                if(commandToRun instanceof EnvironmentState){
                 }
             }
-        }catch(NullPointerException ex){
+            myUserDefined.getItems().clear();
+            myUserDefined.getItems().add("Variables and Commands: ");
+            savedVarMap = backend.getVarMap();
+//            System.out.println(savedVarMap);
+            for (String key : savedVarMap.keySet()) {
+                myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
+            }
+            parallelTransition = new ParallelTransition();
+
+            for(double id: turtleMap.keySet()){
+                SequentialTransition sequentialTransition = turtleMap.get(id).getST();
+                System.out.println(sequentialTransition.getChildren());
+                System.out.println(sequenceHistory.getChildren());
+                sequentialTransition.getChildren().removeAll(sequenceHistory.getChildren());
+                System.out.println(sequentialTransition.getChildren());
+                parallelTransition.getChildren().add(sequentialTransition);
+            }
+            parallelTransition.play();
+
+        } catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
     }
+
+    private void runTurtleCommand(Executable commandToRun){
+        TurtleState command = (TurtleState)commandToRun;
+        if (!turtleMap.containsKey(command.getID()) && !command.getClear()) {
+            Turtle newTurtle = new Turtle(turtleDisplay, turtleDisplay.getCanvas());
+            turtleMap.put(command.getID(), newTurtle);
+        }
+        checkClear((TurtleState)commandToRun);
+        if (!command.getClear()) {
+            turtle = turtleMap.get(command.getID());
+            turtle.moveTurtle(command, myStates);
+            prevSequential = turtle.getST();
+        }
+    }
+
+    private void checkClear(TurtleState command){
+        if (command.getClear()){
+            for (Turtle turt: turtleMap.values()){
+                turtleDisplay.getChildren().remove(turt.getTurtleImageView());
+            }
+            turtleMap.clear();
+            turtleDisplay.createNewCanvas();
+            return;
+        }
+    }
+
     private Button createHelpButton(){
         Button help = new Button("Help");
         help.setOnAction(e -> createHelpScreen());
@@ -182,6 +242,13 @@ public class TurtleIDE extends Application {
         Optional<String> result = inputBox.showAndWait();
         result.ifPresent(e -> backend.setVariable(key, Double.parseDouble(result.get())));
         savedVarMap = backend.getVarMap();
+        myUserDefined.getItems().clear();
+        myUserDefined.getItems().add("Variables and Commands: ");
+//        System.out.println(savedVarMap);
+        for (String keyVal : savedVarMap.keySet()) {
+            myUserDefined.getItems().add(keyVal + " = " + savedVarMap.get(keyVal).toString());
+//            System.out.println(key);
+        }
         return inputBox;
     }
 

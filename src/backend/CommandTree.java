@@ -25,6 +25,7 @@ public class CommandTree {
         head = new RootCommand(bm);
         end = myArguments.size() ;
         generateTree();
+        linkParents(head);
         //linkParentsAndInitializeVariables(head);
         head.execute();
 
@@ -60,6 +61,12 @@ public class CommandTree {
         }
     }
 
+    private void linkParents(GeneralCommand c){
+        for (GeneralCommand command: c.getChildren()){
+            command.setParent(c);
+            linkParents(command);
+        }
+    }
 
     // reads in string by word and generates syntax tree for a single "line" of commands
     private GeneralCommand generateOneSet(){
@@ -77,6 +84,13 @@ public class CommandTree {
             while (!lsc.doesContainEnd()){
                 start += 1;
                 lsc.addChild(generateOneSet());
+            }
+            if (command.getParent() instanceof UndefinedCommand){
+                UndefinedCommand ud = (UndefinedCommand) command;
+                String commandName = ud.getCommandName();
+                if (command.getParent().getParent() instanceof MakeUserInstructionCommand){
+                    myBM.setMaxVarForUserDefinedCommand(commandName, ((ListStartCommand) command).getNumActualChildren());
+                }
             }
         }
         else { // handle every other command

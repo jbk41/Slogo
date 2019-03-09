@@ -281,12 +281,16 @@ public class BackendManager implements BackendManagerAPI{
         return myCM.containsCommand(commandName);
     }
 
-    public void addUserDefinedCommand(UserDefinedCommand userDefinedCommand){
-        myCM.addCommand(userDefinedCommand);
+    public void addUserDefinedCommand(String commandName, UserDefinedCommand userDefinedCommand){
+        myCM.addCommand(commandName, userDefinedCommand);
     }
 
     public UserDefinedCommand getUserCommand(String commandName){
         return myCM.getCommand(commandName);
+    }
+
+    public void setMaxVarForUserDefinedCommand(String commandName, int args){
+        myCM.setMaxArgs(commandName, args);
     }
 
 
