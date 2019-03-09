@@ -127,27 +127,10 @@ public class TurtleIDE extends Application {
                     displayError(commandToRun);
                 }
                 if(commandToRun instanceof EnvironmentState){
-                    EnvironmentState environmentCommand = (EnvironmentState) commandToRun;
-                    double penSize = environmentCommand.getPenSize();
-                    turtleDisplay.setPEN_SIZE((int)penSize);
-                    if ((environmentCommand.getBackgroundIndex() != 0)) {
-                        int colorIndex =(int)(environmentCommand.getBackgroundIndex());
-                        Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
-                        turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
-                    }
-                    if (environmentCommand.getColorIndex()!= 0){
-                        int penColorIndex = (int)environmentCommand.getColorIndex();
-                        Paint color = penColorDropDown.getColorMap().get(penColorIndex);
-                        turtleDisplay.setPEN_COLOR(color);
-                    }
+                    changeEnvironment(commandToRun);
                 }
             }
-            myUserDefined.getItems().clear();
-            myUserDefined.getItems().add("Variables and Commands: ");
-            savedVarMap = backend.getVarMap();
-            for (String key : savedVarMap.keySet()) {
-                myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
-            }
+            displayVariables();
             createTransition();
 
 //        } catch(NullPointerException ex){
@@ -158,6 +141,31 @@ public class TurtleIDE extends Application {
     private void displayError(Executable commandToRun){
         showError(((ErrorMessage)commandToRun).getError());
         console.getItems().add(((ErrorMessage) commandToRun).getError());
+    }
+
+    private void displayVariables(){
+        myUserDefined.getItems().clear();
+        myUserDefined.getItems().add("Variables and Commands: ");
+        savedVarMap = backend.getVarMap();
+        for (String key : savedVarMap.keySet()) {
+            myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
+        }
+    }
+
+    private void changeEnvironment(Executable commandToRun){
+        EnvironmentState environmentCommand = (EnvironmentState) commandToRun;
+        double penSize = environmentCommand.getPenSize();
+        turtleDisplay.setPEN_SIZE((int)penSize);
+        if ((environmentCommand.getBackgroundIndex() != 0)) {
+            int colorIndex =(int)(environmentCommand.getBackgroundIndex());
+            Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
+            turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+        }
+        if (environmentCommand.getColorIndex()!= 0){
+            int penColorIndex = (int)environmentCommand.getColorIndex();
+            Paint color = penColorDropDown.getColorMap().get(penColorIndex);
+            turtleDisplay.setPEN_COLOR(color);
+        }
     }
 
     private void createTransition(){
@@ -240,11 +248,6 @@ public class TurtleIDE extends Application {
         HBox user = new HBox(15, myUserDefined, myStates);
         return user;
     }
-
-    private Turtle getTurtle(int id){
-        return turtle;
-    }
-
     private Dialog createVariableScreen(String rawKey){
         final String key = rawKey.trim();
         Dialog inputBox = new TextInputDialog("Change the input");
@@ -255,16 +258,10 @@ public class TurtleIDE extends Application {
         savedVarMap = backend.getVarMap();
         myUserDefined.getItems().clear();
         myUserDefined.getItems().add("Variables and Commands: ");
-//        System.out.println(savedVarMap);
         for (String keyVal : savedVarMap.keySet()) {
             myUserDefined.getItems().add(keyVal + " = " + savedVarMap.get(keyVal).toString());
-//            System.out.println(key);
         }
         return inputBox;
-    }
-
-    private Console getStateConsole(){
-        return myStates;
     }
 
 //    private void undoLastCommand() {
