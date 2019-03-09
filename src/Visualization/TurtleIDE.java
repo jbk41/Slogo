@@ -138,8 +138,10 @@ public class TurtleIDE extends Application {
             turtleMap.put(command.getID(), newTurtle);
         }
         checkClear((TurtleState)commandToRun);
-        turtle = turtleMap.get(command.getID());
-        turtle.moveTurtle(command, myStates);
+        if (!command.getClear()) {
+            turtle = turtleMap.get(command.getID());
+            turtle.moveTurtle(command, myStates);
+        }
     }
 
     private void checkClear(TurtleState command){
@@ -147,6 +149,7 @@ public class TurtleIDE extends Application {
             for (Turtle turt: turtleMap.values()){
                 turtleDisplay.getChildren().remove(turt.getTurtleImageView());
             }
+            turtleMap.clear();
             turtleDisplay.createNewCanvas();
             return;
         }
