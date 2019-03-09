@@ -82,6 +82,7 @@ public class TurtleIDE extends Application {
             if(commandToRun instanceof ErrorMessage){
                 ErrorMessage errorMessage = (ErrorMessage)commandToRun;
                 errorMessage.getError();
+                System.out.println(errorMessage.getError());
 //                System.out.println(((ErrorMessage)commandToRun).getError());
                 showError(errorMessage.getError());
             }
@@ -121,7 +122,7 @@ public class TurtleIDE extends Application {
         sequenceHistory.getChildren().addAll(prevSequential.getChildren());
         String commands = textEditor.getText();
         console.getItems().add(commands);
-        try {
+//        try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
             backend.clearCommandList();
@@ -140,8 +141,8 @@ public class TurtleIDE extends Application {
 
                 }
                 if(commandToRun instanceof EnvironmentState){
-                    double penSize = ((EnvironmentState) commandToRun).getPenSize();
-                    turtle.setPEN_SIZE((int)penSize);
+//                    double penSize = ((EnvironmentState) commandToRun).getPenSize();
+//                    turtle.setPEN_SIZE((int)penSize);
                     int colorIndex =(int)((EnvironmentState) commandToRun).getBackgroundIndex();
                     Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
                     turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -167,9 +168,9 @@ public class TurtleIDE extends Application {
             }
             parallelTransition.play();
 
-        } catch(NullPointerException ex){
-            showError("Please Choose a Language");
-        }
+//        } catch(NullPointerException ex){
+//            showError("Please Choose a Language");
+//        }
     }
 
     private void runTurtleCommand(Executable commandToRun){
