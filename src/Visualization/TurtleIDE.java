@@ -102,9 +102,9 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
+            System.out.println("executed first");
             for (Executable commandToRun : backend.getCommands()) {
                 if (commandToRun instanceof TurtleState) {
-
                     runTurtleCommand(commandToRun);
                 }
                 if(commandToRun instanceof ColorPaletteEntry){
@@ -114,12 +114,13 @@ public class TurtleIDE extends Application {
                 }
                 if(commandToRun instanceof EnvironmentState){
                 }
-                myUserDefined.getItems().clear();
-                myUserDefined.getItems().add("Variables and Commands");
-                savedVarMap = backend.getVarMap();
-                for (String key : savedVarMap.keySet()) {
-                    myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
-                }
+            }
+            myUserDefined.getItems().clear();
+            myUserDefined.getItems().add("Variables and Commands: ");
+            savedVarMap = backend.getVarMap();
+//            System.out.println(savedVarMap);
+            for (String key : savedVarMap.keySet()) {
+                myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
             ParallelTransition parallelTransition = new ParallelTransition();
             for(double id: turtleMap.keySet()){
@@ -127,6 +128,7 @@ public class TurtleIDE extends Application {
                 parallelTransition.getChildren().add(sequentialTransition);
             }
             parallelTransition.play();
+
             } catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
@@ -212,6 +214,13 @@ public class TurtleIDE extends Application {
         Optional<String> result = inputBox.showAndWait();
         result.ifPresent(e -> backend.setVariable(key, Double.parseDouble(result.get())));
         savedVarMap = backend.getVarMap();
+        myUserDefined.getItems().clear();
+        myUserDefined.getItems().add("Variables and Commands: ");
+//        System.out.println(savedVarMap);
+        for (String keyVal : savedVarMap.keySet()) {
+            myUserDefined.getItems().add(keyVal + " = " + savedVarMap.get(keyVal).toString());
+            System.out.println(key);
+        }
         return inputBox;
     }
 
