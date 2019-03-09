@@ -42,7 +42,8 @@ public class Turtle {
     private double oldX;
     private double oldY;
     private double myDegrees;
-
+    private double defaultX;
+    private double defaultY;
     public Turtle(TurtleDisplay pane, Canvas canvas) {
         this.pane = pane;
         this.canvas = canvas;
@@ -53,6 +54,8 @@ public class Turtle {
         myY = 0;
         prevDegrees = 0;
         myDegrees = 0;
+        defaultX = getDefaultX();
+        defaultY = getDefaultY();
     }
 
     public void setPEN_COLOR(Paint color) {
@@ -103,11 +106,6 @@ public class Turtle {
     }
 
     public void moveTurtle(TurtleState currentTurtleState, Console stateConsole) {
-        double defaultX = getDefaultX();
-        double defaultY = getDefaultY();
-        System.out.println("id: " + currentTurtleState.getID());
-        System.out.println("old x: " + turtleImageView.getX());
-        System.out.println("old y: " + turtleImageView.getY());
         double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
         double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
         TurtleState currentTurtle = currentTurtleState;
@@ -115,16 +113,18 @@ public class Turtle {
         prevDegrees = myDegrees;
         RotateTransition rt = rotationTransition(turtleImageView, myDegrees, prevDegrees);
         sequentialTransition.getChildren().add(rt);
-//        System.out.println(sequentialTransition.getChildren());
-//        System.out.println("Current state y:" + myY);
-//        System.out.println("Next State Y: " + currentTurtle.getY());
-//        System.out.println("Default Y: " + defaultY);
+        System.out.println("oldx and oldy");
+        System.out.println(turtleImageView.getX());
+        System.out.println(turtleImageView.getY());
         double newX = currentTurtle.getX() + defaultX;
         double newY = defaultY - currentTurtle.getY();
-//        System.out.println(newY);
-//        System.out.println(turtleYPosition());
-//        if (turtleXPosition() == newX && turtleYPosition() == newY ) {
-        if (myX == currentTurtle.getX() && myY == currentTurtle.getY()) {
+        System.out.println("raw values");
+        System.out.println(currentTurtle.getX());
+        System.out.println(currentTurtle.getY());
+        System.out.println("Temp new values");
+        System.out.println(newX);
+        System.out.println(newY);
+        if (newX == turtleImageView.getX() && newY == turtleImageView.getY()) {
             if (currentTurtle.getClear()) {
                 newX = currentTurtle.getX() + xAtZero;
                 newY = yAtZero - currentTurtle.getY();
@@ -133,19 +133,13 @@ public class Turtle {
             }
         }
         Path path = new Path();
-//        System.out.println("Old Image X: " + turtleImageView.getX());
-//        System.out.println("Old Image Y: " + turtleImageView.getY());
-        System.out.println("Old Image X: " + turtleXPosition());
-        System.out.println("Old Image Y: " + turtleYPosition());
-        turtleImageView.setX(turtleImageView.getX() + myX - currentTurtle.getX());
-        turtleImageView.setY(turtleImageView.getY() + myY - currentTurtle.getY());
-        System.out.println("X:" + turtleXPosition() + " " + "Y: "+ turtleYPosition());
-        System.out.println("newX:" + turtleXPosition());
-        System.out.println("newY:" + turtleYPosition());
-        path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
+        path.getElements().add(new MoveTo(turtleImageView.getX(), turtleImageView.getY()));
         path.getElements().add(new LineTo(newX , newY));
-        myX = currentTurtle.getX();
-        myY = currentTurtle.getY();
+        turtleImageView.setX(newX);
+        turtleImageView.setY(newY);
+        System.out.println("newx and newy");
+        System.out.println(turtleImageView.getX());
+        System.out.println(turtleImageView.getY());
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
         sequentialTransition.getChildren().add(pathTransition);
     }
