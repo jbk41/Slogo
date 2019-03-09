@@ -28,17 +28,25 @@ public class ColorDropDown extends ComboBox{
     private void createDropDownMenu(){
         setPromptText("Background");
         getItems().addAll(
-                "LIGHTBLUE",
-                "WHITE",
-                "LIGHTGREEN",
-                "LIGHTGRAY"
+                "LIGHTBLUE (1)",
+                "WHITE (2)",
+                "LIGHTGREEN (3)",
+                "LIGHTGRAY (4)"
         );
         getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                Paint color = Paint.valueOf(t1);
+                Paint color = Paint.valueOf(t1.split(" ")[0]);
                 display.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
+    }
+    public HashMap<Integer, Paint> getColorMap(){
+        HashMap<Integer, Paint> colorMap = new HashMap<>();
+        colorMap.put(1, Color.LIGHTBLUE);
+        colorMap.put(2, Color.WHITE);
+        colorMap.put(3, Color.LIGHTGREEN);
+        colorMap.put(4, Color.LIGHTGRAY);
+        return colorMap;
     }
 }
