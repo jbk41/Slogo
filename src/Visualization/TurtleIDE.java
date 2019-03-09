@@ -43,6 +43,7 @@ public class TurtleIDE extends Application {
     private Map <Double, Turtle> turtleMap;
     private ArrayList<Turtle> turtleList;
     private ColorDropDown backgroundColorSettings;
+    private PenColorDropDown penColorDropDown;
     private ArrayList<Executable> commandHistory;
     private ParallelTransition parallelTransition;
     private SequentialTransition prevSequential = new SequentialTransition();
@@ -74,21 +75,9 @@ public class TurtleIDE extends Application {
         backend.interpret(command);
         //todo: grab the id of the turtle before executing
         for (Executable commandToRun : backend.getCommands()) {
-            if (commandToRun instanceof TurtleState) {
-                runTurtleCommand(commandToRun);
-            }
-            if(commandToRun instanceof ColorPaletteEntry){
-            }
-            if(commandToRun instanceof ErrorMessage){
-                ErrorMessage errorMessage = (ErrorMessage)commandToRun;
-                errorMessage.getError();
-                System.out.println(errorMessage.getError());
-//                System.out.println(((ErrorMessage)commandToRun).getError());
-                showError(errorMessage.getError());
-            }
-            if(commandToRun instanceof EnvironmentState){
-            }
+            runTurtleCommand(commandToRun);
         }
+        createTransition();
 //        if (backend.getCommands().get(0) instanceof TurtleState){
 //            Turtle turtle = turtleMap.get(((TurtleState) backend.getCommands().get(0)).getID());
 //            turtle.moveTurtle((TurtleState)backend.getCommands().get(0), myStates);
@@ -104,7 +93,7 @@ public class TurtleIDE extends Application {
     }
     private VBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
         backgroundColorSettings = new ColorDropDown(padding, turtleDisplay);
-        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtleDisplay);
+        penColorDropDown = new PenColorDropDown(padding, turtleDisplay);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
         PenSize penSize = new PenSize(turtleDisplay);
         Button playButton = new Button("Play");
@@ -135,44 +124,52 @@ public class TurtleIDE extends Application {
 
                 }
                 if(commandToRun instanceof ErrorMessage){
-                    ErrorMessage errorMessage = (ErrorMessage)commandToRun;
-                    showError(errorMessage.getError());
-                    console.getItems().add(((ErrorMessage) commandToRun).getError());
-
+                    displayError(commandToRun);
                 }
                 if(commandToRun instanceof EnvironmentState){
-                    double penSize = ((EnvironmentState) commandToRun).getPenSize();
+                    EnvironmentState environmentCommand = (EnvironmentState) commandToRun;
+                    double penSize = environmentCommand.getPenSize();
                     turtleDisplay.setPEN_SIZE((int)penSize);
-                    int colorIndex =(int)((EnvironmentState) commandToRun).getBackgroundIndex();
-                    Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
-                    if (((EnvironmentState)commandToRun).getBackgroundIndex() != 0) {
+                    if ((environmentCommand.getBackgroundIndex() != 0)) {
+                        int colorIndex =(int)(environmentCommand.getBackgroundIndex());
+                        Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
                         turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+                    }
+                    if (environmentCommand.getColorIndex()!= 0){
+                        int penColorIndex = (int)environmentCommand.getColorIndex();
+                        Paint color = penColorDropDown.getColorMap().get(penColorIndex);
+                        turtleDisplay.setPEN_COLOR(color);
                     }
                 }
             }
             myUserDefined.getItems().clear();
             myUserDefined.getItems().add("Variables and Commands: ");
             savedVarMap = backend.getVarMap();
-//            System.out.println(savedVarMap);
             for (String key : savedVarMap.keySet()) {
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
-            parallelTransition = new ParallelTransition();
-            for(double id: turtleMap.keySet()){
-                SequentialTransition sequentialTransition = turtleMap.get(id).getST();
-                System.out.println(sequentialTransition.getChildren());
-                System.out.println(sequenceHistory.getChildren());
-                sequentialTransition.getChildren().removeAll(sequenceHistory.getChildren());
-                System.out.println(sequentialTransition.getChildren());
-                if (!sequentialTransition.getChildren().isEmpty()) {
-                    parallelTransition.getChildren().add(sequentialTransition);
-                }
-            }
-            parallelTransition.play();
+            createTransition();
 
 //        } catch(NullPointerException ex){
 //            showError("Please Choose a Language");
 //        }
+    }
+
+    private void displayError(Executable commandToRun){
+        showError(((ErrorMessage)commandToRun).getError());
+        console.getItems().add(((ErrorMessage) commandToRun).getError());
+    }
+
+    private void createTransition(){
+        parallelTransition = new ParallelTransition();
+        for(double id: turtleMap.keySet()){
+            SequentialTransition sequentialTransition = turtleMap.get(id).getST();
+            sequentialTransition.getChildren().removeAll(sequenceHistory.getChildren());
+            if (!sequentialTransition.getChildren().isEmpty()) {
+                parallelTransition.getChildren().add(sequentialTransition);
+            }
+        }
+        parallelTransition.play();
     }
 
     private void runTurtleCommand(Executable commandToRun){
