@@ -12,8 +12,7 @@ public class CommandManager {
         userCommands = new HashMap<>();
     }
 
-    public void addCommand(UserDefinedCommand command){
-        String name = command.getCommandName();
+    public void addCommand(String name, UserDefinedCommand command){
         userCommands.put(name, command);
     }
 
@@ -25,5 +24,8 @@ public class CommandManager {
         return userCommands.containsKey(commandName);
     }
 
+    public void setMaxArgs(String commandName, int args){
+        userCommands.get(commandName).setMaxArgs(args);
+    }
 }
 
