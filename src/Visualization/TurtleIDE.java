@@ -104,11 +104,10 @@ public class TurtleIDE extends Application {
             backend.clearCommandList();
             backend.interpret(commands);
             Turtle turtle;
-
             for (Executable commandToRun : backend.getCommands()) {
-                System.out.println(commandToRun);
+//                System.out.println(commandToRun.toString());
                 if (commandToRun instanceof TurtleState) {
-                    System.out.println("Current command: " + commandToRun);
+//                    System.out.println("Current command: " + commandToRun.toString());
                     TurtleState command = (TurtleState)commandToRun;
                     System.out.println(command.getID());
                     if (!turtleMap.containsKey(command.getID())) {
