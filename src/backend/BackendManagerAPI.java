@@ -40,7 +40,7 @@ public interface BackendManagerAPI {
 
     public boolean containsCommand(String commandName);
 
-    public void addUserDefinedCommand(UserDefinedCommand userDefinedCommand);
+    public void addUserDefinedCommand(String name, UserDefinedCommand userDefinedCommand);
 
     public UserDefinedCommand getUserCommand(String commandName);
 
