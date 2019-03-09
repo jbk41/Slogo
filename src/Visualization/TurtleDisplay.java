@@ -12,6 +12,8 @@ public class TurtleDisplay extends Pane {
     private double height;
     private int padding;
     private Paint BACKGROUND = Color.WHITE;
+    private Paint PEN_COLOR;
+    private int PEN_SIZE = 4;
     private Canvas canvas;
 
     public TurtleDisplay(double width, double height, int padding){
@@ -31,6 +33,22 @@ public class TurtleDisplay extends Pane {
         getChildren().add(canvas);
         return canvas;
 
+    }
+
+    public void setPEN_COLOR(Paint color) {
+        PEN_COLOR = color;
+    }
+
+    public void setPEN_SIZE(int size) {
+        PEN_SIZE = size;
+    }
+
+    public Paint getPEN_COLOR() {
+        return PEN_COLOR;
+    }
+
+    public int getPEN_SIZE() {
+        return PEN_SIZE;
     }
     private void setSizeOfRoot(){
         double fixedWidth = getFixedWidth(width, padding);

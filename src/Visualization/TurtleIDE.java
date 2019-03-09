@@ -104,9 +104,9 @@ public class TurtleIDE extends Application {
     }
     private VBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
         backgroundColorSettings = new ColorDropDown(padding, turtleDisplay);
-        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
+        PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtleDisplay);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
-        PenSize penSize = new PenSize(turtle);
+        PenSize penSize = new PenSize(turtleDisplay);
         Button playButton = new Button("Play");
         backend = new BackendModel();
         playButton.setOnAction(e -> playTheCommands(languagesDropDown));
@@ -141,11 +141,13 @@ public class TurtleIDE extends Application {
 
                 }
                 if(commandToRun instanceof EnvironmentState){
-//                    double penSize = ((EnvironmentState) commandToRun).getPenSize();
-//                    turtle.setPEN_SIZE((int)penSize);
+                    double penSize = ((EnvironmentState) commandToRun).getPenSize();
+                    turtleDisplay.setPEN_SIZE((int)penSize);
                     int colorIndex =(int)((EnvironmentState) commandToRun).getBackgroundIndex();
                     Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
-                    turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+                    if (((EnvironmentState)commandToRun).getBackgroundIndex() != 0) {
+                        turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
+                    }
                 }
             }
             myUserDefined.getItems().clear();

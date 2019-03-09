@@ -55,13 +55,13 @@ public class Turtle {
         myDegrees = 0;
     }
 
-    public void setPEN_COLOR(Paint color) {
-        PEN_COLOR = color;
-    }
-
-    public void setPEN_SIZE(int size) {
-        PEN_SIZE = size;
-    }
+//    public void setPEN_COLOR(Paint color) {
+//        PEN_COLOR = color;
+//    }
+//
+//    public void setPEN_SIZE(int size) {
+//        PEN_SIZE = size;
+//    }
 
     public void setAnimationSpeed(int newSpeed) {
         ANIMATION_SPEED = newSpeed;
@@ -181,8 +181,8 @@ public class Turtle {
                     oldY = y;
                 }
                 if(turtleState.getPenState()) {
-                    gc.setStroke(PEN_COLOR);
-                    gc.setLineWidth(PEN_SIZE);
+                    gc.setStroke(pane.getPEN_COLOR());
+                    gc.setLineWidth(pane.getPEN_SIZE());
                     gc.strokeLine(oldX, oldY, x, y);
                 }
                 oldX = x;
