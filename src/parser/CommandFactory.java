@@ -42,7 +42,7 @@ public class CommandFactory {
     private GeneralCommand makeCommand(List<String> list) {
         try {
             String commandName = list.get(0);
-
+            System.out.println(commandName);
             if (commandName.equals(CONSTANT_COMMAND_NAME)) {
                 System.out.println("Making constant command");
                 return (GeneralCommand) Class.forName("commands." + commandName + "Command").getConstructor(BackendManager.class, double.class).newInstance(myBM, Double.parseDouble(list.get(1)));

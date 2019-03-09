@@ -11,10 +11,10 @@ public class ErrorMessage extends Executable {
     }
 
     public String getError(){
-        return "Line " + myLineNumber + ": " + myError;
+        return ("Line " + myLineNumber + ": " + myError);
     }
 
     @Override
-    public String toString() { return "Error on Line " + myLineNumber + ": " + myError;}
+    public String toString() { return ("Error on Line " + myLineNumber + ": " + myError);}
 
 }
