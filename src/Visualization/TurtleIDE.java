@@ -81,6 +81,7 @@ public class TurtleIDE extends Application {
             }
             if(commandToRun instanceof ErrorMessage){
                 ErrorMessage errorMessage = (ErrorMessage)commandToRun;
+                errorMessage.getError();
 //                System.out.println(((ErrorMessage)commandToRun).getError());
                 showError(errorMessage.getError());
             }
@@ -132,7 +133,10 @@ public class TurtleIDE extends Application {
                 if(commandToRun instanceof ColorPaletteEntry){
                 }
                 if(commandToRun instanceof ErrorMessage){
+                    ErrorMessage errorMessage = (ErrorMessage)commandToRun;
+                    showError(errorMessage.getError());
                     console.getItems().add(((ErrorMessage) commandToRun).getError());
+
                 }
                 if(commandToRun instanceof EnvironmentState){
                 }

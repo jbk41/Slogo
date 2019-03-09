@@ -133,18 +133,19 @@ public class Turtle {
             }
         }
         Path path = new Path();
-        System.out.println("Old Image X: " + turtleImageView.getX());
-        System.out.println("Old Image Y: " + turtleImageView.getY());
-        turtleImageView.setX(newX + myX - turtleImageView.getBoundsInLocal().getWidth() / 2);
-        turtleImageView.setY(newY + myY - turtleImageView.getBoundsInLocal().getHeight() / 2);
+//        System.out.println("Old Image X: " + turtleImageView.getX());
+//        System.out.println("Old Image Y: " + turtleImageView.getY());
+        System.out.println("Old Image X: " + turtleXPosition());
+        System.out.println("Old Image Y: " + turtleYPosition());
+        turtleImageView.setX(turtleImageView.getX() + myX - currentTurtle.getX());
+        turtleImageView.setY(turtleImageView.getY() + myY - currentTurtle.getY());
         System.out.println("X:" + turtleXPosition() + " " + "Y: "+ turtleYPosition());
-        System.out.println("newX:" + newX + " " + "newY: "+ newY);
-        path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
+        System.out.println("newX:" + turtleXPosition());
+        System.out.println("newY:" + turtleYPosition());
+        path.getElements().add(new MoveTo(turtleXPosition() + 30, turtleYPosition()));
         path.getElements().add(new LineTo(newX , newY));
         myX = currentTurtle.getX();
         myY = currentTurtle.getY();
-        System.out.println("New x: " + turtleImageView.getX());
-        System.out.println("New y: " + turtleImageView.getY() + "\n");
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
         sequentialTransition.getChildren().add(pathTransition);
 //        sequentialTransition.play();

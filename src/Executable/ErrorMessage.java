@@ -12,7 +12,7 @@ public class ErrorMessage extends Executable {
         return myError;
     }
 
-//    @Override
-//    public String toString() { return ("Error on Line " + myLineNumber + ": " + myError);}
+    @Override
+    public String toString() { return ("Error on Line " + ": " + myError);}
 
 }
