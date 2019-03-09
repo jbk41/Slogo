@@ -35,13 +35,24 @@ public class Turtle {
     private GraphicsContext gc;
     private double x;
     private double y;
+    private boolean penDown;
+    private double myX;
+    private double myY;
     private double oldX;
     private double oldY;
+    private double myDegrees;
+    private double prevDegrees;
 
     public Turtle(TurtleDisplay pane, Canvas canvas) {
         this.pane = pane;
         this.canvas = canvas;
+        Image turtleImage = new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE));
+        turtleImageView = new ImageView(turtleImage);
         addTurtleToRoot(TURTLE_IMAGE);
+        myX = 0;
+        myY = 0;
+        prevDegrees = 0;
+        myDegrees = 0;
     }
 
     public void setPEN_COLOR(Paint color) {
@@ -69,10 +80,8 @@ public class Turtle {
     }
 
     private void addTurtleToRoot(String imageName) {
-        Image turtleImage = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName));
-        this.turtleImageView = new ImageView(turtleImage);
-        x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
-        y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
+//        x = turtleImageView.getBoundsInLocal().getCenterX() + turtleImageView.getTranslateX();
+//        y = turtleImageView.getBoundsInLocal().getCenterY() + turtleImageView.getTranslateY();
         pane.getChildren().add(this.turtleImageView);
         setDefaultTurtleLocation();
     }
@@ -94,23 +103,28 @@ public class Turtle {
     }
 
     public void moveTurtle(TurtleState currentTurtleState, Console stateConsole) {
-        double defaultX = turtleXPosition();
-        double defaultY = turtleYPosition();
+        double defaultX = getDefaultX();
+        double defaultY = getDefaultY();
         System.out.println("id: " + currentTurtleState.getID());
         System.out.println("old x: " + turtleImageView.getX());
         System.out.println("old y: " + turtleImageView.getY());
         double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
         double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
-        double prevDegrees = 0.0;
         TurtleState currentTurtle = currentTurtleState;
-        double degrees = currentTurtle.getDeg();
-        RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
+        myDegrees = currentTurtle.getDeg();
+        prevDegrees = myDegrees;
+        RotateTransition rt = rotationTransition(turtleImageView, myDegrees, prevDegrees);
         sequentialTransition.getChildren().add(rt);
-        System.out.println(sequentialTransition.getChildren());
-        prevDegrees = degrees;
+//        System.out.println(sequentialTransition.getChildren());
+//        System.out.println("Current state y:" + myY);
+//        System.out.println("Next State Y: " + currentTurtle.getY());
+//        System.out.println("Default Y: " + defaultY);
         double newX = currentTurtle.getX() + defaultX;
         double newY = defaultY - currentTurtle.getY();
-        if (turtleXPosition() == newX && turtleYPosition() == newY) {
+//        System.out.println(newY);
+//        System.out.println(turtleYPosition());
+//        if (turtleXPosition() == newX && turtleYPosition() == newY ) {
+        if (myX == currentTurtle.getX() && myY == currentTurtle.getY()) {
             if (currentTurtle.getClear()) {
                 newX = currentTurtle.getX() + xAtZero;
                 newY = yAtZero - currentTurtle.getY();
@@ -119,10 +133,16 @@ public class Turtle {
             }
         }
         Path path = new Path();
+        System.out.println("Old Image X: " + turtleImageView.getX());
+        System.out.println("Old Image Y: " + turtleImageView.getY());
+        turtleImageView.setX(newX + myX - turtleImageView.getBoundsInLocal().getWidth() / 2);
+        turtleImageView.setY(newY + myY - turtleImageView.getBoundsInLocal().getHeight() / 2);
+        System.out.println("X:" + turtleXPosition() + " " + "Y: "+ turtleYPosition());
+        System.out.println("newX:" + newX + " " + "newY: "+ newY);
         path.getElements().add(new MoveTo(turtleXPosition(), turtleYPosition()));
-        path.getElements().add(new LineTo(newX, newY));
-        turtleImageView.setX(newX - turtleImageView.getBoundsInLocal().getWidth() / 2);
-        turtleImageView.setY(newY - turtleImageView.getBoundsInLocal().getHeight() / 2);
+        path.getElements().add(new LineTo(newX , newY));
+        myX = currentTurtle.getX();
+        myY = currentTurtle.getY();
         System.out.println("New x: " + turtleImageView.getX());
         System.out.println("New y: " + turtleImageView.getY() + "\n");
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);

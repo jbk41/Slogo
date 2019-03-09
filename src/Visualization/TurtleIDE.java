@@ -80,8 +80,9 @@ public class TurtleIDE extends Application {
             if(commandToRun instanceof ColorPaletteEntry){
             }
             if(commandToRun instanceof ErrorMessage){
+                ErrorMessage errorMessage = (ErrorMessage)commandToRun;
 //                System.out.println(((ErrorMessage)commandToRun).getError());
-                console.getItems().add(((ErrorMessage)commandToRun).getError());
+                showError(errorMessage.getError());
             }
             if(commandToRun instanceof EnvironmentState){
             }
@@ -125,7 +126,6 @@ public class TurtleIDE extends Application {
             backend.clearCommandList();
             backend.interpret(commands);
             for (Executable commandToRun : backend.getCommands()) {
-                System.out.println("runs");
                 if (commandToRun instanceof TurtleState) {
                     runTurtleCommand(commandToRun);
                 }
@@ -145,14 +145,15 @@ public class TurtleIDE extends Application {
                 myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
             }
             parallelTransition = new ParallelTransition();
-
             for(double id: turtleMap.keySet()){
                 SequentialTransition sequentialTransition = turtleMap.get(id).getST();
                 System.out.println(sequentialTransition.getChildren());
                 System.out.println(sequenceHistory.getChildren());
                 sequentialTransition.getChildren().removeAll(sequenceHistory.getChildren());
                 System.out.println(sequentialTransition.getChildren());
-                parallelTransition.getChildren().add(sequentialTransition);
+                if (!sequentialTransition.getChildren().isEmpty()) {
+                    parallelTransition.getChildren().add(sequentialTransition);
+                }
             }
             parallelTransition.play();
 
