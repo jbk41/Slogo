@@ -102,7 +102,6 @@ public class TurtleIDE extends Application {
             backend.setLanguage(language);
             backend.clearCommandList();
             backend.interpret(commands);
-            Turtle turtle;
             for (Executable commandToRun : backend.getCommands()) {
                 if (commandToRun instanceof TurtleState) {
                     runTurtleCommand(commandToRun);
@@ -111,7 +110,7 @@ public class TurtleIDE extends Application {
 
                 }
                 if(commandToRun instanceof ErrorMessage){
-
+                    console.getItems().add(((ErrorMessage) commandToRun).getError());
                 }
                 if(commandToRun instanceof EnvironmentState){
 
