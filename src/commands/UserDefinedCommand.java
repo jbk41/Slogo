@@ -17,13 +17,6 @@ public class UserDefinedCommand extends GeneralCommand {
         //getChildren().add(commands);
     }
 
-    public void setVariables(GeneralCommand vars){
-        getChildren().add(vars);
-    }
-    public void setCommands(GeneralCommand commands){
-        getChildren().add(commands);
-    }
-
     public int getMaxArgs(){
         return maxArgs;
     }
