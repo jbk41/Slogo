@@ -35,13 +35,13 @@ public class Turtle {
     private GraphicsContext gc;
     private double x;
     private double y;
+    private double prevDegrees = 0.0;
     private boolean penDown;
     private double myX;
     private double myY;
     private double oldX;
     private double oldY;
     private double myDegrees;
-    private double prevDegrees;
 
     public Turtle(TurtleDisplay pane, Canvas canvas) {
         this.pane = pane;
@@ -148,7 +148,6 @@ public class Turtle {
         myY = currentTurtle.getY();
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
         sequentialTransition.getChildren().add(pathTransition);
-//        sequentialTransition.play();
     }
 
 
