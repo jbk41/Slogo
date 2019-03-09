@@ -4,9 +4,11 @@ package Visualization;
 import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
+import javafx.animation.Animation;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -38,13 +40,15 @@ public class TurtleIDE extends Application {
     private BackendModel backend;
     private Map <String, Double> savedVarMap;
     private Turtle turtle;
-    private Map <Double, Turtle> turtleMap = new HashMap<Double, Turtle>();
+    private Map <Double, Turtle> turtleMap;
     private ArrayList<Turtle> turtleList;
+    private ArrayList<Executable> commandHistory;
 
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
         Group root = new Group();
+        turtleMap = new HashMap<Double, Turtle>();
         var startScene = new Scene(root, width, height, backgroundColor);
         HBox IDE = new HBox(createUserBox(), createTurtleEnvironment());
         root.getChildren().add(IDE);
@@ -139,8 +143,11 @@ public class TurtleIDE extends Application {
             for(double id: turtleMap.keySet()){
                 SequentialTransition sequentialTransition = turtleMap.get(id).getST();
                 parallelTransition.getChildren().add(sequentialTransition);
+                turtleMap.get(id).getST().getChildren().removeAll();
             }
             parallelTransition.play();
+            parallelTransition.getChildren().removeAll();
+
         } catch(NullPointerException ex){
             showError("Please Choose a Language");
         }

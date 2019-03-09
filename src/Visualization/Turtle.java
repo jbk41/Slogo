@@ -27,7 +27,7 @@ public class Turtle {
     private String TURTLE_IMAGE = "cuteturtle.gif";
     private int ANIMATION_SPEED = 300;
     private ImageView turtleImageView;
-    private SequentialTransition sequentialTransition  = new SequentialTransition();;
+    private SequentialTransition sequentialTransition  = new SequentialTransition();
     private TurtleDisplay pane;
     private Canvas canvas;
     private Paint PEN_COLOR;
