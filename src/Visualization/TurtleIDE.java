@@ -40,7 +40,7 @@ public class TurtleIDE extends Application {
     private Turtle turtle;
     private Map <Double, Turtle> turtleMap = new HashMap<Double, Turtle>();
     private ArrayList<Turtle> turtleList;
-
+    private ColorDropDown backgroundColorSettings;
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
@@ -80,7 +80,7 @@ public class TurtleIDE extends Application {
         return display;
     }
     private VBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
-        ColorDropDown settingsBox = new ColorDropDown(padding, turtleDisplay);
+        backgroundColorSettings = new ColorDropDown(padding, turtleDisplay);
         PenColorDropDown penColorDropDown = new PenColorDropDown(padding, turtle);
         LanguagesDropDown languagesDropDown = new LanguagesDropDown();
         PenSize penSize = new PenSize(turtle);
@@ -88,7 +88,7 @@ public class TurtleIDE extends Application {
         backend = new BackendModel();
         playButton.setOnAction(e -> playTheCommands(languagesDropDown));
         Button help = createHelpButton();
-        HBox top = new HBox(6, playButton, help, settingsBox, createUndoButton());
+        HBox top = new HBox(6, playButton, help, backgroundColorSettings, createUndoButton());
         HBox bottom = new HBox(6, penColorDropDown, languagesDropDown, penSize, addWorkspace());
         VBox controls = new VBox(6, top, bottom);
         controls.setMaxWidth(width/2);
@@ -107,11 +107,17 @@ public class TurtleIDE extends Application {
                     runTurtleCommand(commandToRun);
                 }
                 if(commandToRun instanceof ColorPaletteEntry){
+
                 }
                 if(commandToRun instanceof ErrorMessage){
                     console.getItems().add(((ErrorMessage) commandToRun).getError());
                 }
                 if(commandToRun instanceof EnvironmentState){
+                    double penSize = ((EnvironmentState) commandToRun).getPenSize();
+                    turtle.setPEN_SIZE((int)penSize);
+                    int colorIndex =(int)((EnvironmentState) commandToRun).getBackgroundIndex();
+                    Paint color = backgroundColorSettings.getColorMap().get(colorIndex);
+                    turtleDisplay.setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
                 }
                 myUserDefined.getItems().clear();
                 myUserDefined.getItems().add("Variables and Commands");

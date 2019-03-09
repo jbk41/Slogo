@@ -35,8 +35,7 @@ public class Turtle {
     private GraphicsContext gc;
     private double x;
     private double y;
-    private double oldX;
-    private double oldY;
+    private double prevDegrees = 0.0;
 
     public Turtle(TurtleDisplay pane, Canvas canvas) {
         this.pane = pane;
@@ -102,7 +101,6 @@ public class Turtle {
         System.out.println("old y: " + turtleImageView.getY());
         double xAtZero = pane.getPrefWidth() / 2 - turtleImageView.getBoundsInParent().getWidth() / 2;
         double yAtZero = pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight() / 2;
-        double prevDegrees = 0.0;
         TurtleState currentTurtle = currentTurtleState;
         double degrees = currentTurtle.getDeg();
         RotateTransition rt = rotationTransition(turtleImageView, degrees, prevDegrees);
@@ -127,7 +125,6 @@ public class Turtle {
         System.out.println("New y: " + turtleImageView.getY() + "\n");
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
         sequentialTransition.getChildren().add(pathTransition);
-//        sequentialTransition.play();
     }
 
 
