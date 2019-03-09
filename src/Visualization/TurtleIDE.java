@@ -80,8 +80,8 @@ public class TurtleIDE extends Application {
             if(commandToRun instanceof ColorPaletteEntry){
             }
             if(commandToRun instanceof ErrorMessage){
-                System.out.println(((ErrorMessage) commandToRun).getError());
-                console.getItems().add(((ErrorMessage) commandToRun).getError());
+//                System.out.println(((ErrorMessage)commandToRun).getError());
+                console.getItems().add(((ErrorMessage)commandToRun).getError());
             }
             if(commandToRun instanceof EnvironmentState){
             }
