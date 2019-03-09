@@ -75,6 +75,9 @@ public class GeneralCommand {
     public GeneralCommand getParent(){
         return myParent;
     }
+    public void setParent(GeneralCommand command){
+        myParent = command;
+    }
 
     /**
      *

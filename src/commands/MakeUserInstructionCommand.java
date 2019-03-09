@@ -29,8 +29,8 @@ public class MakeUserInstructionCommand extends GeneralCommand {
             getBM().throwError("Command already defined", getLineNumber());
         }
 
-        UserDefinedCommand userDefinedCommand = new UserDefinedCommand(getBM(), commandName, vars, commands);
-        getBM().addUserDefinedCommand(userDefinedCommand);
+        //UserDefinedCommand userDefinedCommand = new UserDefinedCommand(getBM(), commandName, vars, commands);
+        //getBM().addUserDefinedCommand(commandName, userDefinedCommand);
     }
 
 

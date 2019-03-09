@@ -61,7 +61,7 @@ public class CommandFactory {
             }
             else {
                 System.out.println("undef com " + list.get(1));
-                //System.out.println("Making undefined command");
+                myBM.addUserDefinedCommand(list.get(1), new UserDefinedCommand(myBM, list.get(1)));
                 return new UndefinedCommand(myBM, list.get(1));
             }
         } catch (InstantiationException e) { System.out.println("The Command Could not be instantiated");

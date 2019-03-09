@@ -12,6 +12,9 @@ public class RunUserDefinedCommand extends GeneralCommand {
             getBM().throwError("Unrecognizable command", getLineNumber());
         }
         userDefinedCommand = bm.getUserCommand(commandName);
+        if (userDefinedCommand == null){
+            getBM().throwError(userDefinedCommand.getCommandName() + " does not exist", getLineNumber());
+        }
         setMaxChildren(userDefinedCommand.getMaxArgs());
     }
 
