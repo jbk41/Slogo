@@ -81,15 +81,15 @@ public class TurtleState extends Executable{
 
     public boolean getClear() { return myClear; }
 
-    @Override
-    public String toString(){
-        System.out.println( "x: " + getX());
-        System.out.println( "y: " + getY());
-        System.out.println( "deg: " + getDeg());
-        System.out.println( "pen: " + getPenState());
-        System.out.println( "visibility: " + getVisibility());
-        System.out.println( "id: " + getID());
-        return "";
-    }
+//    @Override
+//    public String toString(){
+//        System.out.println( "x: " + getX());
+//        System.out.println( "y: " + getY());
+//        System.out.println( "deg: " + getDeg());
+//        System.out.println( "pen: " + getPenState());
+//        System.out.println( "visibility: " + getVisibility());
+//        System.out.println( "id: " + getID());
+//        return "";
+//    }
 
 }
