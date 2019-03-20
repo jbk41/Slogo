@@ -24,6 +24,12 @@ public class CommandTree {
     private BackendManager myBM;
 
 
+    /**
+     * Creates a syntax tree for the given text in the current language and updates the backend manager accordingly.
+     * @param text
+     * @param clean
+     * @param bm
+     */
     public CommandTree(String text, ParseCleaner clean,  BackendManager bm){
         myArguments = split(text);
         myBM = bm;
@@ -37,6 +43,11 @@ public class CommandTree {
 
     }
 
+    /**
+     * Splits the text into Syntax objects (more well known as tokens).
+     * @param text
+     * @return
+     */
     private List<Syntax> split(String text){
         SyntaxSplitter syntaxSplitter = new SyntaxSplitter();
         //System.out.println(syntaxSplitter.split(text).toString());
@@ -44,7 +55,7 @@ public class CommandTree {
     }
 
     /**
-     * prints the command tree post order
+     * Prints the command tree post order
      */
     public void printTree(){
         printPostOrder(head);
@@ -58,7 +69,6 @@ public class CommandTree {
     public GeneralCommand getHead(){
         return head;
     }
-
 
     private void generateTree(){
         while (start != end){
@@ -74,7 +84,8 @@ public class CommandTree {
         }
     }
 
-    // reads in string by word and generates syntax tree for a single "line" of commands
+    // reads in string by word and generates syntax tree for a single "line" of commands. One line is a contiguous
+    // set of commands that can be defined on their own and do not require any pre or post knowledge of syntax.
     private GeneralCommand generateOneSet(GeneralCommand parent){
         Syntax syntax = myArguments.get(start);
         //System.out.println(syntax.getCommand());

@@ -11,9 +11,17 @@ public class SyntaxSplitter {
     final String EMPTY = "";
     final char COMMENT = '#';
 
+    /**
+     * Creates an object that can split text into splitters
+     */
     public SyntaxSplitter(){
     }
 
+    /**
+     * Returns a list of Syntax in order of the text. Does not return any text past a '#' in a single line.
+     * @param text
+     * @return
+     */
     public List<Syntax> split(String text){
         List<Syntax> syntaxList = new ArrayList<>();
         List<String> textByLine = new ArrayList<>(Arrays.asList(text.split(NEW_LINE)));
