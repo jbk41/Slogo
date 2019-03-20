@@ -10,6 +10,9 @@ public class YCoordinateCommand extends GeneralCommand {
         setType("YCoordinateCommand");
     }
 
+    /**
+     * Updates the TurtleState: sets val to the current value of y. Meant for returning the current value of y to console
+     */
     public void update() {
         checkParameterCount();
         setVal(getBM().getCurrentTurtle().getY());

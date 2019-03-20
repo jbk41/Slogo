@@ -12,6 +12,9 @@ public class ShowTurtleCommand extends StatementCommand {
         setType("ShowTurtle");
     }
 
+    /**
+     * Updates Turtle State: Makes Turtle Visible / Show
+     */
     @Override
     public void update() {
         getBM().showTurtle();

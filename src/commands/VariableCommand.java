@@ -14,7 +14,9 @@ public class VariableCommand extends GeneralCommand{
         myName = name;
     }
 
-
+    /**
+     * Executes the command: Adds the variable to the Variable Manager Map with its respective value
+     */
     public void execute() {
         if(getBM().hasVariable(myName)) {
             setVal(getBM().getVariable(myName));
@@ -24,6 +26,10 @@ public class VariableCommand extends GeneralCommand{
         }
     }
 
+    /**
+     * Returns the name of the variable
+     * @return
+     */
     public String getVarName() {
         return myName; }
 }

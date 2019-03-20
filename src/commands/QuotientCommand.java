@@ -13,6 +13,9 @@ public class QuotientCommand extends GeneralCommand {
         setMaxChildren(2);
     }
 
+    /**
+     * Executes the command: sets the val to the quotient of the first input divided by the second input
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();

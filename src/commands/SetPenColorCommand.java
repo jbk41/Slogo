@@ -9,6 +9,9 @@ public class SetPenColorCommand extends GeneralCommand {
         setType("SetPenColor");
     }
 
+    /**
+     * Executes Command: sets the color of the pen to the value of the input
+     */
     public void execute(){
         checkParameterCount();
         getChildren().get(0).execute();

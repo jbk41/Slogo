@@ -21,6 +21,10 @@ public class RunUserDefinedCommand extends GeneralCommand {
         System.out.println(userDefinedCommand.getMaxArgs());
     }
 
+    /**
+     * Executes the command: Extracts the command name from the map and executes the commands stored
+     * It also checks for wrong number of arguments or wrong type of input
+     */
     public void execute(){
         GeneralCommand vars = userDefinedCommand.getChildren().get(0);
         GeneralCommand commands = userDefinedCommand.getChildren().get(1);

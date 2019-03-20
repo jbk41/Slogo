@@ -10,6 +10,11 @@ public class SetPositionCommand extends MovementCommand {
         setType("SetTowards");
     }
 
+    /**
+     * Updates TurtleState: Sets position of the turtle to:
+     * x = input 1
+     * y = input 2
+     */
     @Override
     protected void update() {
         getBM().setPosition(getChildren().get(0).getVal(), getChildren().get(1).getVal());

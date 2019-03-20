@@ -10,6 +10,9 @@ public class XCoordinateCommand extends GeneralCommand{
         setType("XCoordinate");
     }
 
+    /**
+     * Updates the TurtleState: sets val to the current value of x. Meant for returning the current value of x to console
+     */
     public void update() {
         checkParameterCount();
         setVal(getBM().getCurrentTurtle().getX());

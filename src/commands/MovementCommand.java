@@ -9,6 +9,10 @@ public abstract class MovementCommand extends GeneralCommand {
         super(bm);
     }
 
+    /**
+     * Movement command physically move the turtle. Therefore, for execute, the value of the command is the
+     * execution of all of its children.
+     */
     @Override
     public void execute() {
         checkParameterCount();
@@ -17,8 +21,15 @@ public abstract class MovementCommand extends GeneralCommand {
         update();
     }
 
+    /**
+     * Updates the command and its children accordingly. Each individual command overrides update according
+     * to its purpose.
+     */
     protected abstract void update();
 
+    /**
+     * Returns the type of the command in String format
+     */
     @Override
     public String toString() {
         return this.getType();

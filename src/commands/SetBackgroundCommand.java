@@ -12,6 +12,9 @@ public class SetBackgroundCommand extends GeneralCommand {
         setType("SetBackground");
     }
 
+    /**
+     * Executes the command - sets the background color to the index value of the input
+     */
     public void execute(){
         checkParameterCount();
         getChildren().get(VAL_INDEX).execute();

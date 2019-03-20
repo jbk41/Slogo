@@ -10,8 +10,10 @@ public class TurtlesCommand extends GeneralCommand {
         setType("Turtles");
     }
 
+    /**
+     * Executes the command. Sets the val to the number of active turtles.
+     */
     public void execute(){
-
         setVal(getBM().getNumberActiveTurtles());
     }
 

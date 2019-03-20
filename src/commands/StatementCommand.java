@@ -9,13 +9,24 @@ public abstract class StatementCommand extends GeneralCommand {
         super(bm);
     }
 
+
+    /**
+     * Statement commands are special, they update the TurtleState directly. Update functions are overridden respectively.
+     */
+    public abstract void update();
+
+    /**
+     * Execute command: Updates the Turtle
+     */
     @Override
     public void execute() {
         update();
     }
 
-    public abstract void update();
-
+    /**
+     * Returns the type of the command, in string format
+     * @return
+     */
     @Override
     public String toString(){
         return getType();

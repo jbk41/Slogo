@@ -12,6 +12,10 @@ public class TellCommand extends GeneralCommand {
 
     }
 
+    /**
+     * Adds the Ids of the turtles within the list input to the turtleIDs list. Sets the value to the last turtle in
+     * the list
+     */
     public void execute(){
         List<Double> turtleIDs = new ArrayList<>();
         GeneralCommand listOfTurtlesCommand = getChildren().get(0);
