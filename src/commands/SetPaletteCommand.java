@@ -17,6 +17,12 @@ public class SetPaletteCommand extends GeneralCommand{
         setType("SetPaletteCommand");
     }
 
+    /**
+     * Sets the color to RGB values given by the inputs:
+     * red: input 1
+     * green: input 2
+     * blue: input 3
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();

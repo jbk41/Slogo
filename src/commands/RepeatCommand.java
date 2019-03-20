@@ -10,6 +10,10 @@ public class RepeatCommand extends GeneralCommand {
         setMaxChildren(2);
     }
 
+    /**
+     * Executes command. Executes the commands of the second input (list) as many times as the
+     * first input.
+     */
     public void execute(){
         double numRunTimes;
         System.out.println("executing repeat node");

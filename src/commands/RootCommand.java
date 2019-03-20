@@ -10,6 +10,9 @@ public class RootCommand extends GeneralCommand {
         setType("Root");
     }
 
+    /**
+     * Executes children. Root Commands are special because they are the first command in the commandTree.
+     */
     public void execute(){
         for (GeneralCommand command: getChildren()){
             command.execute();

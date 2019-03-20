@@ -11,6 +11,9 @@ public class SumCommand extends GeneralCommand {
         setMaxChildren(2);
     }
 
+    /**
+     * Executes the command: Sets val to the addition of input 1 and 2's values.
+     */
     @Override
     public void execute() throws IllegalArgumentException {
         checkParameterCount();

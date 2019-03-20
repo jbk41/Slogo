@@ -1,5 +1,10 @@
 package commands;
 
+/**
+ * This Class is no longer used in the project but will be kept for documentation reasons.
+ */
+
+
 public class TurtleCommand {
     private boolean penUp;
     private boolean jump;

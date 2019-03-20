@@ -10,6 +10,9 @@ public class TangentCommand extends GeneralCommand{
         setType("Tangent");
     }
 
+    /**
+     * Executes the command, sets val to the tangent of the input's value in degrees
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();

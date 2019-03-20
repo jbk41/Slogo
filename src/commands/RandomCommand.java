@@ -16,6 +16,9 @@ public class RandomCommand extends GeneralCommand {
         setType("Random");
     }
 
+    /**
+     * Executes the command: sets the val to a random number between the input and zero.
+     */
     public void execute() {
         checkParameterCount();
         executeChildren();

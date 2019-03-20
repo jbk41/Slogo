@@ -10,6 +10,9 @@ public class SetShapeCommand extends GeneralCommand {
         setType("SetShapeCommand");
     }
 
+    /**
+     * Executes command: Sets the shape of the turtle to the value of the given input
+     */
     public void execute(){
         checkParameterCount();
         getChildren().get(0).execute();

@@ -8,9 +8,7 @@ import java.util.ArrayList;
 
 public class GeneralCommand {
 
-    /**
-     * @author Justin Kim
-     */
+
     private List<GeneralCommand> myChildren;
     private GeneralCommand myParent;
     private String myType;

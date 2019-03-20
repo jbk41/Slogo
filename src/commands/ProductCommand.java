@@ -14,6 +14,9 @@ public class ProductCommand extends GeneralCommand {
         setMaxChildren(2);
     }
 
+    /**
+     * Executes the command: sets the val to the product of the first and the second inputs
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();

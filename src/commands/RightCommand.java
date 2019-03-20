@@ -13,6 +13,9 @@ public class RightCommand extends MovementCommand {
         setMaxChildren(1);
     }
 
+    /**
+     * Updates the Turtle State - rotates the turtle to the right by input one in degrees
+     */
     @Override
     protected void update() {
         getBM().right(getChildren().get(VAL_INDEX).getVal());

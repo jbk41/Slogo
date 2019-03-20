@@ -13,7 +13,10 @@ public class NotCommand extends GeneralCommand {
         setType("Not");
         setMaxChildren(1);
     }
-
+    /**
+     *
+     * Executes the command: If input is zero, val = true. Else, val = false.
+     */
     public void execute() {
         checkParameterCount();
         double returnVal = FALSE;

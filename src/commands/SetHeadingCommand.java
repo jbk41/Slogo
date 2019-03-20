@@ -12,6 +12,9 @@ public class SetHeadingCommand extends MovementCommand {
         setMaxChildren(1);
     }
 
+    /**
+     * Updates the Turtle State - sets the heading to the input's value in degrees.
+     */
     @Override
     protected void update() {
         getBM().setHeading(getVal());

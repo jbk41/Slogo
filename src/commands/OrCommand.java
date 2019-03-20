@@ -10,6 +10,9 @@ public class OrCommand extends BooleanCommand {
         setMaxChildren(2);
     }
 
+    /**
+     * Executes the command: returns true if a or b are greater than zero
+     */
     protected boolean evaluate(double a, double b){
         return (a >= 0 || b >= 0);
     }

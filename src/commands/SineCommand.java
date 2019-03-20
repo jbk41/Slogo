@@ -10,6 +10,9 @@ public class SineCommand extends GeneralCommand{
         setType("Sine");
     }
 
+    /**
+     * Executes command: sets val to the sine of the input's value in degrees
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();

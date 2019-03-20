@@ -15,6 +15,9 @@ public class RemainderCommand extends GeneralCommand {
         setMaxChildren(2);
     }
 
+    /**
+     * Executes the command: sets the val to the remainder of the first input divided by the second input
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();

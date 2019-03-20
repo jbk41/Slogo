@@ -86,6 +86,7 @@ public class TurtleIDE extends Application {
         display.setPadding(new Insets(padding,padding,padding,padding));
         return display;
     }
+
     private VBox createSettingsButtons(Turtle turtle, TurtleDisplay turtleDisplay){
         backgroundColorSettings = new ColorDropDown(padding, turtleDisplay);
         penColorDropDown = new PenColorDropDown(padding, turtleDisplay);

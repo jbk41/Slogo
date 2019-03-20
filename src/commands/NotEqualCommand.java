@@ -10,6 +10,9 @@ public class NotEqualCommand extends BooleanCommand{
         setMaxChildren(2);
     }
 
+    /**
+     * Evaluates the command: returns true if a > b, false if b > a
+     */
     protected boolean evaluate(double a, double b){
         return (a > b);
     }

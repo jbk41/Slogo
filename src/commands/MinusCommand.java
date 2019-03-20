@@ -13,11 +13,12 @@ public class MinusCommand extends GeneralCommand{
         setType("Minus");
     }
 
+    /**
+     * Executes the command: sets the val to the opposite of the input
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();
-        GeneralCommand child1 = getChildren().get(FIRST_INDEX);
-        GeneralCommand child2 = getChildren().get(SECOND_INDEX);
-        setVal(child1.getVal() - child2.getVal());
+        setVal(getChildren().get(0).getVal()*-1);
     }
 }

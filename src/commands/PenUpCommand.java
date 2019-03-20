@@ -12,6 +12,9 @@ public class PenUpCommand extends StatementCommand {
         setVal(0);
     }
 
+    /**
+     * Updates the TurtleState by setting the Pen Up
+     */
     @Override
     public void update() {
         getBM().penUp();

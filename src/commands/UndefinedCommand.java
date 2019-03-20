@@ -12,6 +12,10 @@ public class UndefinedCommand extends GeneralCommand{
         myName = name;
     }
 
+    /**
+     * Returns the name of the command.
+     * @return
+     */
     public String getCommandName(){
         return myName;
     }
