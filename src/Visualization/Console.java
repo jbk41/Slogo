@@ -10,6 +10,13 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
 
+/**
+ * This class is used to create the boxes for display user defined variables, the history of commands, and
+ *
+ * @author Bryant Huang, Mark Kang
+ */
+
+
 public class Console extends ListView {
     private int textPadding = 5;
     public Console(double width, double height, int padding, String name){

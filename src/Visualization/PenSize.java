@@ -4,6 +4,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
 
+/**
+ *
+ * @author Bryant Huang, Mark Kang
+ */
+
 public class PenSize extends ComboBox {
     private TurtleDisplay turtleDisplay;
     public PenSize(TurtleDisplay turtleDisplay){

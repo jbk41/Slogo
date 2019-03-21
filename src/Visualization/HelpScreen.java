@@ -17,7 +17,7 @@ import java.nio.file.Paths;
  * is also easy to edit/add instruction explanations. One would simply create an object of the class and call
  * this method to display the help screen.  The user triggers this sequence when the help button is pressed.
  *
- * @author Bryant Huang
+ * @author Bryant Huang, Mark Kang
  */
 public class HelpScreen {
 

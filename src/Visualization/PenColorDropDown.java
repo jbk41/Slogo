@@ -9,6 +9,12 @@ import javafx.scene.paint.Paint;
 
 import java.util.HashMap;
 
+/**
+ *
+ *
+ * @author Bryant Huang, Mark Kang
+ */
+
 public class PenColorDropDown extends ComboBox {
     private TurtleDisplay turtleDisplay;
     public PenColorDropDown(int padding, TurtleDisplay turtleDisplay){

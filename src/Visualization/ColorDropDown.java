@@ -18,6 +18,12 @@ import javafx.util.Callback;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ *
+ * @author Bryant Huang, Mark Kang
+ */
+
 public class ColorDropDown extends ComboBox{
     private Pane display;
     public ColorDropDown(int padding, Pane display){
