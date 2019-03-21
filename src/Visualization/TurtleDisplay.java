@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 
-public class TurtleDisplay extends Pane {
+class TurtleDisplay extends Pane {
     private double width;
     private double height;
     private int padding;
@@ -16,7 +16,7 @@ public class TurtleDisplay extends Pane {
     private int PEN_SIZE = 4;
     private Canvas canvas;
 
-    public TurtleDisplay(double width, double height, int padding){
+    TurtleDisplay(double width, double height, int padding){
         this.width = width;
         this.height = height;
         this.padding = padding;
@@ -27,7 +27,7 @@ public class TurtleDisplay extends Pane {
         setMaxWidth(getFixedWidth(width, padding));
         setPrefHeight(getFixedHeight(height, padding));
     }
-    public Canvas createNewCanvas(){
+    Canvas createNewCanvas(){
         getChildren().remove(canvas);
         canvas = new Canvas(getFixedWidth(width,padding), getFixedHeight(height,padding));
         getChildren().add(canvas);
@@ -35,21 +35,22 @@ public class TurtleDisplay extends Pane {
 
     }
 
-    public void setPEN_COLOR(Paint color) {
+    void setPEN_COLOR(Paint color) {
         PEN_COLOR = color;
     }
 
-    public void setPEN_SIZE(int size) {
+    void setPEN_SIZE(int size) {
         PEN_SIZE = size;
     }
 
-    public Paint getPEN_COLOR() {
+    Paint getPEN_COLOR() {
         return PEN_COLOR;
     }
 
-    public int getPEN_SIZE() {
+    int getPEN_SIZE() {
         return PEN_SIZE;
     }
+
     private void setSizeOfRoot(){
         double fixedWidth = getFixedWidth(width, padding);
         double fixedHeight = getFixedHeight(height, padding);
@@ -66,5 +67,5 @@ public class TurtleDisplay extends Pane {
         return doubleHeight- totalPadding;
     }
 
-    public Canvas getCanvas(){return canvas;}
+    Canvas getCanvas(){return canvas;}
 }

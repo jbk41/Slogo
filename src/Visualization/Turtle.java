@@ -1,6 +1,5 @@
 package Visualization;
 
-import Executable.Executable;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
@@ -16,12 +15,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import Executable.TurtleState;
-import Executable.ColorPaletteEntry;
-import Executable.EnvironmentState;
-import Executable.ErrorMessage;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.List;
+
 
 public class Turtle {
     private String TURTLE_IMAGE = "cuteturtle.gif";
@@ -30,7 +26,6 @@ public class Turtle {
     private SequentialTransition sequentialTransition  = new SequentialTransition();
     private TurtleDisplay pane;
     private Canvas canvas;
-    private Paint PEN_COLOR;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
     private double x;
@@ -218,10 +213,6 @@ public class Turtle {
 
     double getDefaultY(){
         return pane.getPrefHeight() / 2 - turtleImageView.getBoundsInParent().getHeight()/2;
-    }
-
-    double getCenterX(){
-        return 0;
     }
 
     double getPenSize(){

@@ -4,11 +4,9 @@ package Visualization;
 import Executable.Executable;
 import Executable.TurtleState;
 import backend.BackendModel;
-import javafx.animation.Animation;
 import javafx.animation.ParallelTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,7 +15,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +22,7 @@ import java.util.Optional;
 import Executable.EnvironmentState;
 import Executable.ErrorMessage;
 import Executable.ColorPaletteEntry;
-import Executable.TurtleState;
+
 public class TurtleIDE extends Application {
     private static final String title = "Turtle IDE";
     private static final Paint backgroundColor = Color.AQUA;
@@ -41,18 +38,18 @@ public class TurtleIDE extends Application {
     private Map <String, Double> savedVarMap;
     private Turtle turtle;
     private Map <Double, Turtle> turtleMap;
-    private ArrayList<Turtle> turtleList;
     private ColorDropDown backgroundColorSettings;
     private PenColorDropDown penColorDropDown;
     private ArrayList<TurtleState> movementHistory;
     private ParallelTransition parallelTransition;
     private SequentialTransition prevSequential = new SequentialTransition();
     private SequentialTransition sequenceHistory;
+
     @Override
     public void start(Stage stage){
         Stage primaryStage = stage;
         Group root = new Group();
-        turtleMap = new HashMap<Double, Turtle>();
+        turtleMap = new HashMap<>();
         movementHistory= new ArrayList<TurtleState>();
         var startScene = new Scene(root, width, height, backgroundColor);
         HBox IDE = new HBox(createUserBox(), createTurtleEnvironment());
@@ -106,7 +103,6 @@ public class TurtleIDE extends Application {
         sequenceHistory = new SequentialTransition();
         sequenceHistory.getChildren().addAll(prevSequential.getChildren());
         String commands = textEditor.getText();
-        console.getItems().add(commands);
         try {
             String language = languagesDropDown.getValue().toString();
             backend.setLanguage(language);
@@ -117,26 +113,16 @@ public class TurtleIDE extends Application {
                     movementHistory.add((TurtleState)commandToRun);
                     runTurtleCommand(commandToRun);
                 }
-                if(commandToRun instanceof ColorPaletteEntry){
-
-                }
                 if(commandToRun instanceof ErrorMessage){
                     displayError(commandToRun);
                 }
                 if(commandToRun instanceof EnvironmentState) {
                     changeEnvironment(commandToRun);
                 }
-                console.getItems().add(commands);
-                myUserDefined.getItems().clear();
-                myUserDefined.getItems().add("Variables and Commands");
-                savedVarMap = backend.getVarMap();
-                for (String key : savedVarMap.keySet()) {
-                    myUserDefined.getItems().add(key + " = " + savedVarMap.get(key).toString());
-                }
+                displayVariables();
             }
             displayVariables();
             createTransition();
-
         } catch(NullPointerException ex){
             showError("Please Choose a Language");
         }
@@ -171,7 +157,6 @@ public class TurtleIDE extends Application {
             turtleDisplay.setPEN_COLOR(color);
         }
     }
-
     private void createTransition(){
         parallelTransition = new ParallelTransition();
         for(double id: turtleMap.keySet()){
@@ -273,7 +258,7 @@ public class TurtleIDE extends Application {
             TurtleState lastState = movementHistory.get(movementHistory.size() - 1);
             TurtleState prevState = movementHistory.get(movementHistory.size() - 2);
             movementHistory.remove(movementHistory.size() - 1);
-            if (lastState.getX() != prevState.getX() || prevState.getY() != lastState.getY()) {
+            if (lastState.getX() != prevState.getX() || prevState.getY() != lastState.getY()){
                 eraseLine(prevState);
             }
             stateConsole.getItems().clear();
