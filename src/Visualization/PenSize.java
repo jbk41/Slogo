@@ -5,6 +5,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;
 
 /**
+ * This class serves to tell the user how many different pen sizes they can choose from. It gives the user a range of
+ * selections so that they can both directly interact with the drop down menu or also run commands with a selected
+ * pen size. Creating an object of the class will create the menu for the users. There is also the option to directly
+ * click a size from the drop down menu.
  *
  * @author Bryant Huang, Mark Kang
  */

@@ -18,6 +18,9 @@ import Executable.TurtleState;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+/**
+ * This class is for creating Turtle Objects.
+ */
 
 public class Turtle {
     private String TURTLE_IMAGE = "cuteturtle.gif";
@@ -28,25 +31,17 @@ public class Turtle {
     private Canvas canvas;
     private int PEN_SIZE = 4;
     private GraphicsContext gc;
-    private double x;
-    private double y;
-    private double prevDegrees = 0.0;
-    private boolean penDown;
-    private double myX;
-    private double myY;
-    private double oldX;
-    private double oldY;
+    private double prevDegrees;
     private double myDegrees;
     private double defaultX;
     private double defaultY;
+
     public Turtle(TurtleDisplay pane, Canvas canvas) {
         this.pane = pane;
         this.canvas = canvas;
         Image turtleImage = new Image(this.getClass().getClassLoader().getResourceAsStream(TURTLE_IMAGE));
         turtleImageView = new ImageView(turtleImage);
         addTurtleToRoot(TURTLE_IMAGE);
-        myX = 0;
-        myY = 0;
         prevDegrees = 0;
         myDegrees = 0;
         defaultX = getDefaultX();
@@ -108,17 +103,8 @@ public class Turtle {
         RotateTransition rt = rotationTransition(turtleImageView, myDegrees, prevDegrees);
         sequentialTransition.getChildren().add(rt);
         prevDegrees = myDegrees;
-        System.out.println("oldx and oldy");
-        System.out.println(turtleImageView.getX());
-        System.out.println(turtleImageView.getY());
         double newX = currentTurtle.getX() + defaultX;
         double newY = defaultY - currentTurtle.getY();
-        System.out.println("raw values");
-        System.out.println(currentTurtle.getX());
-        System.out.println(currentTurtle.getY());
-        System.out.println("Temp new values");
-        System.out.println(newX);
-        System.out.println(newY);
         if (newX == turtleImageView.getX() && newY == turtleImageView.getY()) {
             if (currentTurtle.getClear()) {
                 newX = currentTurtle.getX() + xAtZero;
@@ -132,24 +118,16 @@ public class Turtle {
         path.getElements().add(new LineTo(newX , newY));
         turtleImageView.setX(newX);
         turtleImageView.setY(newY);
-        System.out.println("newx and newy");
-        System.out.println(turtleImageView.getX());
-        System.out.println(turtleImageView.getY());
         PathTransition pathTransition = createTransition(path, currentTurtle, stateConsole);
         sequentialTransition.getChildren().add(pathTransition);
     }
-
-
     public SequentialTransition getST(){return sequentialTransition;}
-
-    public void clearST(){sequentialTransition.getChildren().removeAll();}
 
     private RotateTransition rotationTransition(ImageView turtleImageView, double degrees, double prevDegrees){
         RotateTransition rt = new RotateTransition(Duration.millis(ANIMATION_SPEED), turtleImageView);
         rt.setByAngle(degrees - prevDegrees);
         rt.setCycleCount(1);
         return rt;
-
     }
     private PathTransition createTransition(Path path, TurtleState turtleState, Console stateConsole){
         PathTransition pathTransition = new PathTransition();

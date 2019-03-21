@@ -19,7 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ * This class is utilized to create a palette for the color selections. It enables the users to see which
+ * colors are mapped to which numbers, and with this number the user can type a command that changes the color of the
+ * turtle environment background. Creating an instance of this class is all that is necessary to create the
+ * visualization that the user can see and interact with. The user also has the option to select directly from the
+ * drop down menu.
  *
  * @author Bryant Huang, Mark Kang
  */
