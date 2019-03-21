@@ -71,6 +71,7 @@ public class TurtleIDE extends Application {
     private void reInterpret(String command){
         backend.clearCommandList();
         backend.interpret(command);
+        sequenceHistory = new SequentialTransition();
         for (Executable commandToRun : backend.getCommands()) {
             runTurtleCommand(commandToRun);
         }
@@ -158,6 +159,7 @@ public class TurtleIDE extends Application {
             turtleDisplay.setPEN_COLOR(color);
         }
     }
+
     private void createTransition(){
         parallelTransition = new ParallelTransition();
         for(double id: turtleMap.keySet()){
