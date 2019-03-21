@@ -2,6 +2,13 @@ package Executable;
 
 public class TurtleState extends Executable{
 
+    /**
+     * @author Bryant Huang, Mark Kang, Justin Kim, Ale Meza
+     *
+     *This class is used to communicate the positioning and properties of the turtle to the front end for display.
+     * One can do so by creating a new TurtleState object and passing this to the front end.
+     */
+
     private double myXPos;
     private double myYPos;
     private double myDegrees;
@@ -10,21 +17,6 @@ public class TurtleState extends Executable{
     private double myID;
     private boolean myClear;
 
-    /**
-     * pen down true = 1
-     * if its visible = 1
-     *
-     * We will have arraylist of TurtleState objects that will have a unique tag so we know when theres a new Turtle
-     * Object
-     *cre
-     *
-     * definitive xy
-     *
-     * make unique identifiers
-     *
-     *
-     * @param
-     */
 
     public TurtleState(double xPos, double yPos, double degrees, boolean pen, boolean visible, double id, boolean clear){
         myXPos = xPos;
