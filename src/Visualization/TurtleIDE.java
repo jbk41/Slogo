@@ -121,6 +121,7 @@ public class TurtleIDE extends Application {
                 }
                 displayVariables();
             }
+            console.getItems().add(commands);
             displayVariables();
             createTransition();
         } catch(NullPointerException ex){
