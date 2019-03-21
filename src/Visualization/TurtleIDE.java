@@ -69,9 +69,10 @@ public class TurtleIDE extends Application {
     }
 
     private void reInterpret(String command){
+        sequenceHistory = new SequentialTransition();
+        sequenceHistory.getChildren().addAll(prevSequential.getChildren());
         backend.clearCommandList();
         backend.interpret(command);
-        sequenceHistory = new SequentialTransition();
         for (Executable commandToRun : backend.getCommands()) {
             runTurtleCommand(commandToRun);
         }
