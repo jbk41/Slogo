@@ -17,6 +17,7 @@ public class SumCommand extends GeneralCommand {
     @Override
     public void execute() throws IllegalArgumentException {
         checkParameterCount();
+        executeChildren();
         ArrayList<Double> myChildrenVals = getChildrenValues();
         double sum = 0;
         for (double val : myChildrenVals) {
