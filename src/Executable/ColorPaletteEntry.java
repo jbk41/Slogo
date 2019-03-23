@@ -1,5 +1,9 @@
 package Executable;
 
+/**
+ * Adds a new color palette entry.
+ * @author Justin
+ */
 public class ColorPaletteEntry extends Executable{
 
     private double index;
@@ -52,10 +56,5 @@ public class ColorPaletteEntry extends Executable{
     public double getB(){
         return b;
     }
-
-//    @Override
-//    public String toString() {
-//        return "change in palette";
-//    }
 
 }

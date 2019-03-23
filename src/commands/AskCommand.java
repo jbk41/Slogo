@@ -5,6 +5,10 @@ import backend.BackendManager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Asks a list of turtles to execute a list of commands.
+ * @author Justin and Alew
+ */
 public class AskCommand extends GeneralCommand {
 
     public AskCommand(BackendManager bm){
@@ -13,6 +17,10 @@ public class AskCommand extends GeneralCommand {
         setType("Ask");
     }
 
+    /**
+     * Sets active turtles to all items in the first list. Executes the commands in the second list. Changes list of
+     * active turtles to the ones active before the call to Ask.
+     */
     public void execute(){
         checkParameterCount();
         List<Double> oldActiveTurtles = getBM().getActiveTurtles(); // set active turtles to this list at the end

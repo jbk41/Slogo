@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ * The backend manager keeps track of the backend characteristics such as managing variables, user defined commands, and
+ * turtles. It also communicates with the Backend model to limit some communication between the frontend and backend
+ * @author: Justin and Ale
+ */
 public class BackendManager implements BackendManagerAPI{
 
     final int REVERSE_INT = -1;
@@ -394,11 +399,9 @@ public class BackendManager implements BackendManagerAPI{
     }
 
 
-
     /*
     Meant for backend control (turtles)
      */
-
     /**
      * Sets active turtles to turtleIDs.
      * @param turtleIDs
@@ -459,11 +462,9 @@ public class BackendManager implements BackendManagerAPI{
         return myCommands;
     }
 
-
     /*
     Environment states
      */
-
     /**
      * Sets background color.
      * @param backgroundIndex
@@ -538,4 +539,5 @@ public class BackendManager implements BackendManagerAPI{
     public void setColorPaletteEntry(double index, double r, double g, double b){
         myCommands.add(new ColorPaletteEntry(index, r, g, b));
     }
+
 }

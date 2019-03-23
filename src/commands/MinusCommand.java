@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Inverts the value of its input.
+ * @author Justin and Ale
+ */
 public class MinusCommand extends GeneralCommand{
 
     final int FIRST_INDEX = 0;

@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+
+/**
+ * Keeps a running list of active turtles and all turtles created. Other basic managerial commands for getting and editing
+ * turtle characteristics are in this class.
+ * @author Justin
+ */
 public class TurtleManager {
 
     private List<Double> activeTurtles;

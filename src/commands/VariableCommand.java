@@ -2,7 +2,9 @@ package commands;
 
 import backend.BackendManager;
 
-
+/**
+ * Reference to a variable.
+ */
 public class VariableCommand extends GeneralCommand{
 
     private String myName;

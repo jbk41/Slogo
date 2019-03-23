@@ -1,7 +1,10 @@
 package Executable;
 
+/**
+ * Contains the states of the Environment such as pen color and canvas color.
+ * @author Justin
+ */
 public class EnvironmentState extends Executable{
-
 
     private double backgroundIndex;
     private double colorIndex;

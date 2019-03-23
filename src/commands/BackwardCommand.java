@@ -4,6 +4,10 @@ import backend.BackendManager;
 import backend.CommandManager;
 import backend.VariableManager;
 
+/**
+ * Moves all turtles backward.
+ * @author Justin and Ale
+ */
 public class BackwardCommand extends MovementCommand {
 
     public BackwardCommand (BackendManager bm){
@@ -12,7 +16,9 @@ public class BackwardCommand extends MovementCommand {
         setType("Backward");
     }
 
-
+    /**
+     * Moves the active turtles backward
+     */
     @Override
     protected void update() { getBM().backward(getVal());
     }

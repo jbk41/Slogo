@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Calculates the arctan of its child.
+ * @author Justin and Ale
+ */
 public class ArcTangentCommand extends GeneralCommand{
 
     public ArcTangentCommand(BackendManager bm){
@@ -10,6 +14,10 @@ public class ArcTangentCommand extends GeneralCommand{
         setType("ArcTangent");
     }
 
+    /**
+     * Sets its value to the arctan of its child.
+     * @throws IllegalArgumentException
+     */
     @Override
     public void execute() throws IllegalArgumentException {
         checkParameterCount();

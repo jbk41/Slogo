@@ -2,6 +2,11 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Recognizes a user defined command has been called and then recognizes its arguments and sets the necessary variables to the
+ * correct values and executes the commands of the command.
+ * @author Justin
+ */
 public class RunUserDefinedCommand extends GeneralCommand {
 
     final int OFFSET = 1;

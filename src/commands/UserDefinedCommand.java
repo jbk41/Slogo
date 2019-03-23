@@ -1,8 +1,11 @@
 package commands;
 import backend.BackendManager;
 
+/**
+ * A command that is not recognized by the resources bundle.
+ * @author Justin and Ale
+ */
 public class UserDefinedCommand extends GeneralCommand {
-
 
     private int maxArgs;
     private String myCommandName;
@@ -11,10 +14,6 @@ public class UserDefinedCommand extends GeneralCommand {
         super(bm);
         setType("UserDefined");
         myCommandName = commandName;
-        setMaxChildren(2);
-        //setMaxArgs();
-        //getChildren().add(vars);
-        //getChildren().add(commands);
     }
 
     /**
@@ -40,17 +39,6 @@ public class UserDefinedCommand extends GeneralCommand {
     public void setMaxArgs(int args){
         maxArgs = args;
     }
-
-//    private void setMaxArgs(){
-//        GeneralCommand v = getChildren().get(0);
-//        if (v instanceof ListStartCommand){
-//            ListStartCommand vars = (ListStartCommand) v;
-//            maxArgs = vars.getNumActualChildren();
-//        }
-//        else {
-//            getBM().throwError("Wrong number of args", getLineNumber());
-//        }
-//    }
 
     /**
      * Executes the vommands. Adds the command to the CommandManager Map.

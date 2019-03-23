@@ -1,6 +1,10 @@
 package commands;
 import backend.BackendManager;
 
+/**
+ * Command that holds a single value.
+ * @author Justin and Ale
+ */
 public class ConstantCommand extends GeneralCommand{
 
     public ConstantCommand(BackendManager bm, double d){

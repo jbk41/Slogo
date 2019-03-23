@@ -1,5 +1,9 @@
 package Executable;
 
+/**
+ * Throws and error message in the console.
+ * @author Justin
+ */
 public class ErrorMessage extends Executable {
 
     private String myError;

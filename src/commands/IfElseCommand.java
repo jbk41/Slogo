@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * If else command. Executes the first list of commands if one condition is held, otherwise, executes the second list.
+ * @author Justin
+ */
 public class IfElseCommand extends GeneralCommand{
 
 
@@ -15,6 +19,9 @@ public class IfElseCommand extends GeneralCommand{
         setType("IfElse");
     }
 
+    /**
+     * Executes the first list of commands if one condition is held, otherwise, executes the second list.
+     */
     public void execute(){
         GeneralCommand conditionCommand = getChildren().get(CONDITION_INDEX);
         GeneralCommand ifCommand = getChildren().get(IF_INDEX);

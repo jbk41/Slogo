@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Greater than boolean command.
+ * @author Justin and Ale
+ */
 public class GreaterThanCommand extends BooleanCommand {
 
     public GreaterThanCommand(BackendManager bm){
@@ -10,7 +14,13 @@ public class GreaterThanCommand extends BooleanCommand {
         setMaxChildren(2);
     }
 
-    protected boolean evaluate(double a, double b){
+    /**
+     * Returns true if a > b.
+     * @param a
+     * @param b
+     * @return
+     */
+    public boolean evaluate(double a, double b){
         return (a > b);
     }
 

@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Calculates the cosine value of its child.
+ * @author Justin and Ale
+ */
 public class CosineCommand extends GeneralCommand{
 
     public CosineCommand(BackendManager bm){
@@ -10,6 +14,9 @@ public class CosineCommand extends GeneralCommand{
         setType("Cosine");
     }
 
+    /**
+     * Sets its own value to the value of the cosine of its child.
+     */
     public void execute(){
         checkParameterCount();
         executeChildren();

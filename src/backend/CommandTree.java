@@ -8,9 +8,12 @@ import commands.*;
 import parser.CommandFactory;
 import parser.ParseCleaner;
 
+/**
+ * Creates and executes an abstract syntax tree with a given set of text and a language. The results of execution
+ * directly affect the backend manager.
+ * @author Justin
+ */
 public class CommandTree {
-    //private List<String> myArguments;
-
 
     final int OFFSET = 1;
     final int UNDEFINED_INDEX = 0;
@@ -22,7 +25,6 @@ public class CommandTree {
     private int end;
     private CommandFactory myCommandFactory;
     private BackendManager myBM;
-
 
     /**
      * Creates a syntax tree for the given text in the current language and updates the backend manager accordingly.
@@ -37,10 +39,7 @@ public class CommandTree {
         head = new RootCommand(bm);
         end = myArguments.size() ;
         generateTree();
-        //linkParents(head);
-        //linkParentsAndInitializeVariables(head);
         head.execute();
-
     }
 
     /**
@@ -50,7 +49,6 @@ public class CommandTree {
      */
     private List<Syntax> split(String text){
         SyntaxSplitter syntaxSplitter = new SyntaxSplitter();
-        //System.out.println(syntaxSplitter.split(text).toString());
         return syntaxSplitter.split(text);
     }
 
@@ -60,7 +58,6 @@ public class CommandTree {
     public void printTree(){
         printPostOrder(head);
     }
-
 
     /**
      * returns head of the tree (should be a RootCommand object)
@@ -91,7 +88,6 @@ public class CommandTree {
         //System.out.println(syntax.getCommand());
         GeneralCommand command = myCommandFactory.getCommand(syntax.getCommand());
         command.setParent(parent);
-        //System.out.println(start);
 
         if (start == end){
             return command;
@@ -130,8 +126,6 @@ public class CommandTree {
         for (GeneralCommand command: c.getChildren()){
             printPostOrder(command);
         }
-        // now deal with the node
-        //System.out.println(c.toString() + " with parent: " + c.printParent());
     }
 
 }

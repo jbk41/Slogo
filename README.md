@@ -16,4 +16,4 @@ Known bugs: Error catching is not extensive and sometimes, errors are not caught
 Extensions: Control of multiple turtles, undo, animations, and all of the additional commands except SETPALETTE and ASKWITH were implemented.
 
 
-Impressions: This project was difficult to design and really stressed the importance of separating frontend and backend and having well designed APIs.
+Impressions: This project was difficult to design and really stressed the importance of separating frontend and backend and having well designed APIs.      

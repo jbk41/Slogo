@@ -3,6 +3,10 @@ package commands;
 import Executable.Executable;
 import backend.BackendManager;
 
+/**
+ * Runs a list of commands defined by a variable, its initial state, its final state, and its step size.
+ * @author Justin
+ */
 public class ForCommand extends GeneralCommand {
 
     final String REQUIRED_LIST = "For loops requires two lists as parameters";
@@ -13,12 +17,16 @@ public class ForCommand extends GeneralCommand {
     final int START_INDEX = 1;
     final int END_INDEX = 2;
     final int STEP_INDEX = 3;
+
     public ForCommand(BackendManager bm){
         super(bm);
         setType("For");
         setMaxChildren(2);
     }
 
+    /**
+     * Runs child 2 a certain number of times defined by child 1 while also updating the variable defined in child 1.
+     */
     public void execute(){
         checkParameterCount();
         GeneralCommand conditionCommand = getChildren().get(CONDITION_INDEX);

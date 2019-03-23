@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Checks if the turtle has its pen down.
+ * @author Justin
+ */
 public class IsPenDownCommand extends GeneralCommand {
 
     final int TRUE = 1;
@@ -14,6 +18,9 @@ public class IsPenDownCommand extends GeneralCommand {
         makeReady();
     }
 
+    /**
+     * Sets its own value to 1 if the pen is up. Else 0.
+     */
     public void execute(){
         if (getBM().getCurrentTurtle().getPenState()){
             setVal(TRUE);

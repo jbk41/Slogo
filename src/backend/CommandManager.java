@@ -5,6 +5,10 @@ import commands.UserDefinedCommand;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * Manages user defined commands. Both creates and calls them.
+ * @author Justin
+ */
 public class CommandManager {
     private Map<String, UserDefinedCommand> userCommands;
 

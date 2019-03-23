@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Converts a list of string into a list of syntax
+ * @author Justin
+ */
 public class SyntaxSplitter {
 
     final String NEW_LINE = "\\n+";
@@ -39,8 +43,6 @@ public class SyntaxSplitter {
             }
         }
         return syntaxList;
-
-
     }
 
     private String removeComment(String s){

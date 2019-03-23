@@ -1,5 +1,9 @@
 package backend;
 
+/**
+ * Syntax objects keep track of the all of the strings that are separated by whitespace and their line numbers.
+ * @author Justin
+ */
 public class Syntax {
 
     private String myCommand;

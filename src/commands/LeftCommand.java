@@ -5,6 +5,10 @@ import backend.CommandManager;
 import backend.VariableManager;
 import commands.MovementCommand;
 
+/**
+ * Moves the active turtles left.
+ * @author Justin
+ */
 public class LeftCommand extends MovementCommand {
 
 

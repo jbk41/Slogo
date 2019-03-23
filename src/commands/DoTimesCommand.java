@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Do times command.
+ * @author Justin
+ */
 public class DoTimesCommand extends GeneralCommand {
 
     final String POSITIVE_ERROR = "Number of times run must be positive";
@@ -16,6 +20,9 @@ public class DoTimesCommand extends GeneralCommand {
         setMaxChildren(2);
     }
 
+    /**
+     * Runs the list child the number of times defined by the variable value.
+     */
     public void execute(){
         GeneralCommand conditionCommand = getChildren().get(VAR_INDEX);
         GeneralCommand executeCommand = getChildren().get(EXECUTE_INDEX);

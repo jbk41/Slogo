@@ -2,6 +2,10 @@ package commands;
 
 import backend.BackendManager;
 
+/**
+ * Basic command for all booleans with two argument.
+ * @author Justin and Ale
+ */
 public abstract class BooleanCommand extends GeneralCommand {
 
     public BooleanCommand(BackendManager bm){
@@ -9,7 +13,9 @@ public abstract class BooleanCommand extends GeneralCommand {
         setMaxChildren(2);
     }
 
-
+    /**
+     *
+     */
     @Override
     public void execute(){
         checkParameterCount();
@@ -22,6 +28,12 @@ public abstract class BooleanCommand extends GeneralCommand {
         setVal(returnVal);
     }
 
+    /**
+     * Defines the actual boolean comparison between a and b.
+     * @param a
+     * @param b
+     * @return
+     */
     protected abstract boolean evaluate(double a, double b);
 
 }
