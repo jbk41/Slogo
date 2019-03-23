@@ -74,7 +74,7 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     /**
-     * Looks at the current positions of active turtles and moves them dist left.
+     * Looks at the current positions of active turtles and rotates them deg left.
      * @param deg
      */
     public void left(double deg) {
@@ -97,7 +97,7 @@ public class BackendManager implements BackendManagerAPI{
     }
 
     /**
-     * Looks at the current positions of active turtles and moves them dist right.
+     *Looks at the current positions of active turtles and rotates them deg right.
      * @param deg
      */
     public void right(double deg) {

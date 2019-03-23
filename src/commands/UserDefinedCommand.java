@@ -14,6 +14,7 @@ public class UserDefinedCommand extends GeneralCommand {
         super(bm);
         setType("UserDefined");
         myCommandName = commandName;
+        setMaxChildren(2);
     }
 
     /**

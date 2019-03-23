@@ -26,16 +26,16 @@ public interface BackendManagerAPI {
     public void backward(double dist);
 
     /**
-     * Looks at the current positions of active turtles and moves them dist left.
-     * @param dist
+     * Looks at the current positions of active turtles and rotates them deg left.
+     * @param deg
      */
-    public void left (double dist);
+    public void left (double deg);
 
     /**
-     * Looks at the current positions of active turtles and moves them dist right.
-     * @param dist
+     * Looks at the current positions of active turtles and rotates them deg right.
+     * @param deg
      */
-    public void right(double dist);
+    public void right(double deg);
 
     /**
      * Sets active turtles to face towards deg.

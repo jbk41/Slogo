@@ -19,6 +19,10 @@ public class ListStartCommand extends GeneralCommand {
         }
     }
 
+    public int getNumActualChildren(){ // excludes the ending ] command
+        return getChildren().size()-1;
+    }
+
     /**
      * Checks to make sure if any of its children are a ListEndCommand. Signifies the end of a list.
      * @return

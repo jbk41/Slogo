@@ -38,3 +38,4 @@ public class MakeVariableCommand extends GeneralCommand {
 
     }
 }
+
