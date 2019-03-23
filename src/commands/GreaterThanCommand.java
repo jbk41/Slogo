@@ -20,7 +20,7 @@ public class GreaterThanCommand extends BooleanCommand {
      * @param b
      * @return
      */
-    public boolean evaluate(double a, double b){
+    protected boolean evaluate(double a, double b){
         return (a > b);
     }
 

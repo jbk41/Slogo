@@ -27,7 +27,7 @@ public class GeneralCommand {
      * Creates a new GeneralCommand object and initializes its children list and give it a backend manager.
      * @param bm
      */
-    public GeneralCommand(BackendManager bm){
+    protected GeneralCommand(BackendManager bm){
         myChildren = new ArrayList<>();
         isReady = false;
         myBM = bm;
@@ -37,7 +37,7 @@ public class GeneralCommand {
      * Copy constructor
      * @param c
      */
-    public GeneralCommand(GeneralCommand c){
+    protected GeneralCommand(GeneralCommand c){
         myChildren = c.getChildren();
         myMaxChildren = c.getMaxChildren();
         myParent = c.getParent();
@@ -73,7 +73,7 @@ public class GeneralCommand {
     /**
      * Makes the command ready to execute.
      */
-    public void makeReady(){
+    protected void makeReady(){
         isReady = true;
     }
 
