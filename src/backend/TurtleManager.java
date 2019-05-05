@@ -1,6 +1,7 @@
 package backend;
 
 import Executable.TurtleState;
+import Visualization.Turtle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,12 @@ public class TurtleManager {
 
     private List<Double> activeTurtles;
     private Map<Double, TurtleState> stateOfTurtles;
+    //private List<TurtleState> stamps;
 
     public TurtleManager(){
         activeTurtles = new ArrayList<>();
         stateOfTurtles = new HashMap<>();
+        //stamps = new ArrayList<>();
     }
 
     /**
@@ -78,5 +81,26 @@ public class TurtleManager {
      */
     public void setStateOfTurtle(double id, TurtleState ts){
         stateOfTurtles.put(id, ts);
+    }
+
+    /**
+     * makes a turtle stamp
+     * @param ts
+     */
+    public TurtleState addStamp(TurtleState ts){
+        TurtleState stamp = new TurtleState(ts);
+        stateOfTurtles.put(stamp.getID(), stamp);
+        return stamp;
+    }
+
+    public List<TurtleState> getStamps(){
+        List<TurtleState> tsList = new ArrayList<>();
+        for (double d: stateOfTurtles.keySet()){
+            if (d < 0){
+                tsList.add(stateOfTurtles.get(d));
+                System.out.println(d);
+            }
+        }
+        return tsList;
     }
 }

@@ -39,6 +39,16 @@ public class TurtleState extends Executable{
         myClear = false;
     }
 
+    public TurtleState (TurtleState ts){
+        myXPos = ts.getX();
+        myYPos = ts.getY();
+        myDegrees = ts.getDeg();
+        isPenDown = ts.getPenState();
+        isVisible = ts.getVisibility();
+        myID = ts.getID() * -1;
+        myClear = ts.getClear();
+    }
+
     public double getX(){
         return myXPos;
     }

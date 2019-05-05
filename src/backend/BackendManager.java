@@ -50,7 +50,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     currentTurtle.getX() + dist * Math.sin(currentTurtle.getDeg() * Math.PI / PI_RAD),
                     currentTurtle.getY() + dist * Math.cos(currentTurtle.getDeg() * Math.PI / PI_RAD),
@@ -59,6 +58,8 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
+
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -82,7 +83,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     currentTurtle.getX(),
                     currentTurtle.getY(),
@@ -91,6 +91,8 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
+
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -122,6 +124,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -137,7 +140,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i++) {
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
 
             var new_x = currentTurtle.getX() - x;
             var new_y = currentTurtle.getY() - y;
@@ -150,6 +152,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -165,7 +168,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     x,
                     y,
@@ -174,6 +176,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -187,7 +190,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     currentTurtle.getX(),
                     currentTurtle.getY(),
@@ -196,6 +198,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -209,7 +212,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     currentTurtle.getX(),
                     currentTurtle.getY(),
@@ -218,6 +220,7 @@ public class BackendManager implements BackendManagerAPI{
                     currentTurtle.getVisibility(),
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -231,7 +234,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     currentTurtle.getX(),
                     currentTurtle.getY(),
@@ -240,6 +242,7 @@ public class BackendManager implements BackendManagerAPI{
                     true,
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -253,7 +256,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     currentTurtle.getX(),
                     currentTurtle.getY(),
@@ -262,6 +264,7 @@ public class BackendManager implements BackendManagerAPI{
                     false,
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -275,7 +278,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     0,
                     0,
@@ -284,6 +286,7 @@ public class BackendManager implements BackendManagerAPI{
                     true,
                     turtleID,
                     false);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -297,7 +300,6 @@ public class BackendManager implements BackendManagerAPI{
         for (int i = 0; i < activeTurtles.size(); i ++){
             double turtleID = activeTurtles.get(i);
             TurtleState currentTurtle = myTM.getStateOfTurtle(turtleID);
-            myCurrentTurtle = currentTurtle;
             TurtleState newState = new TurtleState(
                     0,
                     0,
@@ -306,6 +308,7 @@ public class BackendManager implements BackendManagerAPI{
                     true,
                     turtleID,
                     true);
+            myCurrentTurtle = newState;
             myTM.setStateOfTurtle(turtleID, newState);
             myCommands.add(newState);
         }
@@ -538,6 +541,31 @@ public class BackendManager implements BackendManagerAPI{
      */
     public void setColorPaletteEntry(double index, double r, double g, double b){
         myCommands.add(new ColorPaletteEntry(index, r, g, b));
+    }
+
+
+    public void addStampOfCurrentTurtle(){
+        myCommands.add(myTM.addStamp(myCurrentTurtle));
+    }
+
+    public int clearStamps(){
+        List<TurtleState> stamps = myTM.getStamps();
+
+        for (TurtleState ts : stamps){
+            TurtleState newState = new TurtleState(
+                    ts.getX(),
+                    ts.getY(),
+                    ts.getDeg(),
+                    false,
+                    false,
+                    ts.getID(),
+                    true);
+            myTM.setStateOfTurtle(ts.getID(), newState);
+            myCommands.add(newState);
+        }
+        System.out.println(stamps.size());
+        showTurtle();
+        return stamps.size();
     }
 
 }
