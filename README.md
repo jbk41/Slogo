@@ -1,19 +1,85 @@
-# slogo
-
-February 19th - March 8th 
-Total time to complete: 200 hours 
-Bryant/Mark - frontend 
-Justin/Alejandro - backend 
-
+# Instructions
 To run the slogo IDE, run the main function in the TurtleIDE class under the Visualization package.
 
-There are no errors that cause the program to crash. Users that input bad commands can throw errors and display them in the slogo IDE but in some cases, where errors are not caught, they are displayed in the intellij console instead of the slogo IDE. These do not cause the slogo IDE to fail. 
+## Commands
+Handles following commands: 
+### Turtle Commands
+Forward = forward|fd
+Backward = back|bk
+Left = left|lt
+Right = right|rt
+SetHeading = setheading|seth
+SetTowards = towards
+SetPosition = setxy
+PenDown = pendown|pd
+PenUp = penup|pu
+ShowTurtle = showturtle|st
+HideTurtle = hideturtle|ht
+Home = home
+ClearScreen = clearscreen|cs
+#
+### Turtle Queries
+#
+XCoordinate = xcor
+YCoordinate = ycor
+Heading = heading
+IsPenDown = pendown\\?|pendownp
+IsShowing = showing\\?|showingp
+#
+### Math Operations
+#
+Sum = sum|\\+
+Difference = difference|-
+Product = product|\\*
+Quotient = quotient|/
+Remainder = remainder|%
+Minus = minus|~
+Random = random
+Sine = sin
+Cosine = cos
+Tangent = tan
+ArcTangent = atan
+NaturalLog = log
+Power = pow
+Pi = pi
+#
+### Boolean Operations
+#
+LessThan = less\\?|lessp
+GreaterThan = greater\\?|greaterp
+Equal = equal\\?|equalp
+NotEqual = notequal\\?|notequalp
+And = and
+Or = or
+Not = not
+#
+### Variables, Control, and User-Defined commands
+#
+MakeVariable = make|set
+Repeat = repeat
+DoTimes = dotimes
+For = for
+If = if
+IfElse = ifelse
+MakeUserInstruction = to
+#
+### Display commands
+#
+SetBackground = setbackground|setbg
+SetPenColor = setpencolor|setpc
+SetPenSize = setpensize|setps
+SetShape = setshape|setsh
+SetPalette = setpalette
+GetPenColor = pencolor|pc
+GetShape = shape|sh
+Stamp = stamp
+ClearStamps = clearstamps
+#
+### Multiple Turtle commands
+#
+ID = id
+Turtles = turtles
+Tell = tell
+Ask = ask
+AskWith = askwith
 
-Requirements: All of the files in the resources.languages folder are required.
-
-Known bugs: Error catching is not extensive and sometimes, errors are not caught and are displayed in the console of intellij rather than in the console of the slogo IDE.
-
-Extensions: Control of multiple turtles, undo, animations, and all of the additional commands except SETPALETTE and ASKWITH were implemented.
-
-
-Impressions: This project was difficult to design and really stressed the importance of separating frontend and backend and having well designed APIs.      
